@@ -59,20 +59,20 @@ export default function Home() {
             
             <div className="hidden md:flex items-center space-x-8">
               <Link href="/">
-                <a className="text-foreground hover:text-primary transition-colors font-medium">Home</a>
-              </Link>
-              <Link href="/services">
-                <a className="text-foreground hover:text-primary transition-colors font-medium">Services</a>
-              </Link>
-              <Link href="/success-cases">
-                <a className="text-foreground hover:text-primary transition-colors font-medium">Success Cases</a>
-              </Link>
-              <Link href="/blog">
-                <a className="text-foreground hover:text-primary transition-colors font-medium">Blog</a>
-              </Link>
-              <Link href="/about">
-                <a className="text-foreground hover:text-primary transition-colors font-medium">About Us</a>
-              </Link>
+              <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">Home</span>
+            </Link>
+            <Link href="/services">
+              <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">Services</span>
+            </Link>
+            <Link href="/success-cases">
+              <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">Success Cases</span>
+            </Link>
+            <Link href="/blog">
+              <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">Blog</span>
+            </Link>
+            <Link href="/about">
+              <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">About Us</span>
+            </Link>
               <Link href="/contact">
                 <Button className="bg-primary text-primary-foreground hover:bg-primary/90">
                   Contact Us
@@ -114,14 +114,16 @@ export default function Home() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
                 <Link href="/booking">
-                  <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 text-lg px-8">
-                    Book Consultation
-                    <ArrowRight className="ml-2 h-5 w-5" />
+                  <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 text-lg px-8">
+                    <span>
+                      Book Consultation
+                      <ArrowRight className="ml-2 h-5 w-5" />
+                    </span>
                   </Button>
                 </Link>
                 <Link href="/success-cases">
-                  <Button size="lg" variant="outline" className="border-2 border-primary text-primary hover:bg-primary/10 text-lg px-8">
-                    Success Cases
+                  <Button asChild size="lg" variant="outline" className="border-2 border-primary text-primary hover:bg-primary/10 text-lg px-8">
+                    <span>Success Cases</span>
                   </Button>
                 </Link>
               </div>
@@ -165,9 +167,11 @@ export default function Home() {
 
           <div className="text-center mt-12">
             <Link href="/calculator">
-              <Button size="lg" variant="outline" className="border-2 border-accent text-accent hover:bg-accent/10">
-                Try Our Immigration Calculator
-                <ArrowRight className="ml-2 h-5 w-5" />
+              <Button asChild size="lg" variant="outline" className="border-2 border-accent text-accent hover:bg-accent/10">
+                <span>
+                  Try Our Immigration Calculator
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </span>
               </Button>
             </Link>
           </div>
@@ -207,8 +211,8 @@ export default function Home() {
                 Book a consultation with our experienced immigration consultants today.
               </p>
               <Link href="/booking">
-                <Button size="lg" className="w-full bg-accent text-accent-foreground hover:bg-accent/90">
-                  Schedule Consultation
+                <Button asChild size="lg" className="w-full bg-accent text-accent-foreground hover:bg-accent/90">
+                  <span>Schedule Consultation</span>
                 </Button>
               </Link>
             </div>
@@ -229,10 +233,10 @@ export default function Home() {
             <div>
               <h4 className="font-semibold mb-4">Quick Links</h4>
               <div className="space-y-2">
-                <Link href="/services"><a className="block opacity-90 hover:opacity-100 transition-opacity">Services</a></Link>
-                <Link href="/calculator"><a className="block opacity-90 hover:opacity-100 transition-opacity">Immigration Calculator</a></Link>
-                <Link href="/success-cases"><a className="block opacity-90 hover:opacity-100 transition-opacity">Success Cases</a></Link>
-                <Link href="/blog"><a className="block opacity-90 hover:opacity-100 transition-opacity">Blog</a></Link>
+                <Link href="/services"><span className="block opacity-90 hover:opacity-100 transition-opacity cursor-pointer">Services</span></Link>
+                <Link href="/calculator"><span className="block opacity-90 hover:opacity-100 transition-opacity cursor-pointer">Immigration Calculator</span></Link>
+                <Link href="/success-cases"><span className="block opacity-90 hover:opacity-100 transition-opacity cursor-pointer">Success Cases</span></Link>
+                <Link href="/blog"><span className="block opacity-90 hover:opacity-100 transition-opacity cursor-pointer">Blog</span></Link>
               </div>
             </div>
             <div>
