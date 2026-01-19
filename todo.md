@@ -29,6 +29,14 @@
 - [x] Add content management tables with actions
 - [x] Implement role-based access control
 
+## Internationalization (i18n)
+- [x] Create i18n configuration and translation files
+- [x] Implement language context and provider
+- [x] Add language toggle button to navigation
+- [x] Translate all pages to Chinese
+- [x] Add language persistence to localStorage
+- [x] Test language switching across all pages
+
 ## Testing & Polish
 - [x] Write vitest tests for all tRPC procedures
 - [x] Test responsive design on mobile/tablet/desktop

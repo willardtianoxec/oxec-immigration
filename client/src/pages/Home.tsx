@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "wouter";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { 
   FileCheck, 
   Plane, 
@@ -10,35 +11,37 @@ import {
   ArrowRight,
   CheckCircle2,
   Mail,
-  Phone
+  Globe
 } from "lucide-react";
 
 export default function Home() {
+  const { language, setLanguage, t } = useLanguage();
+
   const services = [
     {
       icon: FileCheck,
-      title: "Apply for PR",
-      description: "Expert guidance through the Permanent Residence application process with comprehensive documentation support.",
+      title: t('services.pr'),
+      description: t('services.pr_desc'),
     },
     {
       icon: Plane,
-      title: "Apply for Temporary Visa or Permit",
-      description: "Streamlined assistance for work permits, study permits, and visitor visas with high success rates.",
+      title: t('services.visa'),
+      description: t('services.visa_desc'),
     },
     {
       icon: Users,
-      title: "Apply for Citizenship",
-      description: "Complete citizenship application services ensuring all requirements are met efficiently.",
+      title: t('services.citizenship'),
+      description: t('services.citizenship_desc'),
     },
     {
       icon: Scale,
-      title: "Immigration Appeals",
-      description: "Professional representation for immigration appeals and judicial reviews at all levels.",
+      title: t('services.appeals'),
+      description: t('services.appeals_desc'),
     },
     {
       icon: TrendingUp,
-      title: "Invest in Canada",
-      description: "Strategic investment immigration programs tailored to entrepreneurs and investors.",
+      title: t('services.invest'),
+      description: t('services.invest_desc'),
     },
   ];
 
@@ -57,25 +60,34 @@ export default function Home() {
               </div>
             </Link>
             
-            <div className="hidden md:flex items-center space-x-8">
+            <div className="hidden md:flex items-center space-x-6">
               <Link href="/">
-              <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">Home</span>
-            </Link>
-            <Link href="/services">
-              <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">Services</span>
-            </Link>
-            <Link href="/success-cases">
-              <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">Success Cases</span>
-            </Link>
-            <Link href="/blog">
-              <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">Blog</span>
-            </Link>
-            <Link href="/about">
-              <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">About Us</span>
-            </Link>
+                <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">{t('nav.home')}</span>
+              </Link>
+              <Link href="/services">
+                <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">{t('nav.services')}</span>
+              </Link>
+              <Link href="/success-cases">
+                <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">{t('nav.success_cases')}</span>
+              </Link>
+              <Link href="/blog">
+                <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">{t('nav.blog')}</span>
+              </Link>
+              <Link href="/about">
+                <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">{t('nav.about')}</span>
+              </Link>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setLanguage(language === 'en' ? 'zh' : 'en')}
+                className="flex items-center space-x-1"
+              >
+                <Globe className="h-4 w-4" />
+                <span>{language === 'en' ? '中文' : 'EN'}</span>
+              </Button>
               <Link href="/contact">
                 <Button className="bg-primary text-primary-foreground hover:bg-primary/90">
-                  Contact Us
+                  {t('nav.contact')}
                 </Button>
               </Link>
             </div>
@@ -102,28 +114,27 @@ export default function Home() {
             {/* Right: Hero Content */}
             <div className="order-1 lg:order-2 space-y-6">
               <div className="inline-block px-4 py-2 bg-accent/10 text-accent rounded-full text-sm font-semibold">
-                Professional Immigration Services
+                {t('hero.subtitle')}
               </div>
               <h1 className="text-4xl lg:text-6xl font-bold text-foreground leading-tight">
-                Your Trusted Partner for
-                <span className="text-primary block mt-2">Canadian Immigration</span>
+                {t('hero.title_part1')}
+                <span className="text-primary block mt-2">{t('hero.title_part2')}</span>
               </h1>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                OXEC Immigration Services Ltd. provides comprehensive immigration consulting services with expert guidance, 
-                personalized strategies, and a proven track record of success in helping clients achieve their Canadian dreams.
+                {t('hero.description')}
               </p>
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
                 <Link href="/booking">
                   <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 text-lg px-8">
                     <span>
-                      Book Consultation
+                      {t('hero.book_consultation')}
                       <ArrowRight className="ml-2 h-5 w-5" />
                     </span>
                   </Button>
                 </Link>
                 <Link href="/success-cases">
                   <Button asChild size="lg" variant="outline" className="border-2 border-primary text-primary hover:bg-primary/10 text-lg px-8">
-                    <span>Success Cases</span>
+                    <span>{t('hero.success_cases')}</span>
                   </Button>
                 </Link>
               </div>
@@ -137,10 +148,10 @@ export default function Home() {
         <div className="container">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-5xl font-bold text-foreground mb-4">
-              Our Immigration Services
+              {t('services.title')}
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Comprehensive immigration solutions tailored to your unique needs and circumstances
+              {t('services.subtitle')}
             </p>
           </div>
 
@@ -169,7 +180,7 @@ export default function Home() {
             <Link href="/calculator">
               <Button asChild size="lg" variant="outline" className="border-2 border-accent text-accent hover:bg-accent/10">
                 <span>
-                  Try Our Immigration Calculator
+                  {t('services.calculator')}
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </span>
               </Button>
@@ -184,19 +195,18 @@ export default function Home() {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-3xl lg:text-5xl font-bold mb-6">
-                Why Choose OXEC Immigration?
+                {t('why.title')}
               </h2>
               <p className="text-lg mb-8 opacity-90">
-                We combine deep expertise in Canadian immigration law with personalized service 
-                to deliver exceptional results for our clients.
+                {t('why.description')}
               </p>
               <div className="space-y-4">
                 {[
-                  "Expert immigration consultants with proven track record",
-                  "Personalized strategies for each client's unique situation",
-                  "Comprehensive support throughout the entire process",
-                  "High success rate in complex immigration cases",
-                  "Transparent communication and regular updates"
+                  t('why.point1'),
+                  t('why.point2'),
+                  t('why.point3'),
+                  t('why.point4'),
+                  t('why.point5')
                 ].map((item, index) => (
                   <div key={index} className="flex items-start space-x-3">
                     <CheckCircle2 className="h-6 w-6 text-accent flex-shrink-0 mt-0.5" />
@@ -206,13 +216,13 @@ export default function Home() {
               </div>
             </div>
             <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 lg:p-12">
-              <h3 className="text-2xl font-bold mb-6">Ready to Start Your Journey?</h3>
+              <h3 className="text-2xl font-bold mb-6">{t('why.cta_title')}</h3>
               <p className="mb-8 opacity-90">
-                Book a consultation with our experienced immigration consultants today.
+                {t('why.cta_desc')}
               </p>
               <Link href="/booking">
                 <Button asChild size="lg" className="w-full bg-accent text-accent-foreground hover:bg-accent/90">
-                  <span>Schedule Consultation</span>
+                  <span>{t('why.schedule')}</span>
                 </Button>
               </Link>
             </div>
@@ -225,32 +235,32 @@ export default function Home() {
         <div className="container">
           <div className="grid md:grid-cols-3 gap-8">
             <div>
-              <h3 className="font-bold text-xl mb-4">OXEC Immigration Services Ltd.</h3>
+              <h3 className="font-bold text-xl mb-4">{t('footer.company')}</h3>
               <p className="opacity-90">
-                Your trusted partner for Canadian immigration success.
+                {t('footer.tagline')}
               </p>
             </div>
             <div>
-              <h4 className="font-semibold mb-4">Quick Links</h4>
+              <h4 className="font-semibold mb-4">{t('footer.links')}</h4>
               <div className="space-y-2">
-                <Link href="/services"><span className="block opacity-90 hover:opacity-100 transition-opacity cursor-pointer">Services</span></Link>
-                <Link href="/calculator"><span className="block opacity-90 hover:opacity-100 transition-opacity cursor-pointer">Immigration Calculator</span></Link>
-                <Link href="/success-cases"><span className="block opacity-90 hover:opacity-100 transition-opacity cursor-pointer">Success Cases</span></Link>
-                <Link href="/blog"><span className="block opacity-90 hover:opacity-100 transition-opacity cursor-pointer">Blog</span></Link>
+                <Link href="/services"><span className="block opacity-90 hover:opacity-100 transition-opacity cursor-pointer">{t('nav.services')}</span></Link>
+                <Link href="/calculator"><span className="block opacity-90 hover:opacity-100 transition-opacity cursor-pointer">{t('services.calculator')}</span></Link>
+                <Link href="/success-cases"><span className="block opacity-90 hover:opacity-100 transition-opacity cursor-pointer">{t('nav.success_cases')}</span></Link>
+                <Link href="/blog"><span className="block opacity-90 hover:opacity-100 transition-opacity cursor-pointer">{t('nav.blog')}</span></Link>
               </div>
             </div>
             <div>
-              <h4 className="font-semibold mb-4">Contact Us</h4>
+              <h4 className="font-semibold mb-4">{t('footer.contact')}</h4>
               <div className="space-y-3">
                 <div className="flex items-center space-x-2">
                   <Mail className="h-5 w-5" />
-                  <span className="opacity-90">business@oxecimm.com</span>
+                  <span className="opacity-90">{t('footer.email')}</span>
                 </div>
               </div>
             </div>
           </div>
           <div className="border-t border-primary-foreground/20 mt-8 pt-8 text-center opacity-75">
-            <p>&copy; 2026 OXEC Immigration Services Ltd. All rights reserved.</p>
+            <p>{t('footer.copyright')}</p>
           </div>
         </div>
       </footer>

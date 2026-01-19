@@ -8,9 +8,11 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
 import { Link } from "wouter";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { ArrowLeft, Calendar, Phone, User } from "lucide-react";
 
 export default function Booking() {
+  const { t } = useLanguage();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -22,7 +24,7 @@ export default function Booking() {
 
   const createAppointment = trpc.appointments.create.useMutation({
     onSuccess: () => {
-      toast.success("Appointment booked successfully! We will contact you soon.");
+      toast.success(t('booking.success'));
       setFormData({
         name: "",
         email: "",
@@ -33,7 +35,7 @@ export default function Booking() {
       });
     },
     onError: (error) => {
-      toast.error("Failed to book appointment: " + error.message);
+      toast.error("Failed to book appointment: " + error.message); // TODO: translate error message
     },
   });
 
@@ -41,7 +43,7 @@ export default function Booking() {
     e.preventDefault();
     
     if (!formData.name || !formData.email || !formData.phone || !formData.preferredDate) {
-      toast.error("Please fill in all required fields");
+      toast.error("Please fill in all required fields"); // TODO: translate error message
       return;
     }
 
@@ -62,9 +64,9 @@ export default function Booking() {
               Back to Home
             </Button>
           </Link>
-          <h1 className="text-4xl font-bold mb-4">Book a Consultation</h1>
+          <h1 className="text-4xl font-bold mb-4">{t('booking.title')}</h1>
           <p className="text-lg opacity-90">
-            Schedule a consultation with our experienced immigration consultants
+            {t('booking.subtitle')}
           </p>
         </div>
       </div>
@@ -76,7 +78,7 @@ export default function Booking() {
           <div className="lg:col-span-2">
             <Card>
               <CardHeader>
-                <CardTitle>Consultation Details</CardTitle>
+                <CardTitle>{t('booking.title')}</CardTitle>
                 <CardDescription>
                   Fill in your information and we'll get back to you within 24 hours
                 </CardDescription>
@@ -84,7 +86,7 @@ export default function Booking() {
               <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="space-y-2">
-                    <Label htmlFor="name">Full Name *</Label>
+                    <Label htmlFor="name">{t('booking.name')} *</Label>
                     <Input
                       id="name"
                       placeholder="Enter your full name"
@@ -96,7 +98,7 @@ export default function Booking() {
 
                   <div className="grid md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="email">Email Address *</Label>
+                      <Label htmlFor="email">{t('booking.email')} *</Label>
                       <Input
                         id="email"
                         type="email"
@@ -107,8 +109,8 @@ export default function Booking() {
                       />
                     </div>
 
-                    <div className="space-y-2">
-                      <Label htmlFor="phone">Phone Number *</Label>
+                      <div className="space-y-2">
+                      <Label htmlFor="phone">{t('booking.phone')} *</Label>
                       <Input
                         id="phone"
                         type="tel"
@@ -121,7 +123,7 @@ export default function Booking() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label>Consultation Type *</Label>
+                    <Label>{t('booking.type')} *</Label>
                     <RadioGroup
                       value={formData.consultationType}
                       onValueChange={(value) =>
@@ -131,20 +133,20 @@ export default function Booking() {
                       <div className="flex items-center space-x-2">
                         <RadioGroupItem value="phone" id="phone" />
                         <Label htmlFor="phone" className="font-normal cursor-pointer">
-                          Phone Consultation
+                          {t('booking.type_phone')}
                         </Label>
                       </div>
                       <div className="flex items-center space-x-2">
                         <RadioGroupItem value="in-person" id="in-person" />
                         <Label htmlFor="in-person" className="font-normal cursor-pointer">
-                          In-Person Consultation
+                          {t('booking.type_inperson')}
                         </Label>
                       </div>
                     </RadioGroup>
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="preferredDate">Preferred Date & Time *</Label>
+                    <Label htmlFor="preferredDate">{t('booking.date')} & {t('booking.time')} *</Label>
                     <Input
                       id="preferredDate"
                       type="datetime-local"
@@ -155,7 +157,7 @@ export default function Booking() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="message">Additional Information</Label>
+                    <Label htmlFor="message">{t('booking.content')}</Label>
                     <Textarea
                       id="message"
                       placeholder="Tell us about your immigration goals and any specific questions you have..."
@@ -171,7 +173,7 @@ export default function Booking() {
                     className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
                     disabled={createAppointment.isPending}
                   >
-                    {createAppointment.isPending ? "Booking..." : "Book Consultation"}
+                    {createAppointment.isPending ? "Booking..." : t('booking.submit')}
                   </Button>
                 </form>
               </CardContent>
@@ -185,7 +187,7 @@ export default function Booking() {
                 <CardTitle className="flex items-center">
                   <Calendar className="mr-2 h-5 w-5 text-primary" />
                   What to Expect
-                </CardTitle>
+                </CardTitle> {/* TODO: translate */}
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
@@ -213,14 +215,14 @@ export default function Booking() {
               <CardHeader>
                 <CardTitle className="flex items-center">
                   <Phone className="mr-2 h-5 w-5 text-accent" />
-                  Contact Information
+                  {t('footer.contact')}
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-muted-foreground mb-2">
                   For urgent inquiries, you can also reach us directly:
-                </p>
-                <p className="font-semibold">business@oxecimm.com</p>
+                </p> {/* TODO: translate */}
+                <p className="font-semibold">{t('footer.email')}</p>
               </CardContent>
             </Card>
 
@@ -229,7 +231,7 @@ export default function Booking() {
                 <CardTitle className="flex items-center text-accent">
                   <User className="mr-2 h-5 w-5" />
                   Before Your Consultation
-                </CardTitle>
+                </CardTitle> {/* TODO: translate */}
               </CardHeader>
               <CardContent>
                 <ul className="text-sm space-y-2 text-muted-foreground">
