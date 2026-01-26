@@ -52,12 +52,7 @@ export default function Home() {
         <div className="container">
           <div className="flex items-center justify-between h-20">
             <Link href="/">
-              <div className="flex items-center space-x-2 cursor-pointer">
-                <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-                  <span className="text-primary-foreground font-bold text-xl">O</span>
-                </div>
-                <span className="font-bold text-xl text-foreground">OXEC Immigration</span>
-              </div>
+              <img src="/oxec-logo.png" alt="OXEC Immigration Services Ltd." className="h-16 cursor-pointer" />
             </Link>
             
             <div className="hidden md:flex items-center space-x-6">
