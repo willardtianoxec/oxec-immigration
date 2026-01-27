@@ -110,7 +110,12 @@ export default function Home() {
               </div>
               <h1 className="text-4xl lg:text-6xl font-bold text-foreground leading-tight" style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 700 }}>
                 {t('hero.title_part1')}
-                <span className="text-primary block mt-2">{t('hero.title_part2')}</span>
+                <span
+                  className="text-primary block mt-2"
+                  style={{ fontFamily: '"Alibaba PuHuiTi 2.0 Black", "Alibaba PuHuiTi 2.0", "Alibaba PuHuiTi", "PingFang SC", sans-serif', fontWeight: 900 }}
+                >
+                  {t('hero.title_part2')}
+                </span>
               </h1>
               <p className="text-lg text-muted-foreground leading-relaxed">
                 {t('hero.description')}
