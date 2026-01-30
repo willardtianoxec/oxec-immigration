@@ -76,7 +76,7 @@ export default function Home() {
               <div className="flex items-center gap-6">
                 <button
                   onClick={() => setLanguage(language === 'en' ? 'zh' : 'en')}
-                  className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer"
+                  className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer" style={{marginRight: '79px'}}
                 >
                   {language === 'en' ? '中文' : 'ENG'}
                 </button>
@@ -175,7 +175,7 @@ export default function Home() {
           <div className="text-center mt-12">
             <Link href="/calculator">
               <Button asChild size="lg" variant="outline" className="border-2 border-accent text-accent hover:bg-accent/10">
-                <span style={{backgroundColor: '#003151', borderRadius: '0px'}}>
+                <span style={{backgroundColor: '#003151', borderRadius: '0px', color: '#ffffff'}}>
                   {t('services.calculator')}
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </span>
