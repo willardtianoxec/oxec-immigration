@@ -31,80 +31,36 @@ export const translations: Record<Language, Record<string, string>> = {
     'services.citizenship_desc': 'Complete citizenship application services ensuring all requirements are met efficiently.',
     'services.appeals': 'Immigration Appeals',
     'services.appeals_desc': 'Professional representation for immigration appeals and judicial reviews at all levels.',
-    'services.invest': 'Invest in Canada',
-    'services.invest_desc': 'Strategic investment immigration programs tailored to entrepreneurs and investors.',
+    'services.investment': 'Invest in Canada',
+    'services.investment_desc': 'Strategic investment immigration programs tailored to entrepreneurs and investors.',
     'services.calculator': 'Try Our Immigration Calculator',
-    'nav.calculator': 'Immigration Calculator',
 
-    // Why Choose Us Section
-    'why.title': 'Why Choose OXEC Immigration?',
-    'why.description': 'We combine deep expertise in Canadian immigration law with personalized service to deliver exceptional results for our clients.',
-    'why.point1': 'Expert immigration consultants with proven track record',
-    'why.point2': 'Personalized strategies for each client\'s unique situation',
-    'why.point3': 'Comprehensive support throughout the entire process',
-    'why.point4': 'High success rate in complex immigration cases',
-    'why.point5': 'Transparent communication and regular updates',
-    'why.cta_title': 'Ready to Start Your Journey?',
-    'why.cta_desc': 'Book a consultation with our experienced immigration consultants today.',
-    'why.schedule': 'Schedule Consultation',
-
-    // Footer
-    'footer.company': 'OXEC Immigration Services Ltd.',
-    'footer.tagline': 'Your trusted partner for Canadian immigration success.',
-    'footer.links': 'Quick Links',
-    'footer.contact': 'Contact Us',
-    'footer.email': 'business@oxecimm.com',
-    'footer.copyright': '© 2026 OXEC Immigration Services Ltd. All rights reserved.',
-
-    // Booking Page
-    'booking.title': 'Book Your Consultation',
-    'booking.subtitle': 'Schedule a consultation with our immigration experts',
-    'booking.type': 'Consultation Type',
-    'booking.type_phone': 'Phone Consultation',
-    'booking.type_inperson': 'In-Person Meeting',
-    'booking.name': 'Full Name',
-    'booking.email': 'Email Address',
-    'booking.phone': 'Phone Number',
-    'booking.date': 'Preferred Date',
-    'booking.time': 'Preferred Time',
-    'booking.content': 'Consultation Content',
-    'booking.submit': 'Book Consultation',
-    'booking.success': 'Your consultation has been booked successfully!',
-
-    // Calculator Page
-    'calculator.title': 'Immigration Points Calculator',
-    'calculator.subtitle': 'Calculate your immigration program score',
-    'calculator.age': 'Age',
-    'calculator.education': 'Education Level',
-    'calculator.experience': 'Years of Work Experience',
-    'calculator.language': 'Language Test Score',
-    'calculator.score': 'Your CRS Score',
-    'calculator.calculate': 'Calculate Score',
+    // Success Cases
+    'success.title': 'Success Cases',
+    'success.subtitle': 'Real stories from our satisfied clients',
+    'success.case_type': 'Immigration Category',
+    'success.case_background': 'Applicant Background',
+    'success.case_outcome': 'Successful Outcome',
+    'success.view_all': 'View All Cases',
 
     // Blog Page
-    'blog.title': 'Immigration Blog',
-    'blog.subtitle': 'Latest immigration news and insights',
-    'blog.search': 'Search articles',
+    'blog.title': 'Latest Updates',
+    'blog.subtitle': 'Immigration policy analysis and success case studies',
     'blog.category': 'Category',
     'blog.all': 'All Articles',
     'blog.read_more': 'Read More',
+    'blog.article_title': 'Immigration Policy Update',
+    'blog.article_excerpt': 'Learn about the latest changes in Canadian immigration policy and application requirements.',
+    'blog.view_all': 'View All Articles',
 
-    // Success Cases Page
-    'cases.title': 'Success Cases',
-    'cases.subtitle': 'Real stories from our satisfied clients',
-
-    // About Page
-    'about.title': 'About OXEC Immigration',
-    'about.subtitle': 'Your partner in immigration success',
-    'about.mission': 'Our Mission',
-    'about.mission_text': 'To provide comprehensive, professional, and compassionate immigration consulting services that help individuals and families achieve their Canadian dreams.',
-    'about.vision': 'Our Vision',
-    'about.vision_text': 'To be the most trusted immigration consulting firm in Canada, known for our expertise, integrity, and client success.',
-    'about.values': 'Our Values',
-    'about.value1': 'Expertise: Deep knowledge of Canadian immigration law and procedures',
-    'about.value2': 'Integrity: Honest and transparent communication with all clients',
-    'about.value3': 'Excellence: Commitment to delivering the highest quality service',
-    'about.value4': 'Compassion: Understanding the importance of immigration to our clients\' lives',
+    // Footer
+    'footer.about': 'About Us',
+    'footer.about_desc': 'OXEC Immigration Services is a leading immigration consulting firm in Canada, dedicated to helping clients achieve their Canadian dreams.',
+    'footer.services': 'Services',
+    'footer.resources': 'Resources',
+    'footer.contact': 'Contact Us',
+    'footer.address': 'Canada',
+    'footer.rights': 'All rights reserved.',
 
     // Admin Page
     'admin.title': 'Admin Dashboard',
@@ -116,7 +72,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'admin.published': 'Published',
     'admin.draft': 'Draft',
   },
-    zh: {
+  zh: {
     // Navigation
     'nav.home': '首页',
     'nav.services': '服务',
@@ -130,6 +86,8 @@ export const translations: Record<Language, Record<string, string>> = {
     'hero.subtitle': '我们是傲赛（OXEC）移民事务所',
     'hero.title_part1': '专业、领先、值得信赖的',
     'hero.title_part2': '加拿大移民合作伙伴',
+    'hero.description': 'OXEC移民事务所提供全面的移民咨询服务，拥有专家指导、个性化策略和成功帮助客户实现加拿大梦想的良好记录。',
+    'hero.book_consultation': '预约咨询',
     'hero.success_cases': '成功案例',
     'hero.calculator': '移民算分工具',
 
@@ -144,80 +102,36 @@ export const translations: Record<Language, Record<string, string>> = {
     'services.citizenship_desc': '完整的公民身份申请服务，确保所有要求得到有效满足。',
     'services.appeals': '移民上诉',
     'services.appeals_desc': '在所有级别的移民上诉和司法审查中提供专业代理。',
-    'services.invest': '投资加拿大',
-    'services.invest_desc': '为企业家和投资者量身定制的战略投资移民项目。',
+    'services.investment': '投资加拿大',
+    'services.investment_desc': '为企业家和投资者量身定制的战略性投资移民项目。',
     'services.calculator': '尝试我们的移民算分工具',
-    'nav.calculator': '移民算分工具',
 
-    // Why Choose Us Section
-    'why.title': '为什么选择OXEC移民？',
-    'why.description': '我们将加拿大移民法的深厚专业知识与个性化服务相结合，为客户提供卓越的成果。',
-    'why.point1': '拥有成功记录的专家移民顾问',
-    'why.point2': '针对每个客户独特情况的个性化策略',
-    'why.point3': '整个过程中的全面支持',
-    'why.point4': '复杂移民案件的高成功率',
-    'why.point5': '透明的沟通和定期更新',
-    'why.cta_title': '准备开始您的旅程？',
-    'why.cta_desc': '今天就与我们经验丰富的移民顾问预约咨询。',
-    'why.schedule': '安排咨询',
-
-    // Footer
-    'footer.company': 'OXEC移民服务有限公司',
-    'footer.tagline': '您值得信赖的加拿大移民成功合作伙伴。',
-    'footer.links': '快速链接',
-    'footer.contact': '联系我们',
-    'footer.email': 'business@oxecimm.com',
-    'footer.copyright': '© 2026 OXEC移民服务有限公司 版权所有。',
-
-    // Booking Page
-    'booking.title': '预约咨询',
-    'booking.subtitle': '与我们的移民专家安排咨询',
-    'booking.type': '咨询类型',
-    'booking.type_phone': '电话咨询',
-    'booking.type_inperson': '面对面会议',
-    'booking.name': '全名',
-    'booking.email': '电子邮件地址',
-    'booking.phone': '电话号码',
-    'booking.date': '首选日期',
-    'booking.time': '首选时间',
-    'booking.content': '咨询内容',
-    'booking.submit': '预约咨询',
-    'booking.success': '您的咨询已成功预约！',
-
-    // Calculator Page
-    'calculator.title': '移民算分工具',
-    'calculator.subtitle': '计算您的移民项目得分',
-    'calculator.age': '年龄',
-    'calculator.education': '教育水平',
-    'calculator.experience': '工作经验年数',
-    'calculator.language': '语言测试成绩',
-    'calculator.score': '您的CRS得分',
-    'calculator.calculate': '计算得分',
+    // Success Cases
+    'success.title': '成功案例',
+    'success.subtitle': '来自我们满意客户的真实故事',
+    'success.case_type': '移民类别',
+    'success.case_background': '申请人背景',
+    'success.case_outcome': '成功结果',
+    'success.view_all': '查看所有案例',
 
     // Blog Page
-    'blog.title': '移民博客',
-    'blog.subtitle': '最新的移民新闻和见解',
-    'blog.search': '搜索文章',
+    'blog.title': '最新资讯',
+    'blog.subtitle': '移民政策解读和成功案例分享',
     'blog.category': '分类',
     'blog.all': '所有文章',
     'blog.read_more': '阅读更多',
+    'blog.article_title': '移民政策更新',
+    'blog.article_excerpt': '了解最新的加拿大移民政策变化和申请要求。',
+    'blog.view_all': '查看所有文章',
 
-    // Success Cases Page
-    'cases.title': '成功案例',
-    'cases.subtitle': '来自我们满意客户的真实故事',
-
-    // About Page
-    'about.title': '关于OXEC移民',
-    'about.subtitle': '您的移民成功合作伙伴',
-    'about.mission': '我们的使命',
-    'about.mission_text': '提供全面、专业和富有同情心的移民咨询服务，帮助个人和家庭实现加拿大梦想。',
-    'about.vision': '我们的愿景',
-    'about.vision_text': '成为加拿大最值得信赖的移民咨询公司，以我们的专业知识、诚信和客户成功而闻名。',
-    'about.values': '我们的价值观',
-    'about.value1': '专业知识：深厚的加拿大移民法律和程序知识',
-    'about.value2': '诚信：与所有客户进行诚实透明的沟通',
-    'about.value3': '卓越：致力于提供最高质量的服务',
-    'about.value4': '同情心：理解移民对我们客户生活的重要性',
+    // Footer
+    'footer.about': '关于我们',
+    'footer.about_desc': 'OXEC移民事务所是加拿大领先的移民咨询公司，致力于帮助客户实现加拿大梦想。',
+    'footer.services': '服务',
+    'footer.resources': '资源',
+    'footer.contact': '联系我们',
+    'footer.address': '加拿大',
+    'footer.rights': '版权所有。',
 
     // Admin Page
     'admin.title': '管理员仪表板',
@@ -234,3 +148,5 @@ export const translations: Record<Language, Record<string, string>> = {
 export function getTranslation(language: Language, key: string): string {
   return translations[language]?.[key] || key;
 }
+
+export const t = translations;

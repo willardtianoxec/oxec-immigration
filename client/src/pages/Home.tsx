@@ -1,181 +1,208 @@
+import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Link } from "wouter";
+import { ArrowRight, Menu, X } from "lucide-react";
+import { Link, useLocation } from "wouter";
+import { useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { 
-  FileCheck, 
-  Plane, 
-  Users, 
-  Scale, 
-  TrendingUp,
-  ArrowRight,
-  CheckCircle2,
-  Mail,
-  Globe
-} from "lucide-react";
 
 export default function Home() {
+  const { user, isAuthenticated } = useAuth();
   const { language, setLanguage, t } = useLanguage();
-
-  const services = [
-    {
-      icon: FileCheck,
-      title: t('services.pr'),
-      description: t('services.pr_desc'),
-    },
-    {
-      icon: Plane,
-      title: t('services.visa'),
-      description: t('services.visa_desc'),
-    },
-    {
-      icon: Users,
-      title: t('services.citizenship'),
-      description: t('services.citizenship_desc'),
-    },
-    {
-      icon: Scale,
-      title: t('services.appeals'),
-      description: t('services.appeals_desc'),
-    },
-    {
-      icon: TrendingUp,
-      title: t('services.invest'),
-      description: t('services.invest_desc'),
-    },
-  ];
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [location] = useLocation();
 
   return (
-    <div className="min-h-screen flex flex-col">
-      {/* Navigation */}
-      <nav className="bg-white border-b border-border sticky top-0 z-50">
-        <div className="container">
-          <div className="flex items-center justify-between h-20 flex-1">
-            <Link href="/" className="flex-shrink-0">
-              <img src="/oxec-logo.png" alt="OXEC Immigration Services Ltd." className="h-16 cursor-pointer" />
-            </Link>
-            
-            <div className="hidden md:flex items-center justify-between flex-1 ml-8">
-              <div className="flex items-center gap-16" style={{width: '520px', marginLeft: '416px'}}>
-                <Link href="/">
-                  <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">{t('nav.home')}</span>
-                </Link>
-                <Link href="/services">
-                  <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">{t('nav.services')}</span>
-                </Link>
-                <Link href="/success-cases">
-                  <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">{t('nav.success_cases')}</span>
-                </Link>
-                <Link href="/blog">
-                  <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">{t('nav.blog')}</span>
-                </Link>
-                <Link href="/about">
-                  <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">{t('nav.about')}</span>
-                </Link>
-              </div>
-              <div className="flex items-center gap-6">
-                <button
-                  onClick={() => setLanguage(language === 'en' ? 'zh' : 'en')}
-                  className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer" style={{marginRight: '79px'}}
-                >
-                  {language === 'en' ? '中文' : 'ENG'}
-                </button>
-                <Link href="/contact">
-                  <Button className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none">
-                    {t('hero.book_consultation')}
-                  </Button>
-                </Link>
-              </div>
+    <div className="min-h-screen flex flex-col bg-background">
+      {/* Navigation Bar */}
+      <nav className="sticky top-0 z-50 bg-white border-b border-border shadow-sm">
+        <div className="container flex items-center justify-between py-4">
+          {/* Logo */}
+          <Link href="/">
+            <img src="/oxec-logo.png" alt="OXEC Immigration Services Ltd." className="h-16 cursor-pointer" />
+          </Link>
+
+          {/* Desktop Menu */}
+          <div className="hidden md:flex items-center justify-between flex-1 ml-8">
+            <div className="flex items-center gap-16">
+              <Link href="/">
+                <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">{t("nav.home")}</span>
+              </Link>
+              <Link href="/services">
+                <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">{t("nav.services")}</span>
+              </Link>
+              <Link href="/success-cases">
+                <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">{t("nav.success_cases")}</span>
+              </Link>
+              <Link href="/blog">
+                <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">{t("nav.blog")}</span>
+              </Link>
+              <Link href="/about">
+                <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">{t("nav.about")}</span>
+              </Link>
+            </div>
+
+            <div className="flex items-center gap-6">
+              <button
+                onClick={() => setLanguage(language === "en" ? "zh" : "en")}
+                className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer"
+                style={{ marginRight: "79px" }}
+              >
+                {language === "en" ? "中文" : "ENG"}
+              </button>
+              <Link href="/booking">
+                <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none">
+                  <span>{t("nav.contact")}</span>
+                </Button>
+              </Link>
             </div>
           </div>
+
+          {/* Mobile Menu Button */}
+          <button className="md:hidden" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+            {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
         </div>
+
+        {/* Mobile Menu */}
+        {mobileMenuOpen && (
+          <div className="md:hidden border-t border-border bg-white">
+            <div className="container py-4 space-y-3">
+              <Link href="/">
+                <span className="block text-foreground hover:text-primary transition-colors font-medium cursor-pointer py-2">
+                  {t("nav.home")}
+                </span>
+              </Link>
+              <Link href="/services">
+                <span className="block text-foreground hover:text-primary transition-colors font-medium cursor-pointer py-2">
+                  {t("nav.services")}
+                </span>
+              </Link>
+              <Link href="/success-cases">
+                <span className="block text-foreground hover:text-primary transition-colors font-medium cursor-pointer py-2">
+                  {t("nav.success_cases")}
+                </span>
+              </Link>
+              <Link href="/blog">
+                <span className="block text-foreground hover:text-primary transition-colors font-medium cursor-pointer py-2">
+                  {t("nav.blog")}
+                </span>
+              </Link>
+              <Link href="/about">
+                <span className="block text-foreground hover:text-primary transition-colors font-medium cursor-pointer py-2">
+                  {t("nav.about")}
+                </span>
+              </Link>
+              <button
+                onClick={() => setLanguage(language === "en" ? "zh" : "en")}
+                className="block text-foreground hover:text-primary transition-colors font-medium cursor-pointer py-2 w-full text-left"
+              >
+                {language === "en" ? "中文" : "ENG"}
+              </button>
+              <Link href="/booking">
+                <Button asChild size="lg" className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-none">
+                  <span>{t("nav.contact")}</span>
+                </Button>
+              </Link>
+            </div>
+          </div>
+        )}
       </nav>
 
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-r from-white to-primary/5 py-20 lg:py-32" style={{paddingTop: '50px', paddingBottom: '50px', borderColor: '#00437f', backgroundColor: '#00437f'}}>
-        <div className="container">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Left: Professional Image */}
-            <div className="order-2 lg:order-1">
-              <div className="relative">
-                <img 
-                  src="/hero-canadian.jpg" 
-                  alt="Canadian Immigration - Flag and Parliament" 
-                  className="relative rounded-2xl shadow-2xl w-full h-auto object-cover" style={{borderRadius: '0px'}}
-                />
-              </div>
-            </div>
+      {/* Split Hero Section */}
+      <section className="relative w-full min-h-screen flex">
+        {/* Left: Image - Full Height, No Padding */}
+        <div className="w-full lg:w-1/2 order-2 lg:order-1 h-64 lg:h-auto">
+          <img
+            src="/hero-canadian.jpg"
+            alt="Canadian Immigration - Flag and Parliament"
+            className="w-full h-full object-cover"
+          />
+        </div>
 
-            {/* Right: Hero Content */}
-            <div className="order-1 lg:order-2 space-y-6">
-              <div className="inline-block px-4 py-2 bg-accent/10 text-accent rounded-full text-sm font-semibold" style={{color: '#ffffff'}}>
-                {t('hero.subtitle')}
-              </div>
-              <h1 className="text-4xl lg:text-6xl font-bold text-foreground leading-tight" style={{ fontFamily: '阿里巴巴普惠体, Cormorant Garamond, serif', fontWeight: 700, color: '#ffffff' }}>
-                {t('hero.title_part1')}
-                <span className="text-primary block mt-2">{t('hero.title_part2')}</span>
-              </h1>
-              <p className="text-lg text-muted-foreground leading-relaxed">
-                {t('hero.description')}
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                <Link href="/booking">
-                  <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 text-lg px-8 rounded-none">
-                    <span style={{backgroundColor: '#00437f'}}>
-                      {t('hero.book_consultation')}
-                      <ArrowRight className="ml-2 h-5 w-5" />
-                    </span>
-                  </Button>
-                </Link>
-                <Link href="/success-cases">
-                  <Button asChild size="lg" variant="outline" className="border-2 border-primary text-primary hover:bg-primary/10 text-lg px-8 rounded-none">
-                    <span>{t('hero.calculator')}</span>
-                  </Button>
-                </Link>
-              </div>
+        {/* Right: Content - Deep Blue Background */}
+        <div className="w-full lg:w-1/2 order-1 lg:order-2 flex items-center justify-center p-8 lg:p-16" style={{ backgroundColor: "#335577" }}>
+          <div className="space-y-6 w-full max-w-lg">
+            <div className="inline-block px-4 py-2 rounded-full text-sm font-semibold" style={{ color: "#ffffff", backgroundColor: "rgba(255, 255, 255, 0.1)" }}>
+              {t('hero.subtitle')}
+            </div>
+            <h1 className="text-4xl lg:text-5xl font-bold leading-tight" style={{ fontFamily: "阿里巴巴普惠体, Cormorant Garamond, serif", fontWeight: 700, color: "#ffffff" }}>
+              {t("hero.title_part1")}
+              <span className="block mt-2" style={{ color: "#ffffff" }}>
+                {t("hero.title_part2")}
+              </span>
+            </h1>
+            <p className="text-lg leading-relaxed" style={{ color: "#ffffff" }}>
+              {t("hero.description")}
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 pt-4">
+              <Link href="/booking">
+                <Button asChild size="lg" className="text-lg px-8 rounded-none" style={{ backgroundColor: "#ffffff", color: "#335577" }}>
+                  <span>
+                    {t("hero.book_consultation")}
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </span>
+                </Button>
+              </Link>
+              <Link href="/calculator">
+                <Button asChild size="lg" className="text-lg px-8 rounded-none" style={{ backgroundColor: "transparent", color: "#ffffff", border: "2px solid #ffffff" }}>
+                  <span>{t("hero.calculator")}</span>
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
       </section>
 
       {/* Services Section */}
-      <section className="py-20 bg-background" style={{paddingTop: '50px', paddingBottom: '50px'}}>
+      <section className="py-20 bg-background" style={{ paddingTop: "50px", paddingBottom: "50px" }}>
         <div className="container">
           <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-5xl font-bold text-foreground mb-4">
-              {t('services.title')}
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              {t('services.subtitle')}
-            </p>
+            <h2 className="text-3xl lg:text-5xl font-bold text-foreground mb-4">{t("services.title")}</h2>
+            <p className="text-lg text-muted-foreground">{t("services.subtitle")}</p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {services.map((service, index) => {
-              const Icon = service.icon;
-              return (
-                <Card key={index} className="border-2 hover:border-primary transition-all duration-300 hover:shadow-lg" style={{borderRadius: '0px'}}>
-                  <CardHeader>
-                    <div className="w-14 h-14 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
-                      <Icon className="h-7 w-7 text-accent" />
-                    </div>
-                    <CardTitle className="text-xl">{service.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <CardDescription className="text-base leading-relaxed">
-                      {service.description}
-                    </CardDescription>
-                  </CardContent>
-                </Card>
-              );
-            })}
+          <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-6">
+            {/* Service 1: PR */}
+            <div className="group p-6 bg-white border border-border rounded-lg hover:shadow-lg transition-shadow">
+              <div className="text-4xl mb-4">🇨🇦</div>
+              <h3 className="text-xl font-bold text-foreground mb-2">{t("services.pr")}</h3>
+              <p className="text-muted-foreground text-sm">{t("services.pr_desc")}</p>
+            </div>
+
+            {/* Service 2: Visa */}
+            <div className="group p-6 bg-white border border-border rounded-lg hover:shadow-lg transition-shadow">
+              <div className="text-4xl mb-4">📋</div>
+              <h3 className="text-xl font-bold text-foreground mb-2">{t("services.visa")}</h3>
+              <p className="text-muted-foreground text-sm">{t("services.visa_desc")}</p>
+            </div>
+
+            {/* Service 3: Citizenship */}
+            <div className="group p-6 bg-white border border-border rounded-lg hover:shadow-lg transition-shadow">
+              <div className="text-4xl mb-4">🏛️</div>
+              <h3 className="text-xl font-bold text-foreground mb-2">{t("services.citizenship")}</h3>
+              <p className="text-muted-foreground text-sm">{t("services.citizenship_desc")}</p>
+            </div>
+
+            {/* Service 4: Appeals */}
+            <div className="group p-6 bg-white border border-border rounded-lg hover:shadow-lg transition-shadow">
+              <div className="text-4xl mb-4">⚖️</div>
+              <h3 className="text-xl font-bold text-foreground mb-2">{t("services.appeals")}</h3>
+              <p className="text-muted-foreground text-sm">{t("services.appeals_desc")}</p>
+            </div>
+
+            {/* Service 5: Investment */}
+            <div className="group p-6 bg-white border border-border rounded-lg hover:shadow-lg transition-shadow">
+              <div className="text-4xl mb-4">💼</div>
+              <h3 className="text-xl font-bold text-foreground mb-2">{t("services.investment")}</h3>
+              <p className="text-muted-foreground text-sm">{t("services.investment_desc")}</p>
+            </div>
           </div>
 
           <div className="text-center mt-12">
             <Link href="/calculator">
               <Button asChild size="lg" variant="outline" className="border-2 border-accent text-accent hover:bg-accent/10">
-                <span style={{backgroundColor: '#003151', borderRadius: '0px', color: '#ffffff'}}>
-                  {t('services.calculator')}
+                <span style={{ backgroundColor: "#003151", borderRadius: "0px", color: "#ffffff" }}>
+                  {t("services.calculator")}
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </span>
               </Button>
@@ -184,78 +211,139 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Why Choose Us */}
-      <section className="py-20 bg-secondary text-secondary-foreground">
+      {/* Success Cases Preview */}
+      <section className="py-20 bg-accent/5" style={{ paddingTop: "50px", paddingBottom: "50px" }}>
         <div className="container">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-3xl lg:text-5xl font-bold mb-6">
-                {t('why.title')}
-              </h2>
-              <p className="text-lg mb-8 opacity-90">
-                {t('why.description')}
-              </p>
-              <div className="space-y-4">
-                {[
-                  t('why.point1'),
-                  t('why.point2'),
-                  t('why.point3'),
-                  t('why.point4'),
-                  t('why.point5')
-                ].map((item, index) => (
-                  <div key={index} className="flex items-start space-x-3">
-                    <CheckCircle2 className="h-6 w-6 text-accent flex-shrink-0 mt-0.5" />
-                    <span className="text-base">{item}</span>
+          <div className="text-center mb-16">
+            <h2 className="text-3xl lg:text-5xl font-bold text-foreground mb-4">{t("success.title")}</h2>
+            <p className="text-lg text-muted-foreground">{t("success.subtitle")}</p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {[1, 2, 3].map((i) => (
+              <div key={i} className="bg-white p-8 rounded-lg border border-border hover:shadow-lg transition-shadow">
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+                    <span className="text-primary font-bold">✓</span>
                   </div>
-                ))}
+                  <div>
+                    <h3 className="font-bold text-foreground">{t("success.case_type")}</h3>
+                    <p className="text-sm text-muted-foreground">{t("success.case_background")}</p>
+                  </div>
+                </div>
+                <p className="text-muted-foreground text-sm">{t("success.case_outcome")}</p>
               </div>
-            </div>
-            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 lg:p-12">
-              <h3 className="text-2xl font-bold mb-6">{t('why.cta_title')}</h3>
-              <p className="mb-8 opacity-90">
-                {t('why.cta_desc')}
-              </p>
-              <Link href="/booking">
-                <Button asChild size="lg" className="w-full bg-accent text-accent-foreground hover:bg-accent/90">
-                  <span>{t('why.schedule')}</span>
-                </Button>
-              </Link>
-            </div>
+            ))}
+          </div>
+
+          <div className="text-center mt-12">
+            <Link href="/success-cases">
+              <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none">
+                <span>
+                  {t("success.view_all")}
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </span>
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Blog Preview */}
+      <section className="py-20 bg-background" style={{ paddingTop: "50px", paddingBottom: "50px" }}>
+        <div className="container">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl lg:text-5xl font-bold text-foreground mb-4">{t("blog.title")}</h2>
+            <p className="text-lg text-muted-foreground">{t("blog.subtitle")}</p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {[1, 2, 3].map((i) => (
+              <div key={i} className="bg-white rounded-lg border border-border overflow-hidden hover:shadow-lg transition-shadow">
+                <div className="h-48 bg-gradient-to-br from-primary/20 to-accent/20"></div>
+                <div className="p-6">
+                  <p className="text-sm text-primary font-semibold mb-2">{t("blog.category")}</p>
+                  <h3 className="text-xl font-bold text-foreground mb-2">{t("blog.article_title")}</h3>
+                  <p className="text-muted-foreground text-sm mb-4">{t("blog.article_excerpt")}</p>
+                  <Link href="/blog">
+                    <span className="text-primary font-semibold hover:text-primary/80 transition-colors cursor-pointer">
+                      {t("blog.read_more")} →
+                    </span>
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center mt-12">
+            <Link href="/blog">
+              <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none">
+                <span>
+                  {t("blog.view_all")}
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </span>
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-primary text-primary-foreground py-12">
+      <footer className="bg-foreground text-background py-12" style={{ paddingTop: "50px", paddingBottom: "50px" }}>
         <div className="container">
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-4 gap-8 mb-8">
             <div>
-              <h3 className="font-bold text-xl mb-4">{t('footer.company')}</h3>
-              <p className="opacity-90">
-                {t('footer.tagline')}
-              </p>
+              <h4 className="font-bold mb-4">{t("footer.about")}</h4>
+              <p className="text-sm opacity-75">{t("footer.about_desc")}</p>
             </div>
             <div>
-              <h4 className="font-semibold mb-4">{t('footer.links')}</h4>
-              <div className="space-y-2">
-                <Link href="/services"><span className="block opacity-90 hover:opacity-100 transition-opacity cursor-pointer">{t('nav.services')}</span></Link>
-                <Link href="/calculator"><span className="block opacity-90 hover:opacity-100 transition-opacity cursor-pointer">{t('services.calculator')}</span></Link>
-                <Link href="/success-cases"><span className="block opacity-90 hover:opacity-100 transition-opacity cursor-pointer">{t('nav.success_cases')}</span></Link>
-                <Link href="/blog"><span className="block opacity-90 hover:opacity-100 transition-opacity cursor-pointer">{t('nav.blog')}</span></Link>
-              </div>
+              <h4 className="font-bold mb-4">{t("footer.services")}</h4>
+              <ul className="space-y-2 text-sm">
+                <li>
+                  <Link href="/services">
+                    <span className="opacity-75 hover:opacity-100 transition-opacity cursor-pointer">{t("services.pr")}</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/services">
+                    <span className="opacity-75 hover:opacity-100 transition-opacity cursor-pointer">{t("services.visa")}</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/services">
+                    <span className="opacity-75 hover:opacity-100 transition-opacity cursor-pointer">{t("services.citizenship")}</span>
+                  </Link>
+                </li>
+              </ul>
             </div>
             <div>
-              <h4 className="font-semibold mb-4">{t('footer.contact')}</h4>
-              <div className="space-y-3">
-                <div className="flex items-center space-x-2">
-                  <Mail className="h-5 w-5" />
-                  <span className="opacity-90">{t('footer.email')}</span>
-                </div>
-              </div>
+              <h4 className="font-bold mb-4">{t("footer.resources")}</h4>
+              <ul className="space-y-2 text-sm">
+                <li>
+                  <Link href="/blog">
+                    <span className="opacity-75 hover:opacity-100 transition-opacity cursor-pointer">{t("nav.blog")}</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/success-cases">
+                    <span className="opacity-75 hover:opacity-100 transition-opacity cursor-pointer">{t("nav.success_cases")}</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/calculator">
+                    <span className="opacity-75 hover:opacity-100 transition-opacity cursor-pointer">{t("hero.calculator")}</span>
+                  </Link>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-bold mb-4">{t("footer.contact")}</h4>
+              <p className="text-sm opacity-75">business@oxecimm.com</p>
+              <p className="text-sm opacity-75 mt-2">{t("footer.address")}</p>
             </div>
           </div>
-          <div className="border-t border-primary-foreground/20 mt-8 pt-8 text-center opacity-75">
-            <p>{t('footer.copyright')}</p>
+          <div className="border-t border-background/20 pt-8 text-center text-sm opacity-75">
+            <p>&copy; 2026 OXEC Immigration Services Ltd. {t("footer.rights")}</p>
           </div>
         </div>
       </footer>
