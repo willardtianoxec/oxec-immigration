@@ -88,44 +88,41 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-r from-white to-primary/5 py-20 lg:py-32" style={{paddingTop: '50px', paddingBottom: '50px'}}>
-        <div className="container">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Left: Professional Image */}
-            <div className="order-2 lg:order-1">
-              <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 rounded-2xl transform rotate-3"></div>
-                <img 
-                  src="/hero-professional.jpg" 
-                  alt="Professional Immigration Consultant" 
-                  className="relative rounded-2xl shadow-2xl w-full h-auto object-cover"
-                />
-              </div>
-            </div>
+      <section className="relative">
+        <div className="grid lg:grid-cols-2 min-h-[520px]">
+          {/* Left: Full-bleed Image */}
+          <div className="order-1">
+            <img 
+              src="/hero-professional.jpg" 
+              alt="Immigration Consultant" 
+              className="w-full h-full object-cover"
+            />
+          </div>
 
-            {/* Right: Hero Content */}
-            <div className="order-1 lg:order-2 space-y-6">
-              <div className="inline-block px-4 py-2 bg-accent/10 text-accent rounded-full text-sm font-semibold">
+          {/* Right: Hero Content */}
+          <div className="order-2 bg-[#335577] text-white flex items-center">
+            <div className="px-8 py-12 lg:px-16 lg:py-20 space-y-6 max-w-xl">
+              <div className="inline-block px-4 py-2 bg-white/10 text-white rounded-full text-sm font-semibold">
                 {t('hero.subtitle')}
               </div>
-              <h1 className="text-4xl lg:text-6xl font-bold text-foreground leading-tight" style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 700 }}>
+              <h1 className="text-4xl lg:text-6xl font-bold leading-tight" style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 700 }}>
                 {t('hero.title_part1')}
-                <span className="text-primary block mt-2">{t('hero.title_part2')}</span>
+                <span className="text-white block mt-2">{t('hero.title_part2')}</span>
               </h1>
-              <p className="text-lg text-muted-foreground leading-relaxed">
+              <p className="text-lg text-white/80 leading-relaxed">
                 {t('hero.description')}
               </p>
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
                 <Link href="/booking">
-                  <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 text-lg px-8 rounded-none">
-                    <span style={{backgroundColor: '#00437f'}}>
+                  <Button asChild size="lg" className="bg-white text-[#335577] hover:bg-white/90 text-lg px-8 rounded-none">
+                    <span>
                       {t('hero.book_consultation')}
                       <ArrowRight className="ml-2 h-5 w-5" />
                     </span>
                   </Button>
                 </Link>
                 <Link href="/success-cases">
-                  <Button asChild size="lg" variant="outline" className="border-2 border-primary text-primary hover:bg-primary/10 text-lg px-8 rounded-none">
+                  <Button asChild size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white/10 text-lg px-8 rounded-none">
                     <span>{t('hero.success_cases')}</span>
                   </Button>
                 </Link>
