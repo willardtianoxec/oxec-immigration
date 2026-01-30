@@ -56,7 +56,7 @@ export default function Home() {
             </Link>
             
             <div className="hidden md:flex items-center justify-between flex-1 ml-8">
-              <div className="flex items-center gap-16">
+              <div className="flex items-center gap-16" style={{width: '520px', marginLeft: '416px'}}>
                 <Link href="/">
                   <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">{t('nav.home')}</span>
                 </Link>
@@ -78,11 +78,11 @@ export default function Home() {
                   onClick={() => setLanguage(language === 'en' ? 'zh' : 'en')}
                   className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer"
                 >
-                  {language === 'en' ? '中文' : 'EN'}
+                  {language === 'en' ? '中文' : 'ENG'}
                 </button>
                 <Link href="/contact">
                   <Button className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none">
-                    {t('nav.contact')}
+                    {t('hero.book_consultation')}
                   </Button>
                 </Link>
               </div>
@@ -112,7 +112,7 @@ export default function Home() {
               <div className="inline-block px-4 py-2 bg-accent/10 text-accent rounded-full text-sm font-semibold">
                 {t('hero.subtitle')}
               </div>
-              <h1 className="text-4xl lg:text-6xl font-bold text-foreground leading-tight" style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 700 }}>
+              <h1 className="text-4xl lg:text-6xl font-bold text-foreground leading-tight" style={{ fontFamily: '阿里巴巴普惠体, Cormorant Garamond, serif', fontWeight: 700 }}>
                 {t('hero.title_part1')}
                 <span className="text-primary block mt-2">{t('hero.title_part2')}</span>
               </h1>
@@ -130,7 +130,7 @@ export default function Home() {
                 </Link>
                 <Link href="/success-cases">
                   <Button asChild size="lg" variant="outline" className="border-2 border-primary text-primary hover:bg-primary/10 text-lg px-8 rounded-none">
-                    <span>{t('hero.success_cases')}</span>
+                    <span>{t('hero.calculator')}</span>
                   </Button>
                 </Link>
               </div>

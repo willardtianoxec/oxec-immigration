@@ -8,7 +8,8 @@ export const translations: Record<Language, Record<string, string>> = {
     'nav.success_cases': 'Success Cases',
     'nav.blog': 'Blog',
     'nav.about': 'About Us',
-    'nav.contact': 'Contact Us',
+    'nav.contact': 'Book Consultation',
+    'nav.book_consultation': 'Book Consultation',
 
     // Hero Section
     'hero.subtitle': 'Professional Immigration Services',
@@ -17,6 +18,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'hero.description': 'OXEC Immigration Services Ltd. provides comprehensive immigration consulting services with expert guidance, personalized strategies, and a proven track record of success in helping clients achieve their Canadian dreams.',
     'hero.book_consultation': 'Book Consultation',
     'hero.success_cases': 'Success Cases',
+    'hero.calculator': 'Immigration Calculator',
 
     // Services Section
     'services.title': 'Our Immigration Services',
@@ -32,6 +34,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'services.invest': 'Invest in Canada',
     'services.invest_desc': 'Strategic investment immigration programs tailored to entrepreneurs and investors.',
     'services.calculator': 'Try Our Immigration Calculator',
+    'nav.calculator': 'Immigration Calculator',
 
     // Why Choose Us Section
     'why.title': 'Why Choose OXEC Immigration?',
@@ -120,7 +123,8 @@ export const translations: Record<Language, Record<string, string>> = {
     'nav.success_cases': '成功案例',
     'nav.blog': '博客',
     'nav.about': '关于我们',
-    'nav.contact': '联系我们',
+    'nav.contact': '预约咨询',
+    'nav.book_consultation': '预约咨询',
 
     // Hero Section
     'hero.subtitle': '专业移民咨询服务',
@@ -129,6 +133,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'hero.description': 'OXEC移民服务有限公司提供全面的移民咨询服务，拥有专家指导、个性化策略和帮助客户实现加拿大梦想的成功记录。',
     'hero.book_consultation': '预约咨询',
     'hero.success_cases': '成功案例',
+    'hero.calculator': '移民算分工具',
 
     // Services Section
     'services.title': '我们的移民服务',
@@ -144,6 +149,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'services.invest': '投资加拿大',
     'services.invest_desc': '为企业家和投资者量身定制的战略投资移民项目。',
     'services.calculator': '尝试我们的移民算分工具',
+    'nav.calculator': '移民算分工具',
 
     // Why Choose Us Section
     'why.title': '为什么选择OXEC移民？',
