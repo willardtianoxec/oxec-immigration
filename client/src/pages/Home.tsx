@@ -98,7 +98,6 @@ export default function Home() {
             {/* Left: Professional Image */}
             <div className="order-2 lg:order-1">
               <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 rounded-2xl transform rotate-3"></div>
                 <img 
                   src="/hero-canadian.jpg" 
                   alt="Canadian Immigration - Flag and Parliament" 
