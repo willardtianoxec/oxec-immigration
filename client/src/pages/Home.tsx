@@ -88,7 +88,7 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-r from-white to-primary/5 py-20 lg:py-32">
+      <section className="relative bg-gradient-to-r from-white to-primary/5 py-20 lg:py-32" style={{paddingTop: '50px', paddingBottom: '50px'}}>
         <div className="container">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left: Professional Image */}
@@ -118,7 +118,7 @@ export default function Home() {
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
                 <Link href="/booking">
                   <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 text-lg px-8 rounded-none">
-                    <span>
+                    <span style={{backgroundColor: '#00437f'}}>
                       {t('hero.book_consultation')}
                       <ArrowRight className="ml-2 h-5 w-5" />
                     </span>
@@ -136,7 +136,7 @@ export default function Home() {
       </section>
 
       {/* Services Section */}
-      <section className="py-20 bg-background">
+      <section className="py-20 bg-background" style={{paddingTop: '50px', paddingBottom: '50px'}}>
         <div className="container">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-5xl font-bold text-foreground mb-4">
@@ -151,7 +151,7 @@ export default function Home() {
             {services.map((service, index) => {
               const Icon = service.icon;
               return (
-                <Card key={index} className="border-2 hover:border-primary transition-all duration-300 hover:shadow-lg">
+                <Card key={index} className="border-2 hover:border-primary transition-all duration-300 hover:shadow-lg" style={{borderRadius: '0px'}}>
                   <CardHeader>
                     <div className="w-14 h-14 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
                       <Icon className="h-7 w-7 text-accent" />
@@ -171,7 +171,7 @@ export default function Home() {
           <div className="text-center mt-12">
             <Link href="/calculator">
               <Button asChild size="lg" variant="outline" className="border-2 border-accent text-accent hover:bg-accent/10">
-                <span>
+                <span style={{backgroundColor: '#003151', borderRadius: '0px'}}>
                   {t('services.calculator')}
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </span>
