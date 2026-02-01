@@ -15,46 +15,40 @@ export default function Home() {
     <div className="min-h-screen flex flex-col bg-background">
       {/* Navigation Bar */}
       <nav className="sticky top-0 z-50 bg-white border-b border-border shadow-sm">
-        <div className="container flex items-center justify-between py-4">
+        <div className="container flex items-center py-4" style={{ justifyContent: 'space-between' }}>
           {/* Logo */}
           <Link href="/">
-            <img src="/oxec-logo.png" alt="OXEC Immigration Services Ltd." className="h-16 cursor-pointer" />
+            <img src="/oxec-logo.png" alt="OXEC Immigration Services Ltd." className="cursor-pointer flex-shrink-0" style={{ height: '32px' }} />
           </Link>
 
-          {/* Desktop Menu */}
-          <div className="hidden md:flex items-center justify-between flex-1 ml-8">
-            <div className="flex items-center gap-16">
-              <Link href="/">
-                <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">{t("nav.home")}</span>
-              </Link>
-              <Link href="/services">
-                <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">{t("nav.services")}</span>
-              </Link>
-              <Link href="/success-cases">
-                <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">{t("nav.success_cases")}</span>
-              </Link>
-              <Link href="/blog">
-                <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">{t("nav.blog")}</span>
-              </Link>
-              <Link href="/about">
-                <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">{t("nav.about")}</span>
-              </Link>
-            </div>
-
-            <div className="flex items-center gap-6">
-              <button
-                onClick={() => setLanguage(language === "en" ? "zh" : "en")}
-                className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer"
-                style={{ marginRight: "79px" }}
-              >
-                {language === "en" ? "中文" : "ENG"}
-              </button>
-              <Link href="/booking">
-                <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none">
-                  <span>{t("nav.contact")}</span>
-                </Button>
-              </Link>
-            </div>
+          {/* Desktop Menu - Single Unified Navigation Group */}
+          <div className="hidden md:flex items-center" style={{ flex: 1, justifyContent: 'space-around', marginLeft: '32px' }}>
+            <Link href="/">
+              <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">{t("nav.home")}</span>
+            </Link>
+            <Link href="/services">
+              <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">{t("nav.services")}</span>
+            </Link>
+            <Link href="/success-cases">
+              <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">{t("nav.success_cases")}</span>
+            </Link>
+            <Link href="/blog">
+              <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">{t("nav.blog")}</span>
+            </Link>
+            <Link href="/about">
+              <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">{t("nav.about")}</span>
+            </Link>
+            <button
+              onClick={() => setLanguage(language === "en" ? "zh" : "en")}
+              className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer"
+            >
+              {language === "en" ? "中文" : "ENG"}
+            </button>
+            <Link href="/booking">
+              <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none">
+                <span>{t("nav.contact")}</span>
+              </Button>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -126,7 +120,7 @@ export default function Home() {
               {t('hero.subtitle')}
             </div>
             <h1 className="text-4xl lg:text-5xl font-bold leading-tight" style={{ fontFamily: "阿里巴巴普惠体, Cormorant Garamond, serif", fontWeight: 700, color: "#ffffff" }}>
-              {t("hero.title_part1")}
+              <span style={{ display: 'inline-block', whiteSpace: 'nowrap' }}>{t("hero.title_part1")}</span>
               <span className="block mt-2" style={{ color: "#ffffff" }}>
                 {t("hero.title_part2")}
               </span>
@@ -162,39 +156,54 @@ export default function Home() {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-6">
-            {/* Service 1: PR */}
-            <div className="group p-6 bg-white border border-border rounded-lg hover:shadow-lg transition-shadow" style={{borderRadius: '0px'}}>
-              <div className="text-4xl mb-4">🇨🇦</div>
-              <h3 className="text-xl font-bold text-foreground mb-2">{t("services.pr")}</h3>
-              <p className="text-muted-foreground text-sm">{t("services.pr_desc")}</p>
+            {/* Service 1: Investment Immigration */}
+            <div className="group relative overflow-hidden bg-white border border-border hover:shadow-lg transition-shadow" style={{borderRadius: '0px', height: '300px'}}>
+              <img src="/service-1.jpg" alt="Investment Immigration" className="w-full h-40 object-cover" />
+              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="relative p-6 h-full flex flex-col justify-end">
+                <h3 className="text-lg font-bold text-foreground mb-2">{t("services.pr")}</h3>
+                <p className="text-muted-foreground text-sm">{t("services.pr_desc")}</p>
+              </div>
             </div>
 
-            {/* Service 2: Visa */}
-            <div className="group p-6 bg-white border border-border rounded-lg hover:shadow-lg transition-shadow" style={{borderRadius: '0px'}}>
-              <div className="text-4xl mb-4">📋</div>
-              <h3 className="text-xl font-bold text-foreground mb-2">{t("services.visa")}</h3>
-              <p className="text-muted-foreground text-sm">{t("services.visa_desc")}</p>
+            {/* Service 2: Family Reunification */}
+            <div className="group relative overflow-hidden bg-white border border-border hover:shadow-lg transition-shadow" style={{borderRadius: '0px', height: '300px'}}>
+              <img src="/service-2.jpg" alt="Family Reunification" className="w-full h-40 object-cover" />
+              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="relative p-6 h-full flex flex-col justify-end">
+                <h3 className="text-lg font-bold text-foreground mb-2">{t("services.visa")}</h3>
+                <p className="text-muted-foreground text-sm">{t("services.visa_desc")}</p>
+              </div>
             </div>
 
-            {/* Service 3: Citizenship */}
-            <div className="group p-6 bg-white border border-border rounded-lg hover:shadow-lg transition-shadow" style={{borderRadius: '0px'}}>
-              <div className="text-4xl mb-4">🏛️</div>
-              <h3 className="text-xl font-bold text-foreground mb-2">{t("services.citizenship")}</h3>
-              <p className="text-muted-foreground text-sm">{t("services.citizenship_desc")}</p>
+            {/* Service 3: PR Card Renewal */}
+            <div className="group relative overflow-hidden bg-white border border-border hover:shadow-lg transition-shadow" style={{borderRadius: '0px', height: '300px'}}>
+              <img src="/service-3.jpg" alt="PR Card Renewal" className="w-full h-40 object-cover" />
+              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="relative p-6 h-full flex flex-col justify-end">
+                <h3 className="text-lg font-bold text-foreground mb-2">{t("services.citizenship")}</h3>
+                <p className="text-muted-foreground text-sm">{t("services.citizenship_desc")}</p>
+              </div>
             </div>
 
-            {/* Service 4: Appeals */}
-            <div className="group p-6 bg-white border border-border rounded-lg hover:shadow-lg transition-shadow" style={{borderRadius: '0px'}}>
-              <div className="text-4xl mb-4">⚖️</div>
-              <h3 className="text-xl font-bold text-foreground mb-2">{t("services.appeals")}</h3>
-              <p className="text-muted-foreground text-sm">{t("services.appeals_desc")}</p>
+            {/* Service 4: Refusal & Procedural Fairness */}
+            <div className="group relative overflow-hidden bg-white border border-border hover:shadow-lg transition-shadow" style={{borderRadius: '0px', height: '300px'}}>
+              <img src="/service-2.jpg" alt="Refusal & Procedural Fairness" className="w-full h-40 object-cover" />
+              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="relative p-6 h-full flex flex-col justify-end">
+                <h3 className="text-lg font-bold text-foreground mb-2">{t("services.appeals")}</h3>
+                <p className="text-muted-foreground text-sm">{t("services.appeals_desc")}</p>
+              </div>
             </div>
 
-            {/* Service 5: Investment */}
-            <div className="group p-6 bg-white border border-border rounded-lg hover:shadow-lg transition-shadow" style={{borderRadius: '0px'}}>
-              <div className="text-4xl mb-4">💼</div>
-              <h3 className="text-xl font-bold text-foreground mb-2">{t("services.investment")}</h3>
-              <p className="text-muted-foreground text-sm">{t("services.investment_desc")}</p>
+            {/* Service 5: Study & Visitor Visa */}
+            <div className="group relative overflow-hidden bg-white border border-border hover:shadow-lg transition-shadow" style={{borderRadius: '0px', height: '300px'}}>
+              <img src="/service-3.jpg" alt="Study & Visitor Visa" className="w-full h-40 object-cover" />
+              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="relative p-6 h-full flex flex-col justify-end">
+                <h3 className="text-lg font-bold text-foreground mb-2">{t("services.investment")}</h3>
+                <p className="text-muted-foreground text-sm">{t("services.investment_desc")}</p>
+              </div>
             </div>
           </div>
 
