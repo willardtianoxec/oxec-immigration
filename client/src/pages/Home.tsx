@@ -109,18 +109,18 @@ export default function Home() {
       </nav>
 
       {/* Split Hero Section */}
-      <section className="relative w-full min-h-screen flex">
+      <section className="relative w-full min-h-screen flex" style={{height: '525px', marginBottom: '-213px'}}>
         {/* Left: Image - Full Height, No Padding */}
-        <div className="w-full lg:w-1/2 order-2 lg:order-1 h-64 lg:h-auto">
+        <div className="w-full lg:w-1/2 order-2 lg:order-1 h-64 lg:h-auto" style={{height: '525px'}}>
           <img
             src="/hero-canadian.jpg"
             alt="Canadian Immigration - Flag and Parliament"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover" style={{height: '525px'}}
           />
         </div>
 
         {/* Right: Content - Deep Blue Background */}
-        <div className="w-full lg:w-1/2 order-1 lg:order-2 flex items-center justify-center p-8 lg:p-16" style={{ backgroundColor: "#335577" }}>
+        <div className="w-full lg:w-1/2 order-1 lg:order-2 flex items-center justify-center p-8 lg:p-16" style={{ backgroundColor: "#335577", height: '525px' }}>
           <div className="space-y-6 w-full max-w-lg">
             <div className="inline-block px-4 py-2 rounded-full text-sm font-semibold" style={{ color: "#ffffff", backgroundColor: "rgba(255, 255, 255, 0.1)" }}>
               {t('hero.subtitle')}
