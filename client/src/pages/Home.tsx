@@ -14,11 +14,11 @@ export default function Home() {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       {/* Navigation Bar */}
-      <nav className="sticky top-0 z-50 bg-white border-b border-border shadow-sm">
-        <div className="container flex items-center py-4" style={{ justifyContent: 'space-between' }}>
+      <nav className="sticky top-0 z-50 bg-white border-b border-border shadow-sm" style={{height: '55px'}}>
+        <div className="container flex items-center py-4" style={{ justifyContent: 'space-between', height: '55px' }}>
           {/* Logo */}
           <Link href="/">
-            <img src="/oxec-logo.png" alt="OXEC Immigration Services Ltd." className="cursor-pointer flex-shrink-0" style={{ height: '32px' }} />
+            <img src="/oxec-logo.png" alt="OXEC Immigration Services Ltd." className="cursor-pointer flex-shrink-0" style={{ height: '40px', width: '160px' }} />
           </Link>
 
           {/* Desktop Menu - Single Unified Navigation Group */}
