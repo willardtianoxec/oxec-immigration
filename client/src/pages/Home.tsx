@@ -35,7 +35,7 @@ export default function Home() {
             <Link href="/blog">
               <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">{t("nav.blog")}</span>
             </Link>
-            <Link href="/about">
+            <Link href="/team">
               <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">{t("nav.about")}</span>
             </Link>
             <button
@@ -81,7 +81,7 @@ export default function Home() {
                   {t("nav.blog")}
                 </span>
               </Link>
-              <Link href="/about">
+              <Link href="/team">
                 <span className="block text-foreground hover:text-primary transition-colors font-medium cursor-pointer py-2">
                   {t("nav.about")}
                 </span>
