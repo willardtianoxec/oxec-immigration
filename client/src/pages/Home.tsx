@@ -163,35 +163,35 @@ export default function Home() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-6">
             {/* Service 1: PR */}
-            <div className="group p-6 bg-white border border-border rounded-lg hover:shadow-lg transition-shadow">
+            <div className="group p-6 bg-white border border-border rounded-lg hover:shadow-lg transition-shadow" style={{borderRadius: '0px'}}>
               <div className="text-4xl mb-4">🇨🇦</div>
               <h3 className="text-xl font-bold text-foreground mb-2">{t("services.pr")}</h3>
               <p className="text-muted-foreground text-sm">{t("services.pr_desc")}</p>
             </div>
 
             {/* Service 2: Visa */}
-            <div className="group p-6 bg-white border border-border rounded-lg hover:shadow-lg transition-shadow">
+            <div className="group p-6 bg-white border border-border rounded-lg hover:shadow-lg transition-shadow" style={{borderRadius: '0px'}}>
               <div className="text-4xl mb-4">📋</div>
               <h3 className="text-xl font-bold text-foreground mb-2">{t("services.visa")}</h3>
               <p className="text-muted-foreground text-sm">{t("services.visa_desc")}</p>
             </div>
 
             {/* Service 3: Citizenship */}
-            <div className="group p-6 bg-white border border-border rounded-lg hover:shadow-lg transition-shadow">
+            <div className="group p-6 bg-white border border-border rounded-lg hover:shadow-lg transition-shadow" style={{borderRadius: '0px'}}>
               <div className="text-4xl mb-4">🏛️</div>
               <h3 className="text-xl font-bold text-foreground mb-2">{t("services.citizenship")}</h3>
               <p className="text-muted-foreground text-sm">{t("services.citizenship_desc")}</p>
             </div>
 
             {/* Service 4: Appeals */}
-            <div className="group p-6 bg-white border border-border rounded-lg hover:shadow-lg transition-shadow">
+            <div className="group p-6 bg-white border border-border rounded-lg hover:shadow-lg transition-shadow" style={{borderRadius: '0px'}}>
               <div className="text-4xl mb-4">⚖️</div>
               <h3 className="text-xl font-bold text-foreground mb-2">{t("services.appeals")}</h3>
               <p className="text-muted-foreground text-sm">{t("services.appeals_desc")}</p>
             </div>
 
             {/* Service 5: Investment */}
-            <div className="group p-6 bg-white border border-border rounded-lg hover:shadow-lg transition-shadow">
+            <div className="group p-6 bg-white border border-border rounded-lg hover:shadow-lg transition-shadow" style={{borderRadius: '0px'}}>
               <div className="text-4xl mb-4">💼</div>
               <h3 className="text-xl font-bold text-foreground mb-2">{t("services.investment")}</h3>
               <p className="text-muted-foreground text-sm">{t("services.investment_desc")}</p>
@@ -201,7 +201,7 @@ export default function Home() {
           <div className="text-center mt-12">
             <Link href="/calculator">
               <Button asChild size="lg" variant="outline" className="border-2 border-accent text-accent hover:bg-accent/10">
-                <span style={{ backgroundColor: "#003151", borderRadius: "0px", color: "#ffffff" }}>
+                <span style={{ backgroundColor: '#1f3d7f', borderRadius: "0px", color: "#ffffff", borderWidth: '0px' }}>
                   {t("services.calculator")}
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </span>
