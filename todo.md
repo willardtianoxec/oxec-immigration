@@ -51,3 +51,11 @@
 - [x] 标题排版优化 - 强制首行标题不换行（"专业、领先、值得信赖的"）
 - [x] Logo尺寸微调 - 缩小至原尺寸的50%（从64px到32px）
 - [x] 服务卡片视觉升级 - 用高质量图片替换Emoji图标，添加深色半透明遮罩
+
+
+## Service Cards Enhancement (Current Sprint - Phase 2)
+- [x] 恢复服务卡片文本内容 - 在图片下方添加标题和说明文字
+- [x] 配置服务卡片路由链接 - 为5个卡片设置对应的路由
+- [x] 生成5个服务子页面 - 创建/businessclass, /familyclass, /prcard, /reconsideration, /temporary页面
+- [x] 添加悬停效果 - 实现卡片上浮和图片放大效果
+- [x] 对齐优化 - 确保图片高度一致，文字对齐

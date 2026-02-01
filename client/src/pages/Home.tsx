@@ -157,54 +157,74 @@ export default function Home() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-6">
             {/* Service 1: Investment Immigration */}
-            <div className="group relative overflow-hidden bg-white border border-border hover:shadow-lg transition-shadow" style={{borderRadius: '0px', height: '300px'}}>
-              <img src="/service-1.jpg" alt="Investment Immigration" className="w-full h-40 object-cover" />
-              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div className="relative p-6 h-full flex flex-col justify-end">
-                <h3 className="text-lg font-bold text-foreground mb-2">{t("services.pr")}</h3>
-                <p className="text-muted-foreground text-sm">{t("services.pr_desc")}</p>
+            <Link href="/businessclass">
+              <div className="group relative overflow-hidden bg-white border border-border cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-2" style={{borderRadius: '0px'}}>
+                <div className="relative h-40 overflow-hidden">
+                  <img src="/service-1.jpg" alt="Investment Immigration" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity" />
+                </div>
+                <div className="p-6">
+                  <h3 className="text-lg font-bold text-foreground mb-2 text-center">{t("services.pr")}</h3>
+                  <p className="text-muted-foreground text-sm text-center">{t("services.pr_desc")}</p>
+                </div>
               </div>
-            </div>
+            </Link>
 
             {/* Service 2: Family Reunification */}
-            <div className="group relative overflow-hidden bg-white border border-border hover:shadow-lg transition-shadow" style={{borderRadius: '0px', height: '300px'}}>
-              <img src="/service-2.jpg" alt="Family Reunification" className="w-full h-40 object-cover" />
-              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div className="relative p-6 h-full flex flex-col justify-end">
-                <h3 className="text-lg font-bold text-foreground mb-2">{t("services.visa")}</h3>
-                <p className="text-muted-foreground text-sm">{t("services.visa_desc")}</p>
+            <Link href="/familyclass">
+              <div className="group relative overflow-hidden bg-white border border-border cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-2" style={{borderRadius: '0px'}}>
+                <div className="relative h-40 overflow-hidden">
+                  <img src="/service-2.jpg" alt="Family Reunification" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity" />
+                </div>
+                <div className="p-6">
+                  <h3 className="text-lg font-bold text-foreground mb-2 text-center">{t("services.visa")}</h3>
+                  <p className="text-muted-foreground text-sm text-center">{t("services.visa_desc")}</p>
+                </div>
               </div>
-            </div>
+            </Link>
 
             {/* Service 3: PR Card Renewal */}
-            <div className="group relative overflow-hidden bg-white border border-border hover:shadow-lg transition-shadow" style={{borderRadius: '0px', height: '300px'}}>
-              <img src="/service-3.jpg" alt="PR Card Renewal" className="w-full h-40 object-cover" />
-              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div className="relative p-6 h-full flex flex-col justify-end">
-                <h3 className="text-lg font-bold text-foreground mb-2">{t("services.citizenship")}</h3>
-                <p className="text-muted-foreground text-sm">{t("services.citizenship_desc")}</p>
+            <Link href="/prcard">
+              <div className="group relative overflow-hidden bg-white border border-border cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-2" style={{borderRadius: '0px'}}>
+                <div className="relative h-40 overflow-hidden">
+                  <img src="/service-3.jpg" alt="PR Card Renewal" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity" />
+                </div>
+                <div className="p-6">
+                  <h3 className="text-lg font-bold text-foreground mb-2 text-center">{t("services.citizenship")}</h3>
+                  <p className="text-muted-foreground text-sm text-center">{t("services.citizenship_desc")}</p>
+                </div>
               </div>
-            </div>
+            </Link>
 
             {/* Service 4: Refusal & Procedural Fairness */}
-            <div className="group relative overflow-hidden bg-white border border-border hover:shadow-lg transition-shadow" style={{borderRadius: '0px', height: '300px'}}>
-              <img src="/service-2.jpg" alt="Refusal & Procedural Fairness" className="w-full h-40 object-cover" />
-              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div className="relative p-6 h-full flex flex-col justify-end">
-                <h3 className="text-lg font-bold text-foreground mb-2">{t("services.appeals")}</h3>
-                <p className="text-muted-foreground text-sm">{t("services.appeals_desc")}</p>
+            <Link href="/reconsideration">
+              <div className="group relative overflow-hidden bg-white border border-border cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-2" style={{borderRadius: '0px'}}>
+                <div className="relative h-40 overflow-hidden">
+                  <img src="/service-2.jpg" alt="Refusal & Procedural Fairness" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity" />
+                </div>
+                <div className="p-6">
+                  <h3 className="text-lg font-bold text-foreground mb-2 text-center">{t("services.appeals")}</h3>
+                  <p className="text-muted-foreground text-sm text-center">{t("services.appeals_desc")}</p>
+                </div>
               </div>
-            </div>
+            </Link>
 
             {/* Service 5: Study & Visitor Visa */}
-            <div className="group relative overflow-hidden bg-white border border-border hover:shadow-lg transition-shadow" style={{borderRadius: '0px', height: '300px'}}>
-              <img src="/service-3.jpg" alt="Study & Visitor Visa" className="w-full h-40 object-cover" />
-              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div className="relative p-6 h-full flex flex-col justify-end">
-                <h3 className="text-lg font-bold text-foreground mb-2">{t("services.investment")}</h3>
-                <p className="text-muted-foreground text-sm">{t("services.investment_desc")}</p>
+            <Link href="/temporary">
+              <div className="group relative overflow-hidden bg-white border border-border cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-2" style={{borderRadius: '0px'}}>
+                <div className="relative h-40 overflow-hidden">
+                  <img src="/service-3.jpg" alt="Study & Visitor Visa" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity" />
+                </div>
+                <div className="p-6">
+                  <h3 className="text-lg font-bold text-foreground mb-2 text-center">{t("services.investment")}</h3>
+                  <p className="text-muted-foreground text-sm text-center">{t("services.investment_desc")}</p>
+                </div>
               </div>
-            </div>
+            </Link>
           </div>
 
           <div className="text-center mt-12">

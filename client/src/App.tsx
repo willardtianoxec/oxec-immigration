@@ -11,6 +11,11 @@ import Calculator from "./pages/Calculator";
 import Blog from "./pages/Blog";
 import SuccessCases from "./pages/SuccessCases";
 import Admin from "./pages/Admin";
+import BusinessClass from "./pages/BusinessClass";
+import FamilyClass from "./pages/FamilyClass";
+import PRCard from "./pages/PRCard";
+import Reconsideration from "./pages/Reconsideration";
+import Temporary from "./pages/Temporary";
 
 function Router() {
   return (
@@ -21,6 +26,11 @@ function Router() {
       <Route path="/blog" component={Blog} />
       <Route path="/success-cases" component={SuccessCases} />
       <Route path="/admin" component={Admin} />
+      <Route path="/businessclass" component={BusinessClass} />
+      <Route path="/familyclass" component={FamilyClass} />
+      <Route path="/prcard" component={PRCard} />
+      <Route path="/reconsideration" component={Reconsideration} />
+      <Route path="/temporary" component={Temporary} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>
