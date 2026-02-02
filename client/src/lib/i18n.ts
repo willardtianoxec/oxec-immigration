@@ -62,6 +62,24 @@ export const translations: Record<Language, Record<string, string>> = {
     'footer.address': 'Canada',
     'footer.rights': 'All rights reserved.',
 
+    // Booking Page
+    'booking.title': 'Book Consultation',
+    'booking.subtitle': 'Please fill out the form below and submit. We will evaluate your needs and contact you by phone to confirm the consultation time.',
+    'booking.form_title': 'Appointment Request Form',
+    'booking.name': 'Full Name *',
+    'booking.email': 'Email Address *',
+    'booking.phone': 'Phone Number *',
+    'booking.type': 'Consultation Type *',
+    'booking.type_phone': 'Phone Consultation',
+    'booking.type_inperson': 'In-person Consultation',
+    'booking.date': 'Preferred Date',
+    'booking.content': 'Additional Information',
+    'booking.submit': 'Submit Appointment Request',
+    'booking.success': 'Your appointment request has been received. Our professional consultants will contact you within 24 hours.',
+    'booking.what_to_expect': 'Service Process',
+    'booking.consultation': 'Initial Consultation',
+    'booking.before_consultation': 'Preparation Before Initial Consultation',
+
     // Admin Page
     'admin.title': 'Admin Dashboard',
     'admin.blog': 'Blog Management',
@@ -132,6 +150,24 @@ export const translations: Record<Language, Record<string, string>> = {
     'footer.contact': '联系我们',
     'footer.address': '加拿大',
     'footer.rights': '版权所有。',
+
+    // Booking Page
+    'booking.title': '预约咨询',
+    'booking.subtitle': '请准确填写以下表单并提交，我们将在最短时间内评估您的需求，然后电话联系您确认面谈时间',
+    'booking.form_title': '预约申请表',
+    'booking.name': '客户名称 *',
+    'booking.email': '电子邮件 *',
+    'booking.phone': '联系电话 *',
+    'booking.type': '预约事项 *',
+    'booking.type_phone': '电话咨询',
+    'booking.type_inperson': '线下咨询',
+    'booking.date': '预计咨询时间',
+    'booking.content': '需求说明',
+    'booking.submit': '提交预约申请',
+    'booking.success': '您的预约申请已收到，我们的专业顾问将在24小时内与您联系。',
+    'booking.what_to_expect': '服务流程',
+    'booking.consultation': '首次咨询',
+    'booking.before_consultation': '初次咨询前的准备',
 
     // Admin Page
     'admin.title': '管理员仪表板',
