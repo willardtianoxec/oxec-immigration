@@ -367,7 +367,7 @@ export default function Home() {
       </section>
 
       {/* Global Services Section */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-gray-50" style={{paddingTop: '0px', paddingBottom: '0px', marginTop: '-80px', height: '500px'}}>
         <div className="container">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
