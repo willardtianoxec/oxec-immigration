@@ -210,24 +210,24 @@ export default function Booking() {
               <CardHeader>
                 <CardTitle className="flex items-center">
                   <Calendar className="mr-2 h-5 w-5 text-primary" />
-                  What to Expect
+                  咨询事项
                 </CardTitle> {/* TODO: translate */}
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
-                  <h4 className="font-semibold mb-2">Initial Consultation</h4>
+                  <h4 className="font-semibold mb-2">首次咨询</h4>
                   <p className="text-sm text-muted-foreground">
-                    A comprehensive 30-60 minute session to understand your immigration goals and assess your eligibility.
+                    移民顾问将和您进行30到60分钟的面谈，了解您的移民目标并评估您的现状与资质并提供初步的移民方案与报价。您可以根据顾问的反馈决定是否签署移民服务协议。
                   </p>
                 </div>
                 <div>
-                  <h4 className="font-semibold mb-2">Expert Assessment</h4>
+                  <h4 className="font-semibold mb-2">签约及启动服务</h4>
                   <p className="text-sm text-muted-foreground">
                     Our consultants will evaluate your profile and recommend the best immigration pathway for you.
                   </p>
                 </div>
                 <div>
-                  <h4 className="font-semibold mb-2">Personalized Strategy</h4>
+                  <h4 className="font-semibold mb-2">服务终止与结案</h4>
                   <p className="text-sm text-muted-foreground">
                     Receive a tailored action plan with clear next steps and timeline expectations.
                   </p>
@@ -254,7 +254,7 @@ export default function Booking() {
               <CardHeader>
                 <CardTitle className="flex items-center text-accent">
                   <User className="mr-2 h-5 w-5" />
-                  Before Your Consultation
+                  初次咨询前的准备
                 </CardTitle> {/* TODO: translate */}
               </CardHeader>
               <CardContent>
