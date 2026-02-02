@@ -32,18 +32,22 @@ export default function Calculator() {
 
   const [result, setResult] = useState<any>(null);
 
-  const calculateCRS = trpc.calculator.calculateCRS.useMutation({
-    onSuccess: (data) => {
-      setResult(data);
-    },
-    onError: (error) => {
-      toast.error("Calculation failed: " + error.message);
-    },
-  });
+  const utils = trpc.useUtils();
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleCalculate = () => {
-    calculateCRS.mutate(formData);
+  const handleCalculate = async () => {
+    setIsLoading(true);
+    try {
+      const result = await utils.calculator.calculateCRS.fetch(formData);
+      setResult(result);
+    } catch (error: any) {
+      toast.error("Calculation failed: " + (error.message || 'Unknown error'));
+    } finally {
+      setIsLoading(false);
+    }
   };
+
+  const calculateCRS = { isPending: isLoading };
 
   return (
     <div className="min-h-screen bg-background">

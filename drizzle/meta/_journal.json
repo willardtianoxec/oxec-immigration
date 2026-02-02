@@ -15,6 +15,13 @@
       "when": 1768260929520,
       "tag": "0001_crazy_crystal",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1770000098862,
+      "tag": "0002_low_quicksilver",
+      "breakpoints": true
     }
   ]
 }
