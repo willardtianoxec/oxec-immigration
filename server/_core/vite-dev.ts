@@ -8,8 +8,18 @@ import path from "path";
 import { createServer as createViteServer } from "vite";
 
 export async function setupVite(app: Express, server: Server) {
-  // Dynamically import vite.config to avoid bundling it in production
-  const viteConfig = (await import("../../vite.config")).default;
+  // Load vite.config dynamically to avoid bundling it
+  // Use a string literal to prevent esbuild from detecting the import
+  const configPath = new URL("../../vite.config.ts", import.meta.url).pathname;
+  let viteConfig: any = {};
+  
+  try {
+    // Use dynamic import with computed path to avoid static analysis
+    const importPath = configPath.replace(/\.ts$/, "");
+    viteConfig = (await import(importPath)).default || {};
+  } catch (e) {
+    console.warn("Failed to load vite.config, using defaults");
+  }
   
   const serverOptions = {
     middlewareMode: true,
