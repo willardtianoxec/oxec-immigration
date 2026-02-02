@@ -137,7 +137,7 @@ export default function Home() {
       </nav>
 
       {/* Split Hero Section */}
-      <section className="relative w-full min-h-screen flex" style={{height: '525px', marginBottom: '-213px'}}>
+      <section className="relative w-full min-h-screen flex" style={{height: '700px', marginBottom: '-200px'}}>
         {/* Left: Image - Full Height, No Padding */}
         <div className="w-full lg:w-1/2 order-2 lg:order-1 h-64 lg:h-auto" style={{height: '525px'}}>
           <img
@@ -324,7 +324,7 @@ export default function Home() {
       <section className="py-20 bg-white">
         <div className="container">
           <div className="text-center mb-20">
-            <h2 className="text-3xl lg:text-5xl font-bold text-foreground mb-4">关于傲赛（OXEC）</h2>
+            <h2 className="text-3xl lg:text-5xl font-bold text-foreground mb-4" style={{fontSize: '25px'}}>关于傲赛（OXEC）</h2>
             <p className="text-lg text-muted-foreground">一家领先的专业型加拿大移民与行政法事务所，设于加拿大卑诗省，为加拿大及全球客户提供服务</p>
           </div>
 
@@ -341,7 +341,7 @@ export default function Home() {
                 src="https://private-us-east-1.manuscdn.com/sessionFile/i9ZSSj6IB1QFKBGCY6lMon/sandbox/xj7lxWGtH5OuO3hVm3HQmG-img-1_1770069189000_na1fn_b3hlYy1vZmZpY2UtYnVybmFieQ.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvaTlaU1NqNklCMVFGS0JHQ1k2bE1vbi9zYW5kYm94L3hqN2x4V0d0SDVPdU8zaFZtM0hRbUctaW1nLTFfMTc3MDA2OTE4OTAwMF9uYTFmbl9iM2hsWXkxdlptWnBZMlV0WW5WeWJtRmllUS5qcGc~eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsd18xOTIwLGhfMTkyMC9mb3JtYXQsd2VicC9xdWFsaXR5LHFfODAiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3OTg3NjE2MDB9fX1dfQ__&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=dW2AnK7raPRnRooR3kY6v0yR1PS8BcFl~RjkNVgfIPRJi4wfRZQXloazqSI2MxEBQWKAKTSuSjOjB6OGW07xwLS1q2p6NngzJJNWZTN-0QM4jTNevo34PRMc99rCyF~w7SDqpv6UCrvNDICtl~-qXZZ8dBOtQvCjBLJDRYtwysLWjTvUPoBjY99zI5XNy1MjuDlIxj~vrrLfCX1ZKbWW~JDNFydl9g3xAn5zIz0gYC1rZYlVXcLoJ0dVKQwnrT9OgugbD~hMKUUVmKxYJCFUXha0v9pEfrtQocSSaCK6fShNCSxT5RcOcX8RQJNQD4TIxdaPXoUw2Ks5~e3sOP3-uQ__"
                 alt="OXEC Burnaby Office"
                 className="w-full h-auto rounded-lg shadow-lg object-cover"
-                style={{ aspectRatio: '16/9' }}
+                style={{ aspectRatio: '16/9', borderRadius: '0px' }}
               />
             </div>
           </div>
@@ -353,7 +353,7 @@ export default function Home() {
                 src="https://private-us-east-1.manuscdn.com/sessionFile/i9ZSSj6IB1QFKBGCY6lMon/sandbox/xj7lxWGtH5OuO3hVm3HQmG-img-2_1770069192000_na1fn_b3hlYy1jb25zdWx0YXRpb24tc2NlbmU.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvaTlaU1NqNklCMVFGS0JHQ1k2bE1vbi9zYW5kYm94L3hqN2x4V0d0SDVPdU8zaFZtM0hRbUctaW1nLTJfMTc3MDA2OTE5MjAwMF9uYTFmbl9iM2hsWXkxamIyNXpkV3gwWVhScGIyNHRjMk5sYm1VLmpwZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzE5MjAsaF8xOTIwL2Zvcm1hdCx3ZWJwL3F1YWxpdHkscV84MCIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc5ODc2MTYwMH19fV19&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=RUL~GKYQNbDGEMROXXPkUhfuL9cU7wNDhm9kfxmHr9SN4KlXkCsMZVAu8EFs9dgRqhAjhDXj0VjhRdz~jpaA8zToIuxb5s4~sUJa5m2aSa~Weauya62rWQtnlwHhvT8pVlElobbtiiaFnIe-Q78gPOT0gRT4PKCjOuGRoO-BzYukBpOklqCQ5eyRI~9QbX0l0Pr81-T3uloGcUFHCsrkNUEZtBX6rKih2sdcFi7DNpt0qCcnqkoJ1yKU89EuuF7tXPze2IHf84NBK59PoAA0ZIa8TKKpKqxsCIWtHDoOcJ18eHQXlGCaGdZOqpQD7PmMF785Ve9yEEASv3WbeKbD5Q__"
                 alt="Professional Consultation"
                 className="w-full h-auto rounded-lg shadow-lg object-cover"
-                style={{ aspectRatio: '16/9' }}
+                style={{ aspectRatio: '16/9', borderRadius: '0px' }}
               />
             </div>
             <div>
@@ -371,7 +371,11 @@ export default function Home() {
         <div className="container">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <DotMatrixWorldMap />
+              <img
+                src="https://images.vexels.com/media/users/3/131770/isolated/svg/9d615c923d10e51af4424ffdb17181dd.svg"
+                alt="Global Services World Map"
+                className="w-full h-auto"
+              />
             </div>
             <div>
               <h2 className="text-2xl lg:text-3xl font-bold text-foreground mb-6">全球服务</h2>
