@@ -185,6 +185,7 @@ export default function Home() {
       <section className="py-20 bg-background" style={{ paddingTop: "50px", paddingBottom: "50px", marginTop: '-119px' }}>
         <div className="container">
           <div className="text-center mb-16">
+            <h2 className="font-bold text-foreground mb-4" style={{ fontFamily: '"Noto Sans SC", sans-serif', fontSize: '64px', fontWeight: 900 }}>我们的移民服务</h2>
             <h2 className="text-3xl lg:text-5xl font-bold text-foreground mb-4">{t("services.title")}</h2>
             <p className="text-lg text-muted-foreground">{t("services.subtitle")}</p>
           </div>
@@ -369,7 +370,7 @@ export default function Home() {
       {/* Global Services Section */}
       <section className="py-20 bg-gray-50" style={{paddingTop: '0px', paddingBottom: '0px', marginTop: '-40px', height: '500px'}}>
         <div className="container">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="grid md:grid-cols-2 gap-12" style={{ alignItems: 'center', display: 'flex' }}>
             <div>
               <img
                 src="https://images.vexels.com/media/users/3/131770/isolated/svg/9d615c923d10e51af4424ffdb17181dd.svg"
@@ -393,6 +394,53 @@ export default function Home() {
                   </span>
                 </Button>
               </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Latest Articles Section */}
+      <section className="py-20 bg-white" style={{ paddingTop: "50px", paddingBottom: "50px" }}>
+        <div className="container">
+          <div className="text-center mb-16">
+            <h2 className="font-bold text-foreground mb-12" style={{ fontFamily: '"Noto Sans SC", sans-serif', fontSize: '64px', fontWeight: 900 }}>我们最新的文章</h2>
+          </div>
+          
+          <div className="grid md:grid-cols-2 gap-12">
+            {/* Left Column - Latest Articles */}
+            <div>
+              <h3 className="font-bold text-foreground mb-8" style={{ fontFamily: '"Noto Sans SC", sans-serif', fontSize: '30px', fontWeight: 700 }}>最新的移民观察</h3>
+              <div className="bg-white border border-border overflow-hidden hover:shadow-lg transition-shadow">
+                <div className="h-48 bg-gradient-to-br from-primary/20 to-accent/20"></div>
+                <div className="p-6">
+                  <p className="text-sm text-primary font-semibold mb-2">{t("blog.category")}</p>
+                  <h3 className="text-xl font-bold text-foreground mb-2">{t("blog.article_title")}</h3>
+                  <p className="text-muted-foreground text-sm mb-4">{t("blog.article_excerpt")}</p>
+                  <Link href="/blog">
+                    <span className="text-primary font-semibold hover:text-primary/80 transition-colors cursor-pointer">
+                      阅读更多 »
+                    </span>
+                  </Link>
+                </div>
+              </div>
+            </div>
+            
+            {/* Right Column - Success Cases */}
+            <div>
+              <h3 className="font-bold text-foreground mb-8" style={{ fontFamily: '"Noto Sans SC", sans-serif', fontSize: '30px', fontWeight: 700 }}>最近的成功案例</h3>
+              <div className="bg-white border border-border overflow-hidden hover:shadow-lg transition-shadow">
+                <div className="h-48 bg-gradient-to-br from-accent/20 to-primary/20"></div>
+                <div className="p-6">
+                  <p className="text-sm text-accent font-semibold mb-2">成功案例</p>
+                  <h3 className="text-xl font-bold text-foreground mb-2">客户成功获批永久居民身份</h3>
+                  <p className="text-muted-foreground text-sm mb-4">通过我们专业的指导和精心准备，客户在6个月内成功获得永久居民身份...</p>
+                  <Link href="/success-cases">
+                    <span className="text-accent font-semibold hover:text-accent/80 transition-colors cursor-pointer">
+                      阅读更多 »
+                    </span>
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
         </div>
