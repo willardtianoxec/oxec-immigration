@@ -94,72 +94,72 @@ export function Footer() {
             <nav className="space-y-3 text-sm">
               <div>
                 <Link href="/businessclass">
-                  <a
-                    className="hover:text-white transition"
+                  <span
+                    className="hover:text-white transition cursor-pointer"
                     style={{ color: '#E5E7EB' }}
                   >
                     投资移民
-                  </a>
+                  </span>
                 </Link>
               </div>
               <div>
                 <Link href="/familyclass">
-                  <a
-                    className="hover:text-white transition"
+                  <span
+                    className="hover:text-white transition cursor-pointer"
                     style={{ color: '#E5E7EB' }}
                   >
                     家庭团聚移民
-                  </a>
+                  </span>
                 </Link>
               </div>
               <div>
                 <Link href="/prcard">
-                  <a
-                    className="hover:text-white transition"
+                  <span
+                    className="hover:text-white transition cursor-pointer"
                     style={{ color: '#E5E7EB' }}
                   >
                     枫叶卡续签与加急
-                  </a>
+                  </span>
                 </Link>
               </div>
               <div>
                 <Link href="/reconsideration">
-                  <a
-                    className="hover:text-white transition"
+                  <span
+                    className="hover:text-white transition cursor-pointer"
                     style={{ color: '#E5E7EB' }}
                   >
                     拒签与程序公正信
-                  </a>
+                  </span>
                 </Link>
               </div>
               <div>
                 <Link href="/temporary">
-                  <a
-                    className="hover:text-white transition"
+                  <span
+                    className="hover:text-white transition cursor-pointer"
                     style={{ color: '#E5E7EB' }}
                   >
                     留学与访问申请
-                  </a>
+                  </span>
                 </Link>
               </div>
               <div>
                 <Link href="/skillworker">
-                  <a
-                    className="hover:text-white transition"
+                  <span
+                    className="hover:text-white transition cursor-pointer"
                     style={{ color: '#E5E7EB' }}
                   >
                     技术移民
-                  </a>
+                  </span>
                 </Link>
               </div>
               <div>
                 <Link href="/citizenship">
-                  <a
-                    className="hover:text-white transition"
+                  <span
+                    className="hover:text-white transition cursor-pointer"
                     style={{ color: '#E5E7EB' }}
                   >
                     公民入籍
-                  </a>
+                  </span>
                 </Link>
               </div>
             </nav>
@@ -173,42 +173,42 @@ export function Footer() {
             <nav className="space-y-3 text-sm">
               <div>
                 <Link href="/crs-calculator">
-                  <a
-                    className="hover:text-white transition"
+                  <span
+                    className="hover:text-white transition cursor-pointer"
                     style={{ color: '#E5E7EB' }}
                   >
                     联邦快速通道算分工具
-                  </a>
+                  </span>
                 </Link>
               </div>
               <div>
                 <Link href="/bccalculator">
-                  <a
-                    className="hover:text-white transition"
+                  <span
+                    className="hover:text-white transition cursor-pointer"
                     style={{ color: '#E5E7EB' }}
                   >
                     BC省提名计划算分工具
-                  </a>
+                  </span>
                 </Link>
               </div>
               <div>
                 <Link href="/success-cases">
-                  <a
-                    className="hover:text-white transition"
+                  <span
+                    className="hover:text-white transition cursor-pointer"
                     style={{ color: '#E5E7EB' }}
                   >
                     成功案例
-                  </a>
+                  </span>
                 </Link>
               </div>
               <div>
                 <Link href="/blog">
-                  <a
-                    className="hover:text-white transition"
+                  <span
+                    className="hover:text-white transition cursor-pointer"
                     style={{ color: '#E5E7EB' }}
                   >
                     移民观察
-                  </a>
+                  </span>
                 </Link>
               </div>
             </nav>
