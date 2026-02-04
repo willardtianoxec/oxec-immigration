@@ -182,7 +182,7 @@ export default function Home() {
       </section>
 
       {/* Services Section */}
-      <section className="py-20 bg-background" style={{ paddingTop: "50px", paddingBottom: "50px", marginTop: '-119px' }}>
+      <section className="py-20 bg-background" style={{ paddingTop: "50px", paddingBottom: "50px", marginTop: '-12px', height: '670px' }}>
         <div className="container">
           <div className="text-center mb-16">
             <h2 className="font-bold text-foreground mb-4" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: '64px', fontWeight: 900 }}>我们的移民服务</h2>
@@ -285,7 +285,7 @@ export default function Home() {
 
 
       {/* About OXEC Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20" style={{ backgroundColor: '#e8e8e8' }}>
         <div className="container">
           <div className="text-center mb-20">
             <h2 className="font-bold text-foreground mb-4" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: '64px', fontWeight: 900 }}>关于傲赛（OXEC）</h2>
@@ -331,7 +331,7 @@ export default function Home() {
       </section>
 
       {/* Global Services Section */}
-      <section className="py-20 bg-gray-50" style={{ paddingTop: "60px", paddingBottom: "60px", marginTop: "0px" }}>
+      <section className="py-20 bg-gray-50" style={{ paddingTop: "0px", paddingBottom: "0px", marginTop: "0px" }}>
         <div className="container">
           <div className="grid md:grid-cols-2 gap-12 items-center" style={{ display: 'flex', alignItems: 'center', minHeight: 'auto', overflow: 'visible' }}>
             <div>
@@ -342,7 +342,7 @@ export default function Home() {
               />
             </div>
             <div>
-              <h2 className="text-2xl lg:text-3xl font-bold text-foreground mb-6">全球服务</h2>
+              <h2 className="font-bold text-foreground mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: '48px', fontWeight: 900 }}>全球服务</h2>
               <p className="text-lg text-muted-foreground leading-relaxed mb-6">
                 我们为来自加拿大各地及世界各国的客户提供移民咨询服务。
               </p>
