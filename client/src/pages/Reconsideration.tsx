@@ -15,7 +15,7 @@ export default function ReconsiderationPage() {
     },
     title: 'Visa Refusal and Procedural Fairness Letter',
     overview: {
-      title: 'Professional Response to Visa Refusal: Reopening the Door to Canada',
+      title: 'Calmly Face Visa Refusal Risks',
       content: 'Canada\'s entry application threshold ranks among the highest in the world. Every year, countless applicants face visa refusals due to various reasons, disrupting their work, family visits, or study plans. Facing refusal, there\'s no need to panic. OXEC specializes in handling various difficult and refused cases, with rich practical experience to help you turn crisis into opportunity through legal means.',
     },
     challenges: {
@@ -47,7 +47,7 @@ export default function ReconsiderationPage() {
     },
     title: '拒签和程序公正信',
     overview: {
-      title: '专业应对拒签：开启再次通往加拿大的大门',
+      title: '冷静面对拒签风险',
       content: '加拿大的入境申请门槛位居世界前列，每年都有大量申请人因各种原因面临拒签，导致工作、探亲或学习计划中断。面对拒签，不必过度惊慌。傲赛（OXEC）专注于处理各类疑难及被拒案例，我们拥有丰富的实战经验，助您通过法律途径转危为安。',
     },
     challenges: {
@@ -119,13 +119,6 @@ export default function ReconsiderationPage() {
           </button>
         </div>
       </nav>
-
-      {/* Page Title */}
-      <div className="bg-gradient-to-r from-blue-900 to-blue-800 text-white py-12">
-        <div className="container">
-          <h1 className="text-4xl lg:text-5xl font-bold">{t.title}</h1>
-        </div>
-      </div>
 
       {/* Section 1: Overview */}
       <section className="py-20 bg-white">
