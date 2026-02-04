@@ -336,7 +336,7 @@ export default function Home() {
           <div className="grid md:grid-cols-2 gap-12 items-center" style={{ display: 'flex', alignItems: 'center', minHeight: 'auto', overflow: 'visible' }}>
             <div>
               <img
-                src="https://images.vexels.com/media/users/3/131770/isolated/svg/9d615c923d10e51af4424ffdb17181dd.svg"
+                src="/world-map-dots.svg"
                 alt="Global Services World Map"
                 className="w-full h-auto"
               />
