@@ -137,7 +137,7 @@ export default function Home() {
       </nav>
 
       {/* Split Hero Section */}
-      <section className="relative w-full min-h-screen flex" style={{height: '700px', marginBottom: '-200px'}}>
+      <section className="relative w-full min-h-screen flex" style={{height: '700px', marginBottom: '-202px'}}>
         {/* Left: Image - Full Height, No Padding */}
         <div className="w-full lg:w-1/2 order-2 lg:order-1 h-64 lg:h-auto" style={{height: '525px'}}>
           <img
@@ -185,7 +185,7 @@ export default function Home() {
       <section className="py-20 bg-background" style={{ paddingTop: "50px", paddingBottom: "50px", marginTop: '-12px', height: '670px' }}>
         <div className="container">
           <div className="text-center mb-16">
-            <h2 className="font-bold text-foreground mb-4" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: '64px', fontWeight: 900 }}>我们的移民服务</h2>
+            <h2 className="font-bold text-foreground mb-4" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: '48px', fontWeight: 900 }}>我们的移民服务</h2>
             <p className="text-lg text-muted-foreground">{t("services.subtitle")}</p>
           </div>
 
@@ -285,10 +285,10 @@ export default function Home() {
 
 
       {/* About OXEC Section */}
-      <section className="py-20" style={{ backgroundColor: '#e8e8e8' }}>
+      <section className="py-20" style={{ backgroundColor: '#ffffff', paddingTop: '0px' }}>
         <div className="container">
           <div className="text-center mb-20">
-            <h2 className="font-bold text-foreground mb-4" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: '64px', fontWeight: 900 }}>关于傲赛（OXEC）</h2>
+            <h2 className="font-bold text-foreground mb-4" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: '48px', fontWeight: 900 }}>关于傲赛（OXEC）</h2>
             <p className="text-lg text-muted-foreground">一家领先的专业型加拿大移民与行政法事务所，设于加拿大卑诗省，为加拿大及全球客户提供服务</p>
           </div>
 
@@ -366,7 +366,7 @@ export default function Home() {
       <section className="py-20 bg-white" style={{ paddingTop: "50px", paddingBottom: "50px" }}>
         <div className="container">
           <div className="text-center mb-16">
-            <h2 className="font-bold text-foreground mb-12" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: '64px', fontWeight: 900 }}>我们最新的文章</h2>
+            <h2 className="font-bold text-foreground mb-12" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: '48px', fontWeight: 900 }}>我们最新的文章</h2>
           </div>
           
           <div className="grid md:grid-cols-2 gap-12">
