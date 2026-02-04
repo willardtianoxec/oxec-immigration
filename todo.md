@@ -115,3 +115,12 @@
 - [x] 添加最新文章板块 - 实现"我们最新的文章"分栏布局（左栏最新文章+右栏成功案例）
 - [x] 修复全球服务对齐 - 点阵地图与文字垢直居中对齐
 - [x] 资源本地化验证 - 确保点阵地图图片本地化或提示上传
+
+## Homepage Restructuring (Current Sprint - Phase 11)
+- [x] 移除固定高度 - 删除所有 Section 的 height 属性，改为 min-height + padding
+- [x] 修复响应式布局 - 确保 Flexbox 布局，align-items: center，overflow: visible
+- [x] 统一标题字体 - 所有标题应用 Alibaba PuHuiTi Black，64px，fontWeight 900
+- [x] 删除重复标题 - 检查并删除"我们的移民服务"上方重复的标题
+- [x] 删除冠余板块 - 移除"成功案例"板块和"最新咨询"板块
+- [x] 保留最新文章板块 - 仅保留"我们最新的文章"分栏布局
+- [x] 验证资源本地化 - 确认点阵地图图片已本地化

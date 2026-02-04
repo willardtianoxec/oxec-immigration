@@ -185,8 +185,7 @@ export default function Home() {
       <section className="py-20 bg-background" style={{ paddingTop: "50px", paddingBottom: "50px", marginTop: '-119px' }}>
         <div className="container">
           <div className="text-center mb-16">
-            <h2 className="font-bold text-foreground mb-4" style={{ fontFamily: '"Noto Sans SC", sans-serif', fontSize: '64px', fontWeight: 900 }}>我们的移民服务</h2>
-            <h2 className="text-3xl lg:text-5xl font-bold text-foreground mb-4">{t("services.title")}</h2>
+            <h2 className="font-bold text-foreground mb-4" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: '64px', fontWeight: 900 }}>我们的移民服务</h2>
             <p className="text-lg text-muted-foreground">{t("services.subtitle")}</p>
           </div>
 
@@ -283,49 +282,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Success Cases Preview */}
-      <section className="py-20 bg-accent/5" style={{ paddingTop: "50px", paddingBottom: "50px" }}>
-        <div className="container">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-5xl font-bold text-foreground mb-4">{t("success.title")}</h2>
-            <p className="text-lg text-muted-foreground">{t("success.subtitle")}</p>
-          </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {[1, 2, 3].map((i) => (
-              <div key={i} className="bg-white p-8 rounded-lg border border-border hover:shadow-lg transition-shadow">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
-                    <span className="text-primary font-bold">✓</span>
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-foreground">{t("success.case_type")}</h3>
-                    <p className="text-sm text-muted-foreground">{t("success.case_background")}</p>
-                  </div>
-                </div>
-                <p className="text-muted-foreground text-sm">{t("success.case_outcome")}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className="text-center mt-12">
-            <Link href="/success-cases">
-              <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none">
-                <span>
-                  {t("success.view_all")}
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </span>
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </section>
 
       {/* About OXEC Section */}
       <section className="py-20 bg-white">
         <div className="container">
           <div className="text-center mb-20">
-            <h2 className="text-3xl lg:text-5xl font-bold text-foreground mb-4" style={{fontSize: '25px'}}>关于傲赛（OXEC）</h2>
+            <h2 className="font-bold text-foreground mb-4" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: '64px', fontWeight: 900 }}>关于傲赛（OXEC）</h2>
             <p className="text-lg text-muted-foreground">一家领先的专业型加拿大移民与行政法事务所，设于加拿大卑诗省，为加拿大及全球客户提供服务</p>
           </div>
 
@@ -368,9 +331,9 @@ export default function Home() {
       </section>
 
       {/* Global Services Section */}
-      <section className="py-20 bg-gray-50" style={{paddingTop: '0px', paddingBottom: '0px', marginTop: '-40px', height: '500px'}}>
+      <section className="py-20 bg-gray-50" style={{ paddingTop: "60px", paddingBottom: "60px", marginTop: "0px" }}>
         <div className="container">
-          <div className="grid md:grid-cols-2 gap-12" style={{ alignItems: 'center', display: 'flex' }}>
+          <div className="grid md:grid-cols-2 gap-12 items-center" style={{ display: 'flex', alignItems: 'center', minHeight: 'auto', overflow: 'visible' }}>
             <div>
               <img
                 src="https://images.vexels.com/media/users/3/131770/isolated/svg/9d615c923d10e51af4424ffdb17181dd.svg"
@@ -403,13 +366,13 @@ export default function Home() {
       <section className="py-20 bg-white" style={{ paddingTop: "50px", paddingBottom: "50px" }}>
         <div className="container">
           <div className="text-center mb-16">
-            <h2 className="font-bold text-foreground mb-12" style={{ fontFamily: '"Noto Sans SC", sans-serif', fontSize: '64px', fontWeight: 900 }}>我们最新的文章</h2>
+            <h2 className="font-bold text-foreground mb-12" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: '64px', fontWeight: 900 }}>我们最新的文章</h2>
           </div>
           
           <div className="grid md:grid-cols-2 gap-12">
             {/* Left Column - Latest Articles */}
             <div>
-              <h3 className="font-bold text-foreground mb-8" style={{ fontFamily: '"Noto Sans SC", sans-serif', fontSize: '30px', fontWeight: 700 }}>最新的移民观察</h3>
+              <h3 className="font-bold text-foreground mb-8" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: '30px', fontWeight: 700 }}>最新的移民观察</h3>
               <div className="bg-white border border-border overflow-hidden hover:shadow-lg transition-shadow">
                 <div className="h-48 bg-gradient-to-br from-primary/20 to-accent/20"></div>
                 <div className="p-6">
@@ -427,7 +390,7 @@ export default function Home() {
             
             {/* Right Column - Success Cases */}
             <div>
-              <h3 className="font-bold text-foreground mb-8" style={{ fontFamily: '"Noto Sans SC", sans-serif', fontSize: '30px', fontWeight: 700 }}>最近的成功案例</h3>
+              <h3 className="font-bold text-foreground mb-8" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: '30px', fontWeight: 700 }}>最近的成功案例</h3>
               <div className="bg-white border border-border overflow-hidden hover:shadow-lg transition-shadow">
                 <div className="h-48 bg-gradient-to-br from-accent/20 to-primary/20"></div>
                 <div className="p-6">
@@ -446,44 +409,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Blog Preview */}
-      <section className="py-20 bg-background" style={{ paddingTop: "50px", paddingBottom: "50px" }}>
-        <div className="container">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-5xl font-bold text-foreground mb-4">{t("blog.title")}</h2>
-            <p className="text-lg text-muted-foreground">{t("blog.subtitle")}</p>
-          </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {[1, 2, 3].map((i) => (
-              <div key={i} className="bg-white rounded-lg border border-border overflow-hidden hover:shadow-lg transition-shadow">
-                <div className="h-48 bg-gradient-to-br from-primary/20 to-accent/20"></div>
-                <div className="p-6">
-                  <p className="text-sm text-primary font-semibold mb-2">{t("blog.category")}</p>
-                  <h3 className="text-xl font-bold text-foreground mb-2">{t("blog.article_title")}</h3>
-                  <p className="text-muted-foreground text-sm mb-4">{t("blog.article_excerpt")}</p>
-                  <Link href="/blog">
-                    <span className="text-primary font-semibold hover:text-primary/80 transition-colors cursor-pointer">
-                      {t("blog.read_more")} →
-                    </span>
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="text-center mt-12">
-            <Link href="/blog">
-              <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none">
-                <span>
-                  {t("blog.view_all")}
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </span>
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </section>
 
       {/* Footer */}
       <footer className="py-12" style={{ backgroundColor: '#203341', paddingTop: "50px", paddingBottom: "50px" }}>
