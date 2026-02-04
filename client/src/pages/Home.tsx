@@ -5,6 +5,7 @@ import { Link, useLocation } from "wouter";
 import { useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import DotMatrixWorldMap from "@/components/DotMatrixWorldMap";
+import { Footer } from "@/components/Footer";
 
 export default function Home() {
   const { user, isAuthenticated } = useAuth();
@@ -412,64 +413,7 @@ export default function Home() {
 
 
       {/* Footer */}
-      <footer className="py-12" style={{ backgroundColor: '#203341', paddingTop: "50px", paddingBottom: "50px" }}>
-        <div className="container">
-          <div className="grid md:grid-cols-4 gap-8 mb-8">
-            <div>
-              <h4 className="font-bold mb-4" style={{ color: '#ffffff' }}>{t("footer.about")}</h4>
-              <p className="text-sm" style={{ color: '#e0e0e0' }}>{t("footer.about_desc")}</p>
-            </div>
-            <div>
-              <h4 className="font-bold mb-4" style={{ color: '#ffffff' }}>{t("footer.services")}</h4>
-              <ul className="space-y-2 text-sm">
-                <li>
-                  <Link href="/services">
-                    <span className="hover:opacity-100 transition-opacity cursor-pointer" style={{ color: '#e0e0e0' }}>{t("services.pr")}</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/services">
-                    <span className="hover:opacity-100 transition-opacity cursor-pointer" style={{ color: '#e0e0e0' }}>{t("services.visa")}</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/services">
-                    <span className="hover:opacity-100 transition-opacity cursor-pointer" style={{ color: '#e0e0e0' }}>{t("services.citizenship")}</span>
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-bold mb-4" style={{ color: '#ffffff' }}>{t("footer.resources")}</h4>
-              <ul className="space-y-2 text-sm">
-                <li>
-                  <Link href="/blog">
-                    <span className="hover:opacity-100 transition-opacity cursor-pointer" style={{ color: '#e0e0e0' }}>{t("nav.blog")}</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/success-cases">
-                    <span className="hover:opacity-100 transition-opacity cursor-pointer" style={{ color: '#e0e0e0' }}>{t("nav.success_cases")}</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/calculator">
-                    <span className="hover:opacity-100 transition-opacity cursor-pointer" style={{ color: '#e0e0e0' }}>{t("hero.calculator")}</span>
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-bold mb-4" style={{ color: '#ffffff' }}>{t("footer.contact")}</h4>
-              <p className="text-sm" style={{ color: '#e0e0e0' }}>business@oxecimm.com</p>
-              <p className="text-sm mt-2" style={{ color: '#e0e0e0' }}>{t("footer.address")}</p>
-            </div>
-          </div>
-          <div className="pt-8 text-center text-sm" style={{ borderTop: '1px solid rgba(255, 255, 255, 0.2)', color: '#b0b0b0' }}>
-            <p>&copy; 2026 OXEC Immigration Services Ltd. {t("footer.rights")}</p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
