@@ -20,6 +20,8 @@ import Team from "./pages/Team";
 import SkillWorker from "./pages/SkillWorker";
 import Citizenship from "./pages/Citizenship";
 import BCCalculator from "./pages/BCCalculator";
+import TermOfService from "./pages/TermOfService";
+import TermOfUse from "./pages/TermOfUse";
 
 function Router() {
   return (
@@ -39,6 +41,8 @@ function Router() {
       <Route path="/skillworker" component={SkillWorker} />
       <Route path="/citizenship" component={Citizenship} />
       <Route path="/bccalculator" component={BCCalculator} />
+      <Route path="/term-of-service" component={TermOfService} />
+      <Route path="/term-of-use" component={TermOfUse} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>

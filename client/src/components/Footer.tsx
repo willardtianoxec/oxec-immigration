@@ -9,7 +9,7 @@ export function Footer() {
           <div>
             <div className="mb-6">
               <img
-                src="/logo.svg"
+                src="https://private-us-east-1.manuscdn.com/sessionFile/i9ZSSj6IB1QFKBGCY6lMon/sandbox/PWnhQEBOUFfG0zPmjqUIQX_1770247840697_na1fn_b3hlYy1sb2dvLXdoaXRl.png?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvaTlaU1NqNklCMVFGS0JHQ1k2bE1vbi9zYW5kYm94L1BXbmhRRUJPVUZmRzB6UG1qcVVJUVhfMTc3MDI0Nzg0MDY5N19uYTFmbl9iM2hsWXkxc2IyZHZMWGRvYVhSbC5wbmc~eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsd18xOTIwLGhfMTkyMC9mb3JtYXQsd2VicC9xdWFsaXR5LHFfODAiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3OTg3NjE2MDB9fX1dfQ__&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=KHJ-CChbpkpn93BgLsqpvDS3VPxfouVVv8p~oUF7RCprgiUcOSvFJ6~iMq-0f4xd3oydodPoUruGDx0qgY2hzqEGt6TASqE7JwcGBB67iLQMzYg5OPyvNOQkhbKlE-P0aw4jQc0fu-2ojev7Dwv7axPmGDFp~CwbNimx-n5hxDlxovjh80TfeA2Kel4zvdD~hUPcHtw5YsuPEZzwSzo3~QLHi3D9GwupQysPek7mRQA73YuHliEP6V0lwh~lDawe2ypO4eErXJtxuVbbjTjX4DVp8maCxmtb3OjG6HFq-XX1fooSeb1wyL4qOg7D8pcaZHgfjMEZ-meCif70cynx9Q__"
                 alt="OXEC Immigration Logo"
                 className="h-12 w-auto mb-4"
               />
@@ -217,15 +217,26 @@ export function Footer() {
 
         {/* Bottom Bar */}
         <div
-          className="border-t border-gray-600 pt-8 text-center text-sm"
+          className="border-t border-gray-600 pt-8"
           style={{ color: '#E5E7EB' }}
         >
-          <p>
-            © 2024 OXEC Immigration Services Ltd. 版权所有。保留所有权利。
-          </p>
-          <p className="mt-2 text-xs">
-            OXEC 是加拿大注册移民顾问（RCIC）事务所，遵守加拿大移民顾问监管委员会（ICCRC）的专业标准。
-          </p>
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center text-sm">
+            <p>
+              © 2024 OXEC Immigration Services Ltd. All rights reserved.
+            </p>
+            <div className="flex gap-6 mt-4 md:mt-0">
+              <Link href="/term-of-service">
+                <span className="hover:text-white transition cursor-pointer">
+                  Term of Service
+                </span>
+              </Link>
+              <Link href="/term-of-use">
+                <span className="hover:text-white transition cursor-pointer">
+                  Term of Use
+                </span>
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </footer>

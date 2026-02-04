@@ -133,3 +133,11 @@
 - [x] 实现第四栏：资源中心 - 4个工具/内容链接
 - [x] 在Home页面集成Footer - 将Footer添加到页面底部
 - [x] 测试和创建检查点 - 验证编译状态和响应式布局
+
+## Footer Optimization (Current Sprint - Phase 13)
+- [x] 生成白色透明背景Logo SVG - 基于导航栏Logo生成
+- [x] 修改Footer底部布局 - 英文版权+Term of Service+Term of Use链接
+- [x] 创建Term of Service页面 - 参考Heron Law，替换为OXEC内容
+- [x] 创建Term of Use页面 - 参考Heron Law，替换为OXEC内容
+- [x] 在App.tsx添加新路由 - /term-of-service 和 /term-of-use
+- [x] 测试和创建检查点 - 验证编译状态和页面显示
