@@ -141,3 +141,10 @@
 - [x] 创建Term of Use页面 - 参考Heron Law，替换为OXEC内容
 - [x] 在App.tsx添加新路由 - /term-of-service 和 /term-of-use
 - [x] 测试和创建检查点 - 验证编译状态和页面显示
+
+## Citizenship Page Development (Current Sprint - Phase 14)
+- [x] 生成公民入籍主题图片资产 - 创建3张专业图片（入籍宣誓、法律文书、枚叶旗建筑）
+- [x] 创建/citizenship页面组件 - 3个Section交替布局，硬编码中文内容
+- [x] 集成成功案例和CTA - 拉取入籍相关案例，添加预约咨询按锕
+- [x] 在App.tsx添加路由 - /citizenship 路由配置
+- [x] 测试和创建检查点 - 验证编译状态和页面显示
