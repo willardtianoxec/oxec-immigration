@@ -65,10 +65,10 @@ export default function Temporary() {
         {/* Section 1: Study Abroad Overview - Left Text, Right Image */}
         <section id="study" className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center py-20 scroll-mt-20">
           <div className="flex flex-col justify-center">
-            <h2 className="text-3xl lg:text-4xl font-black mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", sans-serif', fontSize: "64px" }}>
+            <h2 className="text-3xl lg:text-4xl font-black mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", sans-serif', fontSize: "48px" }}>
               {isEnglish
-                ? "Study in Canada: Opening Global Horizons and Immigration Pathways"
-                : "留学加拿大：开启全球视野与移民之门"}
+                ? "Study in Canada"
+                : "留学加拿大"}
             </h2>
             <p className="text-lg text-foreground/80 leading-relaxed mb-6 whitespace-pre-line">
               {isEnglish
@@ -80,7 +80,7 @@ export default function Temporary() {
             <img
               src="https://private-us-east-1.manuscdn.com/sessionFile/i9ZSSj6IB1QFKBGCY6lMon/sandbox/gWqQoqrATfZKZpKyoTNMOK-img-1_1770333603000_na1fn_dGVtcG9yYXJ5LXN0dWR5LWFicm9hZA.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvaTlaU1NqNklCMVFGS0JHQ1k2bE1vbi9zYW5kYm94L2dXcVFvcXJBVGZaS1pwS3lvVE5NT0staW1nLTFfMTc3MDMzMzYwMzAwMF9uYTFmbl9kR1Z0Y0c5eVlYSjVMWE4wZFdSNUxXRmljbTloWkEuanBnP3gtb3NzLXByb2Nlc3M9aW1hZ2UvcmVzaXplLHdfMTkyMCxoXzE5MjAvZm9ybWF0LHdlYnAvcXVhbGl0eSxxXzgwIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNzk4NzYxNjAwfX19XX0_&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=tsQuBhiQPXqyY-w~3uP5JJb--2jho2p~goHOIwhMxSjRu23d4IQCZX9vTR-kDpHmufvJDOfDviLff2jJBwXC0nE~tmUrs6LoanbYxprwZ1a9xcL4SpFArmyPVTsYA9fyX0GBSQKea5dEGdLl5vVkGUJR6Ypzd-iJndOVe9njJ9VS9SZiA48BqJlwyTVyEbNmHNXzYSuY9-fZjqZOeL271~rrMX7kEwcqqF7QIMYpSu7PgwLduqpndpHVwbWJOiQLzI4-4LkFfoziSxcM22cQVhqED-XUKm5wu6RafEK5rLPgvug1tgGSeezaCkZEa5fKiD26DdtzyhrFPp03aQl11Q__"
               alt="Study Abroad"
-              className="w-full h-auto rounded-lg shadow-lg"
+              className="w-full h-auto shadow-lg" style={{ borderRadius: "0px" }}
             />
           </div>
         </section>
@@ -91,14 +91,14 @@ export default function Temporary() {
             <img
               src="https://private-us-east-1.manuscdn.com/sessionFile/i9ZSSj6IB1QFKBGCY6lMon/sandbox/gWqQoqrATfZKZpKyoTNMOK-img-2_1770333611000_na1fn_dGVtcG9yYXJ5LXNwb3VzYWwtd29yaw.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvaTlaU1NqNklCMVFGS0JHQ1k2bE1vbi9zYW5kYm94L2dXcVFvcXJBVGZaS1pwS3lvVE5NT0staW1nLTJfMTc3MDMzMzYxMTAwMF9uYTFmbl9kR1Z0Y0c5eVlYSjVMWE53YjNWellXd3RkMjl5YXcuanBnP3gtb3NzLXByb2Nlc3M9aW1hZ2UvcmVzaXplLHdfMTkyMCxoXzE5MjAvZm9ybWF0LHdlYnAvcXVhbGl0eSxxXzgwIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNzk4NzYxNjAwfX19XX0_&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=rzxAqqHZFY-i3bwBK4cZady0kHqp1ZfPnwkcqr~j3P17tJtHOm4GUi8usjmocddrZ0xZghRdv0zJuu7RxVkqXO~GS6zCom-qwkv0NO03qZN8lV4Ebf1mvZl33m5PW0uzyGc6-RtrmFDcy1F3GDBsvimjShhYpJkE6jkq~F-O5T8HSYV6vkEA-9mvSGAOJisB0Vpni6JBlIFMVx1qOZLJAS-oRTBohgc9NxlEOQ9yT0bLhpWm65QY3QlMXgXda4y-nltoR7FEaT9uO-MfHEaivR0KtWM7PMN~yfEzJ2pOmMmHAFw1QIWN6LDTZLjAwidjdyz5O-kQh2LknFCP2v7Spw__"
               alt="Study Quota and PAL"
-              className="w-full h-auto rounded-lg shadow-lg"
+              className="w-full h-auto shadow-lg" style={{ borderRadius: "0px" }}
             />
           </div>
           <div className="flex flex-col justify-center lg:order-last">
-            <h2 className="text-3xl lg:text-4xl font-black mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", sans-serif', fontSize: "64px" }}>
+            <h2 className="text-3xl lg:text-4xl font-black mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", sans-serif', fontSize: "48px" }}>
               {isEnglish
-                ? "Policy Deep Dive: Study Quotas and Provincial Attestation Letters (PAL)"
-                : "政策深度解析：留学配额与省证明信 (PAL)"}
+                ? "Study Quotas and Provincial Attestation Letters (PAL)"
+                : "留学配额与省证明信 (PAL)"}
             </h2>
             <p className="text-lg text-foreground/80 leading-relaxed mb-6 whitespace-pre-line">
               {isEnglish
@@ -111,10 +111,10 @@ export default function Temporary() {
         {/* Section 3: Spousal & Family Support - Left Text, Right Image */}
         <section id="family-stay" className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center py-20 scroll-mt-20">
           <div className="flex flex-col justify-center">
-            <h2 className="text-3xl lg:text-4xl font-black mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", sans-serif', fontSize: "64px" }}>
+            <h2 className="text-3xl lg:text-4xl font-black mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", sans-serif', fontSize: "48px" }}>
               {isEnglish
-                ? "Making Companionship Accessible: Spousal Open Work Permits and Visitor Records"
-                : "让陪伴触手可及：配偶工签与 Visitor Record"}
+                ? "Spousal Work Permits and Family Accompaniment"
+                : "配偶工签与家长陪读"}
             </h2>
             <p className="text-lg text-foreground/80 leading-relaxed mb-6 whitespace-pre-line">
               {isEnglish
@@ -126,7 +126,7 @@ export default function Temporary() {
             <img
               src="https://private-us-east-1.manuscdn.com/sessionFile/i9ZSSj6IB1QFKBGCY6lMon/sandbox/gWqQoqrATfZKZpKyoTNMOK-img-3_1770333617000_na1fn_dGVtcG9yYXJ5LWZhbWlseS12aXNpdA.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvaTlaU1NqNklCMVFGS0JHQ1k2bE1vbi9zYW5kYm94L2dXcVFvcXJBVGZaS1pwS3lvVE5NT0staW1nLTNfMTc3MDMzMzYxNzAwMF9uYTFmbl9kR1Z0Y0c5eVlYSjVMV1poYldsc2VTMTJhWE5wZEEuanBnP3gtb3NzLXByb2Nlc3M9aW1hZ2UvcmVzaXplLHdfMTkyMCxoXzE5MjAvZm9ybWF0LHdlYnAvcXVhbGl0eSxxXzgwIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNzk4NzYxNjAwfX19XX0_&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=Ib-ospbEHNIuyWR~DDLQrG1ijZpwuYP9GS2AUJqRXuGcqz-1FfUAKoNYW-dbamBo7yi5w3pv13kvEQIQ4BELSAwhQyXeqo0CTM78bdaa9K2TjWcGNDCYW1Ee4VG4qFG68UPX-zyyHs~5WY-XDOlMWtXF9i-KXbjtoju5COEXyQNEtbFv84fqe~~hDUsZQJO-XBLDP53tkprTa466i11qfV8cvzZM3DU7tFiTN7Lf7q-oVJEJ5zD45wCtC12aIYURIcE79ImtLLXFedFjm7LskzBxtOm~i7O6S3zuBoP2bAuIO1CGKgaE4vDoEMKM6xo-GbqjGny2692EUnfi3ptR4w__"
               alt="Family Visit"
-              className="w-full h-auto rounded-lg shadow-lg"
+              className="w-full h-auto shadow-lg" style={{ borderRadius: "0px" }}
             />
           </div>
         </section>
@@ -137,14 +137,14 @@ export default function Temporary() {
             <img
               src="https://private-us-east-1.manuscdn.com/sessionFile/i9ZSSj6IB1QFKBGCY6lMon/sandbox/gWqQoqrATfZKZpKyoTNMOK-img-4_1770333616000_na1fn_dGVtcG9yYXJ5LXZpc2l0b3ItdmlzYQ.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvaTlaU1NqNklCMVFGS0JHQ1k2bE1vbi9zYW5kYm94L2dXcVFvcXJBVGZaS1pwS3lvVE5NT0staW1nLTRfMTc3MDMzMzYxNjAwMF9uYTFmbl9kR1Z0Y0c5eVlYSjVMWFpwYzJsMGIzSXRkbWx6WVEuanBnP3gtb3NzLXByb2Nlc3M9aW1hZ2UvcmVzaXplLHdfMTkyMCxoXzE5MjAvZm9ybWF0LHdlYnAvcXVhbGl0eSxxXzgwIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNzk4NzYxNjAwfX19XX0_&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=iSLfXgVI5-Jhr-Bf1D4pqDLdKTtmxEYI~dkRxk1WUvbBGgoLQGugwpy8BZqA2eIeKGBialMWCvRvSB8KNtuDLmdEbKzgeXzIAse7Me3DJgdHb25rmxGMhScFKPuj0eqhGcVxce9-O55NLFl4LgiOiQ7Y~ASmndiXJaPYE0-dSX6acqJ8PFOZ5ZzpLFGaek9rJI2k5~hDWS66uUROmMCRqEUsXE7-WM3M9mfVLODE~X-~nIC9nVNAZBTmZ2csgsfvwrudVi2rZegaSx7tWsL5Sul7HL9MwbryCqvMPDPx6JXchENMzMbpICasDvYe0~p-m8Y-gUV22w0vuTLl5qd9aQ__"
               alt="Visitor Visa"
-              className="w-full h-auto rounded-lg shadow-lg"
+              className="w-full h-auto shadow-lg" style={{ borderRadius: "0px" }}
             />
           </div>
           <div className="flex flex-col justify-center lg:order-last">
-            <h2 className="text-3xl lg:text-4xl font-black mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", sans-serif', fontSize: "64px" }}>
+            <h2 className="text-3xl lg:text-4xl font-black mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", sans-serif', fontSize: "48px" }}>
               {isEnglish
-                ? "Temporary Visitor Visas: Details Determine Success"
-                : "临时访问签证：细节决定成败"}
+                ? "Visitor Visas for Family Visits"
+                : "探亲与旅游"}
             </h2>
             <p className="text-lg text-foreground/80 leading-relaxed mb-6 whitespace-pre-line">
               {isEnglish
@@ -157,10 +157,10 @@ export default function Temporary() {
         {/* Section 5: Super Visa - Left Text, Right Image */}
         <section id="super-visa" className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center py-20 scroll-mt-20">
           <div className="flex flex-col justify-center">
-            <h2 className="text-3xl lg:text-4xl font-black mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", sans-serif', fontSize: "64px" }}>
+            <h2 className="text-3xl lg:text-4xl font-black mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", sans-serif', fontSize: "48px" }}>
               {isEnglish
-                ? "Parent & Grandparent Super Visa: Up to 10 Years of Multiple Entry Permits"
-                : "父母超级签证：长达 10 年的多往返许可"}
+                ? "Parent & Grandparent Super Visa"
+                : "父母超级签证"}
             </h2>
             <p className="text-lg text-foreground/80 leading-relaxed mb-6 whitespace-pre-line">
               {isEnglish
@@ -172,7 +172,7 @@ export default function Temporary() {
             <img
               src="https://private-us-east-1.manuscdn.com/sessionFile/i9ZSSj6IB1QFKBGCY6lMon/sandbox/gWqQoqrATfZKZpKyoTNMOK-img-5_1770333609000_na1fn_dGVtcG9yYXJ5LXN1cGVyLXZpc2E.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvaTlaU1NqNklCMVFGS0JHQ1k2bE1vbi9zYW5kYm94L2dXcVFvcXJBVGZaS1pwS3lvVE5NT0staW1nLTVfMTc3MDMzMzYwOTAwMF9uYTFmbl9kR1Z0Y0c5eVlYSjVMWE4xY0dWeUxYWnBjMkUuanBnP3gtb3NzLXByb2Nlc3M9aW1hZ2UvcmVzaXplLHdfMTkyMCxoXzE5MjAvZm9ybWF0LHdlYnAvcXVhbGl0eSxxXzgwIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNzk4NzYxNjAwfX19XX0_&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=NwqdiVsBqe5xCa1h6VEE9gADI0aKIWxmwKbJaejR2cKIcgkCeOrMikf5~O1VKSP8oNGbu06nfH~Tv3KnAy2emdCCcvoAnKpcGRZL8mZjC8c1HTntCI35ep-IG2SyQawWfh9QjIpSxEYCI~k8dy16tyHAlKaijDXFUi-jQ4ubkb-i~fctX74ZbifIRfzgsU~Z-ZC5-DbwiEjrEt90Dzeakw~LNgCMih4Kd1SJZILaA88HLoxrxY4ieKGcmg7mLlPV62cQPQ2EzQZzCpMiExVPUJyBWDba8uiRXjKpzrUOxBJaPs6TumBDVlu1Y7WX2yheoZ95GxRYXlTlxUheipfgnw__"
               alt="Super Visa"
-              className="w-full h-auto rounded-lg shadow-lg"
+              className="w-full h-auto shadow-lg" style={{ borderRadius: "0px" }}
             />
           </div>
         </section>
