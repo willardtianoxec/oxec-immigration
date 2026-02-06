@@ -22,6 +22,8 @@ import Citizenship from "./pages/Citizenship";
 import BCCalculator from "./pages/BCCalculator";
 import TermOfService from "./pages/TermOfService";
 import TermOfUse from "./pages/TermOfUse";
+import AdminPosts from "./pages/AdminPosts";
+import AdminPostForm from "./pages/AdminPostForm";
 
 function Router() {
   return (
@@ -43,6 +45,9 @@ function Router() {
       <Route path="/bccalculator" component={BCCalculator} />
       <Route path="/term-of-service" component={TermOfService} />
       <Route path="/term-of-use" component={TermOfUse} />
+      <Route path="/admin/posts" component={AdminPosts} />
+      <Route path="/admin/posts/new" component={AdminPostForm} />
+      <Route path="/admin/posts/:id/edit" component={AdminPostForm} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>

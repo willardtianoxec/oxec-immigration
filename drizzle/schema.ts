@@ -88,3 +88,27 @@ export const successCases = mysqlTable("successCases", {
 
 export type SuccessCase = typeof successCases.$inferSelect;
 export type InsertSuccessCase = typeof successCases.$inferInsert;
+
+/**
+ * Unified posts table for both blog articles and success cases
+ */
+export const posts = mysqlTable("posts", {
+  id: int("id").autoincrement().primaryKey(),
+  title: varchar("title", { length: 255 }).notNull(),
+  subtitle: varchar("subtitle", { length: 255 }),
+  slug: varchar("slug", { length: 255 }).notNull().unique(),
+  content: text("content").notNull(),
+  excerpt: text("excerpt"),
+  type: mysqlEnum("type", ["blog", "success-case"]).notNull(),
+  category: varchar("category", { length: 100 }),
+  tags: text("tags"), // JSON array stored as string
+  coverImage: varchar("coverImage", { length: 500 }),
+  published: boolean("published").default(false).notNull(),
+  publishedAt: timestamp("publishedAt"),
+  authorId: int("authorId").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type Post = typeof posts.$inferSelect;
+export type InsertPost = typeof posts.$inferInsert;

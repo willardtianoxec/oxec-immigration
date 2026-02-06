@@ -8,7 +8,10 @@ import {
   blogPosts,
   InsertBlogPost,
   successCases,
-  InsertSuccessCase
+  InsertSuccessCase,
+  posts,
+  InsertPost,
+  Post
 } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
@@ -205,4 +208,91 @@ export async function getSuccessCases(publishedOnly = false) {
   return await db.select().from(successCases)
     .where(conditions)
     .orderBy(desc(successCases.createdAt));
+}
+
+// Unified posts queries
+export async function createPost(data: InsertPost) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  const result = await db.insert(posts).values(data);
+  return result;
+}
+
+export async function updatePost(id: number, data: Partial<InsertPost>) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  return await db.update(posts).set(data).where(eq(posts.id, id));
+}
+
+export async function deletePost(id: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  return await db.delete(posts).where(eq(posts.id, id));
+}
+
+export async function getPostById(id: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  const result = await db.select().from(posts).where(eq(posts.id, id)).limit(1);
+  return result.length > 0 ? result[0] : null;
+}
+
+export async function getPostBySlug(slug: string) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  const result = await db.select().from(posts).where(eq(posts.slug, slug)).limit(1);
+  return result.length > 0 ? result[0] : null;
+}
+
+export async function getPosts(filters?: { type?: string; category?: string; publishedOnly?: boolean }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  const conditions = [];
+  
+  if (filters?.publishedOnly) {
+    conditions.push(eq(posts.published, true));
+  }
+  
+  if (filters?.type) {
+    conditions.push(eq(posts.type, filters.type as any));
+  }
+  
+  if (filters?.category) {
+    conditions.push(eq(posts.category, filters.category));
+  }
+  
+  const whereClause = conditions.length > 0 ? and(...conditions) : undefined;
+  
+  return await db.select().from(posts)
+    .where(whereClause)
+    .orderBy(desc(posts.publishedAt || posts.createdAt));
+}
+
+export async function searchPosts(query: string, filters?: { type?: string; category?: string }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  const conditions = [eq(posts.published, true)];
+  
+  if (query) {
+    conditions.push(like(posts.title, `%${query}%`));
+  }
+  
+  if (filters?.type) {
+    conditions.push(eq(posts.type, filters.type as any));
+  }
+  
+  if (filters?.category) {
+    conditions.push(eq(posts.category, filters.category));
+  }
+  
+  return await db.select().from(posts)
+    .where(and(...conditions))
+    .orderBy(desc(posts.publishedAt || posts.createdAt));
 }
