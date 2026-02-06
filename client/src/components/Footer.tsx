@@ -212,6 +212,18 @@ export function Footer() {
                 </Link>
               </div>
             </nav>
+            
+            {/* WeChat QR Code */}
+            <div className="mt-8 pt-6 border-t border-gray-600">
+              <p className="text-sm mb-3" style={{ color: '#E5E7EB', fontSize: '15px' }}>
+                关注最新资讯
+              </p>
+              <img
+                src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663292376041/inBtaWfAdSeCpaIo.jpg"
+                alt="OXEC WeChat Official Account"
+                className="w-24 h-24"
+              />
+            </div>
           </div>
         </div>
 
