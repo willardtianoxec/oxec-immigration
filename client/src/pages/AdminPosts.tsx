@@ -6,13 +6,26 @@ import { useLocation } from "wouter";
 import { Loader2, Trash2, Edit2, Plus } from "lucide-react";
 
 export default function AdminPosts() {
+  // 所有Hooks必须在组件顶部无条件调用
   const [location, setLocation] = useLocation();
+  const [postType, setPostType] = useState<"blog" | "success-case">("blog");
+  
   const { data: authData } = trpc.auth.me.useQuery();
+  const { data: posts, isLoading, refetch } = trpc.posts.list.useQuery({
+    type: postType,
+    publishedOnly: false,
+  });
+
+  const deleteMutation = trpc.posts.delete.useMutation({
+    onSuccess: () => {
+      refetch();
+    },
+  });
+
   const user = authData;
   const navigate = (path: string) => setLocation(path);
-  const [postType, setPostType] = useState<"blog" | "success-case">("blog");
 
-  // 重定向非管理员用户
+  // 权限检查 - 在Hooks之后进行
   if (!user || user.role !== "admin") {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
@@ -24,17 +37,6 @@ export default function AdminPosts() {
       </div>
     );
   }
-
-  const { data: posts, isLoading, refetch } = trpc.posts.list.useQuery({
-    type: postType,
-    publishedOnly: false,
-  });
-
-  const deleteMutation = trpc.posts.delete.useMutation({
-    onSuccess: () => {
-      refetch();
-    },
-  });
 
   const handleDelete = (id: number) => {
     if (confirm("确定要删除这篇文章吗？")) {
@@ -86,7 +88,7 @@ export default function AdminPosts() {
                         {post.subtitle}
                       </p>
                     )}
-                    <div className="flex gap-2 items-center text-sm text-muted-foreground">
+                    <div className="flex gap-2 items-center text-sm text-muted-foreground flex-wrap">
                       {post.category && (
                         <span className="bg-secondary px-2 py-1 rounded">
                           {post.category}

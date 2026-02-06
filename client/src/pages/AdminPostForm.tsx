@@ -7,15 +7,12 @@ import { Loader2, ArrowLeft } from "lucide-react";
 import { useParams } from "wouter";
 
 export default function AdminPostForm() {
+  // 所有Hooks必须在组件顶部无条件调用
   const [location, setLocation] = useLocation();
   const params = useParams<{ id?: string }>();
   const postId = params?.id ? parseInt(params.id) : null;
   const isEditing = !!postId;
 
-  const { data: authData } = trpc.auth.me.useQuery();
-  const user = authData;
-
-  // 表单状态
   const [formData, setFormData] = useState({
     title: "",
     subtitle: "",
@@ -29,11 +26,39 @@ export default function AdminPostForm() {
     published: false,
   });
 
-  // 获取现有文章（编辑模式）
+  const { data: authData } = trpc.auth.me.useQuery();
   const { data: post, isLoading: isLoadingPost } = trpc.posts.getById.useQuery(
     { id: postId! },
     { enabled: isEditing }
   );
+
+  const createMutation = trpc.posts.create.useMutation({
+    onSuccess: () => {
+      setLocation("/admin/posts");
+    },
+  });
+
+  const updateMutation = trpc.posts.update.useMutation({
+    onSuccess: () => {
+      setLocation("/admin/posts");
+    },
+  });
+
+  const user = authData;
+  const navigate = (path: string) => setLocation(path);
+
+  // 权限检查 - 在Hooks之后进行
+  if (!user || user.role !== "admin") {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold mb-4">访问被拒绝</h1>
+          <p className="text-muted-foreground mb-6">只有管理员可以访问此页面</p>
+          <Button onClick={() => setLocation("/")}>返回主页</Button>
+        </div>
+      </div>
+    );
+  }
 
   useEffect(() => {
     if (post) {
@@ -51,32 +76,6 @@ export default function AdminPostForm() {
       });
     }
   }, [post]);
-
-  // 权限检查
-  if (!user || user.role !== "admin") {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold mb-4">访问被拒绝</h1>
-          <p className="text-muted-foreground mb-6">只有管理员可以访问此页面</p>
-          <Button onClick={() => setLocation("/")}>返回主页</Button>
-        </div>
-      </div>
-    );
-  }
-
-  // 创建或更新变异
-  const createMutation = trpc.posts.create.useMutation({
-    onSuccess: () => {
-      setLocation("/admin/posts");
-    },
-  });
-
-  const updateMutation = trpc.posts.update.useMutation({
-    onSuccess: () => {
-      setLocation("/admin/posts");
-    },
-  });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
