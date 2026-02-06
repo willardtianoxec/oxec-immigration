@@ -75,7 +75,7 @@ export default function BCCalculator() {
             {/* Human Capital Factors */}
             <Card>
               <CardHeader>
-                <CardTitle>人力资源因素 (最高40分)</CardTitle>
+                <CardTitle>人力资源因素</CardTitle>
                 <CardDescription>输入您的工作经验和学历信息</CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
@@ -181,7 +181,7 @@ export default function BCCalculator() {
             {/* Language Skills */}
             <Card>
               <CardHeader>
-                <CardTitle>语言能力 (最高40分)</CardTitle>
+                <CardTitle>语言能力</CardTitle>
                 <CardDescription>输入您的语言考试成绩</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -341,14 +341,35 @@ export default function BCCalculator() {
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-3">
-                      {Object.entries(result.breakdown).map(([key, value]) => (
-                        <div key={key} className="flex justify-between items-center">
-                          <span className="text-sm">
-                            {key}
-                          </span>
-                          <span className="font-semibold text-primary">{value as number}</span>
-                        </div>
-                      ))}
+                      {Object.entries(result.breakdown).map(([key, value]) => {
+                        const labelMap: Record<string, string> = {
+                          "Work Experience": "工作经验得分",
+                          "Canadian Experience": "加拿大经验得分",
+                          "Currently Working in Canada": "加拿大工作得分",
+                          "Education": "教育得分",
+                          "BC Education": "BC省教育得分",
+                          "Canada Education": "加拿大教育得分",
+                          "Designated Occupation": "指定职业得分",
+                          "Language Skills (CLB 6)": "语言能力得分",
+                          "Language Skills (CLB 7)": "语言能力得分",
+                          "Language Skills (CLB 8)": "语言能力得分",
+                          "Language Skills (CLB 9)": "语言能力得分",
+                          "Language Skills (CLB 10)": "语言能力得分",
+                          "French Language": "法语得分",
+                          "Hourly Wage": "岗位薪资得分",
+                          "Region": "地区得分",
+                          "Region Work/Education Experience": "地区经验得分",
+                        };
+                        const displayLabel = labelMap[key] || key;
+                        return (
+                          <div key={key} className="flex justify-between items-center">
+                            <span className="text-sm">
+                              {displayLabel}
+                            </span>
+                            <span className="font-semibold text-primary">{value as number}</span>
+                          </div>
+                        );
+                      })}
                     </div>
                   </CardContent>
                 </Card>
@@ -363,7 +384,7 @@ export default function BCCalculator() {
                     </p>
                     <Link href="/booking">
                       <Button className="w-full bg-accent text-accent-foreground hover:bg-accent/90">
-                        联系专业顾问锁定名额
+                        预约咨询专业顾问
                       </Button>
                     </Link>
                   </CardContent>
