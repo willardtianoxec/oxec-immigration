@@ -171,3 +171,16 @@
 - [ ] 建立后台管理界面 - 文章创建、编辑、删除、发布管理
 - [ ] 建立前台展示页面 - /blog 和 /success-cases 页面，支持分类过滤
 - [ ] 测试和优化 - 验证编译状态，确保功能完整
+
+## BC PNP Calculator Reconstruction (Current Sprint - Phase 18)
+- [x] 设计BC PNP算分逻辑 - 人力资源因素(40分)、语言能力(40分)、经济因素
+- [x] 创建CLB换算函数 - IELTS/CELPIP/PTE与CLB等级转换
+- [x] 实现calculateBCPNP tRPC端点 - 后端评分计算逻辑
+- [x] 构建BCCalculator前端页面 - 参考Calculator.tsx的布局
+- [x] 实现人力资源因素表单 - 工作经验、学历、加分项
+- [x] 实现语言能力表单 - 考试类型选择、成绩输入、CLB换算
+- [x] 实现经济因素表单 - 时薪、区域因素、地区经验加分
+- [x] 集成实时出分看板 - 动态更新总分和分数明细
+- [x] 添加CTA按钮 - "联系专业顾问锁定名额"链接至/booking
+- [x] 测试所有评分场景 - 验证CLB换算、分数计算、UI交互
+- [x] 创建检查点 - 验证编译状态和功能完整性

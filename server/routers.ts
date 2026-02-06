@@ -370,6 +370,166 @@ export const appRouter = router({
         return await getPostBySlug(input.slug);
       }),
 
+    calculateBCPNP: publicProcedure
+      .input(z.object({
+        workExperience: z.enum(["5plus", "4to5", "3to4", "2to3", "1to2", "below1", "none"]),
+        canadianExperience: z.boolean(),
+        currentlyWorking: z.boolean(),
+        education: z.enum(["phd", "masters", "postgrad", "bachelor", "associate", "diploma", "highschool"]),
+        bcEducation: z.boolean(),
+        canadaEducation: z.boolean(),
+        designatedOccupation: z.boolean(),
+        languageTest: z.enum(["ielts", "celpip", "pte"]),
+        listening: z.number().min(0).max(100),
+        reading: z.number().min(0).max(100),
+        writing: z.number().min(0).max(100),
+        speaking: z.number().min(0).max(100),
+        frenchLanguage: z.boolean(),
+        hourlyWage: z.number().min(0),
+        region: z.enum(["tier1", "tier2", "tier3"]),
+        regionWorkExperience: z.boolean(),
+        regionEducation: z.boolean(),
+      }))
+      .query(({ input }) => {
+        // Helper function to convert language scores to CLB
+        const convertToCLB = (listening: number, reading: number, writing: number, speaking: number, testType: string): number => {
+          let clbs: number[] = [];
+          
+          if (testType === "ielts") {
+            // IELTS conversion
+            const listeningCLB = listening >= 8.5 ? 10 : listening >= 8 ? 9 : listening >= 7.5 ? 8 : listening >= 6.5 ? 7 : listening >= 5.5 ? 6 : listening >= 5 ? 5 : listening >= 4.5 ? 4 : 0;
+            const readingCLB = reading >= 8 ? 10 : reading >= 7.5 ? 9 : reading >= 6.5 ? 8 : reading >= 6 ? 7 : reading >= 5.5 ? 6 : reading >= 4.5 ? 5 : reading >= 3.5 ? 4 : 0;
+            const writingCLB = writing >= 7.5 ? 10 : writing >= 7 ? 9 : writing >= 6.5 ? 8 : writing >= 6 ? 7 : writing >= 5.5 ? 6 : writing >= 5 ? 5 : writing >= 4 ? 4 : 0;
+            const speakingCLB = speaking >= 7.5 ? 10 : speaking >= 7 ? 9 : speaking >= 6.5 ? 8 : speaking >= 6 ? 7 : speaking >= 5.5 ? 6 : speaking >= 5 ? 5 : speaking >= 4 ? 4 : 0;
+            clbs = [listeningCLB, readingCLB, writingCLB, speakingCLB];
+          } else if (testType === "celpip") {
+            // CELPIP conversion
+            const listeningCLB = listening >= 10 ? 10 : listening >= 9 ? 9 : listening >= 8 ? 8 : listening >= 7 ? 7 : listening >= 6 ? 6 : listening >= 5 ? 5 : listening >= 4 ? 4 : 0;
+            const readingCLB = reading >= 10 ? 10 : reading >= 9 ? 9 : reading >= 8 ? 8 : reading >= 7 ? 7 : reading >= 6 ? 6 : reading >= 5 ? 5 : reading >= 4 ? 4 : 0;
+            const writingCLB = writing >= 10 ? 10 : writing >= 9 ? 9 : writing >= 8 ? 8 : writing >= 7 ? 7 : writing >= 6 ? 6 : writing >= 5 ? 5 : writing >= 4 ? 4 : 0;
+            const speakingCLB = speaking >= 10 ? 10 : speaking >= 9 ? 9 : speaking >= 8 ? 8 : speaking >= 7 ? 7 : speaking >= 6 ? 6 : speaking >= 5 ? 5 : speaking >= 4 ? 4 : 0;
+            clbs = [listeningCLB, readingCLB, writingCLB, speakingCLB];
+          } else if (testType === "pte") {
+            // PTE conversion
+            const listeningCLB = listening >= 89 ? 10 : listening >= 82 ? 9 : listening >= 71 ? 8 : listening >= 60 ? 7 : listening >= 50 ? 6 : listening >= 39 ? 5 : listening >= 28 ? 4 : 0;
+            const readingCLB = reading >= 88 ? 10 : reading >= 78 ? 9 : reading >= 69 ? 8 : reading >= 60 ? 7 : reading >= 51 ? 6 : reading >= 42 ? 5 : reading >= 33 ? 4 : 0;
+            const writingCLB = writing >= 90 ? 10 : writing >= 88 ? 9 : writing >= 79 ? 8 : writing >= 69 ? 7 : writing >= 60 ? 6 : writing >= 51 ? 5 : writing >= 41 ? 4 : 0;
+            const speakingCLB = speaking >= 89 ? 10 : speaking >= 84 ? 9 : speaking >= 76 ? 8 : speaking >= 68 ? 7 : speaking >= 59 ? 6 : speaking >= 51 ? 5 : speaking >= 42 ? 4 : 0;
+            clbs = [listeningCLB, readingCLB, writingCLB, speakingCLB];
+          }
+          
+          return Math.min(...clbs);
+        };
+        
+        let score = 0;
+        const breakdown: Record<string, number> = {};
+        
+        // Human Capital Factors (max 40)
+        const workExperiencePoints: Record<string, number> = {
+          "5plus": 20,
+          "4to5": 16,
+          "3to4": 12,
+          "2to3": 8,
+          "1to2": 4,
+          "below1": 1,
+          "none": 0,
+        };
+        const workExp = workExperiencePoints[input.workExperience] || 0;
+        score += workExp;
+        breakdown["Work Experience"] = workExp;
+        
+        if (input.canadianExperience) {
+          score += 10;
+          breakdown["Canadian Experience"] = 10;
+        }
+        
+        if (input.currentlyWorking) {
+          score += 10;
+          breakdown["Currently Working in Canada"] = 10;
+        }
+        
+        const educationPoints: Record<string, number> = {
+          "phd": 27,
+          "masters": 22,
+          "postgrad": 15,
+          "bachelor": 15,
+          "associate": 5,
+          "diploma": 5,
+          "highschool": 0,
+        };
+        const edu = educationPoints[input.education] || 0;
+        score += edu;
+        breakdown["Education"] = edu;
+        
+        if (input.bcEducation) {
+          score += 8;
+          breakdown["BC Education"] = 8;
+        }
+        
+        if (input.canadaEducation) {
+          score += 6;
+          breakdown["Canada Education"] = 6;
+        }
+        
+        if (input.designatedOccupation) {
+          score += 5;
+          breakdown["Designated Occupation"] = 5;
+        }
+        
+        // Language Skills (max 40)
+        const clb = convertToCLB(input.listening, input.reading, input.writing, input.speaking, input.languageTest);
+        const languagePoints: Record<number, number> = {
+          10: 30,
+          9: 30,
+          8: 25,
+          7: 20,
+          6: 15,
+          5: 10,
+          4: 5,
+        };
+        const langScore = languagePoints[clb] || 0;
+        score += langScore;
+        breakdown["Language Skills (CLB " + clb + ")"] = langScore;
+        
+        if (input.frenchLanguage) {
+          score += 10;
+          breakdown["French Language"] = 10;
+        }
+        
+        // Economic Factors
+        const wage = Math.ceil(input.hourlyWage);
+        let wageScore = 0;
+        if (wage >= 70) {
+          wageScore = 55;
+        } else if (wage >= 16) {
+          wageScore = wage - 15;
+        }
+        score += wageScore;
+        breakdown["Hourly Wage"] = wageScore;
+        
+        const regionPoints: Record<string, number> = {
+          "tier1": 0,
+          "tier2": 5,
+          "tier3": 15,
+        };
+        const regionScore = regionPoints[input.region] || 0;
+        score += regionScore;
+        breakdown["Region"] = regionScore;
+        
+        if (input.regionWorkExperience || input.regionEducation) {
+          score += 10;
+          breakdown["Region Work/Education Experience"] = 10;
+        }
+        
+        const totalScore = Math.round(score);
+        
+        return {
+          totalScore,
+          breakdown,
+          message: totalScore >= 80 ? "Excellent! You have a strong profile for BC PNP." : totalScore >= 60 ? "Good! You may be eligible for BC PNP." : "Consider improving your profile for better chances.",
+        };
+      }),
+
     list: publicProcedure
       .input(z.object({
         type: z.enum(["blog", "success-case"]).optional(),
