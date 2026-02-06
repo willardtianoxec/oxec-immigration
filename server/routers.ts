@@ -160,7 +160,37 @@ export const appRouter = router({
         if (input.hasJobOffer) crs += 50;
         if (input.hasProvincialNomination) crs += 600;
 
-        return { crs: Math.round(crs) };
+        const totalScore = Math.round(crs);
+        const eligible = totalScore >= 470;
+
+        // Build breakdown object
+        const breakdown: Record<string, number> = {};
+        breakdown['Age'] = input.age < agePoints.length ? agePoints[input.age] : 0;
+        breakdown['Education'] = educationPoints[input.education] || 0;
+        if (input.canadianEducation) breakdown['Canadian Education'] = 15;
+        breakdown['Work Experience'] = Math.min(input.workExperience * 2, 80);
+        if (input.canadianWorkExperience > 0) breakdown['Canadian Work Experience'] = Math.min(input.canadianWorkExperience * 2, 20);
+        breakdown['Language Skills'] = Math.min(languagePoints * 2, 136);
+        if (input.hasJobOffer) breakdown['Job Offer'] = 50;
+        if (input.hasProvincialNomination) breakdown['Provincial Nomination'] = 600;
+
+        let message = '';
+        if (totalScore >= 500) {
+          message = 'Excellent! Your score is competitive for recent draws.';
+        } else if (totalScore >= 470) {
+          message = 'Good! You may be eligible for Express Entry.';
+        } else if (totalScore >= 400) {
+          message = 'Fair. Consider improving your profile.';
+        } else {
+          message = 'Below typical cutoff. Focus on improving your skills.';
+        }
+
+        return {
+          totalScore,
+          eligible,
+          message,
+          breakdown,
+        };
       }),
   }),
 
