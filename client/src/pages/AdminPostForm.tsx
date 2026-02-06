@@ -44,22 +44,7 @@ export default function AdminPostForm() {
     },
   });
 
-  const user = authData;
-  const navigate = (path: string) => setLocation(path);
-
-  // 权限检查 - 在Hooks之后进行
-  if (!user || user.role !== "admin") {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold mb-4">访问被拒绝</h1>
-          <p className="text-muted-foreground mb-6">只有管理员可以访问此页面</p>
-          <Button onClick={() => setLocation("/")}>返回主页</Button>
-        </div>
-      </div>
-    );
-  }
-
+  // useEffect必须在Hooks之后、权限检查之前调用
   useEffect(() => {
     if (post) {
       setFormData({
@@ -76,6 +61,22 @@ export default function AdminPostForm() {
       });
     }
   }, [post]);
+
+  const user = authData;
+  const navigate = (path: string) => setLocation(path);
+
+  // 权限检查 - 在所有Hooks之后进行
+  if (!user || user.role !== "admin") {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold mb-4">访问被拒绝</h1>
+          <p className="text-muted-foreground mb-6">只有管理员可以访问此页面</p>
+          <Button onClick={() => setLocation("/")}>返回主页</Button>
+        </div>
+      </div>
+    );
+  }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
