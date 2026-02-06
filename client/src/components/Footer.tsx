@@ -9,7 +9,7 @@ export function Footer() {
           <div>
             <div className="mb-6">
               <img
-                src="https://private-us-east-1.manuscdn.com/sessionFile/i9ZSSj6IB1QFKBGCY6lMon/sandbox/PWnhQEBOUFfG0zPmjqUIQX_1770247840697_na1fn_b3hlYy1sb2dvLXdoaXRl.png?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvaTlaU1NqNklCMVFGS0JHQ1k2bE1vbi9zYW5kYm94L1BXbmhRRUJPVUZmRzB6UG1qcVVJUVhfMTc3MDI0Nzg0MDY5N19uYTFmbl9iM2hsWXkxc2IyZHZMWGRvYVhSbC5wbmc~eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsd18xOTIwLGhfMTkyMC9mb3JtYXQsd2VicC9xdWFsaXR5LHFfODAiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3OTg3NjE2MDB9fX1dfQ__&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=KHJ-CChbpkpn93BgLsqpvDS3VPxfouVVv8p~oUF7RCprgiUcOSvFJ6~iMq-0f4xd3oydodPoUruGDx0qgY2hzqEGt6TASqE7JwcGBB67iLQMzYg5OPyvNOQkhbKlE-P0aw4jQc0fu-2ojev7Dwv7axPmGDFp~CwbNimx-n5hxDlxovjh80TfeA2Kel4zvdD~hUPcHtw5YsuPEZzwSzo3~QLHi3D9GwupQysPek7mRQA73YuHliEP6V0lwh~lDawe2ypO4eErXJtxuVbbjTjX4DVp8maCxmtb3OjG6HFq-XX1fooSeb1wyL4qOg7D8pcaZHgfjMEZ-meCif70cynx9Q__"
+                src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663292376041/uShAEAhLVqsGlNtv.png"
                 alt="OXEC Immigration Logo"
                 className="h-12 w-auto mb-4"
               />
