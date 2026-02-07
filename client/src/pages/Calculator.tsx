@@ -56,7 +56,11 @@ export default function Calculator() {
   const handleCalculate = async () => {
     setIsLoading(true);
     try {
-      const result = await utils.calculator.calculateCRS.fetch(formData as any);
+      const payload = {
+        familyStatus,
+        ...formData,
+      };
+      const result = await utils.calculator.calculateCRS.fetch(payload as any);
       setResult(result);
     } catch (error: any) {
       toast.error("计算失败: " + (error.message || '未知错误'));
