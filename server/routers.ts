@@ -27,6 +27,7 @@ import {
 } from "./db";
 import { notifyOwner } from "./_core/notification";
 import { sendAppointmentEmail } from "./_core/emailService";
+import { calculateCRS as calculateCRSLogic } from "./crsCalculator";
 
 // Admin-only procedure
 const adminProcedure = protectedProcedure.use(({ ctx, next }) => {
@@ -47,6 +48,62 @@ export const appRouter = router({
         success: true,
       } as const;
     }),
+    calculateBCPNP: publicProcedure
+      .input(z.object({
+        workExperience: z.enum(["5plus", "4to5", "3to4", "2to3", "1to2", "below1", "none"]),
+        canadianExperience: z.boolean(),
+        currentlyWorking: z.boolean(),
+        education: z.enum(["phd", "masters", "postgrad", "bachelor", "associate", "diploma", "highschool"]),
+        bcEducation: z.boolean(),
+        canadaEducation: z.boolean(),
+        designatedOccupation: z.boolean(),
+        languageTest: z.enum(["ielts", "celpip", "pte"]),
+        listening: z.number().min(0).max(100),
+        reading: z.number().min(0).max(100),
+        writing: z.number().min(0).max(100),
+        speaking: z.number().min(0).max(100),
+        frenchLanguage: z.boolean(),
+        hourlyWage: z.number().min(0),
+        region: z.enum(["tier1", "tier2", "tier3"]),
+        regionWorkExperience: z.boolean(),
+        regionEducation: z.boolean(),
+      }))
+      .query(({ input }) => {
+        let score = 0;
+        const breakdown: Record<string, number> = {};
+        const workExperiencePoints: Record<string, number> = { "5plus": 20, "4to5": 16, "3to4": 12, "2to3": 8, "1to2": 4, "below1": 1, "none": 0 };
+        const workExp = workExperiencePoints[input.workExperience] || 0;
+        score += workExp;
+        breakdown["工作经验得分"] = workExp;
+        if (input.canadianExperience) { score += 10; breakdown["加拿大经验得分"] = 10; }
+        if (input.currentlyWorking) { score += 10; breakdown["当前工作得分"] = 10; }
+        const educationPoints: Record<string, number> = { "phd": 27, "masters": 22, "postgrad": 15, "bachelor": 15, "associate": 5, "diploma": 5, "highschool": 0 };
+        const edu = educationPoints[input.education] || 0;
+        score += edu;
+        breakdown["教育得分"] = edu;
+        if (input.bcEducation) { score += 8; breakdown["BC教育得分"] = 8; }
+        if (input.canadaEducation) { score += 6; breakdown["加拿大教育得分"] = 6; }
+        if (input.designatedOccupation) { score += 5; breakdown["指定职业得分"] = 5; }
+        const clb = Math.min(input.listening, input.reading, input.writing, input.speaking);
+        const languagePoints: Record<number, number> = { 10: 30, 9: 30, 8: 25, 7: 20, 6: 15, 5: 10, 4: 5 };
+        const langScore = languagePoints[Math.floor(clb)] || 0;
+        score += langScore;
+        breakdown["语言能力得分"] = langScore;
+        if (input.frenchLanguage) { score += 10; breakdown["法语得分"] = 10; }
+        const wage = Math.ceil(input.hourlyWage);
+        let wageScore = 0;
+        if (wage >= 70) { wageScore = 55; } else if (wage >= 16) { wageScore = wage - 15; }
+        score += wageScore;
+        breakdown["岗位薪资得分"] = wageScore;
+        const regionPoints: Record<string, number> = { "tier1": 0, "tier2": 5, "tier3": 15 };
+        const regionScore = regionPoints[input.region] || 0;
+        score += regionScore;
+        breakdown["地区得分"] = regionScore;
+        if (input.regionWorkExperience || input.regionEducation) { score += 10; breakdown["地区经验得分"] = 10; }
+        const totalScore = Math.round(score);
+        return { totalScore, breakdown, message: totalScore >= 80 ? "优秀！您具有很强的BC PNP申请资格。" : totalScore >= 60 ? "良好！您可能符合BC PNP申请条件。" : "建议改进您的申请资料以获得更好的机会。" };
+      }),
+
   }),
 
   // Appointment booking
@@ -90,111 +147,160 @@ export const appRouter = router({
     list: adminProcedure.query(async () => {
       return await getAppointments();
     }),
+    calculateBCPNP: publicProcedure
+      .input(z.object({
+        workExperience: z.enum(["5plus", "4to5", "3to4", "2to3", "1to2", "below1", "none"]),
+        canadianExperience: z.boolean(),
+        currentlyWorking: z.boolean(),
+        education: z.enum(["phd", "masters", "postgrad", "bachelor", "associate", "diploma", "highschool"]),
+        bcEducation: z.boolean(),
+        canadaEducation: z.boolean(),
+        designatedOccupation: z.boolean(),
+        languageTest: z.enum(["ielts", "celpip", "pte"]),
+        listening: z.number().min(0).max(100),
+        reading: z.number().min(0).max(100),
+        writing: z.number().min(0).max(100),
+        speaking: z.number().min(0).max(100),
+        frenchLanguage: z.boolean(),
+        hourlyWage: z.number().min(0),
+        region: z.enum(["tier1", "tier2", "tier3"]),
+        regionWorkExperience: z.boolean(),
+        regionEducation: z.boolean(),
+      }))
+      .query(({ input }) => {
+        let score = 0;
+        const breakdown: Record<string, number> = {};
+        const workExperiencePoints: Record<string, number> = { "5plus": 20, "4to5": 16, "3to4": 12, "2to3": 8, "1to2": 4, "below1": 1, "none": 0 };
+        const workExp = workExperiencePoints[input.workExperience] || 0;
+        score += workExp;
+        breakdown["工作经验得分"] = workExp;
+        if (input.canadianExperience) { score += 10; breakdown["加拿大经验得分"] = 10; }
+        if (input.currentlyWorking) { score += 10; breakdown["当前工作得分"] = 10; }
+        const educationPoints: Record<string, number> = { "phd": 27, "masters": 22, "postgrad": 15, "bachelor": 15, "associate": 5, "diploma": 5, "highschool": 0 };
+        const edu = educationPoints[input.education] || 0;
+        score += edu;
+        breakdown["教育得分"] = edu;
+        if (input.bcEducation) { score += 8; breakdown["BC教育得分"] = 8; }
+        if (input.canadaEducation) { score += 6; breakdown["加拿大教育得分"] = 6; }
+        if (input.designatedOccupation) { score += 5; breakdown["指定职业得分"] = 5; }
+        const clb = Math.min(input.listening, input.reading, input.writing, input.speaking);
+        const languagePoints: Record<number, number> = { 10: 30, 9: 30, 8: 25, 7: 20, 6: 15, 5: 10, 4: 5 };
+        const langScore = languagePoints[Math.floor(clb)] || 0;
+        score += langScore;
+        breakdown["语言能力得分"] = langScore;
+        if (input.frenchLanguage) { score += 10; breakdown["法语得分"] = 10; }
+        const wage = Math.ceil(input.hourlyWage);
+        let wageScore = 0;
+        if (wage >= 70) { wageScore = 55; } else if (wage >= 16) { wageScore = wage - 15; }
+        score += wageScore;
+        breakdown["岗位薪资得分"] = wageScore;
+        const regionPoints: Record<string, number> = { "tier1": 0, "tier2": 5, "tier3": 15 };
+        const regionScore = regionPoints[input.region] || 0;
+        score += regionScore;
+        breakdown["地区得分"] = regionScore;
+        if (input.regionWorkExperience || input.regionEducation) { score += 10; breakdown["地区经验得分"] = 10; }
+        const totalScore = Math.round(score);
+        return { totalScore, breakdown, message: totalScore >= 80 ? "优秀！您具有很强的BC PNP申请资格。" : totalScore >= 60 ? "良好！您可能符合BC PNP申请条件。" : "建议改进您的申请资料以获得更好的机会。" };
+      }),
+
   }),
 
   // Immigration calculator
   calculator: router({
     calculateCRS: publicProcedure
       .input(z.object({
-        age: z.number().min(18).max(100),
-        education: z.enum(["high-school", "one-year", "two-year", "bachelor", "master", "phd"]),
-        canadianEducation: z.boolean(),
-        workExperience: z.number().min(0).max(20),
-        canadianWorkExperience: z.number().min(0).max(10),
-        languageTest: z.enum(["ielts", "celpip", "tef", "tcf"]),
-        listening: z.number().min(0).max(9),
-        reading: z.number().min(0).max(9),
-        writing: z.number().min(0).max(9),
-        speaking: z.number().min(0).max(9),
-        hasSpouse: z.boolean(),
-        spouseEducation: z.enum(["none", "high-school", "bachelor", "master"]).optional(),
-        spouseWorkExperience: z.number().min(0).max(10).optional(),
-        spouseLanguageScore: z.number().min(0).max(9).optional(),
-        hasJobOffer: z.boolean(),
-        hasProvincialNomination: z.boolean(),
+        familyStatus: z.enum(["single", "married-no-spouse", "married-with-spouse"]),
+        age: z.number().min(17).max(100),
+        education: z.enum(["phd", "masters", "double", "bachelor", "two-year", "one-year", "highschool", "below"]),
+        canadianEducation: z.enum(["none", "1-2year", "3plus"]).optional(),
+        languageTest: z.enum(["ielts", "celpip", "pte", "tef", "tcf"]),
+        listening: z.number().min(0).max(600),
+        reading: z.number().min(0).max(600),
+        writing: z.number().min(0).max(600),
+        speaking: z.number().min(0).max(600),
+        secondLanguageTest: z.enum(["none", "ielts", "celpip", "pte", "tef", "tcf"]).optional(),
+        secondListening: z.number().min(0).max(600).optional(),
+        secondReading: z.number().min(0).max(600).optional(),
+        secondWriting: z.number().min(0).max(600).optional(),
+        secondSpeaking: z.number().min(0).max(600).optional(),
+        canadianWorkExperience: z.enum(["none", "1year", "2year", "3year", "4year", "5plus"]),
+        canadianTradeCertificate: z.boolean().optional(),
+        overseasWorkExperience: z.enum(["none", "1year", "2year", "3plus"]).optional(),
+        hasSiblingInCanada: z.boolean().optional(),
+        hasProvincialNomination: z.boolean().optional(),
+        spouseAge: z.number().min(17).max(100).optional(),
+        spouseEducation: z.enum(["phd", "masters", "double", "bachelor", "two-year", "one-year", "highschool", "below"]).optional(),
+        spouseLanguageTest: z.enum(["none", "ielts", "celpip", "pte", "tef", "tcf"]).optional(),
+        spouseListening: z.number().min(0).max(600).optional(),
+        spouseReading: z.number().min(0).max(600).optional(),
+        spouseWriting: z.number().min(0).max(600).optional(),
+        spouseSpeaking: z.number().min(0).max(600).optional(),
+        spouseCanadianWorkExperience: z.enum(["none", "1year", "2year", "3year", "4year", "5plus"]).optional(),
+        spouseTradeCertificate: z.boolean().optional(),
+        spouseOverseasWorkExperience: z.enum(["none", "1year", "2year", "3plus"]).optional(),
       }))
       .query(({ input }) => {
-        // CRS calculation logic
-        let crs = 0;
-
-        // Age points (max 132)
-        const agePoints = [0, 0, 99, 105, 110, 109, 108, 107, 106, 103, 100, 98, 96, 94, 92, 90, 88, 86, 84, 82, 80, 78, 76, 74, 72, 70, 68, 66, 64, 62, 60, 58, 56, 54, 52, 50, 48, 46, 44, 42, 40, 38, 36, 34, 32, 30, 28, 26, 24, 22, 20, 19, 18, 17, 16, 15];
-        if (input.age < agePoints.length) {
-          crs += agePoints[input.age];
-        }
-
-        // Education points (max 150)
-        const educationPoints: Record<string, number> = {
-          "high-school": 30,
-          "one-year": 64,
-          "two-year": 104,
-          "bachelor": 120,
-          "master": 128,
-          "phd": 135,
-        };
-        crs += educationPoints[input.education] || 0;
-        if (input.canadianEducation) crs += 15;
-
-        // Work experience points (max 80)
-        crs += Math.min(input.workExperience * 2, 80);
-        if (input.canadianWorkExperience > 0) crs += Math.min(input.canadianWorkExperience * 2, 20);
-
-        // Language points (max 136)
-        const languagePoints = input.listening + input.reading + input.writing + input.speaking;
-        crs += Math.min(languagePoints * 2, 136);
-
-        // Spouse points
-        if (input.hasSpouse && input.spouseEducation) {
-          const spouseEducationPoints: Record<string, number> = {
-            "none": 0,
-            "high-school": 13,
-            "bachelor": 25,
-            "master": 32,
-          };
-          crs += spouseEducationPoints[input.spouseEducation] || 0;
-          if (input.spouseWorkExperience) crs += Math.min(input.spouseWorkExperience, 15);
-          if (input.spouseLanguageScore) crs += Math.min(input.spouseLanguageScore * 2, 20);
-        }
-
-        // Job offer and provincial nomination
-        if (input.hasJobOffer) crs += 50;
-        if (input.hasProvincialNomination) crs += 600;
-
-        const totalScore = Math.round(crs);
-        const eligible = totalScore >= 470;
-
-        // Build breakdown object
-        const breakdown: Record<string, number> = {};
-        breakdown['Age'] = input.age < agePoints.length ? agePoints[input.age] : 0;
-        breakdown['Education'] = educationPoints[input.education] || 0;
-        if (input.canadianEducation) breakdown['Canadian Education'] = 15;
-        breakdown['Work Experience'] = Math.min(input.workExperience * 2, 80);
-        if (input.canadianWorkExperience > 0) breakdown['Canadian Work Experience'] = Math.min(input.canadianWorkExperience * 2, 20);
-        breakdown['Language Skills'] = Math.min(languagePoints * 2, 136);
-        if (input.hasJobOffer) breakdown['Job Offer'] = 50;
-        if (input.hasProvincialNomination) breakdown['Provincial Nomination'] = 600;
-
-        let message = '';
-        if (totalScore >= 500) {
-          message = 'Excellent! Your score is competitive for recent draws.';
-        } else if (totalScore >= 470) {
-          message = 'Good! You may be eligible for Express Entry.';
-        } else if (totalScore >= 400) {
-          message = 'Fair. Consider improving your profile.';
-        } else {
-          message = 'Below typical cutoff. Focus on improving your skills.';
-        }
-
-        return {
-          totalScore,
-          eligible,
-          message,
-          breakdown,
-        };
+        return calculateCRSLogic(input);
       }),
+    calculateBCPNP: publicProcedure
+      .input(z.object({
+        workExperience: z.enum(["5plus", "4to5", "3to4", "2to3", "1to2", "below1", "none"]),
+        canadianExperience: z.boolean(),
+        currentlyWorking: z.boolean(),
+        education: z.enum(["phd", "masters", "postgrad", "bachelor", "associate", "diploma", "highschool"]),
+        bcEducation: z.boolean(),
+        canadaEducation: z.boolean(),
+        designatedOccupation: z.boolean(),
+        languageTest: z.enum(["ielts", "celpip", "pte"]),
+        listening: z.number().min(0).max(100),
+        reading: z.number().min(0).max(100),
+        writing: z.number().min(0).max(100),
+        speaking: z.number().min(0).max(100),
+        frenchLanguage: z.boolean(),
+        hourlyWage: z.number().min(0),
+        region: z.enum(["tier1", "tier2", "tier3"]),
+        regionWorkExperience: z.boolean(),
+        regionEducation: z.boolean(),
+      }))
+      .query(({ input }) => {
+        let score = 0;
+        const breakdown: Record<string, number> = {};
+        const workExperiencePoints: Record<string, number> = { "5plus": 20, "4to5": 16, "3to4": 12, "2to3": 8, "1to2": 4, "below1": 1, "none": 0 };
+        const workExp = workExperiencePoints[input.workExperience] || 0;
+        score += workExp;
+        breakdown["工作经验得分"] = workExp;
+        if (input.canadianExperience) { score += 10; breakdown["加拿大经验得分"] = 10; }
+        if (input.currentlyWorking) { score += 10; breakdown["当前工作得分"] = 10; }
+        const educationPoints: Record<string, number> = { "phd": 27, "masters": 22, "postgrad": 15, "bachelor": 15, "associate": 5, "diploma": 5, "highschool": 0 };
+        const edu = educationPoints[input.education] || 0;
+        score += edu;
+        breakdown["教育得分"] = edu;
+        if (input.bcEducation) { score += 8; breakdown["BC教育得分"] = 8; }
+        if (input.canadaEducation) { score += 6; breakdown["加拿大教育得分"] = 6; }
+        if (input.designatedOccupation) { score += 5; breakdown["指定职业得分"] = 5; }
+        const clb = Math.min(input.listening, input.reading, input.writing, input.speaking);
+        const languagePoints: Record<number, number> = { 10: 30, 9: 30, 8: 25, 7: 20, 6: 15, 5: 10, 4: 5 };
+        const langScore = languagePoints[Math.floor(clb)] || 0;
+        score += langScore;
+        breakdown["语言能力得分"] = langScore;
+        if (input.frenchLanguage) { score += 10; breakdown["法语得分"] = 10; }
+        const wage = Math.ceil(input.hourlyWage);
+        let wageScore = 0;
+        if (wage >= 70) { wageScore = 55; } else if (wage >= 16) { wageScore = wage - 15; }
+        score += wageScore;
+        breakdown["岗位薪资得分"] = wageScore;
+        const regionPoints: Record<string, number> = { "tier1": 0, "tier2": 5, "tier3": 15 };
+        const regionScore = regionPoints[input.region] || 0;
+        score += regionScore;
+        breakdown["地区得分"] = regionScore;
+        if (input.regionWorkExperience || input.regionEducation) { score += 10; breakdown["地区经验得分"] = 10; }
+        const totalScore = Math.round(score);
+        return { totalScore, breakdown, message: totalScore >= 80 ? "优秀！您具有很强的BC PNP申请资格。" : totalScore >= 60 ? "良好！您可能符合BC PNP申请条件。" : "建议改进您的申请资料以获得更好的机会。" };
+      }),
+
   }),
 
-  // Blog management
+  // Blog managementt
   blog: router({
     create: adminProcedure
       .input(z.object({
@@ -256,6 +362,62 @@ export const appRouter = router({
       .query(async ({ input }) => {
         return await searchBlogPosts(input.query);
       }),
+    calculateBCPNP: publicProcedure
+      .input(z.object({
+        workExperience: z.enum(["5plus", "4to5", "3to4", "2to3", "1to2", "below1", "none"]),
+        canadianExperience: z.boolean(),
+        currentlyWorking: z.boolean(),
+        education: z.enum(["phd", "masters", "postgrad", "bachelor", "associate", "diploma", "highschool"]),
+        bcEducation: z.boolean(),
+        canadaEducation: z.boolean(),
+        designatedOccupation: z.boolean(),
+        languageTest: z.enum(["ielts", "celpip", "pte"]),
+        listening: z.number().min(0).max(100),
+        reading: z.number().min(0).max(100),
+        writing: z.number().min(0).max(100),
+        speaking: z.number().min(0).max(100),
+        frenchLanguage: z.boolean(),
+        hourlyWage: z.number().min(0),
+        region: z.enum(["tier1", "tier2", "tier3"]),
+        regionWorkExperience: z.boolean(),
+        regionEducation: z.boolean(),
+      }))
+      .query(({ input }) => {
+        let score = 0;
+        const breakdown: Record<string, number> = {};
+        const workExperiencePoints: Record<string, number> = { "5plus": 20, "4to5": 16, "3to4": 12, "2to3": 8, "1to2": 4, "below1": 1, "none": 0 };
+        const workExp = workExperiencePoints[input.workExperience] || 0;
+        score += workExp;
+        breakdown["工作经验得分"] = workExp;
+        if (input.canadianExperience) { score += 10; breakdown["加拿大经验得分"] = 10; }
+        if (input.currentlyWorking) { score += 10; breakdown["当前工作得分"] = 10; }
+        const educationPoints: Record<string, number> = { "phd": 27, "masters": 22, "postgrad": 15, "bachelor": 15, "associate": 5, "diploma": 5, "highschool": 0 };
+        const edu = educationPoints[input.education] || 0;
+        score += edu;
+        breakdown["教育得分"] = edu;
+        if (input.bcEducation) { score += 8; breakdown["BC教育得分"] = 8; }
+        if (input.canadaEducation) { score += 6; breakdown["加拿大教育得分"] = 6; }
+        if (input.designatedOccupation) { score += 5; breakdown["指定职业得分"] = 5; }
+        const clb = Math.min(input.listening, input.reading, input.writing, input.speaking);
+        const languagePoints: Record<number, number> = { 10: 30, 9: 30, 8: 25, 7: 20, 6: 15, 5: 10, 4: 5 };
+        const langScore = languagePoints[Math.floor(clb)] || 0;
+        score += langScore;
+        breakdown["语言能力得分"] = langScore;
+        if (input.frenchLanguage) { score += 10; breakdown["法语得分"] = 10; }
+        const wage = Math.ceil(input.hourlyWage);
+        let wageScore = 0;
+        if (wage >= 70) { wageScore = 55; } else if (wage >= 16) { wageScore = wage - 15; }
+        score += wageScore;
+        breakdown["岗位薪资得分"] = wageScore;
+        const regionPoints: Record<string, number> = { "tier1": 0, "tier2": 5, "tier3": 15 };
+        const regionScore = regionPoints[input.region] || 0;
+        score += regionScore;
+        breakdown["地区得分"] = regionScore;
+        if (input.regionWorkExperience || input.regionEducation) { score += 10; breakdown["地区经验得分"] = 10; }
+        const totalScore = Math.round(score);
+        return { totalScore, breakdown, message: totalScore >= 80 ? "优秀！您具有很强的BC PNP申请资格。" : totalScore >= 60 ? "良好！您可能符合BC PNP申请条件。" : "建议改进您的申请资料以获得更好的机会。" };
+      }),
+
   }),
 
   // Success cases management
@@ -309,6 +471,62 @@ export const appRouter = router({
         }
         return cases;
       }),
+    calculateBCPNP: publicProcedure
+      .input(z.object({
+        workExperience: z.enum(["5plus", "4to5", "3to4", "2to3", "1to2", "below1", "none"]),
+        canadianExperience: z.boolean(),
+        currentlyWorking: z.boolean(),
+        education: z.enum(["phd", "masters", "postgrad", "bachelor", "associate", "diploma", "highschool"]),
+        bcEducation: z.boolean(),
+        canadaEducation: z.boolean(),
+        designatedOccupation: z.boolean(),
+        languageTest: z.enum(["ielts", "celpip", "pte"]),
+        listening: z.number().min(0).max(100),
+        reading: z.number().min(0).max(100),
+        writing: z.number().min(0).max(100),
+        speaking: z.number().min(0).max(100),
+        frenchLanguage: z.boolean(),
+        hourlyWage: z.number().min(0),
+        region: z.enum(["tier1", "tier2", "tier3"]),
+        regionWorkExperience: z.boolean(),
+        regionEducation: z.boolean(),
+      }))
+      .query(({ input }) => {
+        let score = 0;
+        const breakdown: Record<string, number> = {};
+        const workExperiencePoints: Record<string, number> = { "5plus": 20, "4to5": 16, "3to4": 12, "2to3": 8, "1to2": 4, "below1": 1, "none": 0 };
+        const workExp = workExperiencePoints[input.workExperience] || 0;
+        score += workExp;
+        breakdown["工作经验得分"] = workExp;
+        if (input.canadianExperience) { score += 10; breakdown["加拿大经验得分"] = 10; }
+        if (input.currentlyWorking) { score += 10; breakdown["当前工作得分"] = 10; }
+        const educationPoints: Record<string, number> = { "phd": 27, "masters": 22, "postgrad": 15, "bachelor": 15, "associate": 5, "diploma": 5, "highschool": 0 };
+        const edu = educationPoints[input.education] || 0;
+        score += edu;
+        breakdown["教育得分"] = edu;
+        if (input.bcEducation) { score += 8; breakdown["BC教育得分"] = 8; }
+        if (input.canadaEducation) { score += 6; breakdown["加拿大教育得分"] = 6; }
+        if (input.designatedOccupation) { score += 5; breakdown["指定职业得分"] = 5; }
+        const clb = Math.min(input.listening, input.reading, input.writing, input.speaking);
+        const languagePoints: Record<number, number> = { 10: 30, 9: 30, 8: 25, 7: 20, 6: 15, 5: 10, 4: 5 };
+        const langScore = languagePoints[Math.floor(clb)] || 0;
+        score += langScore;
+        breakdown["语言能力得分"] = langScore;
+        if (input.frenchLanguage) { score += 10; breakdown["法语得分"] = 10; }
+        const wage = Math.ceil(input.hourlyWage);
+        let wageScore = 0;
+        if (wage >= 70) { wageScore = 55; } else if (wage >= 16) { wageScore = wage - 15; }
+        score += wageScore;
+        breakdown["岗位薪资得分"] = wageScore;
+        const regionPoints: Record<string, number> = { "tier1": 0, "tier2": 5, "tier3": 15 };
+        const regionScore = regionPoints[input.region] || 0;
+        score += regionScore;
+        breakdown["地区得分"] = regionScore;
+        if (input.regionWorkExperience || input.regionEducation) { score += 10; breakdown["地区经验得分"] = 10; }
+        const totalScore = Math.round(score);
+        return { totalScore, breakdown, message: totalScore >= 80 ? "优秀！您具有很强的BC PNP申请资格。" : totalScore >= 60 ? "良好！您可能符合BC PNP申请条件。" : "建议改进您的申请资料以获得更好的机会。" };
+      }),
+
   }),
 
   // Unified posts management (CMS)
@@ -370,166 +588,6 @@ export const appRouter = router({
         return await getPostBySlug(input.slug);
       }),
 
-    calculateBCPNP: publicProcedure
-      .input(z.object({
-        workExperience: z.enum(["5plus", "4to5", "3to4", "2to3", "1to2", "below1", "none"]),
-        canadianExperience: z.boolean(),
-        currentlyWorking: z.boolean(),
-        education: z.enum(["phd", "masters", "postgrad", "bachelor", "associate", "diploma", "highschool"]),
-        bcEducation: z.boolean(),
-        canadaEducation: z.boolean(),
-        designatedOccupation: z.boolean(),
-        languageTest: z.enum(["ielts", "celpip", "pte"]),
-        listening: z.number().min(0).max(100),
-        reading: z.number().min(0).max(100),
-        writing: z.number().min(0).max(100),
-        speaking: z.number().min(0).max(100),
-        frenchLanguage: z.boolean(),
-        hourlyWage: z.number().min(0),
-        region: z.enum(["tier1", "tier2", "tier3"]),
-        regionWorkExperience: z.boolean(),
-        regionEducation: z.boolean(),
-      }))
-      .query(({ input }) => {
-        // Helper function to convert language scores to CLB
-        const convertToCLB = (listening: number, reading: number, writing: number, speaking: number, testType: string): number => {
-          let clbs: number[] = [];
-          
-          if (testType === "ielts") {
-            // IELTS conversion
-            const listeningCLB = listening >= 8.5 ? 10 : listening >= 8 ? 9 : listening >= 7.5 ? 8 : listening >= 6.5 ? 7 : listening >= 5.5 ? 6 : listening >= 5 ? 5 : listening >= 4.5 ? 4 : 0;
-            const readingCLB = reading >= 8 ? 10 : reading >= 7.5 ? 9 : reading >= 6.5 ? 8 : reading >= 6 ? 7 : reading >= 5.5 ? 6 : reading >= 4.5 ? 5 : reading >= 3.5 ? 4 : 0;
-            const writingCLB = writing >= 7.5 ? 10 : writing >= 7 ? 9 : writing >= 6.5 ? 8 : writing >= 6 ? 7 : writing >= 5.5 ? 6 : writing >= 5 ? 5 : writing >= 4 ? 4 : 0;
-            const speakingCLB = speaking >= 7.5 ? 10 : speaking >= 7 ? 9 : speaking >= 6.5 ? 8 : speaking >= 6 ? 7 : speaking >= 5.5 ? 6 : speaking >= 5 ? 5 : speaking >= 4 ? 4 : 0;
-            clbs = [listeningCLB, readingCLB, writingCLB, speakingCLB];
-          } else if (testType === "celpip") {
-            // CELPIP conversion
-            const listeningCLB = listening >= 10 ? 10 : listening >= 9 ? 9 : listening >= 8 ? 8 : listening >= 7 ? 7 : listening >= 6 ? 6 : listening >= 5 ? 5 : listening >= 4 ? 4 : 0;
-            const readingCLB = reading >= 10 ? 10 : reading >= 9 ? 9 : reading >= 8 ? 8 : reading >= 7 ? 7 : reading >= 6 ? 6 : reading >= 5 ? 5 : reading >= 4 ? 4 : 0;
-            const writingCLB = writing >= 10 ? 10 : writing >= 9 ? 9 : writing >= 8 ? 8 : writing >= 7 ? 7 : writing >= 6 ? 6 : writing >= 5 ? 5 : writing >= 4 ? 4 : 0;
-            const speakingCLB = speaking >= 10 ? 10 : speaking >= 9 ? 9 : speaking >= 8 ? 8 : speaking >= 7 ? 7 : speaking >= 6 ? 6 : speaking >= 5 ? 5 : speaking >= 4 ? 4 : 0;
-            clbs = [listeningCLB, readingCLB, writingCLB, speakingCLB];
-          } else if (testType === "pte") {
-            // PTE conversion
-            const listeningCLB = listening >= 89 ? 10 : listening >= 82 ? 9 : listening >= 71 ? 8 : listening >= 60 ? 7 : listening >= 50 ? 6 : listening >= 39 ? 5 : listening >= 28 ? 4 : 0;
-            const readingCLB = reading >= 88 ? 10 : reading >= 78 ? 9 : reading >= 69 ? 8 : reading >= 60 ? 7 : reading >= 51 ? 6 : reading >= 42 ? 5 : reading >= 33 ? 4 : 0;
-            const writingCLB = writing >= 90 ? 10 : writing >= 88 ? 9 : writing >= 79 ? 8 : writing >= 69 ? 7 : writing >= 60 ? 6 : writing >= 51 ? 5 : writing >= 41 ? 4 : 0;
-            const speakingCLB = speaking >= 89 ? 10 : speaking >= 84 ? 9 : speaking >= 76 ? 8 : speaking >= 68 ? 7 : speaking >= 59 ? 6 : speaking >= 51 ? 5 : speaking >= 42 ? 4 : 0;
-            clbs = [listeningCLB, readingCLB, writingCLB, speakingCLB];
-          }
-          
-          return Math.min(...clbs);
-        };
-        
-        let score = 0;
-        const breakdown: Record<string, number> = {};
-        
-        // Human Capital Factors (max 40)
-        const workExperiencePoints: Record<string, number> = {
-          "5plus": 20,
-          "4to5": 16,
-          "3to4": 12,
-          "2to3": 8,
-          "1to2": 4,
-          "below1": 1,
-          "none": 0,
-        };
-        const workExp = workExperiencePoints[input.workExperience] || 0;
-        score += workExp;
-        breakdown["Work Experience"] = workExp;
-        
-        if (input.canadianExperience) {
-          score += 10;
-          breakdown["Canadian Experience"] = 10;
-        }
-        
-        if (input.currentlyWorking) {
-          score += 10;
-          breakdown["Currently Working in Canada"] = 10;
-        }
-        
-        const educationPoints: Record<string, number> = {
-          "phd": 27,
-          "masters": 22,
-          "postgrad": 15,
-          "bachelor": 15,
-          "associate": 5,
-          "diploma": 5,
-          "highschool": 0,
-        };
-        const edu = educationPoints[input.education] || 0;
-        score += edu;
-        breakdown["Education"] = edu;
-        
-        if (input.bcEducation) {
-          score += 8;
-          breakdown["BC Education"] = 8;
-        }
-        
-        if (input.canadaEducation) {
-          score += 6;
-          breakdown["Canada Education"] = 6;
-        }
-        
-        if (input.designatedOccupation) {
-          score += 5;
-          breakdown["Designated Occupation"] = 5;
-        }
-        
-        // Language Skills (max 40)
-        const clb = convertToCLB(input.listening, input.reading, input.writing, input.speaking, input.languageTest);
-        const languagePoints: Record<number, number> = {
-          10: 30,
-          9: 30,
-          8: 25,
-          7: 20,
-          6: 15,
-          5: 10,
-          4: 5,
-        };
-        const langScore = languagePoints[clb] || 0;
-        score += langScore;
-        breakdown["Language Skills (CLB " + clb + ")"] = langScore;
-        
-        if (input.frenchLanguage) {
-          score += 10;
-          breakdown["French Language"] = 10;
-        }
-        
-        // Economic Factors
-        const wage = Math.ceil(input.hourlyWage);
-        let wageScore = 0;
-        if (wage >= 70) {
-          wageScore = 55;
-        } else if (wage >= 16) {
-          wageScore = wage - 15;
-        }
-        score += wageScore;
-        breakdown["Hourly Wage"] = wageScore;
-        
-        const regionPoints: Record<string, number> = {
-          "tier1": 0,
-          "tier2": 5,
-          "tier3": 15,
-        };
-        const regionScore = regionPoints[input.region] || 0;
-        score += regionScore;
-        breakdown["Region"] = regionScore;
-        
-        if (input.regionWorkExperience || input.regionEducation) {
-          score += 10;
-          breakdown["Region Work/Education Experience"] = 10;
-        }
-        
-        const totalScore = Math.round(score);
-        
-        return {
-          totalScore,
-          breakdown,
-          message: totalScore >= 80 ? "Excellent! You have a strong profile for BC PNP." : totalScore >= 60 ? "Good! You may be eligible for BC PNP." : "Consider improving your profile for better chances.",
-        };
-      }),
-
     list: publicProcedure
       .input(z.object({
         type: z.enum(["blog", "success-case"]).optional(),
@@ -556,6 +614,62 @@ export const appRouter = router({
           category: input.category,
         });
       }),
+    calculateBCPNP: publicProcedure
+      .input(z.object({
+        workExperience: z.enum(["5plus", "4to5", "3to4", "2to3", "1to2", "below1", "none"]),
+        canadianExperience: z.boolean(),
+        currentlyWorking: z.boolean(),
+        education: z.enum(["phd", "masters", "postgrad", "bachelor", "associate", "diploma", "highschool"]),
+        bcEducation: z.boolean(),
+        canadaEducation: z.boolean(),
+        designatedOccupation: z.boolean(),
+        languageTest: z.enum(["ielts", "celpip", "pte"]),
+        listening: z.number().min(0).max(100),
+        reading: z.number().min(0).max(100),
+        writing: z.number().min(0).max(100),
+        speaking: z.number().min(0).max(100),
+        frenchLanguage: z.boolean(),
+        hourlyWage: z.number().min(0),
+        region: z.enum(["tier1", "tier2", "tier3"]),
+        regionWorkExperience: z.boolean(),
+        regionEducation: z.boolean(),
+      }))
+      .query(({ input }) => {
+        let score = 0;
+        const breakdown: Record<string, number> = {};
+        const workExperiencePoints: Record<string, number> = { "5plus": 20, "4to5": 16, "3to4": 12, "2to3": 8, "1to2": 4, "below1": 1, "none": 0 };
+        const workExp = workExperiencePoints[input.workExperience] || 0;
+        score += workExp;
+        breakdown["工作经验得分"] = workExp;
+        if (input.canadianExperience) { score += 10; breakdown["加拿大经验得分"] = 10; }
+        if (input.currentlyWorking) { score += 10; breakdown["当前工作得分"] = 10; }
+        const educationPoints: Record<string, number> = { "phd": 27, "masters": 22, "postgrad": 15, "bachelor": 15, "associate": 5, "diploma": 5, "highschool": 0 };
+        const edu = educationPoints[input.education] || 0;
+        score += edu;
+        breakdown["教育得分"] = edu;
+        if (input.bcEducation) { score += 8; breakdown["BC教育得分"] = 8; }
+        if (input.canadaEducation) { score += 6; breakdown["加拿大教育得分"] = 6; }
+        if (input.designatedOccupation) { score += 5; breakdown["指定职业得分"] = 5; }
+        const clb = Math.min(input.listening, input.reading, input.writing, input.speaking);
+        const languagePoints: Record<number, number> = { 10: 30, 9: 30, 8: 25, 7: 20, 6: 15, 5: 10, 4: 5 };
+        const langScore = languagePoints[Math.floor(clb)] || 0;
+        score += langScore;
+        breakdown["语言能力得分"] = langScore;
+        if (input.frenchLanguage) { score += 10; breakdown["法语得分"] = 10; }
+        const wage = Math.ceil(input.hourlyWage);
+        let wageScore = 0;
+        if (wage >= 70) { wageScore = 55; } else if (wage >= 16) { wageScore = wage - 15; }
+        score += wageScore;
+        breakdown["岗位薪资得分"] = wageScore;
+        const regionPoints: Record<string, number> = { "tier1": 0, "tier2": 5, "tier3": 15 };
+        const regionScore = regionPoints[input.region] || 0;
+        score += regionScore;
+        breakdown["地区得分"] = regionScore;
+        if (input.regionWorkExperience || input.regionEducation) { score += 10; breakdown["地区经验得分"] = 10; }
+        const totalScore = Math.round(score);
+        return { totalScore, breakdown, message: totalScore >= 80 ? "优秀！您具有很强的BC PNP申请资格。" : totalScore >= 60 ? "良好！您可能符合BC PNP申请条件。" : "建议改进您的申请资料以获得更好的机会。" };
+      }),
+
   }),
 });
 
