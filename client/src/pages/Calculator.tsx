@@ -71,11 +71,9 @@ export default function Calculator() {
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="mb-8">
-          <Link href="/">
-            <a className="flex items-center text-teal-600 hover:text-teal-700 mb-4">
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              返回首页
-            </a>
+          <Link href="/" className="flex items-center text-teal-600 hover:text-teal-700 mb-4">
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            返回首页
           </Link>
           <h1 className="text-4xl font-black mb-2" style={{ fontFamily: "Alibaba PuHuiTi, sans-serif" }}>
             联邦快速通道算分工具
