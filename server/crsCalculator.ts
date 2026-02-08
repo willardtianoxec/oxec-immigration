@@ -10,7 +10,7 @@ export const convertToCLB = (
   writing: number,
   speaking: number,
   testType: string
-): number => {
+): number[] => {
   let clbs: number[] = [];
 
   if (testType === "ielts") {
@@ -294,7 +294,7 @@ export const convertToCLB = (
     clbs = [listeningCLB, readingCLB, writingCLB, speakingCLB];
   }
 
-  return Math.min(...clbs);
+  return clbs;
 };
 
 export interface CRSCalculationInput {
@@ -398,7 +398,7 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
     }
 
     // Language skills - first test
-    const clb = convertToCLB(
+    const clbs = convertToCLB(
       input.listening,
       input.reading,
       input.writing,
@@ -406,23 +406,27 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
       input.languageTest
     );
     const languageScores: Record<number, number> = {
-      10: 136,
-      9: 129,
-      8: 127,
-      7: 109,
-      6: 95,
+      10: 34,
+      9: 31,
+      8: 23,
+      7: 17,
+      6: 9,
       5: 6,
       4: 6,
       0: 0,
     };
-    const langScore = languageScores[clb] || 0;
+    // Calculate language score for each skill and sum them
+    const langScore = clbs.reduce((sum, clb) => sum + (languageScores[clb] || 0), 0);
     totalScore += langScore;
     coreHumanCapital.语言 = langScore;
     coreHumanCapital.小计 += langScore;
+    
+    // Get minimum CLB for transferable skills evaluation
+    const minClb = Math.min(...clbs);
 
     // Second language test
     if (input.secondLanguageTest && input.secondLanguageTest !== "none") {
-      const secondClb = convertToCLB(
+      const secondClbs = convertToCLB(
         input.secondListening || 0,
         input.secondReading || 0,
         input.secondWriting || 0,
@@ -439,7 +443,7 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
         4: 0,
         0: 0,
       };
-      const secondLangScore = secondLangScores[secondClb] || 0;
+      const secondLangScore = secondClbs.reduce((sum, clb) => sum + (secondLangScores[clb] || 0), 0);
       totalScore += secondLangScore;
       coreHumanCapital.小计 += secondLangScore;
     }
@@ -461,8 +465,8 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
     const overseasWorkScore = overseasWorkScores[input.overseasWorkExperience || "none"] || 0;
     
     // Education + Language (requires CLB 9+)
-    console.log(`[DEBUG] Education+Language: eduScore=${eduScore}, clb=${clb}, condition=${eduScore >= 120 && clb >= 9}`);
-    if (eduScore >= 120 && clb >= 9) {
+    console.log(`[DEBUG] Education+Language: eduScore=${eduScore}, clb=${minClb}, condition=${eduScore >= 120 && minClb >= 9}`);
+    if (eduScore >= 120 && minClb >= 9) {
       transferableSkills["学历+语言"] = 50;
     }
     // Education + Canadian work experience
@@ -474,16 +478,16 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
     let overseasLanguageScore = 0;
     if (overseasWorkScore >= 20 && overseasWorkScore < 53) {
       // 1-3 years overseas experience
-      if (clb >= 9) {
+      if (minClb >= 9) {
         overseasLanguageScore = 25; // 1-3 years + CLB 9-10
-      } else if (clb >= 7) {
+      } else if (minClb >= 7) {
         overseasLanguageScore = 13; // 1-3 years + CLB 7-8
       }
     } else if (overseasWorkScore >= 53) {
       // 3+ years overseas experience
-      if (clb >= 9) {
+      if (minClb >= 9) {
         overseasLanguageScore = 50; // 3+ years + CLB 9-10
-      } else if (clb >= 7) {
+      } else if (minClb >= 7) {
         overseasLanguageScore = 25; // 3+ years + CLB 7-8
       }
     }
@@ -584,7 +588,7 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
     coreHumanCapital.小计 += eduScore;
 
     // Main applicant - language
-    const clb = convertToCLB(
+    const clbs = convertToCLB(
       input.listening,
       input.reading,
       input.writing,
@@ -592,19 +596,22 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
       input.languageTest
     );
     const languageScores: Record<number, number> = {
-      10: 132,
-      9: 125,
-      8: 118,
-      7: 107,
-      6: 94,
+      10: 32,
+      9: 29,
+      8: 21,
+      7: 16,
+      6: 8,
       5: 6,
       4: 6,
       0: 0,
     };
-    const langScore = languageScores[clb] || 0;
+    const langScore = clbs.reduce((sum, clb) => sum + (languageScores[clb] || 0), 0);
     totalScore += langScore;
     coreHumanCapital.语言 = langScore;
     coreHumanCapital.小计 += langScore;
+    
+    // Get minimum CLB for transferable skills evaluation
+    const minClb = Math.min(...clbs);
 
     // Main applicant - Canadian work experience
     const canadianWorkScores: Record<string, number> = {
@@ -639,7 +646,7 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
 
     // Spouse - language
     if (input.spouseLanguageTest && input.spouseLanguageTest !== "none") {
-      const spouseClb = convertToCLB(
+      const spouseClbs = convertToCLB(
         input.spouseListening || 0,
         input.spouseReading || 0,
         input.spouseWriting || 0,
@@ -656,7 +663,7 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
         4: 0,
         0: 0,
       };
-      const spouseLangScore = spouseLangScores[spouseClb] || 0;
+      const spouseLangScore = spouseClbs.reduce((sum, clb) => sum + (spouseLangScores[clb] || 0), 0);
       totalScore += spouseLangScore;
       spouseFactor.配偶语言 = spouseLangScore;
       spouseFactor.小计 += spouseLangScore;
@@ -681,8 +688,8 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
     const overseasWorkScore = overseasWorkScores[input.overseasWorkExperience || "none"] || 0;
     
     // Education + Language (requires CLB 9+)
-    console.log(`[DEBUG] Education+Language: eduScore=${eduScore}, clb=${clb}, condition=${eduScore >= 120 && clb >= 9}`);
-    if (eduScore >= 120 && clb >= 9) {
+    console.log(`[DEBUG] Education+Language: eduScore=${eduScore}, clb=${minClb}, condition=${eduScore >= 120 && minClb >= 9}`);
+    if (eduScore >= 120 && minClb >= 9) {
       transferableSkills["学历+语言"] = 50;
     }
     // Education + Canadian work experience
@@ -694,16 +701,16 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
     let overseasLanguageScore = 0;
     if (overseasWorkScore >= 20 && overseasWorkScore < 53) {
       // 1-3 years overseas experience
-      if (clb >= 9) {
+      if (minClb >= 9) {
         overseasLanguageScore = 25; // 1-3 years + CLB 9-10
-      } else if (clb >= 7) {
+      } else if (minClb >= 7) {
         overseasLanguageScore = 13; // 1-3 years + CLB 7-8
       }
     } else if (overseasWorkScore >= 53) {
       // 3+ years overseas experience
-      if (clb >= 9) {
+      if (minClb >= 9) {
         overseasLanguageScore = 50; // 3+ years + CLB 9-10
-      } else if (clb >= 7) {
+      } else if (minClb >= 7) {
         overseasLanguageScore = 25; // 3+ years + CLB 7-8
       }
     }
