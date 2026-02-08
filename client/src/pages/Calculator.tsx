@@ -559,34 +559,132 @@ export default function Calculator() {
                     </p>
                   </div>
 
-                  <div className="border-t pt-4 space-y-3">
+                  <div className="border-t pt-4 space-y-4">
                     <h4 className="font-semibold text-sm mb-3">分数明细</h4>
                     
-                    {result.breakdown?.humanCapital !== undefined && (
-                      <div className="flex justify-between text-sm">
-                        <span>人力资源因素</span>
-                        <span className="font-semibold">{result.breakdown.humanCapital}</span>
+                    {/* 核心人力资本 */}
+                    {result.breakdown?.核心人力资本 && (
+                      <div className="space-y-2">
+                        <div className="flex justify-between text-sm font-semibold bg-blue-50 p-2 rounded">
+                          <span>核心人力资本因素</span>
+                          <span className="text-blue-600">{result.breakdown.核心人力资本.小计}</span>
+                        </div>
+                        <div className="pl-3 space-y-1 text-xs text-muted-foreground">
+                          {result.breakdown.核心人力资本.年龄 > 0 && (
+                            <div className="flex justify-between">
+                              <span>年龄</span>
+                              <span>{result.breakdown.核心人力资本.年龄}</span>
+                            </div>
+                          )}
+                          {result.breakdown.核心人力资本.学历 > 0 && (
+                            <div className="flex justify-between">
+                              <span>学历</span>
+                              <span>{result.breakdown.核心人力资本.学历}</span>
+                            </div>
+                          )}
+                          {result.breakdown.核心人力资本.语言 > 0 && (
+                            <div className="flex justify-between">
+                              <span>语言能力</span>
+                              <span>{result.breakdown.核心人力资本.语言}</span>
+                            </div>
+                          )}
+                          {result.breakdown.核心人力资本.加国经验 > 0 && (
+                            <div className="flex justify-between">
+                              <span>加国工作经验</span>
+                              <span>{result.breakdown.核心人力资本.加国经验}</span>
+                            </div>
+                          )}
+                        </div>
                       </div>
                     )}
 
-                    {result.breakdown?.spouse !== undefined && (
-                      <div className="flex justify-between text-sm">
-                        <span>配偶因素</span>
-                        <span className="font-semibold">{result.breakdown.spouse}</span>
+                    {/* 配偶因素 */}
+                    {result.breakdown?.配偶因素 && (
+                      <div className="space-y-2">
+                        <div className="flex justify-between text-sm font-semibold bg-green-50 p-2 rounded">
+                          <span>配偶因素</span>
+                          <span className="text-green-600">{result.breakdown.配偶因素.小计}</span>
+                        </div>
+                        <div className="pl-3 space-y-1 text-xs text-muted-foreground">
+                          {result.breakdown.配偶因素.配偶学历 > 0 && (
+                            <div className="flex justify-between">
+                              <span>配偶学历</span>
+                              <span>{result.breakdown.配偶因素.配偶学历}</span>
+                            </div>
+                          )}
+                          {result.breakdown.配偶因素.配偶语言 > 0 && (
+                            <div className="flex justify-between">
+                              <span>配偶语言</span>
+                              <span>{result.breakdown.配偶因素.配偶语言}</span>
+                            </div>
+                          )}
+                          {result.breakdown.配偶因素.配偶加国经验 > 0 && (
+                            <div className="flex justify-between">
+                              <span>配偶加国经验</span>
+                              <span>{result.breakdown.配偶因素.配偶加国经验}</span>
+                            </div>
+                          )}
+                        </div>
                       </div>
                     )}
 
-                    {result.breakdown?.transferable !== undefined && (
-                      <div className="flex justify-between text-sm">
-                        <span>可转移技能</span>
-                        <span className="font-semibold">{result.breakdown.transferable}</span>
+                    {/* 可转移技能 */}
+                    {result.breakdown?.可转移技能 && result.breakdown.可转移技能.小计 > 0 && (
+                      <div className="space-y-2">
+                        <div className="flex justify-between text-sm font-semibold bg-purple-50 p-2 rounded">
+                          <span>可转移技能加分</span>
+                          <span className="text-purple-600">{result.breakdown.可转移技能.小计}</span>
+                        </div>
+                        <div className="pl-3 space-y-1 text-xs text-muted-foreground">
+                          {result.breakdown.可转移技能["学历+语言"] > 0 && (
+                            <div className="flex justify-between">
+                              <span>学历+语言</span>
+                              <span>{result.breakdown.可转移技能["学历+语言"]}</span>
+                            </div>
+                          )}
+                          {result.breakdown.可转移技能["学历+加国经验"] > 0 && (
+                            <div className="flex justify-between">
+                              <span>学历+加国经验</span>
+                              <span>{result.breakdown.可转移技能["学历+加国经验"]}</span>
+                            </div>
+                          )}
+                          {result.breakdown.可转移技能["海外经验+语言"] > 0 && (
+                            <div className="flex justify-between">
+                              <span>海外经验+语言</span>
+                              <span>{result.breakdown.可转移技能["海外经验+语言"]}</span>
+                            </div>
+                          )}
+                          {result.breakdown.可转移技能["海外经验+加国经验"] > 0 && (
+                            <div className="flex justify-between">
+                              <span>海外经验+加国经验</span>
+                              <span>{result.breakdown.可转移技能["海外经验+加国经验"]}</span>
+                            </div>
+                          )}
+                        </div>
                       </div>
                     )}
 
-                    {result.breakdown?.additional !== undefined && (
-                      <div className="flex justify-between text-sm">
-                        <span>附加分项</span>
-                        <span className="font-semibold">{result.breakdown.additional}</span>
+                    {/* 附加分 */}
+                    {result.breakdown?.附加分 && (
+                      <div className="space-y-2">
+                        <div className="flex justify-between text-sm font-semibold bg-orange-50 p-2 rounded">
+                          <span>附加分项</span>
+                          <span className="text-orange-600">{result.breakdown.附加分.小计}</span>
+                        </div>
+                        <div className="pl-3 space-y-1 text-xs text-muted-foreground">
+                          {result.breakdown.附加分.兄弟姐妹 > 0 && (
+                            <div className="flex justify-between">
+                              <span>兄弟姐妹在加拿大</span>
+                              <span>{result.breakdown.附加分.兄弟姐妹}</span>
+                            </div>
+                          )}
+                          {result.breakdown.附加分.省提名 > 0 && (
+                            <div className="flex justify-between">
+                              <span>省提名证明</span>
+                              <span>{result.breakdown.附加分.省提名}</span>
+                            </div>
+                          )}
+                        </div>
                       </div>
                     )}
                   </div>

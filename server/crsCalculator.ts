@@ -336,7 +336,7 @@ export interface CRSCalculationInput {
 
 export interface CRSCalculationResult {
   totalScore: number;
-  breakdown: Record<string, number>;
+  breakdown: Record<string, any>;
   message: string;
   scheme: "A" | "B";
 }
@@ -344,68 +344,51 @@ export interface CRSCalculationResult {
 export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult => {
   const isSchemeB = input.familyStatus === "married-with-spouse";
   let totalScore = 0;
-  const breakdown: Record<string, number> = {};
+  const breakdown: Record<string, any> = {};
+
+  // Initialize breakdown structure for detailed scoring
+  const coreHumanCapital: Record<string, number> = { 
+    小计: 0, 年龄: 0, 学历: 0, 语言: 0, 加国经验: 0 
+  };
+  const spouseFactor: Record<string, number> = { 
+    小计: 0, 配偶学历: 0, 配偶语言: 0, 配偶加国经验: 0 
+  };
+  const transferableSkills: Record<string, number> = { 
+    小计: 0, "学历+语言": 0, "学历+加国经验": 0, "海外经验+语言": 0, "海外经验+加国经验": 0 
+  };
+  const additionalFactor: Record<string, number> = { 
+    小计: 0, 兄弟姐妹: 0, 省提名: 0 
+  };
 
   if (!isSchemeB) {
     // SCHEME A: Single or married without spouse
     // Age points
     const ageScores: Record<number, number> = {
-      17: 0,
-      18: 99,
-      19: 105,
-      20: 110,
-      21: 110,
-      22: 110,
-      23: 110,
-      24: 110,
-      25: 110,
-      26: 110,
-      27: 110,
-      28: 110,
-      29: 110,
-      30: 105,
-      31: 99,
-      32: 94,
-      33: 88,
-      34: 83,
-      35: 77,
-      36: 72,
-      37: 66,
-      38: 61,
-      39: 55,
-      40: 50,
-      41: 39,
-      42: 28,
-      43: 17,
-      44: 6,
-      45: 0,
+      17: 0, 18: 99, 19: 105, 20: 110, 21: 110, 22: 110, 23: 110, 24: 110, 25: 110, 26: 110,
+      27: 110, 28: 110, 29: 110, 30: 105, 31: 99, 32: 94, 33: 88, 34: 83, 35: 77, 36: 72,
+      37: 66, 38: 61, 39: 55, 40: 50, 41: 39, 42: 28, 43: 17, 44: 6, 45: 0,
     };
     const ageScore = ageScores[input.age] || 0;
     totalScore += ageScore;
-    breakdown["年龄"] = ageScore;
+    coreHumanCapital.年龄 = ageScore;
+    coreHumanCapital.小计 += ageScore;
 
     // Education points
     const educationScores: Record<string, number> = {
-      phd: 150,
-      masters: 135,
-      double: 128,
-      bachelor: 120,
-      "two-year": 98,
-      "one-year": 90,
-      highschool: 30,
-      below: 0,
+      phd: 150, masters: 135, double: 128, bachelor: 120, "two-year": 98, "one-year": 90, highschool: 30, below: 0,
     };
     const eduScore = educationScores[input.education] || 0;
     totalScore += eduScore;
-    breakdown["学历"] = eduScore;
+    coreHumanCapital.学历 = eduScore;
+    coreHumanCapital.小计 += eduScore;
 
-    // Canadian education bonus
+    // Canadian education bonus (part of human capital)
     if (input.canadianEducation === "1-2year") {
       totalScore += 15;
-      breakdown["加拿大1-2年教育"] = 15;
+      coreHumanCapital.小计 += 15;
     } else if (input.canadianEducation === "3plus") {
       totalScore += 30;
-      breakdown["加拿大3年以上教育"] = 30;
+      coreHumanCapital.小计 += 30;
     }
 
     // Language skills - first test
@@ -417,18 +400,19 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
       input.languageTest
     );
     const languageScores: Record<number, number> = {
-      10: 34,
-      9: 31,
-      8: 23,
-      7: 17,
-      6: 9,
+      10: 136,
+      9: 129,
+      8: 121,
+      7: 109,
+      6: 95,
       5: 6,
       4: 6,
       0: 0,
     };
     const langScore = languageScores[clb] || 0;
     totalScore += langScore;
-    breakdown["第一语言考试"] = langScore;
+    coreHumanCapital.语言 = langScore;
+    coreHumanCapital.小计 += langScore;
 
     // Second language test
     if (input.secondLanguageTest && input.secondLanguageTest !== "none") {
@@ -440,98 +424,99 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
         input.secondLanguageTest
       );
       const secondLangScores: Record<number, number> = {
-        10: 6,
-        9: 6,
-        8: 3,
-        7: 3,
-        6: 1,
+        10: 8,
+        9: 8,
+        8: 7,
+        7: 6,
+        6: 5,
         5: 1,
         4: 0,
         0: 0,
       };
       const secondLangScore = secondLangScores[secondClb] || 0;
       totalScore += secondLangScore;
-      breakdown["第二语言考试"] = secondLangScore;
+      coreHumanCapital.小计 += secondLangScore;
     }
 
     // Canadian work experience
     const canadianWorkScores: Record<string, number> = {
-      none: 0,
-      "1year": 40,
-      "2year": 53,
-      "3year": 64,
-      "4year": 72,
-      "5plus": 80,
+      none: 0, "1year": 40, "2year": 53, "3year": 64, "4year": 72, "5plus": 80,
     };
-    const canadianWorkScore =
-      canadianWorkScores[input.canadianWorkExperience] || 0;
+    const canadianWorkScore = canadianWorkScores[input.canadianWorkExperience] || 0;
     totalScore += canadianWorkScore;
-    breakdown["加拿大工作经验"] = canadianWorkScore;
+    coreHumanCapital.加国经验 = canadianWorkScore;
+    coreHumanCapital.小计 += canadianWorkScore;
+
+    // Transferable skills (only calculated, not added to total score)
+    // Overseas work experience
+    const overseasWorkScores: Record<string, number> = {
+      none: 0, "1year": 20, "2year": 40, "3plus": 53,
+    };
+    const overseasWorkScore = overseasWorkScores[input.overseasWorkExperience || "none"] || 0;
+    
+    // Education + Language
+    if (eduScore >= 120 && clb >= 7) {
+      transferableSkills["学历+语言"] = 13;
+    }
+    // Education + Canadian work experience
+    if (eduScore >= 120 && canadianWorkScore >= 40) {
+      transferableSkills["学历+加国经验"] = 13;
+    }
+    // Overseas work experience + Language
+    if (overseasWorkScore >= 20 && clb >= 7) {
+      transferableSkills["海外经验+语言"] = 13;
+    }
+    // Overseas work experience + Canadian work experience
+    if (overseasWorkScore >= 20 && canadianWorkScore >= 40) {
+      transferableSkills["海外经验+加国经验"] = 13;
+    }
+    // Calculate total for transferable skills
+    let transferableTotal = 0;
+    if (transferableSkills["学历+语言"] > 0) transferableTotal += transferableSkills["学历+语言"];
+    if (transferableSkills["学历+加国经验"] > 0) transferableTotal += transferableSkills["学历+加国经验"];
+    if (transferableSkills["海外经验+语言"] > 0) transferableTotal += transferableSkills["海外经验+语言"];
+    if (transferableSkills["海外经验+加国经验"] > 0) transferableTotal += transferableSkills["海外经验+加国经验"];
+    transferableSkills.小计 = transferableTotal;
 
     // Bonus points
-    let bonusScore = 0;
     if (input.hasSiblingInCanada) {
-      bonusScore += 13;
+      additionalFactor.兄弟姐妹 = 13;
+      additionalFactor.小计 += 13;
+      totalScore += 13;
     }
     if (input.hasProvincialNomination) {
-      bonusScore += 600;
+      additionalFactor.省提名 = 600;
+      additionalFactor.小计 += 600;
+      totalScore += 600;
     }
-    if (bonusScore > 0) {
-      totalScore += bonusScore;
-      breakdown["加分项"] = bonusScore;
+    
+    // Assign breakdown
+    breakdown.核心人力资本 = coreHumanCapital;
+    breakdown.可转移技能 = transferableSkills;
+    if (additionalFactor.小计 > 0) {
+      breakdown.附加分 = additionalFactor;
     }
   } else {
     // SCHEME B: Married with spouse
     // Main applicant - age
     const ageScores: Record<number, number> = {
-      17: 0,
-      18: 90,
-      19: 95,
-      20: 100,
-      21: 100,
-      22: 100,
-      23: 100,
-      24: 100,
-      25: 100,
-      26: 100,
-      27: 100,
-      28: 100,
-      29: 100,
-      30: 95,
-      31: 90,
-      32: 85,
-      33: 80,
-      34: 75,
-      35: 70,
-      36: 65,
-      37: 60,
-      38: 55,
-      39: 50,
-      40: 45,
-      41: 35,
-      42: 25,
-      43: 15,
-      44: 5,
-      45: 0,
+      17: 0, 18: 90, 19: 95, 20: 100, 21: 100, 22: 100, 23: 100, 24: 100, 25: 100, 26: 100,
+      27: 100, 28: 100, 29: 100, 30: 95, 31: 90, 32: 85, 33: 80, 34: 75, 35: 70, 36: 65,
+      37: 60, 38: 55, 39: 50, 40: 45, 41: 35, 42: 25, 43: 15, 44: 5, 45: 0,
     };
     const ageScore = ageScores[input.age] || 0;
     totalScore += ageScore;
-    breakdown["申请人年龄"] = ageScore;
+    coreHumanCapital.年龄 = ageScore;
+    coreHumanCapital.小计 += ageScore;
 
     // Main applicant - education
     const educationScores: Record<string, number> = {
-      phd: 140,
-      masters: 126,
-      double: 119,
-      bachelor: 112,
-      "two-year": 91,
-      "one-year": 84,
-      highschool: 28,
-      below: 0,
+      phd: 140, masters: 126, double: 119, bachelor: 112, "two-year": 91, "one-year": 84, highschool: 28, below: 0,
     };
     const eduScore = educationScores[input.education] || 0;
     totalScore += eduScore;
-    breakdown["申请人学历"] = eduScore;
+    coreHumanCapital.学历 = eduScore;
+    coreHumanCapital.小计 += eduScore;
 
     // Main applicant - language
     const clb = convertToCLB(
@@ -542,48 +527,38 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
       input.languageTest
     );
     const languageScores: Record<number, number> = {
-      10: 32,
-      9: 29,
-      8: 22,
-      7: 16,
-      6: 8,
+      10: 132,
+      9: 125,
+      8: 118,
+      7: 107,
+      6: 94,
       5: 6,
       4: 6,
       0: 0,
     };
     const langScore = languageScores[clb] || 0;
     totalScore += langScore;
-    breakdown["申请人语言"] = langScore;
+    coreHumanCapital.语言 = langScore;
+    coreHumanCapital.小计 += langScore;
 
     // Main applicant - Canadian work experience
     const canadianWorkScores: Record<string, number> = {
-      none: 0,
-      "1year": 35,
-      "2year": 46,
-      "3year": 56,
-      "4year": 63,
-      "5plus": 70,
+      none: 0, "1year": 35, "2year": 46, "3year": 56, "4year": 63, "5plus": 70,
     };
-    const canadianWorkScore =
-      canadianWorkScores[input.canadianWorkExperience] || 0;
+    const canadianWorkScore = canadianWorkScores[input.canadianWorkExperience] || 0;
     totalScore += canadianWorkScore;
-    breakdown["申请人加拿大工作"] = canadianWorkScore;
+    coreHumanCapital.加国经验 = canadianWorkScore;
+    coreHumanCapital.小计 += canadianWorkScore;
 
     // Spouse - education
     if (input.spouseEducation) {
       const spouseEducationScores: Record<string, number> = {
-        phd: 10,
-        masters: 10,
-        double: 9,
-        bachelor: 8,
-        "two-year": 7,
-        "one-year": 6,
-        highschool: 2,
-        below: 0,
+        phd: 10, masters: 10, double: 9, bachelor: 8, "two-year": 7, "one-year": 6, highschool: 2, below: 0,
       };
       const spouseEduScore = spouseEducationScores[input.spouseEducation] || 0;
       totalScore += spouseEduScore;
-      breakdown["配偶学历"] = spouseEduScore;
+      spouseFactor.配偶学历 = spouseEduScore;
+      spouseFactor.小计 += spouseEduScore;
     }
 
     // Spouse - language
@@ -595,48 +570,84 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
         input.spouseSpeaking || 0,
         input.spouseLanguageTest
       );
-      const spouseLanguageScores: Record<number, number> = {
-        10: 5,
-        9: 5,
-        8: 3,
-        7: 3,
-        6: 1,
+      const spouseLangScores: Record<number, number> = {
+        10: 8,
+        9: 8,
+        8: 7,
+        7: 6,
+        6: 5,
         5: 1,
         4: 0,
         0: 0,
       };
-      const spouseLangScore = spouseLanguageScores[spouseClb] || 0;
+      const spouseLangScore = spouseLangScores[spouseClb] || 0;
       totalScore += spouseLangScore;
-      breakdown["配偶语言"] = spouseLangScore;
+      spouseFactor.配偶语言 = spouseLangScore;
+      spouseFactor.小计 += spouseLangScore;
     }
 
     // Spouse - Canadian work experience
     if (input.spouseCanadianWorkExperience) {
       const spouseWorkScores: Record<string, number> = {
-        none: 0,
-        "1year": 5,
-        "2year": 7,
-        "3year": 8,
-        "4year": 9,
-        "5plus": 10,
+        none: 0, "1year": 5, "2year": 7, "3year": 8, "4year": 9, "5plus": 10,
       };
-      const spouseWorkScore =
-        spouseWorkScores[input.spouseCanadianWorkExperience] || 0;
+      const spouseWorkScore = spouseWorkScores[input.spouseCanadianWorkExperience] || 0;
       totalScore += spouseWorkScore;
-      breakdown["配偶加拿大工作"] = spouseWorkScore;
+      spouseFactor.配偶加国经验 = spouseWorkScore;
+      spouseFactor.小计 += spouseWorkScore;
     }
 
+    // Transferable skills (only calculated, not added to total score)
+    // Overseas work experience
+    const overseasWorkScores: Record<string, number> = {
+      none: 0, "1year": 20, "2year": 40, "3plus": 53,
+    };
+    const overseasWorkScore = overseasWorkScores[input.overseasWorkExperience || "none"] || 0;
+    
+    // Education + Language
+    if (eduScore >= 120 && clb >= 7) {
+      transferableSkills["学历+语言"] = 13;
+    }
+    // Education + Canadian work experience
+    if (eduScore >= 120 && canadianWorkScore >= 40) {
+      transferableSkills["学历+加国经验"] = 13;
+    }
+    // Overseas work experience + Language
+    if (overseasWorkScore >= 20 && clb >= 7) {
+      transferableSkills["海外经验+语言"] = 13;
+    }
+    // Overseas work experience + Canadian work experience
+    if (overseasWorkScore >= 20 && canadianWorkScore >= 40) {
+      transferableSkills["海外经验+加国经验"] = 13;
+    }
+    // Calculate total for transferable skills
+    let transferableTotal = 0;
+    if (transferableSkills["学历+语言"] > 0) transferableTotal += transferableSkills["学历+语言"];
+    if (transferableSkills["学历+加国经验"] > 0) transferableTotal += transferableSkills["学历+加国经验"];
+    if (transferableSkills["海外经验+语言"] > 0) transferableTotal += transferableSkills["海外经验+语言"];
+    if (transferableSkills["海外经验+加国经验"] > 0) transferableTotal += transferableSkills["海外经验+加国经验"];
+    transferableSkills.小计 = transferableTotal;
+
     // Bonus points
-    let bonusScore = 0;
     if (input.hasSiblingInCanada) {
-      bonusScore += 13;
+      additionalFactor.兄弟姐妹 = 13;
+      additionalFactor.小计 += 13;
+      totalScore += 13;
     }
     if (input.hasProvincialNomination) {
-      bonusScore += 600;
+      additionalFactor.省提名 = 600;
+      additionalFactor.小计 += 600;
+      totalScore += 600;
     }
-    if (bonusScore > 0) {
-      totalScore += bonusScore;
-      breakdown["加分项"] = bonusScore;
+    
+    // Assign breakdown
+    breakdown.核心人力资本 = coreHumanCapital;
+    if (spouseFactor.小计 > 0) {
+      breakdown.配偶因素 = spouseFactor;
+    }
+    breakdown.可转移技能 = transferableSkills;
+    if (additionalFactor.小计 > 0) {
+      breakdown.附加分 = additionalFactor;
     }
   }
 
