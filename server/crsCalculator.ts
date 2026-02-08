@@ -54,6 +54,7 @@ export const convertToCLB = (
                         : reading >= 3.5
                           ? 4
                           : 0;
+    // Writing: 7.5+ = CLB 10, 7.0 = CLB 9, 6.5 = CLB 8, 6.0 = CLB 7, 5.5 = CLB 6, 5.0 = CLB 5, 4.0/4.5 = CLB 4
     const writingCLB =
       writing >= 7.5
         ? 10
@@ -67,11 +68,10 @@ export const convertToCLB = (
                 ? 6
                 : writing >= 5
                   ? 5
-                  : writing >= 4.5
+                  : writing >= 4
                     ? 4
-                    : writing >= 4
-                      ? 4
-                      : 0;
+                    : 0;
+    // Speaking: 7.5+ = CLB 10, 7.0 = CLB 9, 6.5 = CLB 8, 6.0 = CLB 7, 5.5 = CLB 6, 5.0 = CLB 5, 4.0/4.5 = CLB 4
     const speakingCLB =
       speaking >= 7.5
         ? 10
@@ -85,71 +85,74 @@ export const convertToCLB = (
                 ? 6
                 : speaking >= 5
                   ? 5
-                  : speaking >= 4.5
+                  : speaking >= 4
                     ? 4
-                    : speaking >= 4
-                      ? 4
-                      : 0;
+                    : 0;
     clbs = [listeningCLB, readingCLB, writingCLB, speakingCLB];
   } else if (testType === "celpip") {
+    // IELTS CLB conversion table (corrected)
+    // Listening: 8.5+ = CLB 10, 8.0 = CLB 9, 7.5 = CLB 8, 6.0-7.0 = CLB 7, 5.5 = CLB 6, 5.0 = CLB 5, 4.5 = CLB 4
     const listeningCLB =
-      listening >= 10
+      listening >= 8.5
         ? 10
-        : listening >= 9
+        : listening >= 8
           ? 9
-          : listening >= 8
+          : listening >= 7.5
             ? 8
-            : listening >= 7
+            : listening >= 6
               ? 7
-              : listening >= 6
+              : listening >= 5.5
                 ? 6
                 : listening >= 5
                   ? 5
-                  : listening >= 4
+                  : listening >= 4.5
                     ? 4
                     : 0;
+    // Reading: 8.0+ = CLB 10, 7.0/7.5 = CLB 9, 6.5 = CLB 8, 6.0 = CLB 7, 5.0/5.5 = CLB 6, 4.0/4.5 = CLB 5, 3.5 = CLB 4
     const readingCLB =
-      reading >= 10
+      reading >= 8
         ? 10
-        : reading >= 9
+        : reading >= 7
           ? 9
-          : reading >= 8
+          : reading >= 6.5
             ? 8
-            : reading >= 7
+            : reading >= 6
               ? 7
-              : reading >= 6
+              : reading >= 5
                 ? 6
-                : reading >= 5
+                : reading >= 4
                   ? 5
-                  : reading >= 4
+                  : reading >= 3.5
                     ? 4
                     : 0;
+    // Writing: 7.5+ = CLB 10, 7.0 = CLB 9, 6.5 = CLB 8, 6.0 = CLB 7, 5.5 = CLB 6, 5.0 = CLB 5, 4.0/4.5 = CLB 4
     const writingCLB =
-      writing >= 10
+      writing >= 7.5
         ? 10
-        : writing >= 9
+        : writing >= 7
           ? 9
-          : writing >= 8
+          : writing >= 6.5
             ? 8
-            : writing >= 7
+            : writing >= 6
               ? 7
-              : writing >= 6
+              : writing >= 5.5
                 ? 6
                 : writing >= 5
                   ? 5
                   : writing >= 4
                     ? 4
                     : 0;
+    // Speaking: 7.5+ = CLB 10, 7.0 = CLB 9, 6.5 = CLB 8, 6.0 = CLB 7, 5.5 = CLB 6, 5.0 = CLB 5, 4.0/4.5 = CLB 4
     const speakingCLB =
-      speaking >= 10
+      speaking >= 7.5
         ? 10
-        : speaking >= 9
+        : speaking >= 7
           ? 9
-          : speaking >= 8
+          : speaking >= 6.5
             ? 8
-            : speaking >= 7
+            : speaking >= 6
               ? 7
-              : speaking >= 6
+              : speaking >= 5.5
                 ? 6
                 : speaking >= 5
                   ? 5
@@ -342,6 +345,7 @@ export interface CRSCalculationResult {
 }
 
 export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult => {
+  console.log('[DEBUG] calculateCRS Input:', JSON.stringify(input, null, 2));
   const isSchemeB = input.familyStatus === "married-with-spouse";
   let totalScore = 0;
   const breakdown: Record<string, any> = {};
@@ -357,7 +361,7 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
     小计: 0, "学历+语言": 0, "学历+加国经验": 0, "海外经验+语言": 0, "海外经验+加国经验": 0 
   };
   const additionalFactor: Record<string, number> = { 
-    小计: 0, 兄弟姐妹: 0, 省提名: 0 
+    小计: 0, 加拿大学习: 0, 养弟姊妈: 0, 省提名: 0 
   };
 
   if (!isSchemeB) {
@@ -382,13 +386,15 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
     coreHumanCapital.学历 = eduScore;
     coreHumanCapital.小计 += eduScore;
 
-    // Canadian education bonus (part of human capital)
+    // Canadian education bonus (moved to additional factors)
     if (input.canadianEducation === "1-2year") {
+      additionalFactor.加拿大学习 = 15;
+      additionalFactor.小计 += 15;
       totalScore += 15;
-      coreHumanCapital.小计 += 15;
     } else if (input.canadianEducation === "3plus") {
+      additionalFactor.加拿大学习 = 30;
+      additionalFactor.小计 += 30;
       totalScore += 30;
-      coreHumanCapital.小计 += 30;
     }
 
     // Language skills - first test
@@ -402,7 +408,7 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
     const languageScores: Record<number, number> = {
       10: 136,
       9: 129,
-      8: 121,
+      8: 127,
       7: 109,
       6: 95,
       5: 6,
@@ -454,29 +460,67 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
     };
     const overseasWorkScore = overseasWorkScores[input.overseasWorkExperience || "none"] || 0;
     
-    // Education + Language
-    if (eduScore >= 120 && clb >= 7) {
-      transferableSkills["学历+语言"] = 13;
+    // Education + Language (requires CLB 9+)
+    console.log(`[DEBUG] Education+Language: eduScore=${eduScore}, clb=${clb}, condition=${eduScore >= 120 && clb >= 9}`);
+    if (eduScore >= 120 && clb >= 9) {
+      transferableSkills["学历+语言"] = 50;
     }
     // Education + Canadian work experience
+    console.log(`[DEBUG] Education+CanadianWork: eduScore=${eduScore}, canadianWorkScore=${canadianWorkScore}, condition=${eduScore >= 120 && canadianWorkScore >= 40}`);
     if (eduScore >= 120 && canadianWorkScore >= 40) {
-      transferableSkills["学历+加国经验"] = 13;
+      transferableSkills["学历+加国经验"] = 50;
     }
-    // Overseas work experience + Language
-    if (overseasWorkScore >= 20 && clb >= 7) {
-      transferableSkills["海外经验+语言"] = 13;
+    // Overseas work experience + Language (with CLB thresholds)
+    let overseasLanguageScore = 0;
+    if (overseasWorkScore >= 20 && overseasWorkScore < 53) {
+      // 1-3 years overseas experience
+      if (clb >= 9) {
+        overseasLanguageScore = 25; // 1-3 years + CLB 9-10
+      } else if (clb >= 7) {
+        overseasLanguageScore = 13; // 1-3 years + CLB 7-8
+      }
+    } else if (overseasWorkScore >= 53) {
+      // 3+ years overseas experience
+      if (clb >= 9) {
+        overseasLanguageScore = 50; // 3+ years + CLB 9-10
+      } else if (clb >= 7) {
+        overseasLanguageScore = 25; // 3+ years + CLB 7-8
+      }
     }
-    // Overseas work experience + Canadian work experience
-    if (overseasWorkScore >= 20 && canadianWorkScore >= 40) {
-      transferableSkills["海外经验+加国经验"] = 13;
+    transferableSkills["海外经验+语言"] = overseasLanguageScore;
+    
+    // Overseas work experience + Canadian work experience (with experience thresholds)
+    let overseasCanadianScore = 0;
+    if (overseasWorkScore >= 20 && overseasWorkScore < 53) {
+      // 1-3 years overseas experience
+      if (canadianWorkScore >= 40) {
+        overseasCanadianScore = 25; // 1-3 years overseas + 2+ years Canadian
+      } else if (canadianWorkScore >= 20) {
+        overseasCanadianScore = 13; // 1-3 years overseas + 1 year Canadian
+      }
+    } else if (overseasWorkScore >= 53) {
+      // 3+ years overseas experience
+      if (canadianWorkScore >= 40) {
+        overseasCanadianScore = 50; // 3+ years overseas + 2+ years Canadian
+      } else if (canadianWorkScore >= 20) {
+        overseasCanadianScore = 25; // 3+ years overseas + 1 year Canadian
+      }
     }
-    // Calculate total for transferable skills
-    let transferableTotal = 0;
-    if (transferableSkills["学历+语言"] > 0) transferableTotal += transferableSkills["学历+语言"];
-    if (transferableSkills["学历+加国经验"] > 0) transferableTotal += transferableSkills["学历+加国经验"];
-    if (transferableSkills["海外经验+语言"] > 0) transferableTotal += transferableSkills["海外经验+语言"];
-    if (transferableSkills["海外经验+加国经验"] > 0) transferableTotal += transferableSkills["海外经验+加国经验"];
+    transferableSkills["海外经验+加国经验"] = overseasCanadianScore;
+    // Calculate total for transferable skills (with category caps)
+    // Education category: max 50 points
+    const educationCategoryScore = Math.max(
+      transferableSkills["学历+语言"],
+      transferableSkills["学历+加国经验"]
+    );
+    // Overseas experience category: max 50 points
+    const overseasCategoryScore = Math.max(
+      transferableSkills["海外经验+语言"],
+      transferableSkills["海外经验+加国经验"]
+    );
+    const transferableTotal = educationCategoryScore + overseasCategoryScore;
     transferableSkills.小计 = transferableTotal;
+    totalScore += transferableTotal;  // Add transferable skills to total score
 
     // Bonus points
     if (input.hasSiblingInCanada) {
@@ -492,7 +536,28 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
     
     // Assign breakdown
     breakdown.核心人力资本 = coreHumanCapital;
-    breakdown.可转移技能 = transferableSkills;
+    
+    // Apply category caps to transferable skills for display
+    const educationCategoryMax = Math.max(
+      transferableSkills["学历+语言"],
+      transferableSkills["学历+加国经验"]
+    );
+    const overseasCategoryMax = Math.max(
+      transferableSkills["海外经验+语言"],
+      transferableSkills["海外经验+加国经验"]
+    );
+    
+    // Create display object with category caps applied
+    // Only show the highest score in each category, others show 0
+    const transferableSkillsDisplay: Record<string, number> = {
+      小计: educationCategoryMax + overseasCategoryMax,
+      "学历+语言": transferableSkills["学历+语言"] > transferableSkills["学历+加国经验"] ? transferableSkills["学历+语言"] : 0,
+      "学历+加国经验": transferableSkills["学历+加国经验"] > transferableSkills["学历+语言"] ? transferableSkills["学历+加国经验"] : 0,
+      "海外经验+语言": transferableSkills["海外经验+语言"] > transferableSkills["海外经验+加国经验"] ? transferableSkills["海外经验+语言"] : 0,
+      "海外经验+加国经验": transferableSkills["海外经验+加国经验"] > transferableSkills["海外经验+语言"] ? transferableSkills["海外经验+加国经验"] : 0,
+    };
+    
+    breakdown.可转移技能 = transferableSkillsDisplay;
     if (additionalFactor.小计 > 0) {
       breakdown.附加分 = additionalFactor;
     }
@@ -550,6 +615,17 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
     coreHumanCapital.加国经验 = canadianWorkScore;
     coreHumanCapital.小计 += canadianWorkScore;
 
+    // Main applicant - Canadian education bonus (moved to additional factors)
+    if (input.canadianEducation === "1-2year") {
+      additionalFactor.加拿大学习 = 15;
+      additionalFactor.小计 += 15;
+      totalScore += 15;
+    } else if (input.canadianEducation === "3plus") {
+      additionalFactor.加拿大学习 = 30;
+      additionalFactor.小计 += 30;
+      totalScore += 30;
+    }
+
     // Spouse - education
     if (input.spouseEducation) {
       const spouseEducationScores: Record<string, number> = {
@@ -604,29 +680,67 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
     };
     const overseasWorkScore = overseasWorkScores[input.overseasWorkExperience || "none"] || 0;
     
-    // Education + Language
-    if (eduScore >= 120 && clb >= 7) {
-      transferableSkills["学历+语言"] = 13;
+    // Education + Language (requires CLB 9+)
+    console.log(`[DEBUG] Education+Language: eduScore=${eduScore}, clb=${clb}, condition=${eduScore >= 120 && clb >= 9}`);
+    if (eduScore >= 120 && clb >= 9) {
+      transferableSkills["学历+语言"] = 50;
     }
     // Education + Canadian work experience
+    console.log(`[DEBUG] Education+CanadianWork: eduScore=${eduScore}, canadianWorkScore=${canadianWorkScore}, condition=${eduScore >= 120 && canadianWorkScore >= 40}`);
     if (eduScore >= 120 && canadianWorkScore >= 40) {
-      transferableSkills["学历+加国经验"] = 13;
+      transferableSkills["学历+加国经验"] = 50;
     }
-    // Overseas work experience + Language
-    if (overseasWorkScore >= 20 && clb >= 7) {
-      transferableSkills["海外经验+语言"] = 13;
+    // Overseas work experience + Language (with CLB thresholds)
+    let overseasLanguageScore = 0;
+    if (overseasWorkScore >= 20 && overseasWorkScore < 53) {
+      // 1-3 years overseas experience
+      if (clb >= 9) {
+        overseasLanguageScore = 25; // 1-3 years + CLB 9-10
+      } else if (clb >= 7) {
+        overseasLanguageScore = 13; // 1-3 years + CLB 7-8
+      }
+    } else if (overseasWorkScore >= 53) {
+      // 3+ years overseas experience
+      if (clb >= 9) {
+        overseasLanguageScore = 50; // 3+ years + CLB 9-10
+      } else if (clb >= 7) {
+        overseasLanguageScore = 25; // 3+ years + CLB 7-8
+      }
     }
-    // Overseas work experience + Canadian work experience
-    if (overseasWorkScore >= 20 && canadianWorkScore >= 40) {
-      transferableSkills["海外经验+加国经验"] = 13;
+    transferableSkills["海外经验+语言"] = overseasLanguageScore;
+    
+    // Overseas work experience + Canadian work experience (with experience thresholds)
+    let overseasCanadianScore = 0;
+    if (overseasWorkScore >= 20 && overseasWorkScore < 53) {
+      // 1-3 years overseas experience
+      if (canadianWorkScore >= 40) {
+        overseasCanadianScore = 25; // 1-3 years overseas + 2+ years Canadian
+      } else if (canadianWorkScore >= 20) {
+        overseasCanadianScore = 13; // 1-3 years overseas + 1 year Canadian
+      }
+    } else if (overseasWorkScore >= 53) {
+      // 3+ years overseas experience
+      if (canadianWorkScore >= 40) {
+        overseasCanadianScore = 50; // 3+ years overseas + 2+ years Canadian
+      } else if (canadianWorkScore >= 20) {
+        overseasCanadianScore = 25; // 3+ years overseas + 1 year Canadian
+      }
     }
-    // Calculate total for transferable skills
-    let transferableTotal = 0;
-    if (transferableSkills["学历+语言"] > 0) transferableTotal += transferableSkills["学历+语言"];
-    if (transferableSkills["学历+加国经验"] > 0) transferableTotal += transferableSkills["学历+加国经验"];
-    if (transferableSkills["海外经验+语言"] > 0) transferableTotal += transferableSkills["海外经验+语言"];
-    if (transferableSkills["海外经验+加国经验"] > 0) transferableTotal += transferableSkills["海外经验+加国经验"];
+    transferableSkills["海外经验+加国经验"] = overseasCanadianScore;
+    // Calculate total for transferable skills (with category caps)
+    // Education category: max 50 points
+    const educationCategoryScore = Math.max(
+      transferableSkills["学历+语言"],
+      transferableSkills["学历+加国经验"]
+    );
+    // Overseas experience category: max 50 points
+    const overseasCategoryScore = Math.max(
+      transferableSkills["海外经验+语言"],
+      transferableSkills["海外经验+加国经验"]
+    );
+    const transferableTotal = educationCategoryScore + overseasCategoryScore;
     transferableSkills.小计 = transferableTotal;
+    totalScore += transferableTotal;  // Add transferable skills to total score
 
     // Bonus points
     if (input.hasSiblingInCanada) {
@@ -645,7 +759,28 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
     if (spouseFactor.小计 > 0) {
       breakdown.配偶因素 = spouseFactor;
     }
-    breakdown.可转移技能 = transferableSkills;
+    
+    // Apply category caps to transferable skills for display
+    const educationCategoryMaxB = Math.max(
+      transferableSkills["学历+语言"],
+      transferableSkills["学历+加国经验"]
+    );
+    const overseasCategoryMaxB = Math.max(
+      transferableSkills["海外经验+语言"],
+      transferableSkills["海外经验+加国经验"]
+    );
+    
+    // Create display object with category caps applied
+    // Only show the highest score in each category, others show 0
+    const transferableSkillsDisplayB: Record<string, number> = {
+      小计: educationCategoryMaxB + overseasCategoryMaxB,
+      "学历+语言": transferableSkills["学历+语言"] > transferableSkills["学历+加国经验"] ? transferableSkills["学历+语言"] : 0,
+      "学历+加国经验": transferableSkills["学历+加国经验"] > transferableSkills["学历+语言"] ? transferableSkills["学历+加国经验"] : 0,
+      "海外经验+语言": transferableSkills["海外经验+语言"] > transferableSkills["海外经验+加国经验"] ? transferableSkills["海外经验+语言"] : 0,
+      "海外经验+加国经验": transferableSkills["海外经验+加国经验"] > transferableSkills["海外经验+语言"] ? transferableSkills["海外经验+加国经验"] : 0,
+    };
+    
+    breakdown.可转移技能 = transferableSkillsDisplayB;
     if (additionalFactor.小计 > 0) {
       breakdown.附加分 = additionalFactor;
     }
