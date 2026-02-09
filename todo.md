@@ -280,3 +280,13 @@
 - [x] 添加表单验证 - 未填写成绩时显Dialog提示
 - [x] 测试所有语言考试类型的换算
 - [x] 保存检查点 - 完成CLB换算规则修复
+
+## CLB Translator 标题和布局优化 (Current Sprint - Phase 29)
+- [x] 添加计算器图标到标题前 - 使用Lucide React的Calculator图标
+- [x] 调整标题字体为Alibaba PuHuiTi Black - 字重900
+- [x] 重构语言成绩模块布局 - 四个单项改为水平横排
+- [x] 实现Stack布局 - 上方标签，下方输入框
+- [x] 设置合适的间距和对齐 - gap 20px，flex-wrap支持
+- [x] 固定输入框宽度 - 确保视觉一致性
+- [x] 测试响应式设计 - 验证不同屏幕尺寸的显示效果
+- [x] 保存检查点 - 完成CLB换算工具优化

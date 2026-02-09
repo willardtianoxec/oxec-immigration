@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Link } from "wouter";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Calculator } from "lucide-react";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 // CLB conversion helper for all language tests
@@ -424,8 +424,8 @@ export default function CLBTranslator() {
 
         <div className="mb-8">
           <div className="flex items-center gap-3 mb-2">
-            <span className="text-3xl">📊</span>
-            <h1 className="text-4xl font-bold text-gray-900" style={{fontSize: '48px'}}>CLB换算工具</h1>
+            <Calculator className="h-12 w-12 text-gray-900" />
+            <h1 className="text-4xl font-bold text-gray-900" style={{fontSize: '48px', fontFamily: "'Alibaba PuHuiTi', sans-serif", fontWeight: 900}}>CLB换算工具</h1>
           </div>
           <p className="text-gray-600">Canadian Language Benchmarks/语言成绩换算</p>
         </div>
@@ -469,48 +469,52 @@ export default function CLBTranslator() {
                     </TabsTrigger>
                   </TabsList>
 
-                  <div className="mt-6 space-y-4">
-                    <div>
-                      <Label htmlFor="listening">听力</Label>
+                  <div className="mt-6 flex flex-wrap gap-5 justify-between">
+                    <div className="flex-1 min-w-[120px] flex flex-col items-center">
+                      <Label htmlFor="listening" className="mb-2 text-center">听力</Label>
                       <Input
                         id="listening"
                         type="number"
                         placeholder="0"
                         value={scores.listening || ""}
                         onChange={(e) => setScores({ ...scores, listening: parseFloat(e.target.value) || 0 })}
+                        className="w-24 text-center"
                       />
                     </div>
 
-                    <div>
-                      <Label htmlFor="reading">阅读</Label>
+                    <div className="flex-1 min-w-[120px] flex flex-col items-center">
+                      <Label htmlFor="reading" className="mb-2 text-center">阅读</Label>
                       <Input
                         id="reading"
                         type="number"
                         placeholder="0"
                         value={scores.reading || ""}
                         onChange={(e) => setScores({ ...scores, reading: parseFloat(e.target.value) || 0 })}
+                        className="w-24 text-center"
                       />
                     </div>
 
-                    <div>
-                      <Label htmlFor="writing">写作</Label>
+                    <div className="flex-1 min-w-[120px] flex flex-col items-center">
+                      <Label htmlFor="writing" className="mb-2 text-center">写作</Label>
                       <Input
                         id="writing"
                         type="number"
                         placeholder="0"
                         value={scores.writing || ""}
                         onChange={(e) => setScores({ ...scores, writing: parseFloat(e.target.value) || 0 })}
+                        className="w-24 text-center"
                       />
                     </div>
 
-                    <div>
-                      <Label htmlFor="speaking">口语</Label>
+                    <div className="flex-1 min-w-[120px] flex flex-col items-center">
+                      <Label htmlFor="speaking" className="mb-2 text-center">口语</Label>
                       <Input
                         id="speaking"
                         type="number"
                         placeholder="0"
                         value={scores.speaking || ""}
                         onChange={(e) => setScores({ ...scores, speaking: parseFloat(e.target.value) || 0 })}
+                        className="w-24 text-center"
                       />
                     </div>
                   </div>
