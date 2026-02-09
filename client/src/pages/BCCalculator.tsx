@@ -91,10 +91,9 @@ export default function BCCalculator() {
                     onValueChange={(value: any) => setFormData({ ...formData, workExperience: value })}
                   >
                     <SelectTrigger id="workExperience">
-                      <SelectValue />
+                      <SelectValue placeholder="请选择" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="">请选择</SelectItem>
                       <SelectItem value="5plus">5年以上 / 20分</SelectItem>
                       <SelectItem value="4to5">4到5年 / 16分</SelectItem>
                       <SelectItem value="3to4">3到4年 / 12分</SelectItem>
@@ -135,10 +134,9 @@ export default function BCCalculator() {
                     onValueChange={(value: any) => setFormData({ ...formData, education: value })}
                   >
                     <SelectTrigger id="education">
-                      <SelectValue />
+                      <SelectValue placeholder="请选择" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="">请选择</SelectItem>
                       <SelectItem value="phd">博士学位 / 27分</SelectItem>
                       <SelectItem value="masters">硕士学位 / 22分</SelectItem>
                       <SelectItem value="postgrad">研究生文凭或证书 / 15分</SelectItem>
@@ -199,10 +197,9 @@ export default function BCCalculator() {
                     onValueChange={(value: any) => setFormData({ ...formData, languageTest: value })}
                   >
                     <SelectTrigger id="languageTest">
-                      <SelectValue />
+                      <SelectValue placeholder="请选择" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="">请选择</SelectItem>
                       <SelectItem value="ielts">IELTS</SelectItem>
                       <SelectItem value="celpip">CELPIP</SelectItem>
                       <SelectItem value="pte">PTE</SelectItem>
@@ -276,10 +273,9 @@ export default function BCCalculator() {
                     onValueChange={(value: any) => setFormData({ ...formData, region: value })}
                   >
                     <SelectTrigger id="region">
-                      <SelectValue />
+                      <SelectValue placeholder="请选择" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="">请选择</SelectItem>
                       <SelectItem value="tier1">一类地区（大温）</SelectItem>
                       <SelectItem value="tier2">二类地区（Squamish等） / 5分</SelectItem>
                       <SelectItem value="tier3">三类地区（其他） / 15分</SelectItem>

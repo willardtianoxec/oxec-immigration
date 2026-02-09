@@ -498,7 +498,7 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
     // Calculate language score for each skill and sum them
     const langScore = clbs.reduce((sum, clb) => sum + (languageScores[clb] || 0), 0);
     totalScore += langScore;
-    (coreHumanCapital as any)["第一语言"] = langScore;
+    coreHumanCapital['\u7b2c\u4e00\u8bed\u8a00'] = langScore;
     coreHumanCapital.小计 += langScore;
     
     // Get minimum CLB for transferable skills evaluation
@@ -525,7 +525,7 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
       };
       const secondLangScore = secondClbs.reduce((sum, clb) => sum + (secondLangScores[clb] || 0), 0);
       totalScore += secondLangScore;
-      (coreHumanCapital as any)["第二语言"] = secondLangScore;
+      coreHumanCapital['\u7b2c\u4e8c\u8bed\u8a00'] = secondLangScore;
       coreHumanCapital.小计 += secondLangScore;
       
       // Bilingual bonus points
@@ -720,7 +720,7 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
     };
     const langScore = clbs.reduce((sum, clb) => sum + (languageScores[clb] || 0), 0);
     totalScore += langScore;
-    (coreHumanCapital as any)["第一语言"] = langScore;
+    coreHumanCapital['\u7b2c\u4e00\u8bed\u8a00'] = langScore;
     coreHumanCapital.小计 += langScore;
     
     // Get minimum CLB for transferable skills evaluation
@@ -747,7 +747,7 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
       };
       const secondLangScore = secondClbs.reduce((sum, clb) => sum + (secondLangScores[clb] || 0), 0);
       totalScore += secondLangScore;
-      (coreHumanCapital as any)["第二语言"] = secondLangScore;
+      coreHumanCapital['\u7b2c\u4e8c\u8bed\u8a00'] = secondLangScore;
       coreHumanCapital.小计 += secondLangScore;
       
       // Bilingual bonus points
