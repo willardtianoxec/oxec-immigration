@@ -12,21 +12,21 @@ import { ArrowLeft, Calculator as CalcIcon, TrendingUp, Award } from "lucide-rea
 
 export default function BCCalculator() {
   const [formData, setFormData] = useState({
-    workExperience: "none" as "5plus" | "4to5" | "3to4" | "2to3" | "1to2" | "below1" | "none",
+    workExperience: "" as "5plus" | "4to5" | "3to4" | "2to3" | "1to2" | "below1" | "none" | "",
     canadianExperience: false,
     currentlyWorking: false,
-    education: "bachelor" as "phd" | "masters" | "postgrad" | "bachelor" | "associate" | "diploma" | "highschool",
+    education: "" as "phd" | "masters" | "postgrad" | "bachelor" | "associate" | "diploma" | "highschool" | "",
     bcEducation: false,
     canadaEducation: false,
     designatedOccupation: false,
-    languageTest: "ielts" as "ielts" | "celpip" | "pte",
-    listening: 6,
-    reading: 6,
-    writing: 6,
-    speaking: 6,
+    languageTest: "" as "ielts" | "celpip" | "pte" | "",
+    listening: undefined as number | undefined,
+    reading: undefined as number | undefined,
+    writing: undefined as number | undefined,
+    speaking: undefined as number | undefined,
     frenchLanguage: false,
-    hourlyWage: 20,
-    region: "tier1" as "tier1" | "tier2" | "tier3",
+    hourlyWage: undefined as number | undefined,
+    region: "" as "tier1" | "tier2" | "tier3" | "",
     regionWorkExperience: false,
     regionEducation: false,
   });
@@ -38,7 +38,12 @@ export default function BCCalculator() {
   const handleCalculate = async () => {
     setIsLoading(true);
     try {
-      const result = await utils.posts.calculateBCPNP.fetch(formData);
+      const data: any = { ...formData };
+      if (!data.workExperience) data.workExperience = "none";
+      if (!data.education) data.education = "highschool";
+      if (!data.languageTest) data.languageTest = "ielts";
+      if (!data.region) data.region = "tier1";
+      const result = await utils.posts.calculateBCPNP.fetch(data);
       setResult(result);
     } catch (error: any) {
       toast.error("Calculation failed: " + (error.message || 'Unknown error'));
@@ -89,13 +94,14 @@ export default function BCCalculator() {
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
+                      <SelectItem value="">请选择</SelectItem>
                       <SelectItem value="5plus">5年以上 / 20分</SelectItem>
                       <SelectItem value="4to5">4到5年 / 16分</SelectItem>
                       <SelectItem value="3to4">3到4年 / 12分</SelectItem>
                       <SelectItem value="2to3">2到3年 / 8分</SelectItem>
                       <SelectItem value="1to2">1到2年 / 4分</SelectItem>
                       <SelectItem value="below1">1年以下 / 1分</SelectItem>
-                      <SelectItem value="none">无相关经验 / 0分</SelectItem>
+                      <SelectItem value="none">无相关经验</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -107,7 +113,7 @@ export default function BCCalculator() {
                     onCheckedChange={(checked) => setFormData({ ...formData, canadianExperience: checked })}
                   />
                   <Label htmlFor="canadianExperience" className="font-normal cursor-pointer">
-                    至少1年加拿大相关经验 / 10分
+                    至少1年加拿大相关经验
                   </Label>
                 </div>
 
@@ -118,7 +124,7 @@ export default function BCCalculator() {
                     onCheckedChange={(checked) => setFormData({ ...formData, currentlyWorking: checked })}
                   />
                   <Label htmlFor="currentlyWorking" className="font-normal cursor-pointer">
-                    目前在加拿大同岗位全职工作中 / 10分
+                    目前在加拿大同岗位全职工作中
                   </Label>
                 </div>
 
@@ -132,10 +138,11 @@ export default function BCCalculator() {
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
+                      <SelectItem value="">请选择</SelectItem>
                       <SelectItem value="phd">博士学位 / 27分</SelectItem>
                       <SelectItem value="masters">硕士学位 / 22分</SelectItem>
                       <SelectItem value="postgrad">研究生文凭或证书 / 15分</SelectItem>
-                      <SelectItem value="bachelor">学士学位 / 15分</SelectItem>
+                      <SelectItem value="bachelor">学士学位</SelectItem>
                       <SelectItem value="associate">副学士学位 / 5分</SelectItem>
                       <SelectItem value="diploma">大专文凭（非技工） / 5分</SelectItem>
                       <SelectItem value="highschool">高中及以下 / 0分</SelectItem>
@@ -150,7 +157,7 @@ export default function BCCalculator() {
                     onCheckedChange={(checked) => setFormData({ ...formData, bcEducation: checked })}
                   />
                   <Label htmlFor="bcEducation" className="font-normal cursor-pointer">
-                    在 BC 省完成过高等教育 / 8分
+                    在 BC 省完成过高等教育
                   </Label>
                 </div>
 
@@ -161,7 +168,7 @@ export default function BCCalculator() {
                     onCheckedChange={(checked) => setFormData({ ...formData, canadaEducation: checked })}
                   />
                   <Label htmlFor="canadaEducation" className="font-normal cursor-pointer">
-                    在加拿大（BC省以外）完成过高等教育 / 6分
+                    在加拿大（BC省以外）完成过高等教育
                   </Label>
                 </div>
 
@@ -172,7 +179,7 @@ export default function BCCalculator() {
                     onCheckedChange={(checked) => setFormData({ ...formData, designatedOccupation: checked })}
                   />
                   <Label htmlFor="designatedOccupation" className="font-normal cursor-pointer">
-                    属于符合资质的指定职业 / 5分
+                    属于符合资质的指定职业
                   </Label>
                 </div>
               </CardContent>
@@ -195,6 +202,7 @@ export default function BCCalculator() {
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
+                      <SelectItem value="">请选择</SelectItem>
                       <SelectItem value="ielts">IELTS</SelectItem>
                       <SelectItem value="celpip">CELPIP</SelectItem>
                       <SelectItem value="pte">PTE</SelectItem>
@@ -203,17 +211,23 @@ export default function BCCalculator() {
                 </div>
 
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  {["listening", "reading", "writing", "speaking"].map((skill) => (
-                    <div key={skill} className="space-y-2">
-                      <Label htmlFor={skill} className="capitalize">{skill}</Label>
+                  {[
+                    { key: "listening", label: "听力" },
+                    { key: "reading", label: "阅读" },
+                    { key: "writing", label: "写作" },
+                    { key: "speaking", label: "口语" }
+                  ].map((skill) => (
+                    <div key={skill.key} className="space-y-2">
+                      <Label htmlFor={skill.key}>{skill.label}</Label>
                       <Input
-                        id={skill}
+                        id={skill.key}
                         type="number"
                         min="0"
                         max="100"
                         step="0.5"
-                        value={formData[skill as keyof typeof formData] as number}
-                        onChange={(e) => setFormData({ ...formData, [skill]: parseFloat(e.target.value) })}
+                        placeholder=""
+                        value={formData[skill.key as keyof typeof formData] as number || ""}
+                        onChange={(e) => setFormData({ ...formData, [skill.key]: e.target.value ? parseFloat(e.target.value) : undefined })}
                       />
                     </div>
                   ))}
@@ -226,7 +240,7 @@ export default function BCCalculator() {
                     onCheckedChange={(checked) => setFormData({ ...formData, frenchLanguage: checked })}
                   />
                   <Label htmlFor="frenchLanguage" className="font-normal cursor-pointer">
-                    我有法语 CLB 4 以上考试成绩 / 10分
+                    我有法语 CLB 4 以上考试成绩
                   </Label>
                 </div>
               </CardContent>
@@ -246,8 +260,9 @@ export default function BCCalculator() {
                     type="number"
                     min="0"
                     step="0.5"
-                    value={formData.hourlyWage}
-                    onChange={(e) => setFormData({ ...formData, hourlyWage: parseFloat(e.target.value) })}
+                    placeholder=""
+                    value={formData.hourlyWage || ""}
+                    onChange={(e) => setFormData({ ...formData, hourlyWage: e.target.value ? parseFloat(e.target.value) : undefined })}
                   />
                   <p className="text-xs text-muted-foreground">
                     70及以上为 55分 | 16-69 为 (时薪-15) 分 | 低于16为 0分
@@ -264,7 +279,8 @@ export default function BCCalculator() {
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="tier1">一类地区（大温） / 0分</SelectItem>
+                      <SelectItem value="">请选择</SelectItem>
+                      <SelectItem value="tier1">一类地区（大温）</SelectItem>
                       <SelectItem value="tier2">二类地区（Squamish等） / 5分</SelectItem>
                       <SelectItem value="tier3">三类地区（其他） / 15分</SelectItem>
                     </SelectContent>
