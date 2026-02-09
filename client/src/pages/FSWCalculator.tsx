@@ -613,7 +613,7 @@ export default function FSWCalculator() {
                 <div className="space-y-4">
                   <h3 className="font-semibold">第一语言</h3>
                   <div>
-                    <Label htmlFor="primaryLanguage">选择语言</Label>
+                    <Label htmlFor="primaryLanguage" style={{paddingBottom: '8px'}}>选择语言</Label>
                     <Select value={formData.primaryLanguage} onValueChange={(value: any) => setFormData({ ...formData, primaryLanguage: value })}>
                       <SelectTrigger id="primaryLanguage">
                         <SelectValue />
@@ -625,7 +625,7 @@ export default function FSWCalculator() {
                     </Select>
                   </div>
                   <div>
-                    <Label htmlFor="primaryLanguageTest">考试类型</Label>
+                    <Label htmlFor="primaryLanguageTest" style={{paddingBottom: '8px'}}>考试类型</Label>
                     <Select value={formData.primaryLanguageTest} onValueChange={(value: any) => setFormData({ ...formData, primaryLanguageTest: value })}>
                       <SelectTrigger id="primaryLanguageTest">
                         <SelectValue placeholder="请选择" />
@@ -663,7 +663,7 @@ export default function FSWCalculator() {
                 <div className="space-y-4 border-t pt-4">
                   <h3 className="font-semibold">第二语言</h3>
                   <div>
-                    <Label htmlFor="secondaryLanguage">选择语言</Label>
+                    <Label htmlFor="secondaryLanguage" style={{paddingBottom: '8px'}}>选择语言</Label>
                     <Select value={formData.secondaryLanguage} onValueChange={(value: any) => setFormData({ ...formData, secondaryLanguage: value, secondaryLanguageTest: "" })}>
                       <SelectTrigger id="secondaryLanguage">
                         <SelectValue />
@@ -731,7 +731,7 @@ export default function FSWCalculator() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
-                  <Label htmlFor="education">最高学历</Label>
+                  <Label htmlFor="education" style={{paddingBottom: '8px'}}>最高学历</Label>
                   <Select value={formData.education} onValueChange={(value: any) => setFormData({ ...formData, education: value })}>
                     <SelectTrigger id="education">
                       <SelectValue placeholder="请选择" />
@@ -758,7 +758,7 @@ export default function FSWCalculator() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
-                  <Label htmlFor="workExperience">工作年限</Label>
+                  <Label htmlFor="workExperience" style={{paddingBottom: '8px'}}>工作年限</Label>
                   <Select value={formData.workExperience} onValueChange={(value: any) => setFormData({ ...formData, workExperience: value })}>
                     <SelectTrigger id="workExperience">
                       <SelectValue placeholder="请选择" />
@@ -781,8 +781,8 @@ export default function FSWCalculator() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
-                  <Label htmlFor="age">年龄</Label>
-                  <Input id="age" type="number" placeholder="0" value={formData.age || ""} onChange={(e) => setFormData({ ...formData, age: e.target.value ? parseInt(e.target.value) : undefined })} />
+                  <Label htmlFor="age" style={{paddingBottom: '8px'}}>周岁</Label>
+                  <Input id="age" type="number" placeholder="0" value={formData.age || ""} onChange={(e) => setFormData({ ...formData, age: e.target.value ? parseInt(e.target.value) : undefined })} style={{width: '112px'}} />
                 </div>
               </CardContent>
             </Card>
@@ -845,7 +845,7 @@ export default function FSWCalculator() {
               </CardContent>
             </Card>
 
-            <Button onClick={handleCalculate} className="w-full py-6 text-lg">
+            <Button onClick={handleCalculate} className="w-full py-6 text-lg" style={{fontSize: '14px', paddingTop: '0px', paddingBottom: '0px', height: '36px'}}>
               我的计算结果
             </Button>
           </div>
