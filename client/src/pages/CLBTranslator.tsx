@@ -575,12 +575,15 @@ export default function CLBTranslator() {
               <CardHeader>
                 <CardTitle>关于CLB</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
+              <CardContent className="space-y-6">
                 <div>
                   <p className="text-sm text-gray-700">
                     加拿大语言基准（CLB）是加拿大评估成年人以英语为第二语言（ESL）能力的国家标准，涵盖阅读、写作、听力和口语。该广泛标准应用于加拿大移民申请、公民入籍和求职就业的语言能力评估。
-
-联邦快速通道中，FSW要求最低入池门槛为CLB 7，CEC要求TEER 0/1类工作入池门槛为CLB 7，TEER 2/3类工作为CLB 5，FST要求听说达到 CLB 5，读写达到 CLB 4。
+                  </p>
+                </div>
+                <div>
+                  <p className="text-sm text-gray-700">
+                    联邦快速通道中，FSW要求最低入池门槛为CLB 7，CEC要求TEER 0/1类工作入池门槛为CLB 7，TEER 2/3类工作为CLB 5，FST要求听说达到 CLB 5，读写达到 CLB 4。
                   </p>
                 </div>
               </CardContent>
