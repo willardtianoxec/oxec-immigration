@@ -310,12 +310,18 @@ export interface CRSCalculationInput {
     | "highschool"
     | "below";
   canadianEducation?: "none" | "1-2year" | "3plus";
+  
+  // Primary language
+  primaryLanguage: "english" | "french";
   languageTest: "ielts" | "celpip" | "pte" | "tef" | "tcf";
   listening: number;
   reading: number;
   writing: number;
   speaking: number;
-  secondLanguageTest?: "none" | "ielts" | "celpip" | "pte" | "tef" | "tcf";
+  
+  // Secondary language (optional)
+  secondaryLanguage?: "english" | "french" | "none";
+  secondLanguageTest?: "ielts" | "celpip" | "pte" | "tef" | "tcf" | "none";
   secondListening?: number;
   secondReading?: number;
   secondWriting?: number;

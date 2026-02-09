@@ -17,11 +17,23 @@ export default function Calculator() {
     age: 0,
     education: "" as string,
     canadianEducation: "" as string,
+    
+    // Primary language
+    primaryLanguage: "english" as "english" | "french",
     languageTest: "" as string,
     listening: 0,
     reading: 0,
     writing: 0,
     speaking: 0,
+    
+    // Secondary language
+    secondaryLanguage: "none" as "english" | "french" | "none",
+    secondLanguageTest: "none" as string,
+    secondListening: 0,
+    secondReading: 0,
+    secondWriting: 0,
+    secondSpeaking: 0,
+    
     canadianWorkExperience: "" as string,
     overseasWorkExperience: "" as string,
     
