@@ -55,37 +55,377 @@ export default function FSWCalculator() {
   const [showValidationError, setShowValidationError] = useState(false);
   const [validationMessage, setValidationMessage] = useState("");
 
-  // CLB换算函数
-  const convertToCLB = (score: number, testType: string, skillType: "listening" | "reading" | "writing" | "speaking"): number | string => {
-    if (!score) return 0;
-
-    const ieltsMappings: { [key: string]: { [key: string]: number } } = {
-      listening: { 4.5: 4, 5: 5, 5.5: 6, 6: 6, 6.5: 7, 7: 7, 7.5: 8, 8: 8, 8.5: 9, 9: 10 },
-      reading: { 3.5: 4, 4: 4, 4.5: 5, 5: 5, 5.5: 6, 6: 6, 6.5: 7, 7: 7, 7.5: 8, 8: 8, 8.5: 9, 9: 10 },
-      writing: { 4: 4, 4.5: 5, 5: 5, 5.5: 6, 6: 6, 6.5: 7, 7: 7, 7.5: 8, 8: 8, 8.5: 9, 9: 10 },
-      speaking: { 4: 4, 4.5: 5, 5: 5, 5.5: 6, 6: 6, 6.5: 7, 7: 7, 7.5: 8, 8: 8, 8.5: 9, 9: 10 }
-    };
-
-    const celpipMappings: { [key: string]: number } = { 4: 4, 5: 5, 6: 6, 7: 7, 8: 8, 9: 9, 10: 10, 11: 10, 12: 10 };
-    const pteMappings: { [key: string]: { [key: string]: number } } = {
-      listening: { 28: 4, 30: 5, 36: 6, 42: 7, 50: 8, 58: 9, 67: 10 },
-      reading: { 33: 4, 36: 5, 41: 6, 47: 7, 55: 8, 65: 9, 79: 10 },
-      writing: { 41: 4, 44: 5, 50: 6, 58: 7, 65: 8, 73: 9, 90: 10 },
-      speaking: { 42: 4, 46: 5, 50: 6, 58: 7, 66: 8, 73: 9, 90: 10 }
-    };
+  // CLB换算函数 - 从CLBTranslator复制的准确版本
+  const convertToCLB = (
+    listening: number,
+    reading: number,
+    writing: number,
+    speaking: number,
+    testType: string
+  ): (number | string)[] => {
+    let clbs: (number | string)[] = [];
 
     if (testType === "ielts") {
-      return ieltsMappings[skillType]?.[score] || (score < 4.5 ? "CLB 4以下" : 10);
+      const listeningCLB =
+        listening >= 8.5
+          ? 10
+          : listening >= 8
+            ? 9
+            : listening >= 7.5
+              ? 8
+              : listening >= 6.5
+                ? 7
+                : listening >= 6
+                  ? 7
+                  : listening >= 5.5
+                    ? 6
+                    : listening >= 5
+                      ? 5
+                      : listening >= 4.5
+                        ? 4
+                        : "CLB 4以下";
+      const readingCLB =
+        reading >= 8
+          ? 10
+          : reading >= 7.5
+            ? 9
+            : reading >= 7
+              ? 9
+              : reading >= 6.5
+                ? 8
+                : reading >= 6
+                  ? 7
+                  : reading >= 5.5
+                    ? 6
+                    : reading >= 5
+                      ? 5
+                      : reading >= 4.5
+                        ? 5
+                        : reading >= 4
+                          ? 4
+                          : reading >= 3.5
+                            ? 4
+                            : "CLB 4以下";
+      const writingCLB =
+        writing >= 7.5
+          ? 10
+          : writing >= 7
+            ? 9
+            : writing >= 6.5
+              ? 8
+              : writing >= 6
+                ? 7
+                : writing >= 5.5
+                  ? 6
+                  : writing >= 5
+                    ? 5
+                    : writing >= 4.5
+                      ? 4
+                      : writing >= 4
+                        ? 4
+                        : "CLB 4以下";
+      const speakingCLB =
+        speaking >= 7.5
+          ? 10
+          : speaking >= 7
+            ? 9
+            : speaking >= 6.5
+              ? 8
+              : speaking >= 6
+                ? 7
+                : speaking >= 5.5
+                  ? 6
+                  : speaking >= 5
+                    ? 5
+                    : speaking >= 4.5
+                      ? 4
+                      : speaking >= 4
+                        ? 4
+                        : "CLB 4以下";
+      clbs = [listeningCLB, readingCLB, writingCLB, speakingCLB];
     } else if (testType === "celpip") {
-      return celpipMappings[score] || (score < 4 ? "CLB 4以下" : 10);
+      const listeningCLB =
+        listening >= 12
+          ? 10
+          : listening >= 11
+            ? 10
+            : listening >= 10
+              ? 10
+              : listening >= 9
+                ? 9
+                : listening >= 8
+                  ? 8
+                  : listening >= 7
+                    ? 7
+                    : listening >= 6
+                      ? 6
+                      : listening >= 5
+                        ? 5
+                        : listening >= 4
+                          ? 4
+                          : "CLB 4以下";
+      const readingCLB =
+        reading >= 12
+          ? 10
+          : reading >= 11
+            ? 10
+            : reading >= 10
+              ? 10
+              : reading >= 9
+                ? 9
+                : reading >= 8
+                  ? 8
+                  : reading >= 7
+                    ? 7
+                    : reading >= 6
+                      ? 6
+                      : reading >= 5
+                        ? 5
+                        : reading >= 4
+                          ? 4
+                          : "CLB 4以下";
+      const writingCLB =
+        writing >= 12
+          ? 10
+          : writing >= 11
+            ? 10
+            : writing >= 10
+              ? 10
+              : writing >= 9
+                ? 9
+                : writing >= 8
+                  ? 8
+                  : writing >= 7
+                    ? 7
+                    : writing >= 6
+                      ? 6
+                      : writing >= 5
+                        ? 5
+                        : writing >= 4
+                          ? 4
+                          : "CLB 4以下";
+      const speakingCLB =
+        speaking >= 12
+          ? 10
+          : speaking >= 11
+            ? 10
+            : speaking >= 10
+              ? 10
+              : speaking >= 9
+                ? 9
+                : speaking >= 8
+                  ? 8
+                  : speaking >= 7
+                    ? 7
+                    : speaking >= 6
+                      ? 6
+                      : speaking >= 5
+                        ? 5
+                        : speaking >= 4
+                          ? 4
+                          : "CLB 4以下";
+      clbs = [listeningCLB, readingCLB, writingCLB, speakingCLB];
     } else if (testType === "pte") {
-      const ranges = pteMappings[skillType] || {};
-      for (const [threshold, clb] of Object.entries(ranges)) {
-        if (score >= parseInt(threshold)) return clb;
-      }
-      return "CLB 4以下";
+      const listeningCLB =
+        listening >= 89
+          ? 10
+          : listening >= 82
+            ? 9
+            : listening >= 71
+              ? 8
+              : listening >= 60
+                ? 7
+                : listening >= 50
+                  ? 6
+                  : listening >= 39
+                    ? 5
+                    : listening >= 28
+                      ? 4
+                      : "CLB 4以下";
+      const readingCLB =
+        reading >= 88
+          ? 10
+          : reading >= 78
+            ? 9
+            : reading >= 69
+              ? 8
+              : reading >= 60
+                ? 7
+                : reading >= 51
+                  ? 6
+                  : reading >= 42
+                    ? 5
+                    : reading >= 33
+                      ? 4
+                      : "CLB 4以下";
+      const writingCLB =
+        writing >= 90
+          ? 10
+          : writing >= 88
+            ? 9
+            : writing >= 79
+              ? 8
+              : writing >= 69
+                ? 7
+                : writing >= 60
+                  ? 6
+                  : writing >= 51
+                    ? 5
+                    : writing >= 41
+                      ? 4
+                      : "CLB 4以下";
+      const speakingCLB =
+        speaking >= 89
+          ? 10
+          : speaking >= 84
+            ? 9
+            : speaking >= 76
+              ? 8
+              : speaking >= 68
+                ? 7
+                : speaking >= 59
+                  ? 6
+                  : speaking >= 51
+                    ? 5
+                    : speaking >= 42
+                      ? 4
+                      : "CLB 4以下";
+      clbs = [listeningCLB, readingCLB, writingCLB, speakingCLB];
+    } else if (testType === "tef") {
+      const listeningCLB =
+        listening >= 546
+          ? 10
+          : listening >= 503
+            ? 9
+            : listening >= 462
+              ? 8
+              : listening >= 434
+                ? 7
+                : listening >= 393
+                  ? 6
+                  : listening >= 352
+                    ? 5
+                    : listening >= 306
+                      ? 4
+                      : "CLB 4以下";
+      const readingCLB =
+        reading >= 546
+          ? 10
+          : reading >= 503
+            ? 9
+            : reading >= 462
+              ? 8
+              : reading >= 434
+                ? 7
+                : reading >= 393
+                  ? 6
+                  : reading >= 352
+                    ? 5
+                    : reading >= 306
+                      ? 4
+                      : "CLB 4以下";
+      const writingCLB =
+        writing >= 558
+          ? 10
+          : writing >= 512
+            ? 9
+            : writing >= 472
+              ? 8
+              : writing >= 428
+                ? 7
+                : writing >= 379
+                  ? 6
+                  : writing >= 330
+                    ? 5
+                    : writing >= 268
+                      ? 4
+                      : "CLB 4以下";
+      const speakingCLB =
+        speaking >= 556
+          ? 10
+          : speaking >= 518
+            ? 9
+            : speaking >= 494
+              ? 8
+              : speaking >= 456
+                ? 7
+                : speaking >= 422
+                  ? 6
+                  : speaking >= 387
+                    ? 5
+                    : speaking >= 328
+                      ? 4
+                      : "CLB 4以下";
+      clbs = [listeningCLB, readingCLB, writingCLB, speakingCLB];
+    } else if (testType === "tcf") {
+      const listeningCLB =
+        listening >= 549
+          ? 10
+          : listening >= 523
+            ? 9
+            : listening >= 503
+              ? 8
+              : listening >= 458
+                ? 7
+                : listening >= 398
+                  ? 6
+                  : listening >= 369
+                    ? 5
+                    : listening >= 331
+                      ? 4
+                      : "CLB 4以下";
+      const readingCLB =
+        reading >= 549
+          ? 10
+          : reading >= 523
+            ? 9
+            : reading >= 503
+              ? 8
+              : reading >= 458
+                ? 7
+                : reading >= 398
+                  ? 6
+                  : reading >= 369
+                    ? 5
+                    : reading >= 331
+                      ? 4
+                      : "CLB 4以下";
+      const writingCLB =
+        writing >= 549
+          ? 10
+          : writing >= 523
+            ? 9
+            : writing >= 503
+              ? 8
+              : writing >= 458
+                ? 7
+                : writing >= 398
+                  ? 6
+                  : writing >= 369
+                    ? 5
+                    : writing >= 331
+                      ? 4
+                      : "CLB 4以下";
+      const speakingCLB =
+        speaking >= 549
+          ? 10
+          : speaking >= 523
+            ? 9
+            : speaking >= 503
+              ? 8
+              : speaking >= 458
+                ? 7
+                : speaking >= 398
+                  ? 6
+                  : speaking >= 369
+                    ? 5
+                    : speaking >= 331
+                      ? 4
+                      : "CLB 4以下";
+      clbs = [listeningCLB, readingCLB, writingCLB, speakingCLB];
     }
-    return 0;
+
+    return clbs;
   };
 
   // 计算第一语言分数
@@ -95,12 +435,13 @@ export default function FSWCalculator() {
       return 0;
     }
 
-    const clbs = [
-      convertToCLB(formData.primaryListening, formData.primaryLanguageTest, "listening"),
-      convertToCLB(formData.primaryReading, formData.primaryLanguageTest, "reading"),
-      convertToCLB(formData.primaryWriting, formData.primaryLanguageTest, "writing"),
-      convertToCLB(formData.primarySpeaking, formData.primaryLanguageTest, "speaking"),
-    ];
+    const clbs = convertToCLB(
+      formData.primaryListening,
+      formData.primaryReading,
+      formData.primaryWriting,
+      formData.primarySpeaking,
+      formData.primaryLanguageTest
+    );
 
     // 检查是否有"CLB 4以下"
     if (clbs.some(c => typeof c === "string")) return 0;
@@ -120,12 +461,13 @@ export default function FSWCalculator() {
       return 0;
     }
 
-    const clbs = [
-      convertToCLB(formData.secondaryListening, formData.secondaryLanguageTest, "listening"),
-      convertToCLB(formData.secondaryReading, formData.secondaryLanguageTest, "reading"),
-      convertToCLB(formData.secondaryWriting, formData.secondaryLanguageTest, "writing"),
-      convertToCLB(formData.secondarySpeaking, formData.secondaryLanguageTest, "speaking"),
-    ];
+    const clbs = convertToCLB(
+      formData.secondaryListening,
+      formData.secondaryReading,
+      formData.secondaryWriting,
+      formData.secondarySpeaking,
+      formData.secondaryLanguageTest
+    );
 
     // 检查是否有"CLB 4以下"
     if (clbs.some(c => typeof c === "string")) return 0;
