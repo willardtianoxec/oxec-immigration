@@ -36,6 +36,12 @@ export default function BCCalculator() {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleCalculate = async () => {
+    // 验证必填项
+    if (!formData.listening || !formData.reading || !formData.writing || !formData.speaking || !formData.hourlyWage) {
+      toast.error("表单不能为空");
+      return;
+    }
+    
     setIsLoading(true);
     try {
       const data: any = { ...formData };
