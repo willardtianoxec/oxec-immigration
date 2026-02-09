@@ -262,3 +262,14 @@
 - [x] 实现Dialog弹窗提示 - 未填写表单时显Dialog提示具体的需要填写的字段
 - [x] 测试表单验证功能 - 验证所有场景下的验证是否正确
 - [x] 保存检查点 - 完成表单验证功能
+
+## CLB Translator 换算工具 (Current Sprint - Phase 27)
+- [x] 创建CLBTranslator.tsx页面 - 使用BCCalculator布局
+- [x] 实现语言考试选项卡 - IELTS、CELPIP、PTE、TEF、TCF
+- [x] 添加成绩输入表单 - 听力、阅读、写作、口语四个字段
+- [x] 实现CLB换算逻辑 - 复用Calculator中的换算规则
+- [x] 显示换算结果 - 大分（最低等级CLB）和小分（各项CLB）
+- [x] 添加右侧信息面板 - 关于CLB的说明
+- [x] 在App.tsx添加路由 - /clbtranslator
+- [x] 测试所有语言考试类型的换算
+- [x] 保存检查点 - 完成CLB换算工具

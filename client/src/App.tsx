@@ -24,6 +24,7 @@ import TermOfService from "./pages/TermOfService";
 import TermOfUse from "./pages/TermOfUse";
 import AdminPosts from "./pages/AdminPosts";
 import AdminPostForm from "./pages/AdminPostForm";
+import CLBTranslator from "./pages/CLBTranslator";
 
 function Router() {
   return (
@@ -43,6 +44,7 @@ function Router() {
       <Route path="/skillworker" component={SkillWorker} />
       <Route path="/citizenship" component={Citizenship} />
       <Route path="/bccalculator" component={BCCalculator} />
+      <Route path="/clbtranslator" component={CLBTranslator} />
       <Route path="/term-of-service" component={TermOfService} />
       <Route path="/term-of-use" component={TermOfUse} />
       <Route path="/admin/posts" component={AdminPosts} />
