@@ -469,52 +469,52 @@ export default function CLBTranslator() {
                     </TabsTrigger>
                   </TabsList>
 
-                  <div className="mt-6 flex flex-wrap gap-5 justify-between">
-                    <div className="flex-1 min-w-[120px] flex flex-col items-center">
-                      <Label htmlFor="listening" className="mb-2 text-center">听力</Label>
+                  <div className="mt-6 flex flex-nowrap gap-[15px] justify-start" style={{gap: '15px'}}>
+                    <div className="flex-1 flex flex-col items-start">
+                      <Label htmlFor="listening" className="mb-2">听力</Label>
                       <Input
                         id="listening"
                         type="number"
                         placeholder="0"
                         value={scores.listening || ""}
                         onChange={(e) => setScores({ ...scores, listening: parseFloat(e.target.value) || 0 })}
-                        className="w-24 text-center"
+                        className="w-full"
                       />
                     </div>
 
-                    <div className="flex-1 min-w-[120px] flex flex-col items-center">
-                      <Label htmlFor="reading" className="mb-2 text-center">阅读</Label>
+                    <div className="flex-1 flex flex-col items-start">
+                      <Label htmlFor="reading" className="mb-2">阅读</Label>
                       <Input
                         id="reading"
                         type="number"
                         placeholder="0"
                         value={scores.reading || ""}
                         onChange={(e) => setScores({ ...scores, reading: parseFloat(e.target.value) || 0 })}
-                        className="w-24 text-center"
+                        className="w-full"
                       />
                     </div>
 
-                    <div className="flex-1 min-w-[120px] flex flex-col items-center">
-                      <Label htmlFor="writing" className="mb-2 text-center">写作</Label>
+                    <div className="flex-1 flex flex-col items-start">
+                      <Label htmlFor="writing" className="mb-2">写作</Label>
                       <Input
                         id="writing"
                         type="number"
                         placeholder="0"
                         value={scores.writing || ""}
                         onChange={(e) => setScores({ ...scores, writing: parseFloat(e.target.value) || 0 })}
-                        className="w-24 text-center"
+                        className="w-full"
                       />
                     </div>
 
-                    <div className="flex-1 min-w-[120px] flex flex-col items-center">
-                      <Label htmlFor="speaking" className="mb-2 text-center">口语</Label>
+                    <div className="flex-1 flex flex-col items-start">
+                      <Label htmlFor="speaking" className="mb-2">口语</Label>
                       <Input
                         id="speaking"
                         type="number"
                         placeholder="0"
                         value={scores.speaking || ""}
                         onChange={(e) => setScores({ ...scores, speaking: parseFloat(e.target.value) || 0 })}
-                        className="w-24 text-center"
+                        className="w-full"
                       />
                     </div>
                   </div>
