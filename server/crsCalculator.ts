@@ -297,7 +297,7 @@ export const convertToCLB = (
                     : 0;
     clbs = [listeningCLB, readingCLB, writingCLB, speakingCLB];
   } else if (testType === "tcf") {
-    // TCF Listening: 549+ = CLB 10, 523-548 = CLB 9, 503-522 = CLB 8, 458-502 = CLB 7, 398-457 = CLB 6, 369-397 = CLB 5, 331-368 = CLB 4
+    // TCF Listening (0-699): 549+ = CLB 10, 523-548 = CLB 9, 503-522 = CLB 8, 458-502 = CLB 7, 398-457 = CLB 6, 369-397 = CLB 5, 331-368 = CLB 4
     const listeningCLB =
       listening >= 549
         ? 10
@@ -314,7 +314,7 @@ export const convertToCLB = (
                   : listening >= 331
                     ? 4
                     : 0;
-    // TCF Reading: 549+ = CLB 10, 524-548 = CLB 9, 499-523 = CLB 8, 453-498 = CLB 7, 406-452 = CLB 6, 375-405 = CLB 5, 342-374 = CLB 4
+    // TCF Reading (0-699): 549+ = CLB 10, 524-548 = CLB 9, 499-523 = CLB 8, 453-498 = CLB 7, 406-452 = CLB 6, 375-405 = CLB 5, 342-374 = CLB 4
     const readingCLB =
       reading >= 549
         ? 10
