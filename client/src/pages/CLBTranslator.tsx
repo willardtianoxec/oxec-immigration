@@ -380,11 +380,9 @@ export default function CLBTranslator() {
   return (
     <div className="min-h-screen bg-white">
       <div className="container mx-auto px-4 py-8">
-        <Link href="/">
-          <a className="inline-flex items-center text-blue-600 hover:text-blue-800 mb-6">
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            返回首页
-          </a>
+        <Link href="/" className="inline-flex items-center text-blue-600 hover:text-blue-800 mb-6">
+          <ArrowLeft className="w-4 h-4 mr-2" />
+          返回首页
         </Link>
 
         <div className="mb-8">
