@@ -144,7 +144,7 @@ export default function Calculator() {
                 <CardTitle>家庭移民安排</CardTitle>
                 <CardDescription>作为主申请人</CardDescription>
               </CardHeader>
-              <CardContent className="space-y-4">
+              <CardContent className="space-y-4" style={{marginTop: '-10px'}}>
                 <div className="space-y-3">
                   <label className="flex items-center space-x-3 cursor-pointer">
                     <input
@@ -192,10 +192,10 @@ export default function Calculator() {
                 <CardTitle>人力资源因素</CardTitle>
                 <CardDescription>作为主申请人</CardDescription>
               </CardHeader>
-              <CardContent className="space-y-6">
+              <CardContent className="space-y-6" style={{marginTop: '-10px'}}>
                 {/* Age */}
                 <div>
-                  <Label htmlFor="age">年龄</Label>
+                  <Label htmlFor="age" style={{paddingBottom: '5px'}} style={{paddingBottom: '8px'}}>年龄</Label>
                   <Input
                     id="age"
                     type="number"
@@ -209,7 +209,7 @@ export default function Calculator() {
 
                 {/* Education */}
                 <div>
-                  <Label htmlFor="education">最高学历</Label>
+                  <Label htmlFor="education" style={{paddingBottom: '8px'}}>最高学历</Label>
                   <Select value={formData.education} onValueChange={(value) => setFormData({ ...formData, education: value })}>
                     <SelectTrigger id="education">
                       <SelectValue placeholder="请选择" />
@@ -230,7 +230,7 @@ export default function Calculator() {
 
                 {/* Canadian Education Background */}
                 <div>
-                  <Label htmlFor="canadianEducation">是否在加拿大取得了高等教育学位、文凭或证书</Label>
+                  <Label htmlFor="canadianEducation" style={{paddingBottom: '8px'}}>是否在加拿大取得了高等教育学位、文凭或证书</Label>
                   <Select value={formData.canadianEducation || "default"} onValueChange={(value) => setFormData({ ...formData, canadianEducation: value === "default" ? "" : value })}>
                     <SelectTrigger id="canadianEducation">
                       <SelectValue placeholder="请选择" />
@@ -246,7 +246,7 @@ export default function Calculator() {
 
                 {/* Primary Language Selection */}
                 <div>
-                  <Label htmlFor="primaryLanguage">第一语言</Label>
+                  <Label htmlFor="primaryLanguage" style={{paddingBottom: '8px'}}>第一语言</Label>
                   <Select value={formData.primaryLanguage} onValueChange={(value) => setFormData({ ...formData, primaryLanguage: value as "english" | "french" })}>
                     <SelectTrigger id="primaryLanguage">
                       <SelectValue placeholder="请选择" />
@@ -260,7 +260,7 @@ export default function Calculator() {
 
                 {/* Primary Language Test Type */}
                 <div>
-                  <Label htmlFor="languageTest">可以提供以下哪一类语言考试成绩</Label>
+                  <Label htmlFor="languageTest" style={{paddingBottom: '8px'}}>可以提供以下哪一类语言考试成绩</Label>
                   <Select value={formData.languageTest || "default"} onValueChange={(value) => setFormData({ ...formData, languageTest: value === "default" ? "" : value })}>
                     <SelectTrigger id="languageTest">
                       <SelectValue placeholder="请选择" />
@@ -335,7 +335,7 @@ export default function Calculator() {
 
                 {/* Secondary Language Selection */}
                 <div>
-                  <Label htmlFor="secondaryLanguage">第二语言</Label>
+                  <Label htmlFor="secondaryLanguage" style={{paddingBottom: '8px'}}>第二语言</Label>
                   <Select value={formData.secondaryLanguage || "none"} onValueChange={(value) => setFormData({ ...formData, secondaryLanguage: value as "english" | "french" | "none" })}>
                     <SelectTrigger id="secondaryLanguage">
                       <SelectValue placeholder="没有" />
@@ -427,7 +427,7 @@ export default function Calculator() {
 
                 {/* Canadian Work Experience */}
                 <div>
-                  <Label htmlFor="canadianWorkExperience">是否有加拿大工作经历</Label>
+                  <Label htmlFor="canadianWorkExperience" style={{paddingBottom: '8px'}}>是否有加拿大工作经历</Label>
                   <Select value={formData.canadianWorkExperience || "default"} onValueChange={(value) => setFormData({ ...formData, canadianWorkExperience: value === "default" ? "" : value })}>
                     <SelectTrigger id="canadianWorkExperience">
                       <SelectValue placeholder="请选择" />
@@ -586,10 +586,10 @@ export default function Calculator() {
                 <CardTitle>可转移技能因素</CardTitle>
                 <CardDescription>作为主申请人</CardDescription>
               </CardHeader>
-              <CardContent className="space-y-6">
+              <CardContent className="space-y-6" style={{marginTop: '-10px'}}>
                 {/* Overseas Work Experience */}
                 <div>
-                  <Label htmlFor="overseasWorkExperience">是否有加拿大境外的直接相关工作经验</Label>
+                  <Label htmlFor="overseasWorkExperience" style={{paddingBottom: '8px'}}>是否有加拿大境外的直接相关工作经验</Label>
                   <Select value={formData.overseasWorkExperience || "none"} onValueChange={(value) => setFormData({ ...formData, overseasWorkExperience: value })}>
                     <SelectTrigger id="overseasWorkExperience">
                       <SelectValue placeholder="没有" />
@@ -605,7 +605,7 @@ export default function Calculator() {
 
                 {/* Trade Certificate */}
                 <div>
-                  <Label htmlFor="hasTradeCertificate">是否拥有加拿大技工类职业证书</Label>
+                  <Label htmlFor="hasTradeCertificate" style={{paddingBottom: '8px'}}>是否拥有加拿大技工类职业证书</Label>
                   <Select 
                     value={formData.hasTradeCertificate ? "yes" : (formData.hasTradeCertificate === false ? "no" : "default")} 
                     onValueChange={(value) => setFormData({ ...formData, hasTradeCertificate: value === "yes" ? true : value === "no" ? false : false })}
@@ -630,7 +630,7 @@ export default function Calculator() {
                 <CardDescription>作为主申请人或配偶</CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
-                <div className="space-y-4">
+                <div className="space-y-4" style={{marginTop: '-10px'}}>
                   {/* Sibling in Canada */}
                   <div className="flex items-center space-x-3">
                     <Switch
@@ -834,9 +834,9 @@ export default function Calculator() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div>
-                    <p className="text-sm font-semibold mb-2">综合排名系统 (CRS)</p>
-                    <p className="text-sm text-muted-foreground">
-                      是一个基于积分的系统，IRCC用它来评估申请人的个人资料并对其进行评分，从而在快速通道候选池中进行排名。
+                    <p className="text-sm font-semibold mb-2"></p>
+                    <p className="text-sm text-muted-foreground" style={{marginTop: '-25px'}}>
+                      综合排名系统（CRS）是一个基于积分的系统，IRCC用它来评估申请人的个人资料并对其进行评分，从而在快速通道候选池中进行排名。
                     </p>
                   </div>
                   <div className="border-t pt-3">
