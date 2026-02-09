@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -12,6 +13,8 @@ import { ArrowLeft, Calculator as CalcIcon } from "lucide-react";
 
 export default function Calculator() {
   const [familyStatus, setFamilyStatus] = useState<"single" | "married-no-spouse" | "married-with-spouse">("single");
+  const [validationError, setValidationError] = useState<string | null>(null);
+  const [showErrorDialog, setShowErrorDialog] = useState(false);
   
   const [formData, setFormData] = useState({
     age: 0,
@@ -66,6 +69,59 @@ export default function Calculator() {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleCalculate = async () => {
+    // Validate required fields
+    if (!formData.age || formData.age === 0) {
+      setValidationError("请填写年龄");
+      setShowErrorDialog(true);
+      return;
+    }
+    if (!formData.education || formData.education === "default") {
+      setValidationError("请选择最高学历");
+      setShowErrorDialog(true);
+      return;
+    }
+    if (!formData.primaryLanguage) {
+      setValidationError("请选择第一语言");
+      setShowErrorDialog(true);
+      return;
+    }
+    if (!formData.languageTest || formData.languageTest === "default") {
+      setValidationError("请选择语言考试类型");
+      setShowErrorDialog(true);
+      return;
+    }
+    // If language test is selected, validate language scores
+    if (formData.languageTest && formData.languageTest !== "none") {
+      if (!formData.listening || !formData.reading || !formData.writing || !formData.speaking) {
+        setValidationError("请填写所有语言考试成绩");
+        setShowErrorDialog(true);
+        return;
+      }
+    }
+    // If married with spouse, validate spouse fields
+    if (familyStatus === 'married-with-spouse') {
+      if (!formData.spouseAge || formData.spouseAge === 0) {
+        setValidationError("请填写配偶年龄");
+        setShowErrorDialog(true);
+        return;
+      }
+      if (!formData.spouseEducation || formData.spouseEducation === "default") {
+        setValidationError("请选择配偶最高学历");
+        setShowErrorDialog(true);
+        return;
+      }
+      if (!formData.spouseLanguageTest || formData.spouseLanguageTest === "none") {
+        setValidationError("请选择配偶语言考试类型");
+        setShowErrorDialog(true);
+        return;
+      }
+      if (formData.spouseListening === 0 || formData.spouseReading === 0 || formData.spouseWriting === 0 || formData.spouseSpeaking === 0) {
+        setValidationError("请填写配偶所有语言考试成绩");
+        setShowErrorDialog(true);
+        return;
+      }
+    }
+
     setIsLoading(true);
     try {
       // Prepare payload based on family status
@@ -855,6 +911,21 @@ export default function Calculator() {
           </div>
         </div>
       </div>
+
+      {/* Validation Error Dialog */}
+      <Dialog open={showErrorDialog} onOpenChange={setShowErrorDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>表单验证错误</DialogTitle>
+            <DialogDescription>
+              {validationError}
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button onClick={() => setShowErrorDialog(false)}>确定</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
