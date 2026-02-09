@@ -69,39 +69,75 @@ export const appRouter = router({
         regionEducation: z.boolean(),
       }))
       .query(({ input }) => {
-        let score = 0;
-        const breakdown: Record<string, number> = {};
+        const breakdown: Record<string, any> = {
+          相关工作经验: 0,
+          学历背景: 0,
+          语言能力: 0,
+          经济因素: 0,
+        };
+        const details: Record<string, number> = {};
+        
+        // 相关工作经验（满分40分）
         const workExperiencePoints: Record<string, number> = { "5plus": 20, "4to5": 16, "3to4": 12, "2to3": 8, "1to2": 4, "below1": 1, "none": 0 };
-        const workExp = workExperiencePoints[input.workExperience] || 0;
-        score += workExp;
-        breakdown["工作经验得分"] = workExp;
-        if (input.canadianExperience) { score += 10; breakdown["加拿大经验得分"] = 10; }
-        if (input.currentlyWorking) { score += 10; breakdown["当前工作得分"] = 10; }
+        let workExpScore = workExperiencePoints[input.workExperience] || 0;
+        details["相关工作经验"] = workExpScore;
+        
+        let canadianExpScore = 0;
+        if (input.canadianExperience) { canadianExpScore = 10; details["加拿大相关经验"] = 10; }
+        
+        let currentWorkScore = 0;
+        if (input.currentlyWorking) { currentWorkScore = 10; details["目前在加拿大同岗位全职工作"] = 10; }
+        
+        breakdown["相关工作经验"] = Math.min(40, workExpScore + canadianExpScore + currentWorkScore);
+        
+        // 学历背景（满分40分）
         const educationPoints: Record<string, number> = { "phd": 27, "masters": 22, "postgrad": 15, "bachelor": 15, "associate": 5, "diploma": 5, "highschool": 0 };
-        const edu = educationPoints[input.education] || 0;
-        score += edu;
-        breakdown["教育得分"] = edu;
-        if (input.bcEducation) { score += 8; breakdown["BC教育得分"] = 8; }
-        if (input.canadaEducation) { score += 6; breakdown["加拿大教育得分"] = 6; }
-        if (input.designatedOccupation) { score += 5; breakdown["指定职业得分"] = 5; }
+        let eduScore = educationPoints[input.education] || 0;
+        details["最高学历"] = eduScore;
+        
+        let bcEduScore = 0;
+        if (input.bcEducation) { bcEduScore = 8; details["在BC省完成高等教育"] = 8; }
+        
+        let canadaEduScore = 0;
+        if (input.canadaEducation) { canadaEduScore = 6; details["在加拿大完成高等教育"] = 6; }
+        
+        let designatedScore = 0;
+        if (input.designatedOccupation) { designatedScore = 5; details["属于符合资质的指定职业"] = 5; }
+        
+        breakdown["学历背景"] = Math.min(40, eduScore + bcEduScore + canadaEduScore + designatedScore);
+        
+        // 语言能力（满分40分）
         const clb = Math.min(input.listening, input.reading, input.writing, input.speaking);
         const languagePoints: Record<number, number> = { 10: 30, 9: 30, 8: 25, 7: 20, 6: 15, 5: 10, 4: 5 };
-        const langScore = languagePoints[Math.floor(clb)] || 0;
-        score += langScore;
-        breakdown["语言能力得分"] = langScore;
-        if (input.frenchLanguage) { score += 10; breakdown["法语得分"] = 10; }
+        let langScore = languagePoints[Math.floor(clb)] || 0;
+        details["考试成绩"] = langScore;
+        
+        let frenchScore = 0;
+        if (input.frenchLanguage) { frenchScore = 10; details["法语CLB 4以上"] = 10; }
+        
+        breakdown["语言能力"] = Math.min(40, langScore + frenchScore);
+        
+        // 经济因素（时薪满分55分 + 地区满分25分 = 80分）
         const wage = Math.ceil(input.hourlyWage);
         let wageScore = 0;
-        if (wage >= 70) { wageScore = 55; } else if (wage >= 16) { wageScore = wage - 15; }
-        score += wageScore;
-        breakdown["岗位薪资得分"] = wageScore;
+        if (wage >= 70) { wageScore = 55; } else if (wage >= 16) { wageScore = Math.min(55, wage - 15); }
+        details["时薪"] = wageScore;
+        
         const regionPoints: Record<string, number> = { "tier1": 0, "tier2": 5, "tier3": 15 };
-        const regionScore = regionPoints[input.region] || 0;
-        score += regionScore;
-        breakdown["地区得分"] = regionScore;
-        if (input.regionWorkExperience || input.regionEducation) { score += 10; breakdown["地区经验得分"] = 10; }
-        const totalScore = Math.round(score);
-        return { totalScore, breakdown, message: totalScore >= 80 ? "优秀！您具有很强的BC PNP申请资格。" : totalScore >= 60 ? "良好！您可能符合BC PNP申请条件。" : "建议改进您的申请资料以获得更好的机会。" };
+        let regionScore = regionPoints[input.region] || 0;
+        details["工作地区"] = regionScore;
+        
+        let regionExpScore = 0;
+        if (input.regionWorkExperience) { regionExpScore = Math.min(10, 10); details["过去5年在二/三类地区工作满一年"] = 10; }
+        
+        let regionEduScore = 0;
+        if (input.regionEducation) { regionEduScore = Math.min(10, 10); details["过去3年在二/三类地区公立高校毕业"] = 10; }
+        
+        breakdown["经济因素"] = Math.min(80, wageScore + regionScore + regionExpScore + regionEduScore);
+        
+        const totalScore = breakdown["相关工作经验"] + breakdown["学历背景"] + breakdown["语言能力"] + breakdown["经济因素"];
+        
+        return { totalScore, breakdown, details, message: totalScore >= 80 ? "优秀！您具有很强的BC PNP申请资格。" : totalScore >= 60 ? "良好！您可能符合BC PNP申请条件。" : "建议改进您的申请资料以获得更好的机会。" };
       }),
 
   }),
@@ -168,39 +204,75 @@ export const appRouter = router({
         regionEducation: z.boolean(),
       }))
       .query(({ input }) => {
-        let score = 0;
-        const breakdown: Record<string, number> = {};
+        const breakdown: Record<string, any> = {
+          相关工作经验: 0,
+          学历背景: 0,
+          语言能力: 0,
+          经济因素: 0,
+        };
+        const details: Record<string, number> = {};
+        
+        // 相关工作经验（满分40分）
         const workExperiencePoints: Record<string, number> = { "5plus": 20, "4to5": 16, "3to4": 12, "2to3": 8, "1to2": 4, "below1": 1, "none": 0 };
-        const workExp = workExperiencePoints[input.workExperience] || 0;
-        score += workExp;
-        breakdown["工作经验得分"] = workExp;
-        if (input.canadianExperience) { score += 10; breakdown["加拿大经验得分"] = 10; }
-        if (input.currentlyWorking) { score += 10; breakdown["当前工作得分"] = 10; }
+        let workExpScore = workExperiencePoints[input.workExperience] || 0;
+        details["相关工作经验"] = workExpScore;
+        
+        let canadianExpScore = 0;
+        if (input.canadianExperience) { canadianExpScore = 10; details["加拿大相关经验"] = 10; }
+        
+        let currentWorkScore = 0;
+        if (input.currentlyWorking) { currentWorkScore = 10; details["目前在加拿大同岗位全职工作"] = 10; }
+        
+        breakdown["相关工作经验"] = Math.min(40, workExpScore + canadianExpScore + currentWorkScore);
+        
+        // 学历背景（满分40分）
         const educationPoints: Record<string, number> = { "phd": 27, "masters": 22, "postgrad": 15, "bachelor": 15, "associate": 5, "diploma": 5, "highschool": 0 };
-        const edu = educationPoints[input.education] || 0;
-        score += edu;
-        breakdown["教育得分"] = edu;
-        if (input.bcEducation) { score += 8; breakdown["BC教育得分"] = 8; }
-        if (input.canadaEducation) { score += 6; breakdown["加拿大教育得分"] = 6; }
-        if (input.designatedOccupation) { score += 5; breakdown["指定职业得分"] = 5; }
+        let eduScore = educationPoints[input.education] || 0;
+        details["最高学历"] = eduScore;
+        
+        let bcEduScore = 0;
+        if (input.bcEducation) { bcEduScore = 8; details["在BC省完成高等教育"] = 8; }
+        
+        let canadaEduScore = 0;
+        if (input.canadaEducation) { canadaEduScore = 6; details["在加拿大完成高等教育"] = 6; }
+        
+        let designatedScore = 0;
+        if (input.designatedOccupation) { designatedScore = 5; details["属于符合资质的指定职业"] = 5; }
+        
+        breakdown["学历背景"] = Math.min(40, eduScore + bcEduScore + canadaEduScore + designatedScore);
+        
+        // 语言能力（满分40分）
         const clb = Math.min(input.listening, input.reading, input.writing, input.speaking);
         const languagePoints: Record<number, number> = { 10: 30, 9: 30, 8: 25, 7: 20, 6: 15, 5: 10, 4: 5 };
-        const langScore = languagePoints[Math.floor(clb)] || 0;
-        score += langScore;
-        breakdown["语言能力得分"] = langScore;
-        if (input.frenchLanguage) { score += 10; breakdown["法语得分"] = 10; }
+        let langScore = languagePoints[Math.floor(clb)] || 0;
+        details["考试成绩"] = langScore;
+        
+        let frenchScore = 0;
+        if (input.frenchLanguage) { frenchScore = 10; details["法语CLB 4以上"] = 10; }
+        
+        breakdown["语言能力"] = Math.min(40, langScore + frenchScore);
+        
+        // 经济因素（时薪满分55分 + 地区满分25分 = 80分）
         const wage = Math.ceil(input.hourlyWage);
         let wageScore = 0;
-        if (wage >= 70) { wageScore = 55; } else if (wage >= 16) { wageScore = wage - 15; }
-        score += wageScore;
-        breakdown["岗位薪资得分"] = wageScore;
+        if (wage >= 70) { wageScore = 55; } else if (wage >= 16) { wageScore = Math.min(55, wage - 15); }
+        details["时薪"] = wageScore;
+        
         const regionPoints: Record<string, number> = { "tier1": 0, "tier2": 5, "tier3": 15 };
-        const regionScore = regionPoints[input.region] || 0;
-        score += regionScore;
-        breakdown["地区得分"] = regionScore;
-        if (input.regionWorkExperience || input.regionEducation) { score += 10; breakdown["地区经验得分"] = 10; }
-        const totalScore = Math.round(score);
-        return { totalScore, breakdown, message: totalScore >= 80 ? "优秀！您具有很强的BC PNP申请资格。" : totalScore >= 60 ? "良好！您可能符合BC PNP申请条件。" : "建议改进您的申请资料以获得更好的机会。" };
+        let regionScore = regionPoints[input.region] || 0;
+        details["工作地区"] = regionScore;
+        
+        let regionExpScore = 0;
+        if (input.regionWorkExperience) { regionExpScore = Math.min(10, 10); details["过去5年在二/三类地区工作满一年"] = 10; }
+        
+        let regionEduScore = 0;
+        if (input.regionEducation) { regionEduScore = Math.min(10, 10); details["过去3年在二/三类地区公立高校毕业"] = 10; }
+        
+        breakdown["经济因素"] = Math.min(80, wageScore + regionScore + regionExpScore + regionEduScore);
+        
+        const totalScore = breakdown["相关工作经验"] + breakdown["学历背景"] + breakdown["语言能力"] + breakdown["经济因素"];
+        
+        return { totalScore, breakdown, details, message: totalScore >= 80 ? "优秀！您具有很强的BC PNP申请资格。" : totalScore >= 60 ? "良好！您可能符合BC PNP申请条件。" : "建议改进您的申请资料以获得更好的机会。" };
       }),
 
   }),
@@ -265,39 +337,75 @@ export const appRouter = router({
         regionEducation: z.boolean(),
       }))
       .query(({ input }) => {
-        let score = 0;
-        const breakdown: Record<string, number> = {};
+        const breakdown: Record<string, any> = {
+          相关工作经验: 0,
+          学历背景: 0,
+          语言能力: 0,
+          经济因素: 0,
+        };
+        const details: Record<string, number> = {};
+        
+        // 相关工作经验（满分40分）
         const workExperiencePoints: Record<string, number> = { "5plus": 20, "4to5": 16, "3to4": 12, "2to3": 8, "1to2": 4, "below1": 1, "none": 0 };
-        const workExp = workExperiencePoints[input.workExperience] || 0;
-        score += workExp;
-        breakdown["工作经验得分"] = workExp;
-        if (input.canadianExperience) { score += 10; breakdown["加拿大经验得分"] = 10; }
-        if (input.currentlyWorking) { score += 10; breakdown["当前工作得分"] = 10; }
+        let workExpScore = workExperiencePoints[input.workExperience] || 0;
+        details["相关工作经验"] = workExpScore;
+        
+        let canadianExpScore = 0;
+        if (input.canadianExperience) { canadianExpScore = 10; details["加拿大相关经验"] = 10; }
+        
+        let currentWorkScore = 0;
+        if (input.currentlyWorking) { currentWorkScore = 10; details["目前在加拿大同岗位全职工作"] = 10; }
+        
+        breakdown["相关工作经验"] = Math.min(40, workExpScore + canadianExpScore + currentWorkScore);
+        
+        // 学历背景（满分40分）
         const educationPoints: Record<string, number> = { "phd": 27, "masters": 22, "postgrad": 15, "bachelor": 15, "associate": 5, "diploma": 5, "highschool": 0 };
-        const edu = educationPoints[input.education] || 0;
-        score += edu;
-        breakdown["教育得分"] = edu;
-        if (input.bcEducation) { score += 8; breakdown["BC教育得分"] = 8; }
-        if (input.canadaEducation) { score += 6; breakdown["加拿大教育得分"] = 6; }
-        if (input.designatedOccupation) { score += 5; breakdown["指定职业得分"] = 5; }
+        let eduScore = educationPoints[input.education] || 0;
+        details["最高学历"] = eduScore;
+        
+        let bcEduScore = 0;
+        if (input.bcEducation) { bcEduScore = 8; details["在BC省完成高等教育"] = 8; }
+        
+        let canadaEduScore = 0;
+        if (input.canadaEducation) { canadaEduScore = 6; details["在加拿大完成高等教育"] = 6; }
+        
+        let designatedScore = 0;
+        if (input.designatedOccupation) { designatedScore = 5; details["属于符合资质的指定职业"] = 5; }
+        
+        breakdown["学历背景"] = Math.min(40, eduScore + bcEduScore + canadaEduScore + designatedScore);
+        
+        // 语言能力（满分40分）
         const clb = Math.min(input.listening, input.reading, input.writing, input.speaking);
         const languagePoints: Record<number, number> = { 10: 30, 9: 30, 8: 25, 7: 20, 6: 15, 5: 10, 4: 5 };
-        const langScore = languagePoints[Math.floor(clb)] || 0;
-        score += langScore;
-        breakdown["语言能力得分"] = langScore;
-        if (input.frenchLanguage) { score += 10; breakdown["法语得分"] = 10; }
+        let langScore = languagePoints[Math.floor(clb)] || 0;
+        details["考试成绩"] = langScore;
+        
+        let frenchScore = 0;
+        if (input.frenchLanguage) { frenchScore = 10; details["法语CLB 4以上"] = 10; }
+        
+        breakdown["语言能力"] = Math.min(40, langScore + frenchScore);
+        
+        // 经济因素（时薪满分55分 + 地区满分25分 = 80分）
         const wage = Math.ceil(input.hourlyWage);
         let wageScore = 0;
-        if (wage >= 70) { wageScore = 55; } else if (wage >= 16) { wageScore = wage - 15; }
-        score += wageScore;
-        breakdown["岗位薪资得分"] = wageScore;
+        if (wage >= 70) { wageScore = 55; } else if (wage >= 16) { wageScore = Math.min(55, wage - 15); }
+        details["时薪"] = wageScore;
+        
         const regionPoints: Record<string, number> = { "tier1": 0, "tier2": 5, "tier3": 15 };
-        const regionScore = regionPoints[input.region] || 0;
-        score += regionScore;
-        breakdown["地区得分"] = regionScore;
-        if (input.regionWorkExperience || input.regionEducation) { score += 10; breakdown["地区经验得分"] = 10; }
-        const totalScore = Math.round(score);
-        return { totalScore, breakdown, message: totalScore >= 80 ? "优秀！您具有很强的BC PNP申请资格。" : totalScore >= 60 ? "良好！您可能符合BC PNP申请条件。" : "建议改进您的申请资料以获得更好的机会。" };
+        let regionScore = regionPoints[input.region] || 0;
+        details["工作地区"] = regionScore;
+        
+        let regionExpScore = 0;
+        if (input.regionWorkExperience) { regionExpScore = Math.min(10, 10); details["过去5年在二/三类地区工作满一年"] = 10; }
+        
+        let regionEduScore = 0;
+        if (input.regionEducation) { regionEduScore = Math.min(10, 10); details["过去3年在二/三类地区公立高校毕业"] = 10; }
+        
+        breakdown["经济因素"] = Math.min(80, wageScore + regionScore + regionExpScore + regionEduScore);
+        
+        const totalScore = breakdown["相关工作经验"] + breakdown["学历背景"] + breakdown["语言能力"] + breakdown["经济因素"];
+        
+        return { totalScore, breakdown, details, message: totalScore >= 80 ? "优秀！您具有很强的BC PNP申请资格。" : totalScore >= 60 ? "良好！您可能符合BC PNP申请条件。" : "建议改进您的申请资料以获得更好的机会。" };
       }),
 
   }),
@@ -385,39 +493,75 @@ export const appRouter = router({
         regionEducation: z.boolean(),
       }))
       .query(({ input }) => {
-        let score = 0;
-        const breakdown: Record<string, number> = {};
+        const breakdown: Record<string, any> = {
+          相关工作经验: 0,
+          学历背景: 0,
+          语言能力: 0,
+          经济因素: 0,
+        };
+        const details: Record<string, number> = {};
+        
+        // 相关工作经验（满分40分）
         const workExperiencePoints: Record<string, number> = { "5plus": 20, "4to5": 16, "3to4": 12, "2to3": 8, "1to2": 4, "below1": 1, "none": 0 };
-        const workExp = workExperiencePoints[input.workExperience] || 0;
-        score += workExp;
-        breakdown["工作经验得分"] = workExp;
-        if (input.canadianExperience) { score += 10; breakdown["加拿大经验得分"] = 10; }
-        if (input.currentlyWorking) { score += 10; breakdown["当前工作得分"] = 10; }
+        let workExpScore = workExperiencePoints[input.workExperience] || 0;
+        details["相关工作经验"] = workExpScore;
+        
+        let canadianExpScore = 0;
+        if (input.canadianExperience) { canadianExpScore = 10; details["加拿大相关经验"] = 10; }
+        
+        let currentWorkScore = 0;
+        if (input.currentlyWorking) { currentWorkScore = 10; details["目前在加拿大同岗位全职工作"] = 10; }
+        
+        breakdown["相关工作经验"] = Math.min(40, workExpScore + canadianExpScore + currentWorkScore);
+        
+        // 学历背景（满分40分）
         const educationPoints: Record<string, number> = { "phd": 27, "masters": 22, "postgrad": 15, "bachelor": 15, "associate": 5, "diploma": 5, "highschool": 0 };
-        const edu = educationPoints[input.education] || 0;
-        score += edu;
-        breakdown["教育得分"] = edu;
-        if (input.bcEducation) { score += 8; breakdown["BC教育得分"] = 8; }
-        if (input.canadaEducation) { score += 6; breakdown["加拿大教育得分"] = 6; }
-        if (input.designatedOccupation) { score += 5; breakdown["指定职业得分"] = 5; }
+        let eduScore = educationPoints[input.education] || 0;
+        details["最高学历"] = eduScore;
+        
+        let bcEduScore = 0;
+        if (input.bcEducation) { bcEduScore = 8; details["在BC省完成高等教育"] = 8; }
+        
+        let canadaEduScore = 0;
+        if (input.canadaEducation) { canadaEduScore = 6; details["在加拿大完成高等教育"] = 6; }
+        
+        let designatedScore = 0;
+        if (input.designatedOccupation) { designatedScore = 5; details["属于符合资质的指定职业"] = 5; }
+        
+        breakdown["学历背景"] = Math.min(40, eduScore + bcEduScore + canadaEduScore + designatedScore);
+        
+        // 语言能力（满分40分）
         const clb = Math.min(input.listening, input.reading, input.writing, input.speaking);
         const languagePoints: Record<number, number> = { 10: 30, 9: 30, 8: 25, 7: 20, 6: 15, 5: 10, 4: 5 };
-        const langScore = languagePoints[Math.floor(clb)] || 0;
-        score += langScore;
-        breakdown["语言能力得分"] = langScore;
-        if (input.frenchLanguage) { score += 10; breakdown["法语得分"] = 10; }
+        let langScore = languagePoints[Math.floor(clb)] || 0;
+        details["考试成绩"] = langScore;
+        
+        let frenchScore = 0;
+        if (input.frenchLanguage) { frenchScore = 10; details["法语CLB 4以上"] = 10; }
+        
+        breakdown["语言能力"] = Math.min(40, langScore + frenchScore);
+        
+        // 经济因素（时薪满分55分 + 地区满分25分 = 80分）
         const wage = Math.ceil(input.hourlyWage);
         let wageScore = 0;
-        if (wage >= 70) { wageScore = 55; } else if (wage >= 16) { wageScore = wage - 15; }
-        score += wageScore;
-        breakdown["岗位薪资得分"] = wageScore;
+        if (wage >= 70) { wageScore = 55; } else if (wage >= 16) { wageScore = Math.min(55, wage - 15); }
+        details["时薪"] = wageScore;
+        
         const regionPoints: Record<string, number> = { "tier1": 0, "tier2": 5, "tier3": 15 };
-        const regionScore = regionPoints[input.region] || 0;
-        score += regionScore;
-        breakdown["地区得分"] = regionScore;
-        if (input.regionWorkExperience || input.regionEducation) { score += 10; breakdown["地区经验得分"] = 10; }
-        const totalScore = Math.round(score);
-        return { totalScore, breakdown, message: totalScore >= 80 ? "优秀！您具有很强的BC PNP申请资格。" : totalScore >= 60 ? "良好！您可能符合BC PNP申请条件。" : "建议改进您的申请资料以获得更好的机会。" };
+        let regionScore = regionPoints[input.region] || 0;
+        details["工作地区"] = regionScore;
+        
+        let regionExpScore = 0;
+        if (input.regionWorkExperience) { regionExpScore = Math.min(10, 10); details["过去5年在二/三类地区工作满一年"] = 10; }
+        
+        let regionEduScore = 0;
+        if (input.regionEducation) { regionEduScore = Math.min(10, 10); details["过去3年在二/三类地区公立高校毕业"] = 10; }
+        
+        breakdown["经济因素"] = Math.min(80, wageScore + regionScore + regionExpScore + regionEduScore);
+        
+        const totalScore = breakdown["相关工作经验"] + breakdown["学历背景"] + breakdown["语言能力"] + breakdown["经济因素"];
+        
+        return { totalScore, breakdown, details, message: totalScore >= 80 ? "优秀！您具有很强的BC PNP申请资格。" : totalScore >= 60 ? "良好！您可能符合BC PNP申请条件。" : "建议改进您的申请资料以获得更好的机会。" };
       }),
 
   }),
@@ -494,39 +638,75 @@ export const appRouter = router({
         regionEducation: z.boolean(),
       }))
       .query(({ input }) => {
-        let score = 0;
-        const breakdown: Record<string, number> = {};
+        const breakdown: Record<string, any> = {
+          相关工作经验: 0,
+          学历背景: 0,
+          语言能力: 0,
+          经济因素: 0,
+        };
+        const details: Record<string, number> = {};
+        
+        // 相关工作经验（满分40分）
         const workExperiencePoints: Record<string, number> = { "5plus": 20, "4to5": 16, "3to4": 12, "2to3": 8, "1to2": 4, "below1": 1, "none": 0 };
-        const workExp = workExperiencePoints[input.workExperience] || 0;
-        score += workExp;
-        breakdown["工作经验得分"] = workExp;
-        if (input.canadianExperience) { score += 10; breakdown["加拿大经验得分"] = 10; }
-        if (input.currentlyWorking) { score += 10; breakdown["当前工作得分"] = 10; }
+        let workExpScore = workExperiencePoints[input.workExperience] || 0;
+        details["相关工作经验"] = workExpScore;
+        
+        let canadianExpScore = 0;
+        if (input.canadianExperience) { canadianExpScore = 10; details["加拿大相关经验"] = 10; }
+        
+        let currentWorkScore = 0;
+        if (input.currentlyWorking) { currentWorkScore = 10; details["目前在加拿大同岗位全职工作"] = 10; }
+        
+        breakdown["相关工作经验"] = Math.min(40, workExpScore + canadianExpScore + currentWorkScore);
+        
+        // 学历背景（满分40分）
         const educationPoints: Record<string, number> = { "phd": 27, "masters": 22, "postgrad": 15, "bachelor": 15, "associate": 5, "diploma": 5, "highschool": 0 };
-        const edu = educationPoints[input.education] || 0;
-        score += edu;
-        breakdown["教育得分"] = edu;
-        if (input.bcEducation) { score += 8; breakdown["BC教育得分"] = 8; }
-        if (input.canadaEducation) { score += 6; breakdown["加拿大教育得分"] = 6; }
-        if (input.designatedOccupation) { score += 5; breakdown["指定职业得分"] = 5; }
+        let eduScore = educationPoints[input.education] || 0;
+        details["最高学历"] = eduScore;
+        
+        let bcEduScore = 0;
+        if (input.bcEducation) { bcEduScore = 8; details["在BC省完成高等教育"] = 8; }
+        
+        let canadaEduScore = 0;
+        if (input.canadaEducation) { canadaEduScore = 6; details["在加拿大完成高等教育"] = 6; }
+        
+        let designatedScore = 0;
+        if (input.designatedOccupation) { designatedScore = 5; details["属于符合资质的指定职业"] = 5; }
+        
+        breakdown["学历背景"] = Math.min(40, eduScore + bcEduScore + canadaEduScore + designatedScore);
+        
+        // 语言能力（满分40分）
         const clb = Math.min(input.listening, input.reading, input.writing, input.speaking);
         const languagePoints: Record<number, number> = { 10: 30, 9: 30, 8: 25, 7: 20, 6: 15, 5: 10, 4: 5 };
-        const langScore = languagePoints[Math.floor(clb)] || 0;
-        score += langScore;
-        breakdown["语言能力得分"] = langScore;
-        if (input.frenchLanguage) { score += 10; breakdown["法语得分"] = 10; }
+        let langScore = languagePoints[Math.floor(clb)] || 0;
+        details["考试成绩"] = langScore;
+        
+        let frenchScore = 0;
+        if (input.frenchLanguage) { frenchScore = 10; details["法语CLB 4以上"] = 10; }
+        
+        breakdown["语言能力"] = Math.min(40, langScore + frenchScore);
+        
+        // 经济因素（时薪满分55分 + 地区满分25分 = 80分）
         const wage = Math.ceil(input.hourlyWage);
         let wageScore = 0;
-        if (wage >= 70) { wageScore = 55; } else if (wage >= 16) { wageScore = wage - 15; }
-        score += wageScore;
-        breakdown["岗位薪资得分"] = wageScore;
+        if (wage >= 70) { wageScore = 55; } else if (wage >= 16) { wageScore = Math.min(55, wage - 15); }
+        details["时薪"] = wageScore;
+        
         const regionPoints: Record<string, number> = { "tier1": 0, "tier2": 5, "tier3": 15 };
-        const regionScore = regionPoints[input.region] || 0;
-        score += regionScore;
-        breakdown["地区得分"] = regionScore;
-        if (input.regionWorkExperience || input.regionEducation) { score += 10; breakdown["地区经验得分"] = 10; }
-        const totalScore = Math.round(score);
-        return { totalScore, breakdown, message: totalScore >= 80 ? "优秀！您具有很强的BC PNP申请资格。" : totalScore >= 60 ? "良好！您可能符合BC PNP申请条件。" : "建议改进您的申请资料以获得更好的机会。" };
+        let regionScore = regionPoints[input.region] || 0;
+        details["工作地区"] = regionScore;
+        
+        let regionExpScore = 0;
+        if (input.regionWorkExperience) { regionExpScore = Math.min(10, 10); details["过去5年在二/三类地区工作满一年"] = 10; }
+        
+        let regionEduScore = 0;
+        if (input.regionEducation) { regionEduScore = Math.min(10, 10); details["过去3年在二/三类地区公立高校毕业"] = 10; }
+        
+        breakdown["经济因素"] = Math.min(80, wageScore + regionScore + regionExpScore + regionEduScore);
+        
+        const totalScore = breakdown["相关工作经验"] + breakdown["学历背景"] + breakdown["语言能力"] + breakdown["经济因素"];
+        
+        return { totalScore, breakdown, details, message: totalScore >= 80 ? "优秀！您具有很强的BC PNP申请资格。" : totalScore >= 60 ? "良好！您可能符合BC PNP申请条件。" : "建议改进您的申请资料以获得更好的机会。" };
       }),
 
   }),
@@ -637,39 +817,75 @@ export const appRouter = router({
         regionEducation: z.boolean(),
       }))
       .query(({ input }) => {
-        let score = 0;
-        const breakdown: Record<string, number> = {};
+        const breakdown: Record<string, any> = {
+          相关工作经验: 0,
+          学历背景: 0,
+          语言能力: 0,
+          经济因素: 0,
+        };
+        const details: Record<string, number> = {};
+        
+        // 相关工作经验（满分40分）
         const workExperiencePoints: Record<string, number> = { "5plus": 20, "4to5": 16, "3to4": 12, "2to3": 8, "1to2": 4, "below1": 1, "none": 0 };
-        const workExp = workExperiencePoints[input.workExperience] || 0;
-        score += workExp;
-        breakdown["工作经验得分"] = workExp;
-        if (input.canadianExperience) { score += 10; breakdown["加拿大经验得分"] = 10; }
-        if (input.currentlyWorking) { score += 10; breakdown["当前工作得分"] = 10; }
+        let workExpScore = workExperiencePoints[input.workExperience] || 0;
+        details["相关工作经验"] = workExpScore;
+        
+        let canadianExpScore = 0;
+        if (input.canadianExperience) { canadianExpScore = 10; details["加拿大相关经验"] = 10; }
+        
+        let currentWorkScore = 0;
+        if (input.currentlyWorking) { currentWorkScore = 10; details["目前在加拿大同岗位全职工作"] = 10; }
+        
+        breakdown["相关工作经验"] = Math.min(40, workExpScore + canadianExpScore + currentWorkScore);
+        
+        // 学历背景（满分40分）
         const educationPoints: Record<string, number> = { "phd": 27, "masters": 22, "postgrad": 15, "bachelor": 15, "associate": 5, "diploma": 5, "highschool": 0 };
-        const edu = educationPoints[input.education] || 0;
-        score += edu;
-        breakdown["教育得分"] = edu;
-        if (input.bcEducation) { score += 8; breakdown["BC教育得分"] = 8; }
-        if (input.canadaEducation) { score += 6; breakdown["加拿大教育得分"] = 6; }
-        if (input.designatedOccupation) { score += 5; breakdown["指定职业得分"] = 5; }
+        let eduScore = educationPoints[input.education] || 0;
+        details["最高学历"] = eduScore;
+        
+        let bcEduScore = 0;
+        if (input.bcEducation) { bcEduScore = 8; details["在BC省完成高等教育"] = 8; }
+        
+        let canadaEduScore = 0;
+        if (input.canadaEducation) { canadaEduScore = 6; details["在加拿大完成高等教育"] = 6; }
+        
+        let designatedScore = 0;
+        if (input.designatedOccupation) { designatedScore = 5; details["属于符合资质的指定职业"] = 5; }
+        
+        breakdown["学历背景"] = Math.min(40, eduScore + bcEduScore + canadaEduScore + designatedScore);
+        
+        // 语言能力（满分40分）
         const clb = Math.min(input.listening, input.reading, input.writing, input.speaking);
         const languagePoints: Record<number, number> = { 10: 30, 9: 30, 8: 25, 7: 20, 6: 15, 5: 10, 4: 5 };
-        const langScore = languagePoints[Math.floor(clb)] || 0;
-        score += langScore;
-        breakdown["语言能力得分"] = langScore;
-        if (input.frenchLanguage) { score += 10; breakdown["法语得分"] = 10; }
+        let langScore = languagePoints[Math.floor(clb)] || 0;
+        details["考试成绩"] = langScore;
+        
+        let frenchScore = 0;
+        if (input.frenchLanguage) { frenchScore = 10; details["法语CLB 4以上"] = 10; }
+        
+        breakdown["语言能力"] = Math.min(40, langScore + frenchScore);
+        
+        // 经济因素（时薪满分55分 + 地区满分25分 = 80分）
         const wage = Math.ceil(input.hourlyWage);
         let wageScore = 0;
-        if (wage >= 70) { wageScore = 55; } else if (wage >= 16) { wageScore = wage - 15; }
-        score += wageScore;
-        breakdown["岗位薪资得分"] = wageScore;
+        if (wage >= 70) { wageScore = 55; } else if (wage >= 16) { wageScore = Math.min(55, wage - 15); }
+        details["时薪"] = wageScore;
+        
         const regionPoints: Record<string, number> = { "tier1": 0, "tier2": 5, "tier3": 15 };
-        const regionScore = regionPoints[input.region] || 0;
-        score += regionScore;
-        breakdown["地区得分"] = regionScore;
-        if (input.regionWorkExperience || input.regionEducation) { score += 10; breakdown["地区经验得分"] = 10; }
-        const totalScore = Math.round(score);
-        return { totalScore, breakdown, message: totalScore >= 80 ? "优秀！您具有很强的BC PNP申请资格。" : totalScore >= 60 ? "良好！您可能符合BC PNP申请条件。" : "建议改进您的申请资料以获得更好的机会。" };
+        let regionScore = regionPoints[input.region] || 0;
+        details["工作地区"] = regionScore;
+        
+        let regionExpScore = 0;
+        if (input.regionWorkExperience) { regionExpScore = Math.min(10, 10); details["过去5年在二/三类地区工作满一年"] = 10; }
+        
+        let regionEduScore = 0;
+        if (input.regionEducation) { regionEduScore = Math.min(10, 10); details["过去3年在二/三类地区公立高校毕业"] = 10; }
+        
+        breakdown["经济因素"] = Math.min(80, wageScore + regionScore + regionExpScore + regionEduScore);
+        
+        const totalScore = breakdown["相关工作经验"] + breakdown["学历背景"] + breakdown["语言能力"] + breakdown["经济因素"];
+        
+        return { totalScore, breakdown, details, message: totalScore >= 80 ? "优秀！您具有很强的BC PNP申请资格。" : totalScore >= 60 ? "良好！您可能符合BC PNP申请条件。" : "建议改进您的申请资料以获得更好的机会。" };
       }),
 
   }),
