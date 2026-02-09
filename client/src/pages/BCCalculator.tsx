@@ -69,8 +69,8 @@ export default function BCCalculator() {
               Back to Home
             </Button>
           </Link>
-          <h1 className="text-4xl font-bold mb-4 flex items-center" style={{ fontFamily: "'Alibaba PuHuiTi', sans-serif", fontWeight: 900, fontSize: "64px" }}>
-            <CalcIcon className="mr-3 h-10 w-10" />
+          <h1 className="text-4xl font-bold mb-4 flex items-center" style={{ fontFamily: "'Alibaba PuHuiTi', sans-serif", fontWeight: 900, fontSize: '48px' }}>
+            <CalcIcon className="mr-3 h-10 w-10" style={{width: '48px', height: '48px'}} />
             BC省提名计划技术类算分工具
           </h1>
           <p className="text-lg opacity-90">

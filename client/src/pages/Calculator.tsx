@@ -180,7 +180,7 @@ export default function Calculator() {
           </Link>
           <div className="flex items-center gap-4">
             <CalcIcon className="h-12 w-12" />
-            <h1 className="text-4xl font-black" style={{ fontFamily: "'Alibaba PuHuiTi', sans-serif", fontWeight: 900, fontSize: '48px', fontSize: '48px' }}>
+            <h1 className="text-4xl font-black" style={{ fontFamily: "'Alibaba PuHuiTi', sans-serif", fontWeight: 900, fontSize: '48px' }}>
               联邦快速通道CRS算分工具
             </h1>
           </div>
