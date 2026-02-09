@@ -446,11 +446,16 @@ export default function FSWCalculator() {
     // 检查是否有"CLB 4以下"
     if (clbs.some(c => typeof c === "string")) return 0;
 
-    const minCLB = Math.min(...(clbs as number[]));
-    if (minCLB >= 9) return 6 * 4;
-    if (minCLB === 8) return 5 * 4;
-    if (minCLB === 7) return 4 * 4;
-    return 0;
+    // 根据每个技能的CLB等级单独计分
+    let totalScore = 0;
+    for (const clb of clbs as number[]) {
+      if (clb >= 9) totalScore += 6;
+      else if (clb === 8) totalScore += 5;
+      else if (clb === 7) totalScore += 4;
+      else if (clb >= 5) totalScore += 3;
+    }
+
+    return totalScore;
   };
 
   // 计算第二语言分数
@@ -733,7 +738,7 @@ export default function FSWCalculator() {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="phd">博士学位（Ph.D.）</SelectItem>
-                      <SelectItem value="professional">专业学位（药学博士、JD等）</SelectItem>
+                      <SelectItem value="professional">硕士或专业学位（药学博士、JD等）</SelectItem>
                       <SelectItem value="postgrad">研究生文凭、证书</SelectItem>
                       <SelectItem value="bachelor">学士学位（含3年学制大专）</SelectItem>
                       <SelectItem value="diploma2">2年学制大专</SelectItem>
