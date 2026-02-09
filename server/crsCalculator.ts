@@ -227,68 +227,72 @@ export const convertToCLB = (
                     : 0;
     clbs = [listeningCLB, readingCLB, writingCLB, speakingCLB];
   } else if (testType === "tef" || testType === "tcf") {
+    // TEF/TCF Listening: 546-699 = CLB 10, 503-545 = CLB 9, 462-502 = CLB 8, 434-461 = CLB 7, 393-433 = CLB 6, 352-392 = CLB 5, 306-351 = CLB 4
     const listeningCLB =
-      listening >= 549
+      listening >= 546
         ? 10
-        : listening >= 523
+        : listening >= 503
           ? 9
-          : listening >= 503
+          : listening >= 462
             ? 8
-            : listening >= 458
+            : listening >= 434
               ? 7
-              : listening >= 398
+              : listening >= 393
                 ? 6
-                : listening >= 369
+                : listening >= 352
                   ? 5
-                  : listening >= 331
+                  : listening >= 306
                     ? 4
                     : 0;
+    // TEF/TCF Reading: 546-699 = CLB 10, 503-545 = CLB 9, 462-502 = CLB 8, 434-461 = CLB 7, 393-433 = CLB 6, 352-392 = CLB 5, 306-351 = CLB 4
     const readingCLB =
-      reading >= 549
+      reading >= 546
         ? 10
-        : reading >= 524
+        : reading >= 503
           ? 9
-          : reading >= 499
+          : reading >= 462
             ? 8
-            : reading >= 453
+            : reading >= 434
               ? 7
-              : reading >= 406
+              : reading >= 393
                 ? 6
-                : reading >= 375
+                : reading >= 352
                   ? 5
-                  : reading >= 342
+                  : reading >= 306
                     ? 4
                     : 0;
+    // TEF/TCF Writing: 558-699 = CLB 10, 512-557 = CLB 9, 472-511 = CLB 8, 428-471 = CLB 7, 379-427 = CLB 6, 330-378 = CLB 5, 268-329 = CLB 4
     const writingCLB =
-      writing >= 16
+      writing >= 558
         ? 10
-        : writing >= 14
+        : writing >= 512
           ? 9
-          : writing >= 12
+          : writing >= 472
             ? 8
-            : writing >= 10
+            : writing >= 428
               ? 7
-              : writing >= 7
+              : writing >= 379
                 ? 6
-                : writing >= 6
+                : writing >= 330
                   ? 5
-                  : writing >= 4
+                  : writing >= 268
                     ? 4
                     : 0;
+    // TEF/TCF Speaking: 556-699 = CLB 10, 518-555 = CLB 9, 494-517 = CLB 8, 456-493 = CLB 7, 422-455 = CLB 6, 387-421 = CLB 5, 328-386 = CLB 4
     const speakingCLB =
-      speaking >= 16
+      speaking >= 556
         ? 10
-        : speaking >= 14
+        : speaking >= 518
           ? 9
-          : speaking >= 12
+          : speaking >= 494
             ? 8
-            : speaking >= 10
+            : speaking >= 456
               ? 7
-              : speaking >= 7
+              : speaking >= 422
                 ? 6
-                : speaking >= 6
+                : speaking >= 387
                   ? 5
-                  : speaking >= 4
+                  : speaking >= 328
                     ? 4
                     : 0;
     clbs = [listeningCLB, readingCLB, writingCLB, speakingCLB];
