@@ -195,7 +195,7 @@ export default function Calculator() {
               <CardContent className="space-y-6" style={{marginTop: '-10px'}}>
                 {/* Age */}
                 <div>
-                  <Label htmlFor="age" style={{paddingBottom: '5px'}} style={{paddingBottom: '8px'}}>年龄</Label>
+                  <Label htmlFor="age" style={{paddingBottom: '8px'}}>年龄</Label>
                   <Input
                     id="age"
                     type="number"
