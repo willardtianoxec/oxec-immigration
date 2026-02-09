@@ -432,7 +432,7 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
 
   // Initialize breakdown structure for detailed scoring
   const coreHumanCapital: Record<string, number> = { 
-    小计: 0, 年龄: 0, 学历: 0, 语言: 0, 加国经验: 0 
+    小计: 0, 年龄: 0, 学历: 0, "第一语言": 0, "第二语言": 0, 加国经验: 0 
   };
   const spouseFactor: Record<string, number> = { 
     小计: 0, 配偶学历: 0, 配偶语言: 0, 配偶加国经验: 0 
@@ -441,7 +441,7 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
     小计: 0, "学历+语言": 0, "学历+加国经验": 0, "海外经验+语言": 0, "海外经验+加国经验": 0 
   };
   const additionalFactor: Record<string, number> = { 
-    小计: 0, 加拿大学习: 0, 养弟姊妈: 0, 省提名: 0, 双语言: 0 
+    小计: 0, 加拿大学习: 0, 兄弟姐妹: 0, 省提名: 0, 双语言: 0, 法语技能: 0 
   };
 
   if (!isSchemeB) {
@@ -498,7 +498,7 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
     // Calculate language score for each skill and sum them
     const langScore = clbs.reduce((sum, clb) => sum + (languageScores[clb] || 0), 0);
     totalScore += langScore;
-    coreHumanCapital.语言 = langScore;
+    (coreHumanCapital as any)["第一语言"] = langScore;
     coreHumanCapital.小计 += langScore;
     
     // Get minimum CLB for transferable skills evaluation
@@ -525,6 +525,7 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
       };
       const secondLangScore = secondClbs.reduce((sum, clb) => sum + (secondLangScores[clb] || 0), 0);
       totalScore += secondLangScore;
+      (coreHumanCapital as any)["第二语言"] = secondLangScore;
       coreHumanCapital.小计 += secondLangScore;
       
       // Bilingual bonus points
@@ -631,14 +632,23 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
 
     // Bonus points
     if (input.hasSiblingInCanada) {
-      additionalFactor.兄弟姐妹 = 13;
-      additionalFactor.小计 += 13;
-      totalScore += 13;
+      additionalFactor.兄弟姐妹 = 15;
+      additionalFactor.小计 += 15;
+      totalScore += 15;
     }
     if (input.hasProvincialNomination) {
       additionalFactor.省提名 = 600;
       additionalFactor.小计 += 600;
       totalScore += 600;
+    }
+    
+    // French language bonus (50 points if French is primary language and CLB 7+)
+    const isFrenchPrimary = input.primaryLanguage === "french";
+    const frenchMinClb = isFrenchPrimary ? Math.min(...clbs) : 0;
+    if (isFrenchPrimary && frenchMinClb >= 7) {
+      additionalFactor.法语技能 = 50;
+      additionalFactor.小计 += 50;
+      totalScore += 50;
     }
     
     // Assign breakdown
@@ -710,7 +720,7 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
     };
     const langScore = clbs.reduce((sum, clb) => sum + (languageScores[clb] || 0), 0);
     totalScore += langScore;
-    coreHumanCapital.语言 = langScore;
+    (coreHumanCapital as any)["第一语言"] = langScore;
     coreHumanCapital.小计 += langScore;
     
     // Get minimum CLB for transferable skills evaluation
@@ -737,6 +747,7 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
       };
       const secondLangScore = secondClbs.reduce((sum, clb) => sum + (secondLangScores[clb] || 0), 0);
       totalScore += secondLangScore;
+      (coreHumanCapital as any)["第二语言"] = secondLangScore;
       coreHumanCapital.小计 += secondLangScore;
       
       // Bilingual bonus points
@@ -901,9 +912,9 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
 
     // Bonus points
     if (input.hasSiblingInCanada) {
-      additionalFactor.兄弟姐妹 = 13;
-      additionalFactor.小计 += 13;
-      totalScore += 13;
+      additionalFactor.兄弟姐妹 = 15;
+      additionalFactor.小计 += 15;
+      totalScore += 15;
     }
     if (input.hasProvincialNomination) {
       additionalFactor.省提名 = 600;
