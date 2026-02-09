@@ -63,7 +63,7 @@ export default function BCCalculator() {
             BC省提名计划技术类算分工具
           </h1>
           <p className="text-lg opacity-90">
-            评估 PNP 入池分数
+            最新BC PNP算分工具/评估入池分数/Skilled Worker Stream
           </p>
         </div>
       </div>
@@ -397,7 +397,7 @@ export default function BCCalculator() {
                 </CardHeader>
                 <CardContent>
                   <p className="text-sm text-muted-foreground mb-4">
-                    BC 省提名计划（BC PNP）是一个针对技术工人的移民项目，旨在满足 BC 省的劳动力需求。
+                    卑诗省提名计划（BC PNP）技术工人类别允许拥有技术娴熟、市场紧缺工作机会的外国工人获得卑诗省永久居留权。该类别要求申请人获得一份永久性全职工作邀请（NOC 0、1、2 或 3 类），至少两年相关工作经验，并满足最低语言（CLB 4/5+）和收入要求。
                   </p>
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between">
