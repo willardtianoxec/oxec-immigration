@@ -664,7 +664,7 @@ export default function Calculator() {
               onClick={handleCalculate} 
               disabled={isLoading}
               className="w-full h-12 text-lg"
-              size="lg"
+              size="lg" style={{fontSize: '14px', height: '40px'}}
             >
               {isLoading ? "计算中..." : "计算我的分数"}
             </Button>
