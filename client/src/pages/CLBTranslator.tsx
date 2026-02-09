@@ -425,9 +425,9 @@ export default function CLBTranslator() {
         <div className="mb-8">
           <div className="flex items-center gap-3 mb-2">
             <span className="text-3xl">📊</span>
-            <h1 className="text-4xl font-bold text-gray-900">CLB换算工具</h1>
+            <h1 className="text-4xl font-bold text-gray-900" style={{fontSize: '48px'}}>CLB换算工具</h1>
           </div>
-          <p className="text-gray-600">快速将语言考试成绩转换为加拿大语言基准（CLB）等级</p>
+          <p className="text-gray-600">Canadian Language Benchmarks/语言成绩换算</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -439,7 +439,7 @@ export default function CLBTranslator() {
               </CardHeader>
               <CardContent className="space-y-6">
                 <Tabs value={testType} onValueChange={(value: any) => setTestType(value)}>
-                  <TabsList className="grid w-full grid-cols-5">
+                  <TabsList className="grid w-full grid-cols-5" style={{height: '70px'}}>
                     <TabsTrigger value="ielts">
                       <div className="text-center">
                         <div>IELTS</div>
@@ -575,6 +575,8 @@ export default function CLBTranslator() {
                 <div>
                   <p className="text-sm text-gray-700">
                     加拿大语言基准（CLB）是加拿大评估成年人以英语为第二语言（ESL）能力的国家标准，涵盖阅读、写作、听力和口语。该广泛标准应用于加拿大移民申请、公民入籍和求职就业的语言能力评估。
+
+联邦快速通道中，FSW要求最低入池门槛为CLB 7，CEC要求TEER 0/1类工作入池门槛为CLB 7，TEER 2/3类工作为CLB 5，FST要求听说达到 CLB 5，读写达到 CLB 4。
                   </p>
                 </div>
               </CardContent>
