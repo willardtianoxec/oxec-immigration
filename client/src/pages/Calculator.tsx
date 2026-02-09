@@ -122,11 +122,14 @@ export default function Calculator() {
             <ArrowLeft className="mr-2 h-4 w-4" />
             返回首页
           </Link>
-          <h1 className="text-4xl font-black mb-4" style={{ fontFamily: "'Alibaba PuHuiTi', sans-serif", fontWeight: 900, fontSize: "64px" }}>
-            联邦快速通道CRS算分工具
-          </h1>
-          <p className="text-lg opacity-90">
-            评估 EE 入池分数
+          <div className="flex items-center gap-4">
+            <CalcIcon className="h-12 w-12" />
+            <h1 className="text-4xl font-black" style={{ fontFamily: "'Alibaba PuHuiTi', sans-serif", fontWeight: 900, fontSize: "64px" }}>
+              联邦快速通道CRS算分工具
+            </h1>
+          </div>
+          <p className="text-lg opacity-90 mt-4">
+            最新CRS Calculator/综合排名系统/评估入池分数/Express Entry
           </p>
         </div>
       </div>
@@ -134,7 +137,7 @@ export default function Calculator() {
       <div className="container py-12">
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Calculator Form */}
-          <div className="lg:col-span-2 space-y-6">
+          <div className="lg:col-span-2 space-y-8">
             {/* Family Status Selection */}
             <Card>
               <CardHeader>
@@ -584,10 +587,6 @@ export default function Calculator() {
                 <CardDescription>作为主申请人</CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
-                <p className="text-sm text-muted-foreground">
-                  系统将根据您的基础信息自动计算加分
-                </p>
-
                 {/* Overseas Work Experience */}
                 <div>
                   <Label htmlFor="overseasWorkExperience">是否有加拿大境外的直接相关工作经验</Label>
@@ -670,9 +669,9 @@ export default function Calculator() {
             </Button>
           </div>
 
-          {/* Score Board */}
-          {result && (
-            <div className="lg:col-span-1">
+          {/* Info Panel or Score Board */}
+          <div className="lg:col-span-1">
+            {result ? (
               <Card className="sticky top-8 border-primary/20">
                 <CardHeader className="bg-gradient-to-r from-primary to-accent text-primary-foreground">
                   <CardTitle className="flex items-center">
@@ -828,8 +827,32 @@ export default function Calculator() {
                   </Button>
                 </CardContent>
               </Card>
-            </div>
-          )}
+            ) : (
+              <Card className="sticky top-8 bg-blue-50 border-blue-200">
+                <CardHeader>
+                  <CardTitle className="text-lg">关于联邦快速通道CRS</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div>
+                    <p className="text-sm font-semibold mb-2">综合排名系统 (CRS)</p>
+                    <p className="text-sm text-muted-foreground">
+                      是一个基于积分的系统，IRCC用它来评估申请人的个人资料并对其进行评分，从而在快速通道候选池中进行排名。
+                    </p>
+                  </div>
+                  <div className="border-t pt-3">
+                    <div className="flex justify-between text-sm mb-2">
+                      <span>最高分数：</span>
+                      <span className="font-semibold">1200分</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span>典型邀请分数：</span>
+                      <span className="font-semibold">480-550分</span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+          </div>
         </div>
       </div>
     </div>
