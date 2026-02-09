@@ -367,7 +367,7 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
     小计: 0, "学历+语言": 0, "学历+加国经验": 0, "海外经验+语言": 0, "海外经验+加国经验": 0 
   };
   const additionalFactor: Record<string, number> = { 
-    小计: 0, 加拿大学习: 0, 养弟姊妈: 0, 省提名: 0 
+    小计: 0, 加拿大学习: 0, 养弟姊妈: 0, 省提名: 0, 双语言: 0 
   };
 
   if (!isSchemeB) {
@@ -440,11 +440,11 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
         input.secondLanguageTest
       );
       const secondLangScores: Record<number, number> = {
-        10: 8,
-        9: 8,
-        8: 7,
-        7: 6,
-        6: 5,
+        10: 6,
+        9: 6,
+        8: 3,
+        7: 3,
+        6: 1,
         5: 1,
         4: 0,
         0: 0,
@@ -452,6 +452,29 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
       const secondLangScore = secondClbs.reduce((sum, clb) => sum + (secondLangScores[clb] || 0), 0);
       totalScore += secondLangScore;
       coreHumanCapital.小计 += secondLangScore;
+      
+      // Bilingual bonus points
+      const isFrenchSecondary = input.secondaryLanguage === "french";
+      const isEnglishSecondary = input.secondaryLanguage === "english";
+      const isFrenchPrimary = input.primaryLanguage === "french";
+      const isEnglishPrimary = input.primaryLanguage === "english";
+      
+      if ((isFrenchSecondary && isEnglishPrimary) || (isEnglishSecondary && isFrenchPrimary)) {
+        const frenchClbs = isFrenchSecondary ? secondClbs : clbs;
+        const englishClbs = isEnglishSecondary ? secondClbs : clbs;
+        const frenchMinClb = Math.min(...frenchClbs);
+        const englishMinClb = Math.min(...englishClbs);
+        
+        if (frenchMinClb >= 7 && englishMinClb >= 5) {
+          additionalFactor.双语言 = 50;
+          additionalFactor.小计 += 50;
+          totalScore += 50;
+        } else if (frenchMinClb >= 7 && englishMinClb <= 4) {
+          additionalFactor.双语言 = 25;
+          additionalFactor.小计 += 25;
+          totalScore += 25;
+        }
+      }
     }
 
     // Canadian work experience
@@ -618,6 +641,53 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
     
     // Get minimum CLB for transferable skills evaluation
     const minClb = Math.min(...clbs);
+
+    // Main applicant - second language
+    if (input.secondLanguageTest && input.secondLanguageTest !== "none") {
+      const secondClbs = convertToCLB(
+        input.secondListening || 0,
+        input.secondReading || 0,
+        input.secondWriting || 0,
+        input.secondSpeaking || 0,
+        input.secondLanguageTest
+      );
+      const secondLangScores: Record<number, number> = {
+        10: 6,
+        9: 6,
+        8: 3,
+        7: 3,
+        6: 1,
+        5: 1,
+        4: 0,
+        0: 0,
+      };
+      const secondLangScore = secondClbs.reduce((sum, clb) => sum + (secondLangScores[clb] || 0), 0);
+      totalScore += secondLangScore;
+      coreHumanCapital.小计 += secondLangScore;
+      
+      // Bilingual bonus points
+      const isFrenchSecondary = input.secondaryLanguage === "french";
+      const isEnglishSecondary = input.secondaryLanguage === "english";
+      const isFrenchPrimary = input.primaryLanguage === "french";
+      const isEnglishPrimary = input.primaryLanguage === "english";
+      
+      if ((isFrenchSecondary && isEnglishPrimary) || (isEnglishSecondary && isFrenchPrimary)) {
+        const frenchClbs = isFrenchSecondary ? secondClbs : clbs;
+        const englishClbs = isEnglishSecondary ? secondClbs : clbs;
+        const frenchMinClb = Math.min(...frenchClbs);
+        const englishMinClb = Math.min(...englishClbs);
+        
+        if (frenchMinClb >= 7 && englishMinClb >= 5) {
+          additionalFactor.双语言 = 50;
+          additionalFactor.小计 += 50;
+          totalScore += 50;
+        } else if (frenchMinClb >= 7 && englishMinClb <= 4) {
+          additionalFactor.双语言 = 25;
+          additionalFactor.小计 += 25;
+          totalScore += 25;
+        }
+      }
+    }
 
     // Main applicant - Canadian work experience
     const canadianWorkScores: Record<string, number> = {

@@ -74,11 +74,18 @@ export default function Calculator() {
         age: formData.age,
         education: formData.education,
         canadianEducation: formData.canadianEducation || undefined,
+        primaryLanguage: formData.primaryLanguage,
         languageTest: formData.languageTest,
         listening: formData.listening,
         reading: formData.reading,
         writing: formData.writing,
         speaking: formData.speaking,
+        secondaryLanguage: formData.secondaryLanguage !== "none" ? formData.secondaryLanguage : undefined,
+        secondLanguageTest: formData.secondLanguageTest !== "none" ? formData.secondLanguageTest : undefined,
+        secondListening: formData.secondListening || undefined,
+        secondReading: formData.secondReading || undefined,
+        secondWriting: formData.secondWriting || undefined,
+        secondSpeaking: formData.secondSpeaking || undefined,
         canadianWorkExperience: formData.canadianWorkExperience,
         overseasWorkExperience: formData.overseasWorkExperience || undefined,
         hasSiblingInCanada: formData.hasSiblingInCanada,
@@ -227,14 +234,28 @@ export default function Calculator() {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="default">请选择</SelectItem>
-                      <SelectItem value="none">无</SelectItem>
+                      <SelectItem value="none">没有</SelectItem>
                       <SelectItem value="1-2year">1年或2年学制</SelectItem>
                       <SelectItem value="3plus">3年及以上学制</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
 
-                {/* Language Test Type */}
+                {/* Primary Language Selection */}
+                <div>
+                  <Label htmlFor="primaryLanguage">第一语言</Label>
+                  <Select value={formData.primaryLanguage} onValueChange={(value) => setFormData({ ...formData, primaryLanguage: value as "english" | "french" })}>
+                    <SelectTrigger id="primaryLanguage">
+                      <SelectValue placeholder="请选择" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="english">英语</SelectItem>
+                      <SelectItem value="french">法语</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* Primary Language Test Type */}
                 <div>
                   <Label htmlFor="languageTest">可以提供以下哪一类语言考试成绩</Label>
                   <Select value={formData.languageTest || "default"} onValueChange={(value) => setFormData({ ...formData, languageTest: value === "default" ? "" : value })}>
@@ -243,16 +264,23 @@ export default function Calculator() {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="default">请选择</SelectItem>
-                      <SelectItem value="ielts">IELTS</SelectItem>
-                      <SelectItem value="celpip">CELPIP</SelectItem>
-                      <SelectItem value="pte">PTE</SelectItem>
-                      <SelectItem value="tef">TEF</SelectItem>
-                      <SelectItem value="tcf">TCF</SelectItem>
+                      {formData.primaryLanguage === "english" ? (
+                        <>
+                          <SelectItem value="ielts">IELTS</SelectItem>
+                          <SelectItem value="celpip">CELPIP</SelectItem>
+                          <SelectItem value="pte">PTE</SelectItem>
+                        </>
+                      ) : (
+                        <>
+                          <SelectItem value="tef">TEF</SelectItem>
+                          <SelectItem value="tcf">TCF</SelectItem>
+                        </>
+                      )}
                     </SelectContent>
                   </Select>
                 </div>
 
-                {/* Language Scores */}
+                {/* Primary Language Scores */}
                 {formData.languageTest && (
                   <div className="grid grid-cols-4 gap-4">
                     <div>
@@ -297,6 +325,98 @@ export default function Calculator() {
                         max="9"
                         value={formData.speaking || 0}
                         onChange={(e) => setFormData({ ...formData, speaking: parseFloat(e.target.value) || 0 })}
+                      />
+                    </div>
+                  </div>
+                )}
+
+                {/* Secondary Language Selection */}
+                <div>
+                  <Label htmlFor="secondaryLanguage">第二语言</Label>
+                  <Select value={formData.secondaryLanguage || "none"} onValueChange={(value) => setFormData({ ...formData, secondaryLanguage: value as "english" | "french" | "none" })}>
+                    <SelectTrigger id="secondaryLanguage">
+                      <SelectValue placeholder="没有" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="none">没有</SelectItem>
+                      {formData.primaryLanguage !== "english" && <SelectItem value="english">英语</SelectItem>}
+                      {formData.primaryLanguage !== "french" && <SelectItem value="french">法语</SelectItem>}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* Secondary Language Test Type */}
+                {formData.secondaryLanguage && formData.secondaryLanguage !== "none" && (
+                  <div>
+                    <Label htmlFor="secondLanguageTest">第二语言考试类型</Label>
+                    <Select value={formData.secondLanguageTest || "none"} onValueChange={(value) => setFormData({ ...formData, secondLanguageTest: value })}>
+                      <SelectTrigger id="secondLanguageTest">
+                        <SelectValue placeholder="请选择" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="none">请选择</SelectItem>
+                        {formData.secondaryLanguage === "english" ? (
+                          <>
+                            <SelectItem value="ielts">IELTS</SelectItem>
+                            <SelectItem value="celpip">CELPIP</SelectItem>
+                            <SelectItem value="pte">PTE</SelectItem>
+                          </>
+                        ) : (
+                          <>
+                            <SelectItem value="tef">TEF</SelectItem>
+                            <SelectItem value="tcf">TCF</SelectItem>
+                          </>
+                        )}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                )}
+
+                {/* Secondary Language Scores */}
+                {formData.secondaryLanguage && formData.secondaryLanguage !== "none" && formData.secondLanguageTest && formData.secondLanguageTest !== "none" && (
+                  <div className="grid grid-cols-4 gap-4">
+                    <div>
+                      <Label htmlFor="secondListening">听力</Label>
+                      <Input
+                        id="secondListening"
+                        type="number"
+                        min="0"
+                        max="9"
+                        value={formData.secondListening || 0}
+                        onChange={(e) => setFormData({ ...formData, secondListening: parseFloat(e.target.value) || 0 })}
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="secondReading">阅读</Label>
+                      <Input
+                        id="secondReading"
+                        type="number"
+                        min="0"
+                        max="9"
+                        value={formData.secondReading || 0}
+                        onChange={(e) => setFormData({ ...formData, secondReading: parseFloat(e.target.value) || 0 })}
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="secondWriting">写作</Label>
+                      <Input
+                        id="secondWriting"
+                        type="number"
+                        min="0"
+                        max="9"
+                        value={formData.secondWriting || 0}
+                        onChange={(e) => setFormData({ ...formData, secondWriting: parseFloat(e.target.value) || 0 })}
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="secondSpeaking">口语</Label>
+                      <Input
+                        id="secondSpeaking"
+                        type="number"
+                        min="0"
+                        max="9"
+                        value={formData.secondSpeaking || 0}
+                        onChange={(e) => setFormData({ ...formData, secondSpeaking: parseFloat(e.target.value) || 0 })}
                       />
                     </div>
                   </div>
@@ -471,12 +591,11 @@ export default function Calculator() {
                 {/* Overseas Work Experience */}
                 <div>
                   <Label htmlFor="overseasWorkExperience">是否有加拿大境外的直接相关工作经验</Label>
-                  <Select value={formData.overseasWorkExperience || "default"} onValueChange={(value) => setFormData({ ...formData, overseasWorkExperience: value === "default" ? "" : value })}>
+                  <Select value={formData.overseasWorkExperience || "none"} onValueChange={(value) => setFormData({ ...formData, overseasWorkExperience: value })}>
                     <SelectTrigger id="overseasWorkExperience">
-                      <SelectValue placeholder="请选择" />
+                      <SelectValue placeholder="没有" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="default">请选择</SelectItem>
                       <SelectItem value="none">没有</SelectItem>
                       <SelectItem value="1year">1年</SelectItem>
                       <SelectItem value="2year">2年</SelectItem>

@@ -175,3 +175,12 @@
     }
   }
 }
+
+/* Fix SelectValue placeholder text color to black */
+[role="combobox"] [role="presentation"] {
+  @apply text-foreground;
+}
+
+.select-trigger [role="presentation"] {
+  @apply text-foreground;
+}
