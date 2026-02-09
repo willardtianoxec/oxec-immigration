@@ -273,3 +273,10 @@
 - [x] 在App.tsx添加路由 - /clbtranslator
 - [x] 测试所有语言考试类型的换算
 - [x] 保存检查点 - 完成CLB换算工具
+
+## CLB Translator 换算规则修复 (Current Sprint - Phase 28)
+- [x] 修复低于CLB 4的成绩处理 - 显示"CLB 4以下"而不是"CLB 0"
+- [x] 修复CELPIP换算规则 - 按照正确的规则转换
+- [x] 添加表单验证 - 未填写成绩时显Dialog提示
+- [x] 测试所有语言考试类型的换算
+- [x] 保存检查点 - 完成CLB换算规则修复

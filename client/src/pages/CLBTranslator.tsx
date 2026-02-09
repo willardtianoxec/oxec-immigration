@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Link } from "wouter";
 import { ArrowLeft } from "lucide-react";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 // CLB conversion helper for all language tests
 const convertToCLB = (
@@ -14,8 +15,8 @@ const convertToCLB = (
   writing: number,
   speaking: number,
   testType: string
-): number[] => {
-  let clbs: number[] = [];
+): (number | string)[] => {
+  let clbs: (number | string)[] = [];
 
   if (testType === "ielts") {
     const listeningCLB =
@@ -35,7 +36,7 @@ const convertToCLB = (
                     ? 5
                     : listening >= 4.5
                       ? 4
-                      : 0;
+                      : "CLB 4以下";
     const readingCLB =
       reading >= 8
         ? 10
@@ -57,7 +58,7 @@ const convertToCLB = (
                         ? 4
                         : reading >= 3.5
                           ? 4
-                          : 0;
+                          : "CLB 4以下";
     const writingCLB =
       writing >= 7.5
         ? 10
@@ -71,9 +72,11 @@ const convertToCLB = (
                 ? 6
                 : writing >= 5
                   ? 5
-                  : writing >= 4
+                  : writing >= 4.5
                     ? 4
-                    : 0;
+                    : writing >= 4
+                      ? 4
+                      : "CLB 4以下";
     const speakingCLB =
       speaking >= 7.5
         ? 10
@@ -87,75 +90,93 @@ const convertToCLB = (
                 ? 6
                 : speaking >= 5
                   ? 5
-                  : speaking >= 4
+                  : speaking >= 4.5
                     ? 4
-                    : 0;
+                    : speaking >= 4
+                      ? 4
+                      : "CLB 4以下";
     clbs = [listeningCLB, readingCLB, writingCLB, speakingCLB];
   } else if (testType === "celpip") {
     const listeningCLB =
-      listening >= 8.5
+      listening >= 12
         ? 10
-        : listening >= 8
-          ? 9
-          : listening >= 7.5
-            ? 8
-            : listening >= 6
-              ? 7
-              : listening >= 5.5
-                ? 6
-                : listening >= 5
-                  ? 5
-                  : listening >= 4.5
-                    ? 4
-                    : 0;
+        : listening >= 11
+          ? 10
+          : listening >= 10
+            ? 10
+            : listening >= 9
+              ? 9
+              : listening >= 8
+                ? 8
+                : listening >= 7
+                  ? 7
+                  : listening >= 6
+                    ? 6
+                    : listening >= 5
+                      ? 5
+                      : listening >= 4
+                        ? 4
+                        : "CLB 4以下";
     const readingCLB =
-      reading >= 8
+      reading >= 12
         ? 10
-        : reading >= 7
-          ? 9
-          : reading >= 6.5
-            ? 8
-            : reading >= 6
-              ? 7
-              : reading >= 5
-                ? 6
-                : reading >= 4
-                  ? 5
-                  : reading >= 3.5
-                    ? 4
-                    : 0;
+        : reading >= 11
+          ? 10
+          : reading >= 10
+            ? 10
+            : reading >= 9
+              ? 9
+              : reading >= 8
+                ? 8
+                : reading >= 7
+                  ? 7
+                  : reading >= 6
+                    ? 6
+                    : reading >= 5
+                      ? 5
+                      : reading >= 4
+                        ? 4
+                        : "CLB 4以下";
     const writingCLB =
-      writing >= 7.5
+      writing >= 12
         ? 10
-        : writing >= 7
-          ? 9
-          : writing >= 6.5
-            ? 8
-            : writing >= 6
-              ? 7
-              : writing >= 5.5
-                ? 6
-                : writing >= 5
-                  ? 5
-                  : writing >= 4
-                    ? 4
-                    : 0;
+        : writing >= 11
+          ? 10
+          : writing >= 10
+            ? 10
+            : writing >= 9
+              ? 9
+              : writing >= 8
+                ? 8
+                : writing >= 7
+                  ? 7
+                  : writing >= 6
+                    ? 6
+                    : writing >= 5
+                      ? 5
+                      : writing >= 4
+                        ? 4
+                        : "CLB 4以下";
     const speakingCLB =
-      speaking >= 7.5
+      speaking >= 12
         ? 10
-        : speaking >= 7
-          ? 9
-          : speaking >= 6.5
-            ? 8
-            : speaking >= 6
-              ? 7
-              : speaking >= 5.5
-                ? 6
-                : speaking >= 5
-                  ? 5
-                  : speaking >= 4
-                    ? 4
-                    : 0;
+        : speaking >= 11
+          ? 10
+          : speaking >= 10
+            ? 10
+            : speaking >= 9
+              ? 9
+              : speaking >= 8
+                ? 8
+                : speaking >= 7
+                  ? 7
+                  : speaking >= 6
+                    ? 6
+                    : speaking >= 5
+                      ? 5
+                      : speaking >= 4
+                        ? 4
+                        : "CLB 4以下";
     clbs = [listeningCLB, readingCLB, writingCLB, speakingCLB];
   } else if (testType === "pte") {
     const listeningCLB =
@@ -173,7 +194,7 @@ const convertToCLB = (
                   ? 5
                   : listening >= 28
                     ? 4
-                    : 0;
+                    : "CLB 4以下";
     const readingCLB =
       reading >= 88
         ? 10
@@ -189,7 +210,7 @@ const convertToCLB = (
                   ? 5
                   : reading >= 33
                     ? 4
-                    : 0;
+                    : "CLB 4以下";
     const writingCLB =
       writing >= 90
         ? 10
@@ -205,7 +226,7 @@ const convertToCLB = (
                   ? 5
                   : writing >= 41
                     ? 4
-                    : 0;
+                    : "CLB 4以下";
     const speakingCLB =
       speaking >= 89
         ? 10
@@ -221,7 +242,7 @@ const convertToCLB = (
                   ? 5
                   : speaking >= 42
                     ? 4
-                    : 0;
+                    : "CLB 4以下";
     clbs = [listeningCLB, readingCLB, writingCLB, speakingCLB];
   } else if (testType === "tef") {
     const listeningCLB =
@@ -239,7 +260,7 @@ const convertToCLB = (
                   ? 5
                   : listening >= 306
                     ? 4
-                    : 0;
+                    : "CLB 4以下";
     const readingCLB =
       reading >= 546
         ? 10
@@ -255,7 +276,7 @@ const convertToCLB = (
                   ? 5
                   : reading >= 306
                     ? 4
-                    : 0;
+                    : "CLB 4以下";
     const writingCLB =
       writing >= 558
         ? 10
@@ -271,7 +292,7 @@ const convertToCLB = (
                   ? 5
                   : writing >= 268
                     ? 4
-                    : 0;
+                    : "CLB 4以下";
     const speakingCLB =
       speaking >= 556
         ? 10
@@ -287,7 +308,7 @@ const convertToCLB = (
                   ? 5
                   : speaking >= 328
                     ? 4
-                    : 0;
+                    : "CLB 4以下";
     clbs = [listeningCLB, readingCLB, writingCLB, speakingCLB];
   } else if (testType === "tcf") {
     const listeningCLB =
@@ -305,7 +326,7 @@ const convertToCLB = (
                   ? 5
                   : listening >= 331
                     ? 4
-                    : 0;
+                    : "CLB 4以下";
     const readingCLB =
       reading >= 549
         ? 10
@@ -321,7 +342,7 @@ const convertToCLB = (
                   ? 5
                   : reading >= 331
                     ? 4
-                    : 0;
+                    : "CLB 4以下";
     const writingCLB =
       writing >= 549
         ? 10
@@ -337,7 +358,7 @@ const convertToCLB = (
                   ? 5
                   : writing >= 331
                     ? 4
-                    : 0;
+                    : "CLB 4以下";
     const speakingCLB =
       speaking >= 549
         ? 10
@@ -353,7 +374,7 @@ const convertToCLB = (
                   ? 5
                   : speaking >= 331
                     ? 4
-                    : 0;
+                    : "CLB 4以下";
     clbs = [listeningCLB, readingCLB, writingCLB, speakingCLB];
   }
 
@@ -368,14 +389,30 @@ export default function CLBTranslator() {
     writing: 0,
     speaking: 0,
   });
-  const [result, setResult] = useState<number[] | null>(null);
+  const [result, setResult] = useState<(number | string)[] | null>(null);
+  const [validationError, setValidationError] = useState<string>("");
+  const [showValidationDialog, setShowValidationDialog] = useState(false);
 
   const handleTranslate = () => {
+    // Check if all scores are 0 (form is empty)
+    if (scores.listening === 0 && scores.reading === 0 && scores.writing === 0 && scores.speaking === 0) {
+      setValidationError("表单不能为空");
+      setShowValidationDialog(true);
+      return;
+    }
+
     const clbs = convertToCLB(scores.listening, scores.reading, scores.writing, scores.speaking, testType);
     setResult(clbs);
   };
 
-  const minCLB = result ? Math.min(...result.filter(c => c > 0)) : 0;
+  const getMinCLB = () => {
+    if (!result) return null;
+    const numericClbs = result.filter(c => typeof c === 'number') as number[];
+    if (numericClbs.length === 0) return null;
+    return Math.min(...numericClbs);
+  };
+
+  const minCLB = getMinCLB();
 
   return (
     <div className="min-h-screen bg-white">
@@ -394,7 +431,6 @@ export default function CLBTranslator() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Main Form */}
           <div className="lg:col-span-2">
             <Card>
               <CardHeader>
@@ -402,39 +438,37 @@ export default function CLBTranslator() {
                 <CardDescription>请选择您参加的语言考试</CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
-                {/* Test Type Tabs */}
-                <Tabs value={testType} onValueChange={(value) => setTestType(value as any)}>
+                <Tabs value={testType} onValueChange={(value: any) => setTestType(value)}>
                   <TabsList className="grid w-full grid-cols-5">
                     <TabsTrigger value="ielts">
                       <div className="text-center">
-                        <div className="font-semibold">IELTS</div>
-                        <div className="text-xs text-gray-600">雅思</div>
+                        <div>IELTS</div>
+                        <div className="text-xs">雅思</div>
                       </div>
                     </TabsTrigger>
                     <TabsTrigger value="celpip">
                       <div className="text-center">
-                        <div className="font-semibold">CELPIP</div>
-                        <div className="text-xs text-gray-600">思培</div>
+                        <div>CELPIP</div>
+                        <div className="text-xs">思培</div>
                       </div>
                     </TabsTrigger>
                     <TabsTrigger value="pte">
                       <div className="text-center">
-                        <div className="font-semibold">PTE</div>
+                        <div>PTE</div>
                       </div>
                     </TabsTrigger>
                     <TabsTrigger value="tef">
                       <div className="text-center">
-                        <div className="font-semibold">TEF</div>
+                        <div>TEF</div>
                       </div>
                     </TabsTrigger>
                     <TabsTrigger value="tcf">
                       <div className="text-center">
-                        <div className="font-semibold">TCF</div>
+                        <div>TCF</div>
                       </div>
                     </TabsTrigger>
                   </TabsList>
 
-                  {/* Score Inputs */}
                   <div className="mt-6 space-y-4">
                     <div>
                       <Label htmlFor="listening">听力</Label>
@@ -444,9 +478,9 @@ export default function CLBTranslator() {
                         placeholder="0"
                         value={scores.listening || ""}
                         onChange={(e) => setScores({ ...scores, listening: parseFloat(e.target.value) || 0 })}
-                        step={testType === "ielts" || testType === "celpip" ? 0.5 : 1}
                       />
                     </div>
+
                     <div>
                       <Label htmlFor="reading">阅读</Label>
                       <Input
@@ -455,9 +489,9 @@ export default function CLBTranslator() {
                         placeholder="0"
                         value={scores.reading || ""}
                         onChange={(e) => setScores({ ...scores, reading: parseFloat(e.target.value) || 0 })}
-                        step={testType === "ielts" || testType === "celpip" ? 0.5 : 1}
                       />
                     </div>
+
                     <div>
                       <Label htmlFor="writing">写作</Label>
                       <Input
@@ -466,9 +500,9 @@ export default function CLBTranslator() {
                         placeholder="0"
                         value={scores.writing || ""}
                         onChange={(e) => setScores({ ...scores, writing: parseFloat(e.target.value) || 0 })}
-                        step={testType === "ielts" || testType === "celpip" ? 0.5 : 1}
                       />
                     </div>
+
                     <div>
                       <Label htmlFor="speaking">口语</Label>
                       <Input
@@ -477,7 +511,6 @@ export default function CLBTranslator() {
                         placeholder="0"
                         value={scores.speaking || ""}
                         onChange={(e) => setScores({ ...scores, speaking: parseFloat(e.target.value) || 0 })}
-                        step={testType === "ielts" || testType === "celpip" ? 0.5 : 1}
                       />
                     </div>
                   </div>
@@ -489,7 +522,6 @@ export default function CLBTranslator() {
               </CardContent>
             </Card>
 
-            {/* Results */}
             {result && (
               <Card className="mt-8">
                 <CardHeader>
@@ -498,25 +530,35 @@ export default function CLBTranslator() {
                 <CardContent className="space-y-6">
                   <div className="bg-blue-50 p-6 rounded-lg">
                     <p className="text-gray-600 mb-2">您的综合语言水平为</p>
-                    <p className="text-5xl font-bold text-blue-600">CLB {minCLB}</p>
+                    <p className="text-5xl font-bold text-blue-600">
+                      {typeof minCLB === 'number' ? `CLB ${minCLB}` : minCLB}
+                    </p>
                   </div>
 
                   <div className="grid grid-cols-2 gap-4">
-                    <div className="bg-gray-50 p-4 rounded-lg">
-                      <p className="text-sm text-gray-600">听力</p>
-                      <p className="text-2xl font-bold text-gray-900">CLB {result[0]}</p>
+                    <div className="border rounded-lg p-4">
+                      <p className="text-gray-600 text-sm">听力</p>
+                      <p className="text-2xl font-bold text-gray-900">
+                        {typeof result[0] === 'number' ? `CLB ${result[0]}` : result[0]}
+                      </p>
                     </div>
-                    <div className="bg-gray-50 p-4 rounded-lg">
-                      <p className="text-sm text-gray-600">阅读</p>
-                      <p className="text-2xl font-bold text-gray-900">CLB {result[1]}</p>
+                    <div className="border rounded-lg p-4">
+                      <p className="text-gray-600 text-sm">阅读</p>
+                      <p className="text-2xl font-bold text-gray-900">
+                        {typeof result[1] === 'number' ? `CLB ${result[1]}` : result[1]}
+                      </p>
                     </div>
-                    <div className="bg-gray-50 p-4 rounded-lg">
-                      <p className="text-sm text-gray-600">写作</p>
-                      <p className="text-2xl font-bold text-gray-900">CLB {result[2]}</p>
+                    <div className="border rounded-lg p-4">
+                      <p className="text-gray-600 text-sm">写作</p>
+                      <p className="text-2xl font-bold text-gray-900">
+                        {typeof result[2] === 'number' ? `CLB ${result[2]}` : result[2]}
+                      </p>
                     </div>
-                    <div className="bg-gray-50 p-4 rounded-lg">
-                      <p className="text-sm text-gray-600">口语</p>
-                      <p className="text-2xl font-bold text-gray-900">CLB {result[3]}</p>
+                    <div className="border rounded-lg p-4">
+                      <p className="text-gray-600 text-sm">口语</p>
+                      <p className="text-2xl font-bold text-gray-900">
+                        {typeof result[3] === 'number' ? `CLB ${result[3]}` : result[3]}
+                      </p>
                     </div>
                   </div>
                 </CardContent>
@@ -524,21 +566,34 @@ export default function CLBTranslator() {
             )}
           </div>
 
-          {/* Right Sidebar */}
           <div>
-            <Card className="sticky top-8">
+            <Card>
               <CardHeader>
                 <CardTitle>关于CLB</CardTitle>
               </CardHeader>
-              <CardContent>
-                <p className="text-sm text-gray-600 leading-relaxed">
-                  加拿大语言基准（CLB）是加拿大评估成年人以英语为第二语言（ESL）能力的国家标准，涵盖阅读、写作、听力和口语。该广泛标准应用于加拿大移民申请、公民入籍和求职就业的语言能力评估。
-                </p>
+              <CardContent className="space-y-4">
+                <div>
+                  <p className="text-sm text-gray-700">
+                    加拿大语言基准（CLB）是加拿大评估成年人以英语为第二语言（ESL）能力的国家标准，涵盖阅读、写作、听力和口语。该广泛标准应用于加拿大移民申请、公民入籍和求职就业的语言能力评估。
+                  </p>
+                </div>
               </CardContent>
             </Card>
           </div>
         </div>
       </div>
+
+      <Dialog open={showValidationDialog} onOpenChange={setShowValidationDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>表单验证错误</DialogTitle>
+          </DialogHeader>
+          <DialogDescription>{validationError}</DialogDescription>
+          <DialogFooter>
+            <Button onClick={() => setShowValidationDialog(false)}>确定</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
