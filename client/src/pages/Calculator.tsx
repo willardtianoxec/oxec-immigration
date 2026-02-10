@@ -45,7 +45,7 @@ export default function Calculator() {
     hasEducationWorkExperienceCombination: false,
     hasOverseasLanguageCombination: false,
     hasOverseasWorkExperienceCombination: false,
-    hasTradeCertificate: false,
+    canadianTradeCertificate: false,
     
     // Additional Factors
     hasSiblingInCanada: false,
@@ -668,8 +668,8 @@ export default function Calculator() {
                 <div>
                   <Label htmlFor="hasTradeCertificate" style={{paddingBottom: '8px'}}>是否拥有加拿大技工类职业证书</Label>
                   <Select 
-                    value={formData.hasTradeCertificate ? "yes" : (formData.hasTradeCertificate === false ? "no" : "default")} 
-                    onValueChange={(value) => setFormData({ ...formData, hasTradeCertificate: value === "yes" ? true : value === "no" ? false : false })}
+                    value={formData.canadianTradeCertificate ? "yes" : (formData.canadianTradeCertificate === false ? "no" : "default")} 
+                    onValueChange={(value) => setFormData({ ...formData, canadianTradeCertificate: value === "yes" ? true : value === "no" ? false : false })}
                   >
                     <SelectTrigger id="hasTradeCertificate">
                       <SelectValue placeholder="请选择" />

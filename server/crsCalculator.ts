@@ -574,69 +574,96 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
     };
     const overseasWorkScore = overseasWorkScores[input.overseasWorkExperience || "none"] || 0;
     
-    // Education + Language (requires 2+ years education + CLB 7+)
-    // 2+ years education (120+ points) + CLB 9+ = 50 points
-    // 2+ years education (120+ points) + CLB 7-8 = 25 points
-    console.log(`[DEBUG] Education+Language: eduScore=${eduScore}, clb=${minClb}, condition=${eduScore >= 120 && minClb >= 7}`);
-    if (eduScore >= 120 && minClb >= 9) {
-      transferableSkills["学历+语言"] = 50;
-    } else if (eduScore >= 120 && minClb >= 7) {
-      transferableSkills["学历+语言"] = 25;
-    }
-    // Education + Canadian work experience
-    console.log(`[DEBUG] Education+CanadianWork: eduScore=${eduScore}, canadianWorkScore=${canadianWorkScore}, condition=${eduScore >= 120 && canadianWorkScore >= 40}`);
-    if (eduScore >= 120 && canadianWorkScore >= 40) {
-      transferableSkills["学历+加国经验"] = 50;
-    }
-    // Overseas work experience + Language (with CLB thresholds)
-    let overseasLanguageScore = 0;
-    if (overseasWorkScore >= 20 && overseasWorkScore < 53) {
-      // 1-3 years overseas experience
-      if (minClb >= 9) {
-        overseasLanguageScore = 25; // 1-3 years + CLB 9-10
-      } else if (minClb >= 7) {
-        overseasLanguageScore = 25; // 1-3 years + CLB 7-8
-      }
-    } else if (overseasWorkScore >= 53) {
-      // 3+ years overseas experience
-      if (minClb >= 9) {
-        overseasLanguageScore = 50; // 3+ years + CLB 9-10
-      } else if (minClb >= 7) {
-        overseasLanguageScore = 25; // 3+ years + CLB 7-8
-      }
-    }
-    transferableSkills["海外经验+语言"] = overseasLanguageScore;
+    // ========== TRANSFERABLE SKILLS CALCULATION ==========
+    // According to IRCC official rules, transferable skills consist of three categories:
+    // 1. Education category (max 50 points)
+    // 2. Overseas work experience category (max 50 points)
+    // 3. Trade certificate category (max 50 points)
+    // Total max: 100 points
     
-    // Overseas work experience + Canadian work experience (with experience thresholds)
-    let overseasCanadianScore = 0;
-    if (overseasWorkScore >= 20 && overseasWorkScore < 53) {
-      // 1-3 years overseas experience
-      if (canadianWorkScore >= 40) {
-        overseasCanadianScore = 25; // 1-3 years overseas + 2+ years Canadian
-      } else if (canadianWorkScore >= 20) {
-        overseasCanadianScore = 13; // 1-3 years overseas + 1 year Canadian
+    // ===== EDUCATION CATEGORY (MAX 50 POINTS) =====
+    // 1-year diploma + CLB 7-8 = 13 points
+    // 1-year diploma + CLB 9+ = 25 points
+    // 2+ years education + CLB 7-8 = 25 points
+    // 2+ years education + CLB 9+ = 50 points
+    // 1-year diploma + 1 year Canadian work = 13 points
+    // 1-year diploma + 2+ years Canadian work = 25 points
+    // 2+ years education + 1 year Canadian work = 25 points
+    // 2+ years education + 2+ years Canadian work = 50 points
+    
+    let educationCategoryScore = 0;
+    const is1YearDiploma = input.education === "one-year";
+    const is2PlusYearEducation = ["two-year", "bachelor", "double", "masters", "phd"].includes(input.education);
+    
+    if (is1YearDiploma || is2PlusYearEducation) {
+      // Education + Language
+      if (minClb >= 9) {
+        educationCategoryScore = is1YearDiploma ? 25 : 50;
+      } else if (minClb >= 7) {
+        educationCategoryScore = 25;
       }
-    } else if (overseasWorkScore >= 53) {
-      // 3+ years overseas experience
-      if (canadianWorkScore >= 40) {
-        overseasCanadianScore = 50; // 3+ years overseas + 2+ years Canadian
-      } else if (canadianWorkScore >= 20) {
-        overseasCanadianScore = 25; // 3+ years overseas + 1 year Canadian
+      
+      // Education + Canadian work experience (only if language score is 0)
+      if (educationCategoryScore === 0) {
+        if (canadianWorkScore >= 40) {
+          educationCategoryScore = is1YearDiploma ? 25 : 50;
+        } else if (canadianWorkScore >= 20) {
+          educationCategoryScore = 13;
+        }
       }
     }
-    transferableSkills["海外经验+加国经验"] = overseasCanadianScore;
-    // Calculate total for transferable skills (with category caps)
-    // Education category: max 50 points
-    const educationCategoryScore = Math.max(
-      transferableSkills["学历+语言"],
-      transferableSkills["学历+加国经验"]
-    );
-    // Overseas experience category: max 50 points
-    const overseasCategoryScore = Math.max(
-      transferableSkills["海外经验+语言"],
-      transferableSkills["海外经验+加国经验"]
-    );
-    const transferableTotal = educationCategoryScore + overseasCategoryScore;
+    
+    // ===== OVERSEAS EXPERIENCE CATEGORY (MAX 50 POINTS) =====
+    // 1-2 years overseas + CLB 7-8 = 13 points
+    // 1-2 years overseas + CLB 9+ = 25 points
+    // 3+ years overseas + CLB 7-8 = 25 points
+    // 3+ years overseas + CLB 9+ = 50 points
+    // 1-2 years overseas + 1 year Canadian work = 13 points
+    // 1-2 years overseas + 2+ years Canadian work = 25 points
+    // 3+ years overseas + 1 year Canadian work = 25 points
+    // 3+ years overseas + 2+ years Canadian work = 50 points
+    
+    let overseasCategoryScore = 0;
+    const is1To2YearsOverseas = ["1year", "2year"].includes(input.overseasWorkExperience || "");
+    const is3PlusYearsOverseas = input.overseasWorkExperience === "3plus";
+    
+    if (is1To2YearsOverseas || is3PlusYearsOverseas) {
+      // Overseas + Language
+      if (minClb >= 9) {
+        overseasCategoryScore = is1To2YearsOverseas ? 25 : 50;
+      } else if (minClb >= 7) {
+        overseasCategoryScore = is1To2YearsOverseas ? 13 : 25;
+      }
+      
+      // Overseas + Canadian work experience (only if language score is 0)
+      if (overseasCategoryScore === 0) {
+        if (canadianWorkScore >= 40) {
+          overseasCategoryScore = is1To2YearsOverseas ? 25 : 50;
+        } else if (canadianWorkScore >= 20) {
+          overseasCategoryScore = 13;
+        }
+      }
+    }
+    
+    // ===== TRADE CERTIFICATE CATEGORY (MAX 50 POINTS) =====
+    // No trade certificate = 0 points
+    // Trade certificate + CLB 5-6 = 25 points
+    // Trade certificate + CLB 7+ = 50 points
+    
+    let tradeCertificateScore = 0;
+    if (input.canadianTradeCertificate) {
+      if (minClb >= 7) {
+        tradeCertificateScore = 50;
+      } else if (minClb >= 5) {
+        tradeCertificateScore = 25;
+      }
+    }
+    
+    // Calculate total for transferable skills (with category caps and 100 point max)
+    const transferableTotal = Math.min(educationCategoryScore + overseasCategoryScore + tradeCertificateScore, 100);
+    transferableSkills["学历"] = educationCategoryScore;
+    transferableSkills["海外经验"] = overseasCategoryScore;
+    transferableSkills["技工证书"] = tradeCertificateScore;
     transferableSkills.小计 = transferableTotal;
     totalScore += transferableTotal;  // Add transferable skills to total score
 
@@ -858,69 +885,96 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
     };
     const overseasWorkScore = overseasWorkScores[input.overseasWorkExperience || "none"] || 0;
     
-    // Education + Language (requires 2+ years education + CLB 7+)
-    // 2+ years education (120+ points) + CLB 9+ = 50 points
-    // 2+ years education (120+ points) + CLB 7-8 = 25 points
-    console.log(`[DEBUG] Education+Language: eduScore=${eduScore}, clb=${minClb}, condition=${eduScore >= 120 && minClb >= 7}`);
-    if (eduScore >= 120 && minClb >= 9) {
-      transferableSkills["学历+语言"] = 50;
-    } else if (eduScore >= 120 && minClb >= 7) {
-      transferableSkills["学历+语言"] = 25;
-    }
-    // Education + Canadian work experience
-    console.log(`[DEBUG] Education+CanadianWork: eduScore=${eduScore}, canadianWorkScore=${canadianWorkScore}, condition=${eduScore >= 120 && canadianWorkScore >= 40}`);
-    if (eduScore >= 120 && canadianWorkScore >= 40) {
-      transferableSkills["学历+加国经验"] = 50;
-    }
-    // Overseas work experience + Language (with CLB thresholds)
-    let overseasLanguageScore = 0;
-    if (overseasWorkScore >= 20 && overseasWorkScore < 53) {
-      // 1-3 years overseas experience
-      if (minClb >= 9) {
-        overseasLanguageScore = 25; // 1-3 years + CLB 9-10
-      } else if (minClb >= 7) {
-        overseasLanguageScore = 25; // 1-3 years + CLB 7-8
-      }
-    } else if (overseasWorkScore >= 53) {
-      // 3+ years overseas experience
-      if (minClb >= 9) {
-        overseasLanguageScore = 50; // 3+ years + CLB 9-10
-      } else if (minClb >= 7) {
-        overseasLanguageScore = 25; // 3+ years + CLB 7-8
-      }
-    }
-    transferableSkills["海外经验+语言"] = overseasLanguageScore;
+    // ========== TRANSFERABLE SKILLS CALCULATION ==========
+    // According to IRCC official rules, transferable skills consist of three categories:
+    // 1. Education category (max 50 points)
+    // 2. Overseas work experience category (max 50 points)
+    // 3. Trade certificate category (max 50 points)
+    // Total max: 100 points
     
-    // Overseas work experience + Canadian work experience (with experience thresholds)
-    let overseasCanadianScore = 0;
-    if (overseasWorkScore >= 20 && overseasWorkScore < 53) {
-      // 1-3 years overseas experience
-      if (canadianWorkScore >= 40) {
-        overseasCanadianScore = 25; // 1-3 years overseas + 2+ years Canadian
-      } else if (canadianWorkScore >= 20) {
-        overseasCanadianScore = 13; // 1-3 years overseas + 1 year Canadian
+    // ===== EDUCATION CATEGORY (MAX 50 POINTS) =====
+    // 1-year diploma + CLB 7-8 = 13 points
+    // 1-year diploma + CLB 9+ = 25 points
+    // 2+ years education + CLB 7-8 = 25 points
+    // 2+ years education + CLB 9+ = 50 points
+    // 1-year diploma + 1 year Canadian work = 13 points
+    // 1-year diploma + 2+ years Canadian work = 25 points
+    // 2+ years education + 1 year Canadian work = 25 points
+    // 2+ years education + 2+ years Canadian work = 50 points
+    
+    let educationCategoryScore = 0;
+    const is1YearDiploma = input.education === "one-year";
+    const is2PlusYearEducation = ["two-year", "bachelor", "double", "masters", "phd"].includes(input.education);
+    
+    if (is1YearDiploma || is2PlusYearEducation) {
+      // Education + Language
+      if (minClb >= 9) {
+        educationCategoryScore = is1YearDiploma ? 25 : 50;
+      } else if (minClb >= 7) {
+        educationCategoryScore = 25;
       }
-    } else if (overseasWorkScore >= 53) {
-      // 3+ years overseas experience
-      if (canadianWorkScore >= 40) {
-        overseasCanadianScore = 50; // 3+ years overseas + 2+ years Canadian
-      } else if (canadianWorkScore >= 20) {
-        overseasCanadianScore = 25; // 3+ years overseas + 1 year Canadian
+      
+      // Education + Canadian work experience (only if language score is 0)
+      if (educationCategoryScore === 0) {
+        if (canadianWorkScore >= 40) {
+          educationCategoryScore = is1YearDiploma ? 25 : 50;
+        } else if (canadianWorkScore >= 20) {
+          educationCategoryScore = 13;
+        }
       }
     }
-    transferableSkills["海外经验+加国经验"] = overseasCanadianScore;
-    // Calculate total for transferable skills (with category caps)
-    // Education category: max 50 points
-    const educationCategoryScore = Math.max(
-      transferableSkills["学历+语言"],
-      transferableSkills["学历+加国经验"]
-    );
-    // Overseas experience category: max 50 points
-    const overseasCategoryScore = Math.max(
-      transferableSkills["海外经验+语言"],
-      transferableSkills["海外经验+加国经验"]
-    );
-    const transferableTotal = educationCategoryScore + overseasCategoryScore;
+    
+    // ===== OVERSEAS EXPERIENCE CATEGORY (MAX 50 POINTS) =====
+    // 1-2 years overseas + CLB 7-8 = 13 points
+    // 1-2 years overseas + CLB 9+ = 25 points
+    // 3+ years overseas + CLB 7-8 = 25 points
+    // 3+ years overseas + CLB 9+ = 50 points
+    // 1-2 years overseas + 1 year Canadian work = 13 points
+    // 1-2 years overseas + 2+ years Canadian work = 25 points
+    // 3+ years overseas + 1 year Canadian work = 25 points
+    // 3+ years overseas + 2+ years Canadian work = 50 points
+    
+    let overseasCategoryScore = 0;
+    const is1To2YearsOverseas = ["1year", "2year"].includes(input.overseasWorkExperience || "");
+    const is3PlusYearsOverseas = input.overseasWorkExperience === "3plus";
+    
+    if (is1To2YearsOverseas || is3PlusYearsOverseas) {
+      // Overseas + Language
+      if (minClb >= 9) {
+        overseasCategoryScore = is1To2YearsOverseas ? 25 : 50;
+      } else if (minClb >= 7) {
+        overseasCategoryScore = is1To2YearsOverseas ? 13 : 25;
+      }
+      
+      // Overseas + Canadian work experience (only if language score is 0)
+      if (overseasCategoryScore === 0) {
+        if (canadianWorkScore >= 40) {
+          overseasCategoryScore = is1To2YearsOverseas ? 25 : 50;
+        } else if (canadianWorkScore >= 20) {
+          overseasCategoryScore = 13;
+        }
+      }
+    }
+    
+    // ===== TRADE CERTIFICATE CATEGORY (MAX 50 POINTS) =====
+    // No trade certificate = 0 points
+    // Trade certificate + CLB 5-6 = 25 points
+    // Trade certificate + CLB 7+ = 50 points
+    
+    let tradeCertificateScore = 0;
+    if (input.canadianTradeCertificate) {
+      if (minClb >= 7) {
+        tradeCertificateScore = 50;
+      } else if (minClb >= 5) {
+        tradeCertificateScore = 25;
+      }
+    }
+    
+    // Calculate total for transferable skills (with category caps and 100 point max)
+    const transferableTotal = Math.min(educationCategoryScore + overseasCategoryScore + tradeCertificateScore, 100);
+    transferableSkills["学历"] = educationCategoryScore;
+    transferableSkills["海外经验"] = overseasCategoryScore;
+    transferableSkills["技工证书"] = tradeCertificateScore;
     transferableSkills.小计 = transferableTotal;
     totalScore += transferableTotal;  // Add transferable skills to total score
 
