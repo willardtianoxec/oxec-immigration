@@ -263,6 +263,14 @@ export default function Home() {
           </div>
 
           <div className="text-center mt-12 flex flex-wrap gap-4 justify-center">
+            <Link href="/fswcalculator">
+              <Button asChild size="lg" variant="outline" className="border-2 border-accent text-accent hover:bg-accent/10">
+                <span style={{ backgroundColor: '#00437f', borderRadius: "0px", color: "#ffffff", borderWidth: '0px' }}>
+                  计算FSW入池分数
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </span>
+              </Button>
+            </Link>
             <Link href="/calculator">
               <Button asChild size="lg" variant="outline" className="border-2 border-accent text-accent hover:bg-accent/10">
                 <span style={{ backgroundColor: '#00437f', borderRadius: "0px", color: "#ffffff", borderWidth: '0px' }}>
@@ -275,6 +283,14 @@ export default function Home() {
               <Button asChild size="lg" variant="outline" className="border-2 border-accent text-accent hover:bg-accent/10">
                 <span style={{ backgroundColor: '#00437f', borderRadius: "0px", color: "#ffffff", borderWidth: '0px' }}>
                   计算BC省提名得分
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </span>
+              </Button>
+            </Link>
+            <Link href="/clbtranslator">
+              <Button asChild size="lg" variant="outline" className="border-2 border-accent text-accent hover:bg-accent/10">
+                <span style={{ backgroundColor: '#00437f', borderRadius: "0px", color: "#ffffff", borderWidth: '0px' }}>
+                  换算CLB等级
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </span>
               </Button>
