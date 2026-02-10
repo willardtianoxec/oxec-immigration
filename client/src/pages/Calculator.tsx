@@ -110,6 +110,12 @@ export default function Calculator() {
         setShowErrorDialog(true);
         return;
       }
+      // Check if spouse age is less than 17
+      if (formData.spouseAge < 17) {
+        setValidationError("配偶年龄必须至少为17岁。请输入有效的配偶年龄。");
+        setShowErrorDialog(true);
+        return;
+      }
       if (!formData.spouseEducation || formData.spouseEducation === "default") {
         setValidationError("请选择配偶最高学历");
         setShowErrorDialog(true);
