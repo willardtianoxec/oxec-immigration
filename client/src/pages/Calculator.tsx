@@ -37,7 +37,7 @@ export default function Calculator() {
     secondWriting: 0,
     secondSpeaking: 0,
     
-    canadianWorkExperience: "" as string,
+    canadianWorkExperience: "none" as string,
     overseasWorkExperience: "" as string,
     
     // Transferable Skills
@@ -87,6 +87,11 @@ export default function Calculator() {
     }
     if (!formData.languageTest || formData.languageTest === "default") {
       setValidationError("请选择语言考试类型");
+      setShowErrorDialog(true);
+      return;
+    }
+    if (!formData.canadianWorkExperience || formData.canadianWorkExperience === "default") {
+      setValidationError("请选择加拿大工作经验");
       setShowErrorDialog(true);
       return;
     }
