@@ -511,8 +511,9 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
     const minClb = Math.min(...clbs);
 
     // Second language test
+    let secondClbs: number[] = [];
     if (input.secondLanguageTest && input.secondLanguageTest !== "none") {
-      const secondClbs = convertToCLB(
+      secondClbs = convertToCLB(
         input.secondListening || 0,
         input.secondReading || 0,
         input.secondWriting || 0,
@@ -533,29 +534,6 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
       totalScore += secondLangScore;
       coreHumanCapital['第二语言'] = secondLangScore;
       coreHumanCapital.小计 += secondLangScore;
-      
-      // Bilingual bonus points
-      const isFrenchSecondary = input.secondaryLanguage === "french";
-      const isEnglishSecondary = input.secondaryLanguage === "english";
-      const isFrenchPrimary = input.primaryLanguage === "french";
-      const isEnglishPrimary = input.primaryLanguage === "english";
-      
-      if ((isFrenchSecondary && isEnglishPrimary) || (isEnglishSecondary && isFrenchPrimary)) {
-        const frenchClbs = isFrenchSecondary ? secondClbs : clbs;
-        const englishClbs = isEnglishSecondary ? secondClbs : clbs;
-        const frenchMinClb = Math.min(...frenchClbs);
-        const englishMinClb = Math.min(...englishClbs);
-        
-        if (frenchMinClb >= 7 && englishMinClb >= 5) {
-          additionalFactor.双语言 = 50;
-          additionalFactor.小计 += 50;
-          totalScore += 50;
-        } else if (frenchMinClb >= 7 && englishMinClb <= 4) {
-          additionalFactor.双语言 = 25;
-          additionalFactor.小计 += 25;
-          totalScore += 25;
-        }
-      }
     }
 
     // Canadian work experience
@@ -592,25 +570,30 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
     // 2+ years education + 2+ years Canadian work = 50 points
     
     let educationCategoryScore = 0;
-    const is1YearDiploma = input.education === "one-year";
-    const is2PlusYearEducation = ["two-year", "bachelor", "double", "masters", "phd"].includes(input.education);
+    const isBachelorOrDiploma = ["one-year", "two-year", "bachelor"].includes(input.education);
+    const isDualOrHigher = ["double", "masters", "phd"].includes(input.education);
+    const is2PlusYearCanadianWork = ["2year", "3year", "4year", "5plus"].includes(input.canadianWorkExperience);
     
-    if (is1YearDiploma || is2PlusYearEducation) {
+    if (isBachelorOrDiploma || isDualOrHigher) {
+      let educationLanguageScore = 0;
+      let educationWorkScore = 0;
+      
       // Education + Language
       if (minClb >= 9) {
-        educationCategoryScore = is1YearDiploma ? 25 : 50;
+        educationLanguageScore = isBachelorOrDiploma ? 25 : 50;
       } else if (minClb >= 7) {
-        educationCategoryScore = 25;
+        educationLanguageScore = isBachelorOrDiploma ? 13 : 25;
       }
       
-      // Education + Canadian work experience (only if language score is 0)
-      if (educationCategoryScore === 0) {
-        if (canadianWorkScore >= 40) {
-          educationCategoryScore = is1YearDiploma ? 25 : 50;
-        } else if (canadianWorkScore >= 20) {
-          educationCategoryScore = 13;
-        }
+      // Education + Canadian work experience
+      if (is2PlusYearCanadianWork) {
+        educationWorkScore = isBachelorOrDiploma ? 25 : 50;
+      } else if (input.canadianWorkExperience === "1year") {
+        educationWorkScore = isBachelorOrDiploma ? 13 : 25;
       }
+      
+      // Sum both scores (max 50 per category)
+      educationCategoryScore = Math.min(educationLanguageScore + educationWorkScore, 50);
     }
     
     // ===== OVERSEAS EXPERIENCE CATEGORY (MAX 50 POINTS) =====
@@ -628,21 +611,25 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
     const is3PlusYearsOverseas = input.overseasWorkExperience === "3plus";
     
     if (is1To2YearsOverseas || is3PlusYearsOverseas) {
+      let overseasLanguageScore = 0;
+      let overseasWorkScore = 0;
+      
       // Overseas + Language
       if (minClb >= 9) {
-        overseasCategoryScore = is1To2YearsOverseas ? 25 : 50;
+        overseasLanguageScore = is1To2YearsOverseas ? 25 : 50;
       } else if (minClb >= 7) {
-        overseasCategoryScore = is1To2YearsOverseas ? 13 : 25;
+        overseasLanguageScore = is1To2YearsOverseas ? 13 : 25;
       }
       
-      // Overseas + Canadian work experience (only if language score is 0)
-      if (overseasCategoryScore === 0) {
-        if (canadianWorkScore >= 40) {
-          overseasCategoryScore = is1To2YearsOverseas ? 25 : 50;
-        } else if (canadianWorkScore >= 20) {
-          overseasCategoryScore = 13;
-        }
+      // Overseas + Canadian work experience
+      if (is2PlusYearCanadianWork) {
+        overseasWorkScore = is1To2YearsOverseas ? 25 : 50;
+      } else if (input.canadianWorkExperience === "1year") {
+        overseasWorkScore = is1To2YearsOverseas ? 13 : 25;
       }
+      
+      // Sum both scores (max 50 per category)
+      overseasCategoryScore = Math.min(overseasLanguageScore + overseasWorkScore, 50);
     }
     
     // ===== TRADE CERTIFICATE CATEGORY (MAX 50 POINTS) =====
@@ -661,11 +648,12 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
     
     // Calculate total for transferable skills (with category caps and 100 point max)
     const transferableTotal = Math.min(educationCategoryScore + overseasCategoryScore + tradeCertificateScore, 100);
-    transferableSkills["学历"] = educationCategoryScore;
-    transferableSkills["海外经验"] = overseasCategoryScore;
+    transferableSkills["学历+语言"] = educationCategoryScore;
+    transferableSkills["海外经验+语言"] = overseasCategoryScore;
     transferableSkills["技工证书"] = tradeCertificateScore;
     transferableSkills.小计 = transferableTotal;
-    totalScore += transferableTotal;  // Add transferable skills to total score
+    // Add transferable skills to total score
+    totalScore += transferableTotal;
 
     // Bonus points
     if (input.hasSiblingInCanada) {
@@ -679,13 +667,40 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
       totalScore += 600;
     }
     
-    // French language bonus (50 points if French is primary language and CLB 7+)
-    const isFrenchPrimary = input.primaryLanguage === "french";
-    const frenchMinClb = isFrenchPrimary ? Math.min(...clbs) : 0;
-    if (isFrenchPrimary && frenchMinClb >= 7) {
-      additionalFactor.法语技能 = 50;
-      additionalFactor.小计 += 50;
-      totalScore += 50;
+    // French language bonus
+    // Condition 1: French CLB 7+ AND English CLB 5+ = 50 points
+    // Condition 2: French CLB 7+ AND (no English OR English CLB 4 or below) = 15 points
+    const hasFrench = input.primaryLanguage === "french" || input.secondaryLanguage === "french";
+    const hasEnglish = input.primaryLanguage === "english" || input.secondaryLanguage === "english";
+    
+    if (hasFrench && secondClbs.length > 0) {
+      // Both languages present
+      const frenchClbs = input.primaryLanguage === "french" ? clbs : secondClbs;
+      const englishClbs = input.primaryLanguage === "english" ? clbs : secondClbs;
+      const frenchAllAbove7 = frenchClbs.every((clb: number) => clb >= 7);
+      const englishAllAbove5 = englishClbs.every((clb: number) => clb >= 5);
+      
+      if (frenchAllAbove7) {
+        if (englishAllAbove5) {
+          additionalFactor.法语技能 = 50;
+          additionalFactor.小计 += 50;
+          totalScore += 50;
+        } else if (englishClbs.every((clb: number) => clb <= 4)) {
+          additionalFactor.法语技能 = 15;
+          additionalFactor.小计 += 15;
+          totalScore += 15;
+        }
+      }
+    } else if (hasFrench && !hasEnglish) {
+      // French only, no English
+      const frenchClbs = input.primaryLanguage === "french" ? clbs : [];
+      const frenchAllAbove7 = frenchClbs.every((clb: number) => clb >= 7);
+      
+      if (frenchAllAbove7) {
+        additionalFactor.法语技能 = 15;
+        additionalFactor.小计 += 15;
+        totalScore += 15;
+      }
     }
     
     // Assign breakdown
@@ -787,28 +802,7 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
       coreHumanCapital['第二语言'] = secondLangScore;
       coreHumanCapital.小计 += secondLangScore;
       
-      // Bilingual bonus points
-      const isFrenchSecondary = input.secondaryLanguage === "french";
-      const isEnglishSecondary = input.secondaryLanguage === "english";
-      const isFrenchPrimary = input.primaryLanguage === "french";
-      const isEnglishPrimary = input.primaryLanguage === "english";
-      
-      if ((isFrenchSecondary && isEnglishPrimary) || (isEnglishSecondary && isFrenchPrimary)) {
-        const frenchClbs = isFrenchSecondary ? secondClbs : clbs;
-        const englishClbs = isEnglishSecondary ? secondClbs : clbs;
-        const frenchMinClb = Math.min(...frenchClbs);
-        const englishMinClb = Math.min(...englishClbs);
-        
-        if (frenchMinClb >= 7 && englishMinClb >= 5) {
-          additionalFactor.双语言 = 50;
-          additionalFactor.小计 += 50;
-          totalScore += 50;
-        } else if (frenchMinClb >= 7 && englishMinClb <= 4) {
-          additionalFactor.双语言 = 25;
-          additionalFactor.小计 += 25;
-          totalScore += 25;
-        }
-      }
+      // NOTE: Bilingual bonus is handled in French language bonus section below to avoid duplication
     }
 
     // Main applicant - Canadian work experience
@@ -903,25 +897,30 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
     // 2+ years education + 2+ years Canadian work = 50 points
     
     let educationCategoryScore = 0;
-    const is1YearDiploma = input.education === "one-year";
-    const is2PlusYearEducation = ["two-year", "bachelor", "double", "masters", "phd"].includes(input.education);
+    const isBachelorOrDiploma = ["one-year", "two-year", "bachelor"].includes(input.education);
+    const isDualOrHigher = ["double", "masters", "phd"].includes(input.education);
+    const is2PlusYearCanadianWork = ["2year", "3year", "4year", "5plus"].includes(input.canadianWorkExperience);
     
-    if (is1YearDiploma || is2PlusYearEducation) {
+    if (isBachelorOrDiploma || isDualOrHigher) {
+      let educationLanguageScore = 0;
+      let educationWorkScore = 0;
+      
       // Education + Language
       if (minClb >= 9) {
-        educationCategoryScore = is1YearDiploma ? 25 : 50;
+        educationLanguageScore = isBachelorOrDiploma ? 25 : 50;
       } else if (minClb >= 7) {
-        educationCategoryScore = 25;
+        educationLanguageScore = isBachelorOrDiploma ? 13 : 25;
       }
       
-      // Education + Canadian work experience (only if language score is 0)
-      if (educationCategoryScore === 0) {
-        if (canadianWorkScore >= 40) {
-          educationCategoryScore = is1YearDiploma ? 25 : 50;
-        } else if (canadianWorkScore >= 20) {
-          educationCategoryScore = 13;
-        }
+      // Education + Canadian work experience
+      if (is2PlusYearCanadianWork) {
+        educationWorkScore = isBachelorOrDiploma ? 25 : 50;
+      } else if (input.canadianWorkExperience === "1year") {
+        educationWorkScore = isBachelorOrDiploma ? 13 : 25;
       }
+      
+      // Sum both scores (max 50 per category)
+      educationCategoryScore = Math.min(educationLanguageScore + educationWorkScore, 50);
     }
     
     // ===== OVERSEAS EXPERIENCE CATEGORY (MAX 50 POINTS) =====
@@ -939,21 +938,25 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
     const is3PlusYearsOverseas = input.overseasWorkExperience === "3plus";
     
     if (is1To2YearsOverseas || is3PlusYearsOverseas) {
+      let overseasLanguageScore = 0;
+      let overseasWorkScore = 0;
+      
       // Overseas + Language
       if (minClb >= 9) {
-        overseasCategoryScore = is1To2YearsOverseas ? 25 : 50;
+        overseasLanguageScore = is1To2YearsOverseas ? 25 : 50;
       } else if (minClb >= 7) {
-        overseasCategoryScore = is1To2YearsOverseas ? 13 : 25;
+        overseasLanguageScore = is1To2YearsOverseas ? 13 : 25;
       }
       
-      // Overseas + Canadian work experience (only if language score is 0)
-      if (overseasCategoryScore === 0) {
-        if (canadianWorkScore >= 40) {
-          overseasCategoryScore = is1To2YearsOverseas ? 25 : 50;
-        } else if (canadianWorkScore >= 20) {
-          overseasCategoryScore = 13;
-        }
+      // Overseas + Canadian work experience
+      if (is2PlusYearCanadianWork) {
+        overseasWorkScore = is1To2YearsOverseas ? 25 : 50;
+      } else if (input.canadianWorkExperience === "1year") {
+        overseasWorkScore = is1To2YearsOverseas ? 13 : 25;
       }
+      
+      // Sum both scores (max 50 per category)
+      overseasCategoryScore = Math.min(overseasLanguageScore + overseasWorkScore, 50);
     }
     
     // ===== TRADE CERTIFICATE CATEGORY (MAX 50 POINTS) =====
@@ -972,11 +975,12 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
     
     // Calculate total for transferable skills (with category caps and 100 point max)
     const transferableTotal = Math.min(educationCategoryScore + overseasCategoryScore + tradeCertificateScore, 100);
-    transferableSkills["学历"] = educationCategoryScore;
-    transferableSkills["海外经验"] = overseasCategoryScore;
+    transferableSkills["学历+语言"] = educationCategoryScore;
+    transferableSkills["海外经验+语言"] = overseasCategoryScore;
     transferableSkills["技工证书"] = tradeCertificateScore;
     transferableSkills.小计 = transferableTotal;
-    totalScore += transferableTotal;  // Add transferable skills to total score
+    // Add transferable skills to total score
+    totalScore += transferableTotal;
 
     // Bonus points
     if (input.hasSiblingInCanada) {
