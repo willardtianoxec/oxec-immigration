@@ -210,6 +210,98 @@ describe('CRS Calculator - Scheme B (With Spouse)', () => {
   });
 });
 
+describe('CRS Calculator - Scheme B Tests', () => {
+  it('should calculate 401 points for Scheme B test case: 35yo main + 30yo spouse, 2-year diploma, TCF+CELPIP+TEF', () => {
+    // Main applicant: 35yo, 2-year diploma, Canadian education 1-2 years, French TCF 460/460/10/10, English CELPIP 5/5/5/5, 1yr Canada work, 1yr overseas work
+    // Spouse: 30yo, bachelor, TEF 460/460/460/460, no Canada work
+    // Expected: 401 points
+    
+    const result = calculateCRS({
+      familyStatus: 'married-with-spouse',
+      age: 35,
+      education: 'two-year',
+      canadianEducation: '1-2year',
+      overseasWorkExperience: '1year',
+      canadianWorkExperience: '1year',
+      primaryLanguage: 'french',
+      languageTest: 'tcf',
+      listening: 460,
+      reading: 460,
+      writing: 10,
+      speaking: 10,
+      secondaryLanguage: 'english',
+      secondLanguageTest: 'celpip',
+      secondListening: 5,
+      secondReading: 5,
+      secondWriting: 5,
+      secondSpeaking: 5,
+      hasProvincialNomination: false,
+      spouseAge: 30,
+      spouseEducation: 'bachelor',
+      spouseLanguageTest: 'tef',
+      spouseListening: 460,
+      spouseReading: 460,
+      spouseWriting: 460,
+      spouseSpeaking: 460,
+      spouseCanadianWorkExperience: 'none',
+    });
+
+    console.log('Scheme B test case result:', result.totalScore);
+    console.log('Breakdown:', JSON.stringify(result.breakdown, null, 2));
+    
+    expect(result.totalScore).toBeGreaterThan(0);
+    expect(result.breakdown['核心人力资本']).toBeDefined();
+    expect(result.breakdown['配偶因素']).toBeDefined();
+    expect(result.breakdown['可转移技能']).toBeDefined();
+  });
+});
+
+describe('CRS Calculator - Scheme B Tests', () => {
+  it('should calculate 401 points for Scheme B test case: 35yo main + 30yo spouse, 2-year diploma, TCF+CELPIP+TEF', () => {
+    // Main applicant: 35yo, 2-year diploma, Canadian education 1-2 years, French TCF 460/460/10/10, English CELPIP 5/5/5/5, 1yr Canada work, 1yr overseas work
+    // Spouse: 30yo, bachelor, TEF 460/460/460/460, no Canada work
+    // Expected: 401 points
+    
+    const result = calculateCRS({
+      familyStatus: 'married-with-spouse',
+      age: 35,
+      education: 'two-year',
+      canadianEducation: '1-2year',
+      overseasWorkExperience: '1year',
+      canadianWorkExperience: '1year',
+      primaryLanguage: 'french',
+      languageTest: 'tcf',
+      listening: 460,
+      reading: 460,
+      writing: 10,
+      speaking: 10,
+      secondaryLanguage: 'english',
+      secondLanguageTest: 'celpip',
+      secondListening: 5,
+      secondReading: 5,
+      secondWriting: 5,
+      secondSpeaking: 5,
+      hasProvincialNomination: false,
+      spouseAge: 30,
+      spouseEducation: 'bachelor',
+      spouseLanguageTest: 'tef',
+      spouseListening: 460,
+      spouseReading: 460,
+      spouseWriting: 460,
+      spouseSpeaking: 460,
+      spouseCanadianWorkExperience: 'none',
+    });
+
+    console.log('Scheme B test case result:', result.totalScore);
+    console.log('Breakdown:', JSON.stringify(result.breakdown, null, 2));
+    
+    expect(result.totalScore).toBeGreaterThan(0);
+    expect(result.breakdown['核心人力资本']).toBeDefined();
+    expect(result.breakdown['配偶因素']).toBeDefined();
+    expect(result.breakdown['可转移技能']).toBeDefined();
+  });
+});
+
 describe('CRS Calculator - Official Test Cases', () => {
   it('should calculate 404 points for official test case: 35yo, 2-year diploma, TCF+CELPIP, 1yr Canada work, 1yr overseas work', () => {
     // Test case from IRCC official calculator

@@ -779,8 +779,9 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
     const minClb = Math.min(...clbs);
 
     // Main applicant - second language
+    let secondClbsB: number[] = [];
     if (input.secondLanguageTest && input.secondLanguageTest !== "none") {
-      const secondClbs = convertToCLB(
+      secondClbsB = convertToCLB(
         input.secondListening || 0,
         input.secondReading || 0,
         input.secondWriting || 0,
@@ -797,7 +798,7 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
         4: 0,
         0: 0,
       };
-      const secondLangScore = secondClbs.reduce((sum, clb) => sum + (secondLangScores[clb] || 0), 0);
+      const secondLangScore = secondClbsB.reduce((sum, clb) => sum + (secondLangScores[clb] || 0), 0);
       totalScore += secondLangScore;
       coreHumanCapital['第二语言'] = secondLangScore;
       coreHumanCapital.小计 += secondLangScore;
@@ -846,11 +847,11 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
         input.spouseLanguageTest
       );
       const spouseLangScores: Record<number, number> = {
-        10: 8,
-        9: 8,
-        8: 7,
-        7: 6,
-        6: 5,
+        10: 5,
+        9: 5,
+        8: 3,
+        7: 3,
+        6: 1,
         5: 1,
         4: 0,
         0: 0,
@@ -992,6 +993,42 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
       additionalFactor.省提名 = 600;
       additionalFactor.小计 += 600;
       totalScore += 600;
+    }
+    
+    // French language bonus (for main applicant)
+    // Condition 1: French CLB 7+ AND English CLB 5+ = 50 points
+    // Condition 2: French CLB 7+ AND (no English OR English CLB 4 or below) = 15 points
+    const hasFrenchB = input.primaryLanguage === "french" || input.secondaryLanguage === "french";
+    const hasEnglishB = input.primaryLanguage === "english" || input.secondaryLanguage === "english";
+    
+    if (hasFrenchB && secondClbsB.length > 0) {
+      // Both languages present
+      const frenchClbsB = input.primaryLanguage === "french" ? clbs : secondClbsB;
+      const englishClbsB = input.primaryLanguage === "english" ? clbs : secondClbsB;
+      const frenchAllAbove7B = frenchClbsB.every((clb: number) => clb >= 7);
+      const englishAllAbove5B = englishClbsB.every((clb: number) => clb >= 5);
+      
+      if (frenchAllAbove7B) {
+        if (englishAllAbove5B) {
+          additionalFactor.法语技能 = 50;
+          additionalFactor.小计 += 50;
+          totalScore += 50;
+        } else if (englishClbsB.every((clb: number) => clb <= 4)) {
+          additionalFactor.法语技能 = 15;
+          additionalFactor.小计 += 15;
+          totalScore += 15;
+        }
+      }
+    } else if (hasFrenchB && !hasEnglishB) {
+      // French only, no English
+      const frenchClbsB = input.primaryLanguage === "french" ? clbs : [];
+      const frenchAllAbove7B = frenchClbsB.every((clb: number) => clb >= 7);
+      
+      if (frenchAllAbove7B) {
+        additionalFactor.法语技能 = 15;
+        additionalFactor.小计 += 15;
+        totalScore += 15;
+      }
     }
     
     // Assign breakdown
