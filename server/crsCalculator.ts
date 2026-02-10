@@ -592,6 +592,9 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
         educationWorkScore = isBachelorOrDiploma ? 13 : 25;
       }
       
+      // Store both scores separately for display
+      transferableSkills["学历+语言"] = educationLanguageScore;
+      transferableSkills["学历+加国经验"] = educationWorkScore;
       // Sum both scores (max 50 per category)
       educationCategoryScore = Math.min(educationLanguageScore + educationWorkScore, 50);
     }
@@ -609,6 +612,8 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
     let overseasCategoryScore = 0;
     const is1To2YearsOverseas = ["1year", "2year"].includes(input.overseasWorkExperience || "");
     const is3PlusYearsOverseas = input.overseasWorkExperience === "3plus";
+    
+    console.log('[DEBUG] Overseas condition check:', { overseasWorkExperience: input.overseasWorkExperience, is1To2YearsOverseas, is3PlusYearsOverseas });
     
     if (is1To2YearsOverseas || is3PlusYearsOverseas) {
       let overseasLanguageScore = 0;
@@ -628,6 +633,9 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
         overseasWorkScore = is1To2YearsOverseas ? 13 : 25;
       }
       
+      // Store both scores separately for display
+      transferableSkills["海外经验+语言"] = overseasLanguageScore;
+      transferableSkills["海外经验+加国经验"] = overseasWorkScore;
       // Sum both scores (max 50 per category)
       overseasCategoryScore = Math.min(overseasLanguageScore + overseasWorkScore, 50);
     }
@@ -648,8 +656,7 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
     
     // Calculate total for transferable skills (with category caps and 100 point max)
     const transferableTotal = Math.min(educationCategoryScore + overseasCategoryScore + tradeCertificateScore, 100);
-    transferableSkills["学历+语言"] = educationCategoryScore;
-    transferableSkills["海外经验+语言"] = overseasCategoryScore;
+    // Note: All individual scores are already set in their respective category blocks above
     transferableSkills["技工证书"] = tradeCertificateScore;
     transferableSkills.小计 = transferableTotal;
     // Add transferable skills to total score
@@ -920,6 +927,9 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
         educationWorkScore = isBachelorOrDiploma ? 13 : 25;
       }
       
+      // Store both scores separately for display
+      transferableSkills["学历+语言"] = educationLanguageScore;
+      transferableSkills["学历+加国经验"] = educationWorkScore;
       // Sum both scores (max 50 per category)
       educationCategoryScore = Math.min(educationLanguageScore + educationWorkScore, 50);
     }
@@ -937,6 +947,8 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
     let overseasCategoryScore = 0;
     const is1To2YearsOverseas = ["1year", "2year"].includes(input.overseasWorkExperience || "");
     const is3PlusYearsOverseas = input.overseasWorkExperience === "3plus";
+    
+    console.log('[DEBUG] Overseas condition check:', { overseasWorkExperience: input.overseasWorkExperience, is1To2YearsOverseas, is3PlusYearsOverseas });
     
     if (is1To2YearsOverseas || is3PlusYearsOverseas) {
       let overseasLanguageScore = 0;
@@ -956,6 +968,9 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
         overseasWorkScore = is1To2YearsOverseas ? 13 : 25;
       }
       
+      // Store both scores separately for display
+      transferableSkills["海外经验+语言"] = overseasLanguageScore;
+      transferableSkills["海外经验+加国经验"] = overseasWorkScore;
       // Sum both scores (max 50 per category)
       overseasCategoryScore = Math.min(overseasLanguageScore + overseasWorkScore, 50);
     }
@@ -976,8 +991,7 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
     
     // Calculate total for transferable skills (with category caps and 100 point max)
     const transferableTotal = Math.min(educationCategoryScore + overseasCategoryScore + tradeCertificateScore, 100);
-    transferableSkills["学历+语言"] = educationCategoryScore;
-    transferableSkills["海外经验+语言"] = overseasCategoryScore;
+    // Note: All individual scores are already set in their respective category blocks above
     transferableSkills["技工证书"] = tradeCertificateScore;
     transferableSkills.小计 = transferableTotal;
     // Add transferable skills to total score
@@ -1047,14 +1061,29 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
       transferableSkills["海外经验+加国经验"]
     );
     
-    // Create display object with category caps applied
-    // Only show the highest score in each category, others show 0
+    // Create display object showing all individual scores
+    // Each category shows both language and work experience scores separately
+    // Calculate category totals with caps
+    const educationCategoryTotalB = Math.min(
+      transferableSkills["学历+语言"] + transferableSkills["学历+加国经验"],
+      50
+    );
+    const overseasCategoryTotalB = Math.min(
+      transferableSkills["海外经验+语言"] + transferableSkills["海外经验+加国经验"],
+      50
+    );
+    const tradeCertificateTotal = transferableSkills["技工证书"] || 0;
+    const totalTransferableB = Math.min(
+      educationCategoryTotalB + overseasCategoryTotalB + tradeCertificateTotal,
+      100
+    );
+    
     const transferableSkillsDisplayB: Record<string, number> = {
-      小计: educationCategoryMaxB + overseasCategoryMaxB,
-      "学历+语言": transferableSkills["学历+语言"] > transferableSkills["学历+加国经验"] ? transferableSkills["学历+语言"] : 0,
-      "学历+加国经验": transferableSkills["学历+加国经验"] > transferableSkills["学历+语言"] ? transferableSkills["学历+加国经验"] : 0,
-      "海外经验+语言": transferableSkills["海外经验+语言"] > transferableSkills["海外经验+加国经验"] ? transferableSkills["海外经验+语言"] : 0,
-      "海外经验+加国经验": transferableSkills["海外经验+加国经验"] > transferableSkills["海外经验+语言"] ? transferableSkills["海外经验+加国经验"] : 0,
+      小计: totalTransferableB,
+      "学历+语言": transferableSkills["学历+语言"],
+      "学历+加国经验": transferableSkills["学历+加国经验"],
+      "海外经验+语言": transferableSkills["海外经验+语言"],
+      "海外经验+加国经验": transferableSkills["海外经验+加国经验"],
     };
     
     breakdown.可转移技能 = transferableSkillsDisplayB;

@@ -779,10 +779,16 @@ export default function Calculator() {
                               <span>{result.breakdown.核心人力资本.学历}</span>
                             </div>
                           )}
-                          {result.breakdown.核心人力资本.语言 > 0 && (
+                          {result.breakdown.核心人力资本.第一语言 > 0 && (
                             <div className="flex justify-between">
-                              <span>语言能力</span>
-                              <span>{result.breakdown.核心人力资本.语言}</span>
+                              <span>第一语言</span>
+                              <span>{result.breakdown.核心人力资本.第一语言}</span>
+                            </div>
+                          )}
+                          {result.breakdown.核心人力资本.第二语言 > 0 && (
+                            <div className="flex justify-between">
+                              <span>第二语言</span>
+                              <span>{result.breakdown.核心人力资本.第二语言}</span>
                             </div>
                           )}
                           {result.breakdown.核心人力资本.加国经验 > 0 && (
@@ -869,6 +875,12 @@ export default function Calculator() {
                           <span className="text-orange-600">{result.breakdown.附加分.小计}</span>
                         </div>
                         <div className="pl-3 space-y-1 text-xs text-muted-foreground">
+                          {result.breakdown.附加分.加拿大学习 > 0 && (
+                            <div className="flex justify-between">
+                              <span>加拿大学习</span>
+                              <span>{result.breakdown.附加分.加拿大学习}</span>
+                            </div>
+                          )}
                           {result.breakdown.附加分.兄弟姐妹 > 0 && (
                             <div className="flex justify-between">
                               <span>兄弟姐妹在加拿大</span>
@@ -879,6 +891,12 @@ export default function Calculator() {
                             <div className="flex justify-between">
                               <span>省提名证明</span>
                               <span>{result.breakdown.附加分.省提名}</span>
+                            </div>
+                          )}
+                          {result.breakdown.附加分.法语技能 > 0 && (
+                            <div className="flex justify-between">
+                              <span>法语技能</span>
+                              <span>{result.breakdown.附加分.法语技能}</span>
                             </div>
                           )}
                         </div>

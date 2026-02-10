@@ -302,6 +302,39 @@ describe('CRS Calculator - Scheme B Tests', () => {
   });
 });
 
+describe('CRS Calculator - Transferable Skills Tests', () => {
+  it('should calculate transferable skills correctly for high school with overseas experience and CLB 9', () => {
+    const input = {
+      familyStatus: 'single' as const,
+      age: 30,
+      education: 'highschool',
+      primaryLanguage: 'english' as const,
+      languageTest: 'ielts',
+      listening: 8.5,
+      reading: 8,
+      writing: 7.5,
+      speaking: 8,
+      canadianWorkExperience: '1year' as const,
+      overseasWorkExperience: '1year' as const,
+    };
+
+    const result = calculateCRS(input);
+    
+    // High school + CLB 9 = 0 (high school has no score)
+    // High school + 1 year Canada work = 0 (high school has no score)
+    // 1 year overseas + CLB 9 = 25 (1-2 years overseas + CLB 9+ = 25)
+    // 1 year overseas + 1 year Canada work = 13 (1-2 years overseas + 1 year Canada work = 13)
+    // Total transferable skills = 25 + 13 = 38
+    
+    console.log('High school transferable skills result:', result.breakdown.可转移技能.小计);
+    console.log('Breakdown:', JSON.stringify(result.breakdown.可转移技能, null, 2));
+    
+    expect(result.breakdown.可转移技能.小计).toBe(38);
+    expect(result.breakdown.可转移技能['海外经验+语言']).toBe(25);
+    expect(result.breakdown.可转移技能['海外经验+加国经验']).toBe(13);
+  });
+});
+
 describe('CRS Calculator - Official Test Cases', () => {
   it('should calculate 404 points for official test case: 35yo, 2-year diploma, TCF+CELPIP, 1yr Canada work, 1yr overseas work', () => {
     // Test case from IRCC official calculator
