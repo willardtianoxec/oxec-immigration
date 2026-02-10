@@ -90,75 +90,81 @@ export const convertToCLB = (
                     : 0;
     clbs = [listeningCLB, readingCLB, writingCLB, speakingCLB];
   } else if (testType === "celpip") {
-    // IELTS CLB conversion table (corrected)
-    // Listening: 8.5+ = CLB 10, 8.0 = CLB 9, 7.5 = CLB 8, 6.0-7.0 = CLB 7, 5.5 = CLB 6, 5.0 = CLB 5, 4.5 = CLB 4
+    // CELPIP CLB conversion table
+    // CELPIP scores are integers from 4 to 12
+    // 11 or 12 = CLB 10+, 10 = CLB 10, 9 = CLB 9, 8 = CLB 8, 7 = CLB 7, 6 = CLB 6, 5 = CLB 5, 4 = CLB 4
     const listeningCLB =
-      listening >= 8.5
+      listening >= 11
         ? 10
-        : listening >= 8
-          ? 9
-          : listening >= 7.5
-            ? 8
-            : listening >= 6
-              ? 7
-              : listening >= 5.5
-                ? 6
-                : listening >= 5
-                  ? 5
-                  : listening >= 4.5
-                    ? 4
-                    : 0;
-    // Reading: 8.0+ = CLB 10, 7.0/7.5 = CLB 9, 6.5 = CLB 8, 6.0 = CLB 7, 5.0/5.5 = CLB 6, 4.0/4.5 = CLB 5, 3.5 = CLB 4
+        : listening >= 10
+          ? 10
+          : listening >= 9
+            ? 9
+            : listening >= 8
+              ? 8
+              : listening >= 7
+                ? 7
+                : listening >= 6
+                  ? 6
+                  : listening >= 5
+                    ? 5
+                    : listening >= 4
+                      ? 4
+                      : 0;
     const readingCLB =
-      reading >= 8
+      reading >= 11
         ? 10
-        : reading >= 7
-          ? 9
-          : reading >= 6.5
-            ? 8
-            : reading >= 6
-              ? 7
-              : reading >= 5
-                ? 6
-                : reading >= 4
-                  ? 5
-                  : reading >= 3.5
-                    ? 4
-                    : 0;
-    // Writing: 7.5+ = CLB 10, 7.0 = CLB 9, 6.5 = CLB 8, 6.0 = CLB 7, 5.5 = CLB 6, 5.0 = CLB 5, 4.0/4.5 = CLB 4
+        : reading >= 10
+          ? 10
+          : reading >= 9
+            ? 9
+            : reading >= 8
+              ? 8
+              : reading >= 7
+                ? 7
+                : reading >= 6
+                  ? 6
+                  : reading >= 5
+                    ? 5
+                    : reading >= 4
+                      ? 4
+                      : 0;
     const writingCLB =
-      writing >= 7.5
+      writing >= 11
         ? 10
-        : writing >= 7
-          ? 9
-          : writing >= 6.5
-            ? 8
-            : writing >= 6
-              ? 7
-              : writing >= 5.5
-                ? 6
-                : writing >= 5
-                  ? 5
-                  : writing >= 4
-                    ? 4
-                    : 0;
-    // Speaking: 7.5+ = CLB 10, 7.0 = CLB 9, 6.5 = CLB 8, 6.0 = CLB 7, 5.5 = CLB 6, 5.0 = CLB 5, 4.0/4.5 = CLB 4
+        : writing >= 10
+          ? 10
+          : writing >= 9
+            ? 9
+            : writing >= 8
+              ? 8
+              : writing >= 7
+                ? 7
+                : writing >= 6
+                  ? 6
+                  : writing >= 5
+                    ? 5
+                    : writing >= 4
+                      ? 4
+                      : 0;
     const speakingCLB =
-      speaking >= 7.5
+      speaking >= 11
         ? 10
-        : speaking >= 7
-          ? 9
-          : speaking >= 6.5
-            ? 8
-            : speaking >= 6
-              ? 7
-              : speaking >= 5.5
-                ? 6
-                : speaking >= 5
-                  ? 5
-                  : speaking >= 4
-                    ? 4
-                    : 0;
+        : speaking >= 10
+          ? 10
+          : speaking >= 9
+            ? 9
+            : speaking >= 8
+              ? 8
+              : speaking >= 7
+                ? 7
+                : speaking >= 6
+                  ? 6
+                  : speaking >= 5
+                    ? 5
+                    : speaking >= 4
+                      ? 4
+                      : 0;
     clbs = [listeningCLB, readingCLB, writingCLB, speakingCLB];
   } else if (testType === "pte") {
     const listeningCLB =
@@ -568,10 +574,14 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
     };
     const overseasWorkScore = overseasWorkScores[input.overseasWorkExperience || "none"] || 0;
     
-    // Education + Language (requires CLB 9+)
-    console.log(`[DEBUG] Education+Language: eduScore=${eduScore}, clb=${minClb}, condition=${eduScore >= 120 && minClb >= 9}`);
+    // Education + Language (requires 2+ years education + CLB 7+)
+    // 2+ years education (120+ points) + CLB 9+ = 50 points
+    // 2+ years education (120+ points) + CLB 7-8 = 25 points
+    console.log(`[DEBUG] Education+Language: eduScore=${eduScore}, clb=${minClb}, condition=${eduScore >= 120 && minClb >= 7}`);
     if (eduScore >= 120 && minClb >= 9) {
       transferableSkills["学历+语言"] = 50;
+    } else if (eduScore >= 120 && minClb >= 7) {
+      transferableSkills["学历+语言"] = 25;
     }
     // Education + Canadian work experience
     console.log(`[DEBUG] Education+CanadianWork: eduScore=${eduScore}, canadianWorkScore=${canadianWorkScore}, condition=${eduScore >= 120 && canadianWorkScore >= 40}`);
@@ -585,7 +595,7 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
       if (minClb >= 9) {
         overseasLanguageScore = 25; // 1-3 years + CLB 9-10
       } else if (minClb >= 7) {
-        overseasLanguageScore = 13; // 1-3 years + CLB 7-8
+        overseasLanguageScore = 25; // 1-3 years + CLB 7-8
       }
     } else if (overseasWorkScore >= 53) {
       // 3+ years overseas experience
@@ -848,10 +858,14 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
     };
     const overseasWorkScore = overseasWorkScores[input.overseasWorkExperience || "none"] || 0;
     
-    // Education + Language (requires CLB 9+)
-    console.log(`[DEBUG] Education+Language: eduScore=${eduScore}, clb=${minClb}, condition=${eduScore >= 120 && minClb >= 9}`);
+    // Education + Language (requires 2+ years education + CLB 7+)
+    // 2+ years education (120+ points) + CLB 9+ = 50 points
+    // 2+ years education (120+ points) + CLB 7-8 = 25 points
+    console.log(`[DEBUG] Education+Language: eduScore=${eduScore}, clb=${minClb}, condition=${eduScore >= 120 && minClb >= 7}`);
     if (eduScore >= 120 && minClb >= 9) {
       transferableSkills["学历+语言"] = 50;
+    } else if (eduScore >= 120 && minClb >= 7) {
+      transferableSkills["学历+语言"] = 25;
     }
     // Education + Canadian work experience
     console.log(`[DEBUG] Education+CanadianWork: eduScore=${eduScore}, canadianWorkScore=${canadianWorkScore}, condition=${eduScore >= 120 && canadianWorkScore >= 40}`);
@@ -865,7 +879,7 @@ export const calculateCRS = (input: CRSCalculationInput): CRSCalculationResult =
       if (minClb >= 9) {
         overseasLanguageScore = 25; // 1-3 years + CLB 9-10
       } else if (minClb >= 7) {
-        overseasLanguageScore = 13; // 1-3 years + CLB 7-8
+        overseasLanguageScore = 25; // 1-3 years + CLB 7-8
       }
     } else if (overseasWorkScore >= 53) {
       // 3+ years overseas experience
