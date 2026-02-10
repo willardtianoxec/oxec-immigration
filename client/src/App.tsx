@@ -1,10 +1,11 @@
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
-import { Route, Switch } from "wouter";
+import { Route, Switch, useLocation } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { LanguageProvider } from "./contexts/LanguageContext";
+import { useEffect } from "react";
 import Home from "./pages/Home";
 import Booking from "./pages/Booking";
 import Calculator from "./pages/Calculator";
@@ -26,6 +27,16 @@ import AdminPosts from "./pages/AdminPosts";
 import AdminPostForm from "./pages/AdminPostForm";
 import CLBTranslator from "./pages/CLBTranslator";
 import FSWCalculator from "./pages/FSWCalculator";
+
+function ScrollToTop() {
+  const [location] = useLocation();
+  
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
+  
+  return null;
+}
 
 function Router() {
   return (
@@ -64,6 +75,7 @@ function App() {
       <LanguageProvider>
         <ThemeProvider defaultTheme="light">
           <TooltipProvider>
+            <ScrollToTop />
             <Toaster />
             <Router />
           </TooltipProvider>
