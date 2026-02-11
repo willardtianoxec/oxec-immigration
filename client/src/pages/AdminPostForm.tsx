@@ -27,7 +27,7 @@ export default function AdminPostForm() {
     category: "",
     tags: "",
     coverImage: "",
-    published: false,
+    published: true,
   });
 
   const [distributionData, setDistributionData] = useState({
