@@ -724,6 +724,7 @@ export const appRouter = router({
         excerpt: z.string().optional(),
         type: z.enum(["blog", "success-case"]),
         category: z.string().optional(),
+        contentCategory: z.enum(["investment-immigration", "family-reunion", "maple-leaf-renewal", "reconsideration", "temporary-resident", "skilled-worker", "citizenship", "other"]).optional(),
         tags: z.string().optional(),
         coverImage: z.string().optional(),
       }))
@@ -744,6 +745,7 @@ export const appRouter = router({
         content: z.string().min(1).optional(),
         excerpt: z.string().optional(),
         category: z.string().optional(),
+        contentCategory: z.enum(["investment-immigration", "family-reunion", "maple-leaf-renewal", "reconsideration", "temporary-resident", "skilled-worker", "citizenship", "other"]).optional(),
         tags: z.string().optional(),
         coverImage: z.string().optional(),
         published: z.boolean().optional(),
@@ -776,12 +778,14 @@ export const appRouter = router({
       .input(z.object({
         type: z.enum(["blog", "success-case"]).optional(),
         category: z.string().optional(),
+        contentCategory: z.string().optional(),
         publishedOnly: z.boolean().optional(),
       }).optional())
       .query(async ({ input }) => {
         return await getPosts({
           type: input?.type,
           category: input?.category,
+          contentCategory: input?.contentCategory,
           publishedOnly: input?.publishedOnly ?? true,
         });
       }),
@@ -791,11 +795,13 @@ export const appRouter = router({
         query: z.string(),
         type: z.enum(["blog", "success-case"]).optional(),
         category: z.string().optional(),
+        contentCategory: z.string().optional(),
       }))
       .query(async ({ input }) => {
         return await searchPosts(input.query, {
           type: input.type,
           category: input.category,
+          contentCategory: input.contentCategory,
         });
       }),
 
@@ -831,6 +837,74 @@ export const appRouter = router({
             message: '图片上传失败',
           });
         }
+      }),
+
+    publish: adminProcedure
+      .input(z.object({ id: z.number() }))
+      .mutation(async ({ input }) => {
+        const { publishPost } = await import('../server/db');
+        return await publishPost(input.id);
+      }),
+
+    unpublish: adminProcedure
+      .input(z.object({ id: z.number() }))
+      .mutation(async ({ input }) => {
+        const { unpublishPost } = await import('../server/db');
+        return await unpublishPost(input.id);
+      }),
+
+    getByContentCategory: publicProcedure
+      .input(z.object({
+        contentCategory: z.string(),
+        limit: z.number().optional(),
+      }))
+      .query(async ({ input }) => {
+        const { getPostsByContentCategory } = await import('../server/db');
+        return await getPostsByContentCategory(input.contentCategory, input.limit);
+      }),
+
+    getCategories: publicProcedure
+      .query(async () => {
+        return [
+          { value: "investment-immigration", label: "投资移民" },
+          { value: "family-reunion", label: "家庭团聚" },
+          { value: "maple-leaf-renewal", label: "枫叶卡续签" },
+          { value: "reconsideration", label: "拒签重审" },
+          { value: "temporary-resident", label: "临时居民申请" },
+          { value: "skilled-worker", label: "技术移民" },
+          { value: "citizenship", label: "公民入籍" },
+          { value: "other", label: "其他" },
+        ];
+      }),
+
+    getTags: adminProcedure
+      .input(z.object({
+        type: z.enum(["blog", "success-case"]).optional(),
+        contentCategory: z.string().optional(),
+      }))
+      .query(async ({ input }) => {
+        const { getPosts } = await import('../server/db');
+        const posts = await getPosts({
+          type: input?.type,
+          contentCategory: input?.contentCategory,
+          publishedOnly: true,
+        });
+        
+        const tagsSet = new Set<string>();
+        posts.forEach(post => {
+          if (post.tags) {
+            try {
+              const tags = JSON.parse(post.tags);
+              if (Array.isArray(tags)) {
+                tags.forEach((tag: string) => tagsSet.add(tag));
+              }
+            } catch (e) {
+              // 忽略JSON解析错误
+            }
+          }
+        });
+        
+        return Array.from(tagsSet).map(tag => ({ value: tag, label: tag }));
       }),
 
     calculateBCPNP: publicProcedure
