@@ -356,3 +356,13 @@
 - [x] 更新数据库schema - 调整posts表的字段结构
 - [x] 测试标签合并功能 - 验证标签的添加、删除、编辑
 - [x] 测试Slug生成功能 - 验证自动生成和手动编辑
+
+
+## Article Page Layout Design (Completed - Phase 37)
+- [x] 分析heronlaw.ca的文章页面设计 - 研究参考网站的页面布局、排版、色彩搅配
+- [x] 设计文章页面的信息架构 - 标题、副标题、元数据、内容、相关文章等
+- [x] 创建BlogPost文章详情页面 - /blog/:slug 路由的文章详情页面
+- [x] 创建SuccessCaseDetail成功案例页面 - /success-cases/:slug 路由的成功案例页面
+- [x] 添加页面路由 - 在App.tsx中添加新的路由配置
+- [x] 测试文章页面功能 - 验证文章页面的显示和交互
+- [x] 保存检查点 - 完成文章页面设计实现

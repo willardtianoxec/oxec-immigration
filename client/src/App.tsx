@@ -28,6 +28,8 @@ import AdminPostForm from "./pages/AdminPostForm";
 import AdminPostPreview from "./pages/AdminPostPreview";
 import CLBTranslator from "./pages/CLBTranslator";
 import FSWCalculator from "./pages/FSWCalculator";
+import { BlogPost } from "./pages/BlogPost";
+import { SuccessCaseDetail } from "./pages/SuccessCaseDetail";
 
 function ScrollToTop() {
   const [location] = useLocation();
@@ -45,7 +47,9 @@ function Router() {
       <Route path="/" component={Home} />
       <Route path="/booking" component={Booking} />
       <Route path="/calculator" component={Calculator} />
+      <Route path="/blog/:slug" component={BlogPost} />
       <Route path="/blog" component={Blog} />
+      <Route path="/success-cases/:slug" component={SuccessCaseDetail} />
       <Route path="/success-cases" component={SuccessCases} />
       <Route path="/admin" component={Admin} />
       <Route path="/businessclass" component={BusinessClass} />
