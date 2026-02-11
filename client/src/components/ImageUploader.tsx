@@ -2,6 +2,7 @@ import { useState, useRef } from "react";
 import Cropper from "react-easy-crop";
 import { Button } from "@/components/ui/button";
 import { X, Upload } from "lucide-react";
+import { trpc } from "@/lib/trpc";
 
 interface ImageUploaderProps {
   onImageUpload: (imageUrl: string) => void;
@@ -12,6 +13,7 @@ export default function ImageUploader({
   onImageUpload,
   currentImage,
 }: ImageUploaderProps) {
+  const uploadMutation = trpc.posts.upload.useMutation();
   const [selectedImage, setSelectedImage] = useState<string | null>(
     currentImage || null
   );
@@ -21,6 +23,7 @@ export default function ImageUploader({
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isUploading, setIsUploading] = useState(false);
+  const isUploading2 = uploadMutation.isPending;
 
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
@@ -89,26 +92,34 @@ export default function ImageUploader({
         canvas.toBlob(async (blob) => {
           if (!blob) return;
 
-          const formData = new FormData();
-          formData.append("file", blob, "cover-image.jpg");
-
           try {
-            const response = await fetch("/api/upload", {
-              method: "POST",
-              body: formData,
-            });
-
-            if (response.ok) {
-              const data = await response.json();
-              onImageUpload(data.url);
-              setSelectedImage(null);
-            } else {
-              alert("上传失败");
-            }
+            // 转换为base64
+            const reader = new FileReader();
+            reader.onload = async () => {
+              const base64 = reader.result as string;
+              
+              try {
+                const result = await uploadMutation.mutateAsync({
+                  file: base64,
+                  filename: "cover-image.jpg",
+                });
+                
+                if (result.success) {
+                  onImageUpload(result.url);
+                  setSelectedImage(null);
+                } else {
+                  alert("上传失败");
+                }
+              } catch (error) {
+                console.error("上传错误:", error);
+                alert("上传出错");
+              } finally {
+                setIsUploading(false);
+              }
+            };
+            reader.readAsDataURL(blob);
           } catch (error) {
-            console.error("上传错误:", error);
-            alert("上传出错");
-          } finally {
+            console.error("转换错误:", error);
             setIsUploading(false);
           }
         }, "image/jpeg");
@@ -158,7 +169,7 @@ export default function ImageUploader({
         <div className="flex gap-2">
           <Button
             onClick={handleCropAndUpload}
-            disabled={isUploading}
+            disabled={isUploading || isUploading2}
             className="flex-1"
           >
             {isUploading ? "上传中..." : "确认并上传"}
@@ -166,7 +177,7 @@ export default function ImageUploader({
           <Button
             onClick={handleCancel}
             variant="outline"
-            disabled={isUploading}
+            disabled={isUploading || isUploading2}
           >
             取消
           </Button>

@@ -28,6 +28,8 @@ import {
 import { notifyOwner } from "./_core/notification";
 import { sendAppointmentEmail } from "./_core/emailService";
 import { calculateCRS as calculateCRSLogic } from "./crsCalculator";
+import { storagePut } from "./storage";
+
 
 // Admin-only procedure
 const adminProcedure = protectedProcedure.use(({ ctx, next }) => {
@@ -796,6 +798,41 @@ export const appRouter = router({
           category: input.category,
         });
       }),
+
+    upload: adminProcedure
+      .input(z.object({
+        file: z.string(), // base64编码的图片数据
+        filename: z.string(),
+      }))
+      .mutation(async ({ input }) => {
+        try {
+          // 将base64转换为Buffer
+          const base64Data = input.file.split(',')[1] || input.file;
+          const buffer = Buffer.from(base64Data, 'base64');
+          
+          // 生成唯一的文件名
+          const timestamp = Date.now();
+          const randomStr = Math.random().toString(36).substring(2, 8);
+          const ext = input.filename.split('.').pop() || 'jpg';
+          const fileKey = `posts/${timestamp}-${randomStr}.${ext}`;
+          
+          // 上传到S3
+          const result = await storagePut(fileKey, buffer, `image/${ext}`);
+          
+          return {
+            success: true,
+            url: result.url,
+            key: result.key,
+          };
+        } catch (error) {
+          console.error('图片上传失败:', error);
+          throw new TRPCError({
+            code: 'INTERNAL_SERVER_ERROR',
+            message: '图片上传失败',
+          });
+        }
+      }),
+
     calculateBCPNP: publicProcedure
       .input(z.object({
         workExperience: z.enum(["5plus", "4to5", "3to4", "2to3", "1to2", "below1", "none"]),
