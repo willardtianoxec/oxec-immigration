@@ -249,7 +249,7 @@ export async function getPostBySlug(slug: string) {
   return result.length > 0 ? result[0] : null;
 }
 
-export async function getPosts(filters?: { type?: string; category?: string; publishedOnly?: boolean }) {
+export async function getPosts(filters?: { type?: string; category?: string; contentCategory?: string; publishedOnly?: boolean }) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
   
@@ -266,6 +266,10 @@ export async function getPosts(filters?: { type?: string; category?: string; pub
   if (filters?.category) {
     conditions.push(eq(posts.category, filters.category));
   }
+
+  if (filters?.contentCategory) {
+    conditions.push(eq(posts.contentCategory, filters.contentCategory as any));
+  }
   
   const whereClause = conditions.length > 0 ? and(...conditions) : undefined;
   
@@ -274,7 +278,45 @@ export async function getPosts(filters?: { type?: string; category?: string; pub
     .orderBy(desc(posts.publishedAt || posts.createdAt));
 }
 
-export async function searchPosts(query: string, filters?: { type?: string; category?: string }) {
+export async function publishPost(id: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  return await db.update(posts).set({
+    published: true,
+    publishedAt: new Date(),
+  }).where(eq(posts.id, id));
+}
+
+export async function unpublishPost(id: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  return await db.update(posts).set({
+    published: false,
+    publishedAt: null,
+  }).where(eq(posts.id, id));
+}
+
+export async function getPostsByContentCategory(contentCategory: string, limit?: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  const query = db.select().from(posts)
+    .where(and(
+      eq(posts.published, true),
+      eq(posts.contentCategory, contentCategory as any)
+    ))
+    .orderBy(desc(posts.publishedAt));
+  
+  if (limit) {
+    query.limit(limit);
+  }
+  
+  return await query;
+}
+
+export async function searchPosts(query: string, filters?: { type?: string; category?: string; contentCategory?: string }) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
   
@@ -286,6 +328,10 @@ export async function searchPosts(query: string, filters?: { type?: string; cate
   
   if (filters?.type) {
     conditions.push(eq(posts.type, filters.type as any));
+  }
+
+  if (filters?.contentCategory) {
+    conditions.push(eq(posts.contentCategory, filters.contentCategory as any));
   }
   
   if (filters?.category) {

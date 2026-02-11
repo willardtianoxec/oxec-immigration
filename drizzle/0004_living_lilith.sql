@@ -1,0 +1,1 @@
+ALTER TABLE `posts` ADD `contentCategory` enum('investment-immigration','family-reunion','maple-leaf-renewal','reconsideration','temporary-resident','skilled-worker','citizenship','other');

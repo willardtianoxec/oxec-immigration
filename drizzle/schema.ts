@@ -101,6 +101,16 @@ export const posts = mysqlTable("posts", {
   excerpt: text("excerpt"),
   type: mysqlEnum("type", ["blog", "success-case"]).notNull(),
   category: varchar("category", { length: 100 }),
+  contentCategory: mysqlEnum("contentCategory", [
+    "investment-immigration",
+    "family-reunion",
+    "maple-leaf-renewal",
+    "reconsideration",
+    "temporary-resident",
+    "skilled-worker",
+    "citizenship",
+    "other"
+  ]),
   tags: text("tags"), // JSON array stored as string
   coverImage: varchar("coverImage", { length: 500 }),
   published: boolean("published").default(false).notNull(),
