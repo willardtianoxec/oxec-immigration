@@ -9,6 +9,13 @@ import ImageUploader from "@/components/ImageUploader";
 import RichTextEditor from "@/components/RichTextEditor";
 import TagRecommender from "@/components/TagRecommender";
 import DistributionPanel from "@/components/DistributionPanel";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export default function AdminPostForm() {
   // 所有Hooks必须在组件顶部无条件调用
@@ -25,6 +32,7 @@ export default function AdminPostForm() {
     excerpt: "",
     type: "blog" as "blog" | "success-case",
     category: "",
+    contentCategory: "" as "investment-immigration" | "family-reunion" | "maple-leaf-renewal" | "reconsideration" | "temporary-resident" | "skilled-worker" | "citizenship" | "other" | "",
     tags: "",
     coverImage: "",
     published: true,
@@ -64,6 +72,7 @@ export default function AdminPostForm() {
         excerpt: post.excerpt || "",
         type: post.type as "blog" | "success-case",
         category: post.category || "",
+        contentCategory: (post.contentCategory || "") as "investment-immigration" | "family-reunion" | "maple-leaf-renewal" | "reconsideration" | "temporary-resident" | "skilled-worker" | "citizenship" | "other" | "",
         tags: post.tags || "",
         coverImage: post.coverImage || "",
         published: post.published,
@@ -86,16 +95,86 @@ export default function AdminPostForm() {
     );
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSaveDraft = () => {
+    // 验证必填字段
+    if (!formData.contentCategory) {
+      alert("请选择内容分类");
+      return;
+    }
 
     if (isEditing && postId) {
       updateMutation.mutate({
         id: postId,
-        ...formData,
+        title: formData.title,
+        subtitle: formData.subtitle || undefined,
+        slug: formData.slug,
+        content: formData.content,
+        excerpt: formData.excerpt || undefined,
+        category: formData.category || undefined,
+        contentCategory: formData.contentCategory as "investment-immigration" | "family-reunion" | "maple-leaf-renewal" | "reconsideration" | "temporary-resident" | "skilled-worker" | "citizenship" | "other" | undefined,
+        tags: formData.tags || undefined,
+        coverImage: formData.coverImage || undefined,
+        publishedAt: undefined,
       });
     } else {
-      createMutation.mutate(formData);
+      createMutation.mutate({
+        title: formData.title,
+        subtitle: formData.subtitle || undefined,
+        slug: formData.slug,
+        content: formData.content,
+        excerpt: formData.excerpt || undefined,
+        type: formData.type,
+        category: formData.category || undefined,
+        contentCategory: formData.contentCategory as "investment-immigration" | "family-reunion" | "maple-leaf-renewal" | "reconsideration" | "temporary-resident" | "skilled-worker" | "citizenship" | "other" | undefined,
+        tags: formData.tags || undefined,
+        coverImage: formData.coverImage || undefined,
+      });
+    }
+  };
+
+  const handlePublish = () => {
+    // 验证必填字段
+    if (!formData.contentCategory) {
+      alert("请选择内容分类");
+      return;
+    }
+
+    if (isEditing && postId) {
+      updateMutation.mutate({
+        id: postId,
+        title: formData.title,
+        subtitle: formData.subtitle || undefined,
+        slug: formData.slug,
+        content: formData.content,
+        excerpt: formData.excerpt || undefined,
+        category: formData.category || undefined,
+        contentCategory: formData.contentCategory as "investment-immigration" | "family-reunion" | "maple-leaf-renewal" | "reconsideration" | "temporary-resident" | "skilled-worker" | "citizenship" | "other" | undefined,
+        tags: formData.tags || undefined,
+        coverImage: formData.coverImage || undefined,
+        publishedAt: new Date(),
+      });
+    } else {
+      createMutation.mutate({
+        title: formData.title,
+        subtitle: formData.subtitle || undefined,
+        slug: formData.slug,
+        content: formData.content,
+        excerpt: formData.excerpt || undefined,
+        type: formData.type,
+        category: formData.category || undefined,
+        contentCategory: formData.contentCategory as "investment-immigration" | "family-reunion" | "maple-leaf-renewal" | "reconsideration" | "temporary-resident" | "skilled-worker" | "citizenship" | "other" | undefined,
+        tags: formData.tags || undefined,
+        coverImage: formData.coverImage || undefined,
+      });
+    }
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (formData.published) {
+      handlePublish();
+    } else {
+      handleSaveDraft();
     }
   };
 
@@ -167,10 +246,10 @@ export default function AdminPostForm() {
               />
             </div>
 
-            {/* 文章类型和分类 */}
+            {/* 文章类型和内容分类 */}
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium mb-2">类型 *</label>
+                <label className="block text-sm font-medium mb-2">文章类型 *</label>
                 <select
                   required
                   value={formData.type}
@@ -188,17 +267,45 @@ export default function AdminPostForm() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-2">分类</label>
-                <input
-                  type="text"
-                  value={formData.category}
-                  onChange={(e) =>
-                    setFormData({ ...formData, category: e.target.value })
+                <label className="block text-sm font-medium mb-2">内容分类 *</label>
+                <Select
+                  value={formData.contentCategory || ""}
+                  onValueChange={(value) =>
+                    setFormData({
+                      ...formData,
+                      contentCategory: value as "investment-immigration" | "family-reunion" | "maple-leaf-renewal" | "reconsideration" | "temporary-resident" | "skilled-worker" | "citizenship" | "other" | "",
+                    })
                   }
-                  className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-                  placeholder="如：技术移民、家庭团聚"
-                />
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="选择内容分类" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="investment-immigration">投资移民</SelectItem>
+                    <SelectItem value="family-reunion">家庭团聚</SelectItem>
+                    <SelectItem value="maple-leaf-renewal">枫叶卡续签</SelectItem>
+                    <SelectItem value="reconsideration">拒签重审</SelectItem>
+                    <SelectItem value="temporary-resident">临时居民申请</SelectItem>
+                    <SelectItem value="skilled-worker">技术移民</SelectItem>
+                    <SelectItem value="citizenship">公民入籍</SelectItem>
+                    <SelectItem value="other">其他</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
+            </div>
+
+            {/* 自定义分类（可选） */}
+            <div>
+              <label className="block text-sm font-medium mb-2">自定义分类（可选）</label>
+              <input
+                type="text"
+                value={formData.category}
+                onChange={(e) =>
+                  setFormData({ ...formData, category: e.target.value })
+                }
+                className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                placeholder="如：技术移民、家庭团聚（可选）"
+              />
             </div>
 
             {/* URL Slug */}
@@ -274,19 +381,26 @@ export default function AdminPostForm() {
             </div>
 
             {/* 发布状态 */}
-            <div className="flex items-center gap-2">
-              <input
-                type="checkbox"
-                id="published"
-                checked={formData.published}
-                onChange={(e) =>
-                  setFormData({ ...formData, published: e.target.checked })
-                }
-                className="w-4 h-4"
-              />
-              <label htmlFor="published" className="text-sm font-medium">
-                立即发布
-              </label>
+            <div className="space-y-3">
+              <div className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  id="published"
+                  checked={formData.published}
+                  onChange={(e) =>
+                    setFormData({ ...formData, published: e.target.checked })
+                  }
+                  className="w-4 h-4"
+                />
+                <label htmlFor="published" className="text-sm font-medium">
+                  立即发布
+                </label>
+              </div>
+              <p className="text-xs text-muted-foreground">
+                {formData.published
+                  ? "文章将在保存后立即发布到公开页面"
+                  : "文章将保存为草稿，可稍后发布"}
+              </p>
             </div>
 
             {/* 分发面板 */}
@@ -304,12 +418,23 @@ export default function AdminPostForm() {
             {/* 提交按钮 */}
             <div className="flex gap-4 pt-6">
               <Button
-                type="submit"
-                disabled={isSubmitting}
+                type="button"
+                variant="outline"
+                onClick={handleSaveDraft}
+                disabled={isSubmitting || !formData.title || !formData.content}
                 className="flex-1"
               >
                 {isSubmitting && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
-                {isEditing ? "保存更改" : "创建文章"}
+                保存草稿
+              </Button>
+              <Button
+                type="button"
+                onClick={handlePublish}
+                disabled={isSubmitting || !formData.title || !formData.content}
+                className="flex-1"
+              >
+                {isSubmitting && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
+                {isEditing ? "发布更改" : "发布文章"}
               </Button>
               <Button
                 type="button"
@@ -320,6 +445,29 @@ export default function AdminPostForm() {
                 取消
               </Button>
             </div>
+
+            {/* 取消发布按钮 */}
+            {isEditing && formData.published && (
+              <div className="flex gap-4 pt-4 border-t">
+                <Button
+                  type="button"
+                  variant="destructive"
+                  className="flex-1"
+                  disabled={isSubmitting}
+                  onClick={() => {
+                    if (confirm("确定要取消发布此文章吗？文章将保存为草稿。")) {
+                      updateMutation.mutate({
+                        id: postId,
+                        published: false,
+                        publishedAt: undefined,
+                      });
+                    }
+                  }}
+                >
+                  取消发布
+                </Button>
+              </div>
+            )}
           </form>
         </Card>
       </div>

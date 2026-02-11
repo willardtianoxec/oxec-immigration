@@ -330,3 +330,12 @@
 - [x] 更新API调用 - 传递contentCategory参数到posts.list端点
 - [x] 测试筛选功能 - 验证按分类筛选的准确性
 - [x] 保存检查点 - 完成文章管理筛选功能
+
+## Article Editor Unification (Current Sprint - Phase 34)
+- [x] 添加type选择器 - 在AdminPostForm添加文章类型选择
+- [x] 添加contentCategory选择器 - 在AdminPostForm添加内容分类下拉选择
+- [x] 实现保存草稿功能 - 添加handleSaveDraft函数
+- [x] 实现发布功能 - 添加handlePublish函数
+- [x] 合并新建和编辑路由 - 将/admin/posts/new和/admin/posts/:id/edit合并为/admin/posts/:id?
+- [x] 测试编辑器功能 - 验证新建文章流程
+- [x] 保存检查点 - 完成文章编辑器统一功能
