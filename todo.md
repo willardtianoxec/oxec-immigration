@@ -339,3 +339,12 @@
 - [x] 合并新建和编辑路由 - 将/admin/posts/new和/admin/posts/:id/edit合并为/admin/posts/:id?
 - [x] 测试编辑器功能 - 验证新建文章流程
 - [x] 保存检查点 - 完成文章编辑器统一功能
+
+## Article Preview & Publishing Flow (Completed - Phase 35)
+- [x] 分析预览功能需求 - 预览页面应展示最终发布效果，支持编辑-预览切换
+- [x] 创建PostPreview预览组件 - 独立的文章预览组件，支持Markdown渲染
+- [x] 创建预览页面路由 - /admin/posts/:id/preview 路由
+- [x] 在编辑器中添加预览按钮 - 实现"预览"按钮，导航到预览页面
+- [x] 实现预览和编辑的切换 - 预览页面显示"返回编辑"按钮
+- [x] 测试预览功能流程 - 验证编辑-预览-发布的完整流程
+- [x] 保存检查点 - 完成预览功能实现

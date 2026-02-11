@@ -25,6 +25,7 @@ import TermOfService from "./pages/TermOfService";
 import TermOfUse from "./pages/TermOfUse";
 import AdminPosts from "./pages/AdminPosts";
 import AdminPostForm from "./pages/AdminPostForm";
+import AdminPostPreview from "./pages/AdminPostPreview";
 import CLBTranslator from "./pages/CLBTranslator";
 import FSWCalculator from "./pages/FSWCalculator";
 
@@ -60,8 +61,9 @@ function Router() {
       <Route path="/fswcalculator" component={FSWCalculator} />
       <Route path="/term-of-service" component={TermOfService} />
       <Route path="/term-of-use" component={TermOfUse} />
+      <Route path="/admin/posts/:id/preview" component={AdminPostPreview} />
+      <Route path="/admin/posts/:id" component={AdminPostForm} />
       <Route path="/admin/posts" component={AdminPosts} />
-      <Route path="/admin/posts/:id?" component={AdminPostForm} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>

@@ -3,7 +3,7 @@ import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useLocation } from "wouter";
-import { Loader2, ArrowLeft } from "lucide-react";
+import { Loader2, ArrowLeft, Eye } from "lucide-react";
 import { useParams } from "wouter";
 import ImageUploader from "@/components/ImageUploader";
 import RichTextEditor from "@/components/RichTextEditor";
@@ -427,6 +427,18 @@ export default function AdminPostForm() {
                 {isSubmitting && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
                 保存草稿
               </Button>
+              {isEditing && (
+                <Button
+                  type="button"
+                  variant="secondary"
+                  onClick={() => setLocation(`/admin/posts/${postId}/preview`)}
+                  disabled={isSubmitting || !formData.title || !formData.content}
+                  className="flex-1"
+                >
+                  <Eye className="w-4 h-4 mr-2" />
+                  预览
+                </Button>
+              )}
               <Button
                 type="button"
                 onClick={handlePublish}
