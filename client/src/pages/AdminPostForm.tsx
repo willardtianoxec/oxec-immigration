@@ -5,6 +5,10 @@ import { Card } from "@/components/ui/card";
 import { useLocation } from "wouter";
 import { Loader2, ArrowLeft } from "lucide-react";
 import { useParams } from "wouter";
+import ImageUploader from "@/components/ImageUploader";
+import RichTextEditor from "@/components/RichTextEditor";
+import TagRecommender from "@/components/TagRecommender";
+import DistributionPanel from "@/components/DistributionPanel";
 
 export default function AdminPostForm() {
   // 所有Hooks必须在组件顶部无条件调用
@@ -24,6 +28,11 @@ export default function AdminPostForm() {
     tags: "",
     coverImage: "",
     published: false,
+  });
+
+  const [distributionData, setDistributionData] = useState({
+    linkedinEnabled: false,
+    wechatEnabled: false,
   });
 
   const { data: authData } = trpc.auth.me.useQuery();
@@ -63,7 +72,6 @@ export default function AdminPostForm() {
   }, [post]);
 
   const user = authData;
-  const navigate = (path: string) => setLocation(path);
 
   // 权限检查 - 在所有Hooks之后进行
   if (!user || user.role !== "admin") {
@@ -88,6 +96,17 @@ export default function AdminPostForm() {
       });
     } else {
       createMutation.mutate(formData);
+    }
+  };
+
+  const handleAddTag = (tag: string) => {
+    const currentTags = formData.tags
+      .split(",")
+      .map((t) => t.trim())
+      .filter((t) => t);
+    if (!currentTags.includes(tag)) {
+      const newTags = [...currentTags, tag].join(", ");
+      setFormData({ ...formData, tags: newTags });
     }
   };
 
@@ -197,31 +216,35 @@ export default function AdminPostForm() {
               />
             </div>
 
-            {/* 标签 */}
-            <div>
-              <label className="block text-sm font-medium mb-2">标签</label>
-              <input
-                type="text"
-                value={formData.tags}
-                onChange={(e) =>
-                  setFormData({ ...formData, tags: e.target.value })
-                }
-                className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-                placeholder="多个标签用逗号分隔"
+            {/* 标签和推荐 */}
+            <div className="space-y-3">
+              <div>
+                <label className="block text-sm font-medium mb-2">标签</label>
+                <input
+                  type="text"
+                  value={formData.tags}
+                  onChange={(e) =>
+                    setFormData({ ...formData, tags: e.target.value })
+                  }
+                  className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                  placeholder="多个标签用逗号分隔"
+                />
+              </div>
+              <TagRecommender
+                type={formData.type}
+                currentTags={formData.tags}
+                onTagSelect={handleAddTag}
               />
             </div>
 
-            {/* 封面图URL */}
+            {/* 封面图上传 */}
             <div>
-              <label className="block text-sm font-medium mb-2">封面图URL</label>
-              <input
-                type="text"
-                value={formData.coverImage}
-                onChange={(e) =>
-                  setFormData({ ...formData, coverImage: e.target.value })
+              <label className="block text-sm font-medium mb-2">封面图</label>
+              <ImageUploader
+                currentImage={formData.coverImage}
+                onImageUpload={(url) =>
+                  setFormData({ ...formData, coverImage: url })
                 }
-                className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-                placeholder="https://example.com/image.jpg"
               />
             </div>
 
@@ -239,18 +262,14 @@ export default function AdminPostForm() {
               />
             </div>
 
-            {/* 正文内容 */}
+            {/* 富文本编辑器 */}
             <div>
               <label className="block text-sm font-medium mb-2">正文 *</label>
-              <textarea
-                required
-                value={formData.content}
-                onChange={(e) =>
-                  setFormData({ ...formData, content: e.target.value })
+              <RichTextEditor
+                content={formData.content}
+                onChange={(content) =>
+                  setFormData({ ...formData, content })
                 }
-                rows={12}
-                className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary font-mono text-sm"
-                placeholder="输入文章正文（支持HTML或Markdown）"
               />
             </div>
 
@@ -269,6 +288,18 @@ export default function AdminPostForm() {
                 立即发布
               </label>
             </div>
+
+            {/* 分发面板 */}
+            <DistributionPanel
+              linkedinEnabled={distributionData.linkedinEnabled}
+              wechatEnabled={distributionData.wechatEnabled}
+              onLinkedinChange={(enabled) =>
+                setDistributionData({ ...distributionData, linkedinEnabled: enabled })
+              }
+              onWechatChange={(enabled) =>
+                setDistributionData({ ...distributionData, wechatEnabled: enabled })
+              }
+            />
 
             {/* 提交按钮 */}
             <div className="flex gap-4 pt-6">
