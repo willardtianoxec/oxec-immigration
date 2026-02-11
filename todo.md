@@ -323,3 +323,10 @@
 - [x] 在App.tsx中添加路由 - /fswcalculator
 - [x] 测试所有赋分规则和条件逻辑
 - [x] 保存检查点 - 完成FSW算分工具
+
+## Article Management Filtering (Current Sprint - Phase 33)
+- [x] 添加内容分类筛选器 - 在AdminPosts页面添加contentCategory下拉选择
+- [x] 实现筛选逻辑 - 根据选择的分类过滤文章列表
+- [x] 更新API调用 - 传递contentCategory参数到posts.list端点
+- [x] 测试筛选功能 - 验证按分类筛选的准确性
+- [x] 保存检查点 - 完成文章管理筛选功能
