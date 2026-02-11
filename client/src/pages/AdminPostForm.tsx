@@ -1,10 +1,12 @@
-import { useState, useEffect } from "react";
+"use client";
 import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useLocation } from "wouter";
-import { Loader2, ArrowLeft, Eye } from "lucide-react";
+import { Loader2, ArrowLeft, Eye, RefreshCw } from "lucide-react";
+import { generateSlug, isValidSlug } from "@/lib/slugGenerator";
 import { useParams } from "wouter";
+import { useState, useEffect } from "react";
 import ImageUploader from "@/components/ImageUploader";
 import RichTextEditor from "@/components/RichTextEditor";
 import TagRecommender from "@/components/TagRecommender";
@@ -31,12 +33,12 @@ export default function AdminPostForm() {
     content: "",
     excerpt: "",
     type: "blog" as "blog" | "success-case",
-    category: "",
     contentCategory: "" as "investment-immigration" | "family-reunion" | "maple-leaf-renewal" | "reconsideration" | "temporary-resident" | "skilled-worker" | "citizenship" | "other" | "",
     tags: "",
     coverImage: "",
     published: true,
   });
+  const [slugError, setSlugError] = useState("");
 
   const [distributionData, setDistributionData] = useState({
     linkedinEnabled: false,
@@ -71,7 +73,6 @@ export default function AdminPostForm() {
         content: post.content,
         excerpt: post.excerpt || "",
         type: post.type as "blog" | "success-case",
-        category: post.category || "",
         contentCategory: (post.contentCategory || "") as "investment-immigration" | "family-reunion" | "maple-leaf-renewal" | "reconsideration" | "temporary-resident" | "skilled-worker" | "citizenship" | "other" | "",
         tags: post.tags || "",
         coverImage: post.coverImage || "",
@@ -95,8 +96,47 @@ export default function AdminPostForm() {
     );
   }
 
+  // 当标题改变时自动生成slug
+  const handleTitleChange = (newTitle: string) => {
+    setFormData({ ...formData, title: newTitle });
+    if (!isEditing) {
+      // 新建文章时自动生成slug
+      const newSlug = generateSlug(newTitle);
+      setFormData((prev) => ({ ...prev, slug: newSlug }));
+      setSlugError("");
+    }
+  };
+
+  // 手动重新生成slug
+  const handleRegenerateSlug = () => {
+    const newSlug = generateSlug(formData.title);
+    setFormData({ ...formData, slug: newSlug });
+    setSlugError("");
+  };
+
+  // 验证slug
+  const handleSlugChange = (newSlug: string) => {
+    setFormData({ ...formData, slug: newSlug });
+    if (!isValidSlug(newSlug)) {
+      setSlugError("Slug只能包含小写字母、数字和连字符，长度至少3个字符");
+    } else {
+      setSlugError("");
+    }
+  };
+
+  const handleValidateForm = () => {
+    if (!isValidSlug(formData.slug)) {
+      setSlugError("Slug格式无效");
+      return false;
+    }
+    return true;
+  };
+
   const handleSaveDraft = () => {
     // 验证必填字段
+    if (!handleValidateForm()) {
+      return;
+    }
     if (!formData.contentCategory) {
       alert("请选择内容分类");
       return;
@@ -110,7 +150,6 @@ export default function AdminPostForm() {
         slug: formData.slug,
         content: formData.content,
         excerpt: formData.excerpt || undefined,
-        category: formData.category || undefined,
         contentCategory: formData.contentCategory as "investment-immigration" | "family-reunion" | "maple-leaf-renewal" | "reconsideration" | "temporary-resident" | "skilled-worker" | "citizenship" | "other" | undefined,
         tags: formData.tags || undefined,
         coverImage: formData.coverImage || undefined,
@@ -124,7 +163,6 @@ export default function AdminPostForm() {
         content: formData.content,
         excerpt: formData.excerpt || undefined,
         type: formData.type,
-        category: formData.category || undefined,
         contentCategory: formData.contentCategory as "investment-immigration" | "family-reunion" | "maple-leaf-renewal" | "reconsideration" | "temporary-resident" | "skilled-worker" | "citizenship" | "other" | undefined,
         tags: formData.tags || undefined,
         coverImage: formData.coverImage || undefined,
@@ -147,7 +185,6 @@ export default function AdminPostForm() {
         slug: formData.slug,
         content: formData.content,
         excerpt: formData.excerpt || undefined,
-        category: formData.category || undefined,
         contentCategory: formData.contentCategory as "investment-immigration" | "family-reunion" | "maple-leaf-renewal" | "reconsideration" | "temporary-resident" | "skilled-worker" | "citizenship" | "other" | undefined,
         tags: formData.tags || undefined,
         coverImage: formData.coverImage || undefined,
@@ -161,7 +198,6 @@ export default function AdminPostForm() {
         content: formData.content,
         excerpt: formData.excerpt || undefined,
         type: formData.type,
-        category: formData.category || undefined,
         contentCategory: formData.contentCategory as "investment-immigration" | "family-reunion" | "maple-leaf-renewal" | "reconsideration" | "temporary-resident" | "skilled-worker" | "citizenship" | "other" | undefined,
         tags: formData.tags || undefined,
         coverImage: formData.coverImage || undefined,
@@ -294,33 +330,31 @@ export default function AdminPostForm() {
               </div>
             </div>
 
-            {/* 自定义分类（可选） */}
-            <div>
-              <label className="block text-sm font-medium mb-2">自定义分类（可选）</label>
-              <input
-                type="text"
-                value={formData.category}
-                onChange={(e) =>
-                  setFormData({ ...formData, category: e.target.value })
-                }
-                className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-                placeholder="如：技术移民、家庭团聚（可选）"
-              />
-            </div>
-
             {/* URL Slug */}
             <div>
               <label className="block text-sm font-medium mb-2">URL Slug *</label>
-              <input
-                type="text"
-                required
-                value={formData.slug}
-                onChange={(e) =>
-                  setFormData({ ...formData, slug: e.target.value })
-                }
-                className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-                placeholder="url-friendly-slug"
-              />
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  required
+                  value={formData.slug}
+                  onChange={(e) => handleSlugChange(e.target.value)}
+                  className={`flex-1 px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary ${
+                    slugError ? "border-red-500" : "border-border"
+                  }`}
+                  placeholder="url-friendly-slug"
+                />
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={handleRegenerateSlug}
+                  title="根据标题重新生成URL Slug"
+                >
+                  <RefreshCw className="w-4 h-4" />
+                </Button>
+              </div>
+              {slugError && <p className="text-red-500 text-sm mt-1">{slugError}</p>}
             </div>
 
             {/* 标签和推荐 */}
