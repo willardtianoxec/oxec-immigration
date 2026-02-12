@@ -303,7 +303,7 @@ export default function Home() {
 
 
       {/* About OXEC Section */}
-      <section className="py-20" style={{ backgroundColor: '#ffffff', paddingTop: '0px' }}>
+      <section className="py-20 bg-gray-50" style={{ paddingTop: '0px' }}>
         <div className="container">
           <div className="text-center mb-20">
             <h2 className="font-bold text-foreground mb-4" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: '48px', fontWeight: 900 }}>关于傲赛（OXEC）</h2>

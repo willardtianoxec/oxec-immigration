@@ -24,53 +24,60 @@ export function GoogleReviewsPreview() {
   }
 
   return (
-    <section className="bg-white py-12 px-4">
+    <section className="bg-white py-16 px-4">
       <div className="container mx-auto max-w-7xl">
-        {/* Google评分展示区 - 简洁横向布局 */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-8 bg-white rounded-lg p-8">
-          {/* 左侧：评分信息 */}
-          <div className="flex items-center gap-6">
-            {/* 大号评分 */}
-            <div className="text-6xl font-black text-gray-900 leading-none">
-              {data.rating.toFixed(1)}
-            </div>
+        {/* 标题 */}
+        <h2 className="text-4xl md:text-5xl font-black mb-12 text-gray-900" style={{ fontFamily: "Alibaba PuHuiTi" }}>
+          客户评价
+        </h2>
 
-            {/* 中间：标题和星级 */}
-            <div>
-              <div className="flex items-center gap-2 mb-2">
-                <h3 className="text-2xl font-bold text-gray-900">Google Reviews</h3>
+        {/* Google评分展示区 - 居中布局 */}
+        <div className="flex flex-col items-center justify-center gap-8 mb-12">
+          <div className="flex items-center justify-center gap-12">
+            {/* 左侧：评分信息 */}
+            <div className="flex items-center gap-6">
+              {/* 大号评分 */}
+              <div className="text-6xl font-black text-gray-900 leading-none">
+                {data.rating.toFixed(1)}
               </div>
-              <div className="flex items-center gap-2">
-                <div className="flex gap-1">
-                  {[...Array(5)].map((_, i) => (
-                    <Star
-                      key={i}
-                      className="w-5 h-5 fill-yellow-400 text-yellow-400"
-                    />
-                  ))}
+
+              {/* 中间：标题和星级 */}
+              <div>
+                <div className="flex items-center gap-2 mb-2">
+                  <h3 className="text-2xl font-bold text-gray-900">Google Reviews</h3>
                 </div>
-                <span className="text-gray-600 font-semibold">({data.reviewCount})</span>
+                <div className="flex items-center gap-2">
+                  <div className="flex gap-1">
+                    {[...Array(5)].map((_, i) => (
+                      <Star
+                        key={i}
+                        className="w-5 h-5 fill-yellow-400 text-yellow-400"
+                      />
+                    ))}
+                  </div>
+                  <span className="text-gray-600 font-semibold">({data.reviewCount})</span>
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* 右侧：CTA按钮 */}
-          <a
-            href="https://www.google.com/maps/search/OXEC+Immigration"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex-shrink-0"
-          >
-            <Button
-              size="lg"
-              className="bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-full px-8 py-6 text-lg"
+            {/* 右侧：CTA按钮 */}
+            <a
+              href="https://www.google.com/maps/search/OXEC+Immigration"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-shrink-0"
             >
-              Review us on Google
-            </Button>
-          </a>
+              <Button
+                size="lg"
+                className="bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-full px-8 py-6 text-lg whitespace-nowrap"
+              >
+                Review us on Google
+              </Button>
+            </a>
+          </div>
         </div>
 
-        {/* 点评卡片网格 - 可选展示 */}
+        {/* 点评卡片网格 */}
         <div className="mt-12">
           <h3 className="text-2xl font-bold text-gray-900 mb-6">最新评价</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
