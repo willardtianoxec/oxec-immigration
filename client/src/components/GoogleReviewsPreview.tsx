@@ -27,7 +27,7 @@ export function GoogleReviewsPreview() {
     <section className="bg-white py-16 px-4">
       <div className="container mx-auto max-w-7xl">
         {/* 标题 */}
-        <h2 className="text-4xl md:text-5xl font-black mb-12 text-gray-900" style={{ fontFamily: "Alibaba PuHuiTi" }}>
+        <h2 className="text-4xl md:text-5xl font-black mb-12 text-gray-900" style={{ fontFamily: "Alibaba PuHuiTi", textAlign: 'center' }}>
           客户评价
         </h2>
 
@@ -79,7 +79,7 @@ export function GoogleReviewsPreview() {
 
         {/* 点评卡片网格 */}
         <div className="mt-12">
-          <h3 className="text-2xl font-bold text-gray-900 mb-6">最新评价</h3>
+          <h3 className="text-2xl font-bold text-gray-900 mb-6"></h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {data.reviews.map((review) => (
               <div

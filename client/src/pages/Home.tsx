@@ -303,7 +303,7 @@ export default function Home() {
 
 
       {/* About OXEC Section */}
-      <section className="py-20 bg-gray-50" style={{ paddingTop: '0px' }}>
+      <section className="py-20 bg-gray-50" style={{ paddingTop: '30px', paddingBottom: '60px' }}>
         <div className="container">
           <div className="text-center mb-20">
             <h2 className="font-bold text-foreground mb-4" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: '48px', fontWeight: 900 }}>关于傲赛（OXEC）</h2>
@@ -363,7 +363,7 @@ export default function Home() {
               />
             </div>
             <div>
-              <h2 className="font-bold text-foreground mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: '48px', fontWeight: 900 }}>全球服务</h2>
+              <h2 className="font-bold text-foreground mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: '48px', fontWeight: 900 }}>服务全球</h2>
               <p className="text-lg text-muted-foreground leading-relaxed mb-6">
                 我们为来自加拿大各地及世界各国的客户提供移民咨询服务。
               </p>
@@ -392,13 +392,13 @@ export default function Home() {
           
           <div className="grid md:grid-cols-2 gap-12">
             {/* Left Column - Latest Articles */}
-            <div>
+            <div style={{marginTop: '-30px', width: '576px', marginLeft: '138px'}}>
               <h3 className="font-bold text-foreground mb-8" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: '30px', fontWeight: 700 }}>最新的移民观察</h3>
               <div className="bg-white border border-border overflow-hidden hover:shadow-lg transition-shadow">
-                <div className="h-48 bg-gradient-to-br from-primary/20 to-accent/20"></div>
-                <div className="p-6">
+                <div className="h-48 bg-gradient-to-br from-primary/20 to-accent/20" style={{width: '576px', height: '324px'}}></div>
+                <div className="p-6" style={{height: '132px'}}>
                   <p className="text-sm text-primary font-semibold mb-2">{t("blog.category")}</p>
-                  <h3 className="text-xl font-bold text-foreground mb-2">{t("blog.article_title")}</h3>
+                  <h3 className="text-xl font-bold text-foreground mb-2" style={{marginTop: '-12px'}}>{t("blog.article_title")}</h3>
                   <p className="text-muted-foreground text-sm mb-4">{t("blog.article_excerpt")}</p>
                   <Link href="/blog">
                     <span className="text-primary font-semibold hover:text-primary/80 transition-colors cursor-pointer">
@@ -410,14 +410,14 @@ export default function Home() {
             </div>
             
             {/* Right Column - Success Cases */}
-            <div>
+            <div style={{marginTop: '-30px', width: '576px'}}>
               <h3 className="font-bold text-foreground mb-8" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: '30px', fontWeight: 700 }}>最近的成功案例</h3>
               <div className="bg-white border border-border overflow-hidden hover:shadow-lg transition-shadow">
-                <div className="h-48 bg-gradient-to-br from-accent/20 to-primary/20"></div>
-                <div className="p-6">
-                  <p className="text-sm text-accent font-semibold mb-2">成功案例</p>
-                  <h3 className="text-xl font-bold text-foreground mb-2">客户成功获批永久居民身份</h3>
-                  <p className="text-muted-foreground text-sm mb-4">通过我们专业的指导和精心准备，客户在6个月内成功获得永久居民身份...</p>
+                <div className="h-48 bg-gradient-to-br from-accent/20 to-primary/20" style={{height: '324px'}}></div>
+                <div className="p-6" style={{height: '132px'}}>
+                  <p className="text-sm text-accent font-semibold mb-2"></p>
+                  <h3 className="text-xl font-bold text-foreground mb-2" style={{marginTop: '-12px'}}>客户成功获批永久居民身份</h3>
+                  <p className="text-muted-foreground text-sm mb-4">2025-12-29</p>
                   <Link href="/success-cases">
                     <span className="text-accent font-semibold hover:text-accent/80 transition-colors cursor-pointer">
                       阅读更多 »
