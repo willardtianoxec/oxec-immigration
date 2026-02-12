@@ -169,6 +169,18 @@ export default function AdminPosts() {
                     </div>
                   </div>
                   <div className="flex gap-2">
+                    {post.published && (
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => {
+                          const path = post.type === "blog" ? "/blog" : "/success-cases";
+                          window.open(`${path}/${post.slug}`, "_blank");
+                        }}
+                      >
+                        查看
+                      </Button>
+                    )}
                     <Button
                       variant="outline"
                       size="sm"

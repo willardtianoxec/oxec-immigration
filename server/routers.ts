@@ -726,11 +726,14 @@ export const appRouter = router({
         contentCategory: z.enum(["investment-immigration", "family-reunion", "maple-leaf-renewal", "reconsideration", "temporary-resident", "skilled-worker", "citizenship", "other"]).optional(),
         tags: z.string().optional(),
         coverImage: z.string().optional(),
+        published: z.boolean().optional(),
+        publishedAt: z.date().optional(),
       }))
       .mutation(async ({ input, ctx }) => {
         return await createPost({
           ...input,
-          published: false,
+          published: input.published ?? false,
+          publishedAt: input.publishedAt,
           authorId: ctx.user.id,
         });
       }),

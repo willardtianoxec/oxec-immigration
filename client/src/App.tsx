@@ -24,7 +24,7 @@ import BCCalculator from "./pages/BCCalculator";
 import TermOfService from "./pages/TermOfService";
 import TermOfUse from "./pages/TermOfUse";
 import AdminPosts from "./pages/AdminPosts";
-import AdminPostForm from "./pages/AdminPostForm";
+import { AdminPostForm } from "./pages/AdminPostForm";
 import AdminPostPreview from "./pages/AdminPostPreview";
 import CLBTranslator from "./pages/CLBTranslator";
 import FSWCalculator from "./pages/FSWCalculator";
