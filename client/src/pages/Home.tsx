@@ -390,16 +390,16 @@ export default function Home() {
             <h2 className="font-bold text-foreground mb-12" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: '48px', fontWeight: 900 }}>我们最新的文章</h2>
           </div>
           
-          <div className="grid md:grid-cols-2 gap-12">
+          <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
             {/* Left Column - Latest Articles */}
-            <div style={{marginTop: '-30px', width: '576px', marginLeft: '138px'}}>
+            <div className="flex flex-col">
               <h3 className="font-bold text-foreground mb-8" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: '30px', fontWeight: 700 }}>最新的移民观察</h3>
-              <div className="bg-white border border-border overflow-hidden hover:shadow-lg transition-shadow">
-                <div className="h-48 bg-gradient-to-br from-primary/20 to-accent/20" style={{width: '576px', height: '324px'}}></div>
-                <div className="p-6" style={{height: '132px'}}>
+              <div className="bg-white border border-border overflow-hidden hover:shadow-lg transition-shadow flex flex-col h-full">
+                <div className="w-full bg-gradient-to-br from-primary/20 to-accent/20" style={{aspectRatio: '16/9'}}></div>
+                <div className="p-6 flex flex-col justify-start">
                   <p className="text-sm text-primary font-semibold mb-2">{t("blog.category")}</p>
-                  <h3 className="text-xl font-bold text-foreground mb-2" style={{marginTop: '-12px'}}>{t("blog.article_title")}</h3>
-                  <p className="text-muted-foreground text-sm mb-4">{t("blog.article_excerpt")}</p>
+                  <h3 className="text-lg font-bold text-foreground mb-2 line-clamp-2">{t("blog.article_title")}</h3>
+                  <p className="text-muted-foreground text-sm mb-4 line-clamp-2">{t("blog.article_excerpt")}</p>
                   <Link href="/blog">
                     <span className="text-primary font-semibold hover:text-primary/80 transition-colors cursor-pointer">
                       阅读更多 »
@@ -410,14 +410,14 @@ export default function Home() {
             </div>
             
             {/* Right Column - Success Cases */}
-            <div style={{marginTop: '-30px', width: '576px'}}>
+            <div className="flex flex-col">
               <h3 className="font-bold text-foreground mb-8" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: '30px', fontWeight: 700 }}>最近的成功案例</h3>
-              <div className="bg-white border border-border overflow-hidden hover:shadow-lg transition-shadow">
-                <div className="h-48 bg-gradient-to-br from-accent/20 to-primary/20" style={{height: '324px'}}></div>
-                <div className="p-6" style={{height: '132px'}}>
+              <div className="bg-white border border-border overflow-hidden hover:shadow-lg transition-shadow flex flex-col h-full">
+                <div className="w-full bg-gradient-to-br from-accent/20 to-primary/20" style={{aspectRatio: '16/9'}}></div>
+                <div className="p-6 flex flex-col justify-start">
                   <p className="text-sm text-accent font-semibold mb-2"></p>
-                  <h3 className="text-xl font-bold text-foreground mb-2" style={{marginTop: '-12px'}}>客户成功获批永久居民身份</h3>
-                  <p className="text-muted-foreground text-sm mb-4">2025-12-29</p>
+                  <h3 className="text-lg font-bold text-foreground mb-2 line-clamp-2">客户成功获批永久居民身份</h3>
+                  <p className="text-muted-foreground text-sm mb-4 line-clamp-1">2025-12-29</p>
                   <Link href="/success-cases">
                     <span className="text-accent font-semibold hover:text-accent/80 transition-colors cursor-pointer">
                       阅读更多 »

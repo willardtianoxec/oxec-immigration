@@ -381,3 +381,13 @@
 - [x] 在主页集成预览 - 在"全球服务"部分之前添加Google点评预览
 - [x] 测试预览功能 - 验证点评数据加载和显示
 - [x] 保存检查点 - 完成Google点评预览功能
+
+## Latest Articles Card Responsive Layout Fix (Completed - Phase 40)
+- [x] 分析响应式布局问题 - 固定宽度和高度导致缩放时重叠
+- [x] 移除固定宽度属性 - 从width: 576px改为flex自动宽度
+- [x] 改进图片比例处理 - 使用CSS aspect-ratio: 16/9替代固定高度
+- [x] 优化容器布局 - 使用flex flex-col确保正确的响应式堆叠
+- [x] 改进间距配置 - 使用gap-8 lg:gap-12替代固定gap-12
+- [x] 添加文本截断 - 使用line-clamp防止文本溢出
+- [x] 测试响应式效果 - 验证桌面、平板、移动视图的显示
+- [x] 保存检查点 - 完成最新文章卡片响应式修复
