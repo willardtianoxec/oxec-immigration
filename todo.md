@@ -372,3 +372,12 @@
 - [x] 修复成功案例列表页面 - 使用正确的API端点显示已发布文章
 - [x] 在管理后台添加查看按钮 - 为已发布文章添加查看按钮，直接链接到已发布页面
 - [x] 测试修复后的功能 - 验证成功案例列表页面正常显示已发布文章
+
+
+## Google Reviews Preview on Homepage (Completed - Phase 39)
+- [x] 配置Google Places API - 获取API密钥并设置认证
+- [x] 创建后端tRPC端点 - 实现trpc.reviews.getGoogleReviews端点
+- [x] 创建GoogleReviewsPreview组件 - 预览版本展示5.0星评分和3-4条精选点评
+- [x] 在主页集成预览 - 在"全球服务"部分之前添加Google点评预览
+- [x] 测试预览功能 - 验证点评数据加载和显示
+- [x] 保存检查点 - 完成Google点评预览功能

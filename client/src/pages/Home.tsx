@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import DotMatrixWorldMap from "@/components/DotMatrixWorldMap";
 import { Footer } from "@/components/Footer";
+import { GoogleReviewsPreview } from "@/components/GoogleReviewsPreview";
 
 export default function Home() {
   const { user, isAuthenticated } = useAuth();
@@ -346,6 +347,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Google Reviews Preview Section */}
+      <GoogleReviewsPreview />
 
       {/* Global Services Section */}
       <section className="py-20 bg-gray-50" style={{ paddingTop: "0px", paddingBottom: "0px", marginTop: "0px" }}>

@@ -29,6 +29,7 @@ import { notifyOwner } from "./_core/notification";
 import { sendAppointmentEmail } from "./_core/emailService";
 import { calculateCRS as calculateCRSLogic } from "./crsCalculator";
 import { storagePut } from "./storage";
+import { getMockGoogleReviews } from "./mockGoogleReviews";
 
 
 // Admin-only procedure
@@ -995,7 +996,16 @@ export const appRouter = router({
         
         return { totalScore, breakdown, details, message: totalScore >= 80 ? "优秀！您具有很强的BC PNP申请资格。" : totalScore >= 60 ? "良好！您可能符合BC PNP申请条件。" : "建议改进您的申请资料以获得更好的机会。" };
       }),
-
+  }),
+  reviews: router({
+    getGoogleReviews: publicProcedure
+      .input(z.object({
+        limit: z.number().min(1).max(50).default(4),
+      }).optional())
+      .query(({ input }) => {
+        const limit = input?.limit || 4;
+        return getMockGoogleReviews(limit);
+      }),
   }),
 });
 
