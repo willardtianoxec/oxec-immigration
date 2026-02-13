@@ -1,0 +1,24 @@
+{
+  "query": "SELECT id, title, type, published, publishedAt FROM posts WHERE published = true ORDER BY publishedAt DESC LIMIT 10;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2MHEakYmYxuSUJe.root --database ERSfzVi6JGQA5UonrK4h6y --execute SELECT id, title, type, published, publishedAt FROM posts WHERE published = true ORDER BY publishedAt DESC LIMIT 10;",
+  "rows": [
+    {
+      "id": "90001",
+      "title": "王先生成功获得加拿大技术移民签证",
+      "type": "success-case",
+      "published": "1",
+      "publishedAt": "2026-02-12 04:00:39"
+    },
+    {
+      "id": "30001",
+      "title": "详说拒签史",
+      "type": "blog",
+      "published": "1",
+      "publishedAt": "NULL"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\ttype\tpublished\tpublishedAt\n90001\t王先生成功获得加拿大技术移民签证\tsuccess-case\t1\t2026-02-12 04:00:39\n30001\t详说拒签史\tblog\t1\tNULL\n",
+  "stderr": "",
+  "execution_time_ms": 404
+}

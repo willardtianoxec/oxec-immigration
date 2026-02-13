@@ -464,3 +464,9 @@
 - [x] 在Footer免责声明下方添加CICC标志
 - [x] 添加"通过CICC核实移民顾问身份"验证链接
 - [ ] 测试Footer显示效果并保存检查点
+
+## Bug Fixes Phase 2 (Current Sprint - Phase 41)
+- [x] 修复Footer联系方式 - 将电话和邮件合并为单一联系方式部分
+- [x] 恢复服务全球文字 - 右侧文字已是正确的，不需要修改
+- [x] 修复CICC验证链接样式 - 字体颜色和size与"免责声明"保持一致
+- [x] 修复最新资讯引用 - 替换为LatestArticlesSection组件，正常显示已发布文章

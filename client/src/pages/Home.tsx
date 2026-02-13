@@ -329,45 +329,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Latest Articles Section - Standardized Spacing */}
-      <section className="relative z-20 w-full bg-background" style={{ padding: 'clamp(40px, 8vw, 80px) 0' }}>
-        <div className="container">
-          <div className="text-center mb-16">
-            <h2 className="font-bold text-foreground mb-4" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: '48px', fontWeight: 900 }}>最新资讯</h2>
-            <p className="text-lg text-muted-foreground">了解最新的移民政策和成功案例</p>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-8 mb-8">
-            {/* Latest Blog Article */}
-            <Link href="/blog">
-              <div className="group relative overflow-hidden bg-white border border-border cursor-pointer transition-all duration-300 hover:shadow-lg">
-                <div className="relative h-48 overflow-hidden">
-                  <img src="/blog-placeholder.jpg" alt="Latest Blog" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-foreground mb-2">最新移民观察</h3>
-                  <p className="text-muted-foreground mb-4">了解最新的加拿大移民政策动态和专业见解</p>
-                  <span className="text-primary font-semibold">点击阅读 →</span>
-                </div>
-              </div>
-            </Link>
-
-            {/* Latest Success Case */}
-            <Link href="/success-cases">
-              <div className="group relative overflow-hidden bg-white border border-border cursor-pointer transition-all duration-300 hover:shadow-lg">
-                <div className="relative h-48 overflow-hidden">
-                  <img src="/success-placeholder.jpg" alt="Latest Success Case" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-foreground mb-2">最近成功案例</h3>
-                  <p className="text-muted-foreground mb-4">查看我们最近帮助客户实现的移民梦想</p>
-                  <span className="text-primary font-semibold">点击阅读 →</span>
-                </div>
-              </div>
-            </Link>
-          </div>
-        </div>
-      </section>
+      {/* Latest Articles Section */}
+      <LatestArticlesSection />
 
       {/* Footer */}
       <Footer />

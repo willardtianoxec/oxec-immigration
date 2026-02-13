@@ -54,30 +54,31 @@ export function Footer({}: FooterProps) {
             </h3>
             <div className="space-y-4 text-sm mb-8" style={{ color: '#E5E7EB' }}>
               <div>
-                <p className="font-semibold mb-1" style={{ color: '#FFFFFF', fontSize: '15px' }}>
+                <p className="font-semibold mb-2" style={{ color: '#FFFFFF', fontSize: '15px' }}>
                   办公地址
                 </p>
                 <p style={{fontSize: '15px'}}>4710 Kingsway, Metrotower 1</p>
                 <p style={{fontSize: '15px'}}>Burnaby, BC V5H 4M2</p>
               </div>
               <div>
-                <p className="font-semibold mb-1" style={{ color: '#FFFFFF', fontSize: '15px' }}>
-                  电话
+                <p className="font-semibold mb-2" style={{ color: '#FFFFFF', fontSize: '15px' }}>
+                  联系方式
                 </p>
-                <a href="tel:+12365215115" className="hover:text-white transition" style={{fontSize: '15px'}}>
-                  +1 (236) 521-5115
-                </a>
-              </div>
-              <div>
-                <p className="font-semibold mb-1" style={{ color: '#FFFFFF', fontSize: '15px' }}>
-                  邮件
+                <p style={{fontSize: '15px'}}>
+                  电话：
+                  <a href="tel:+12365215115" className="hover:text-white transition">
+                    +1 (236) 521-5115
+                  </a>
                 </p>
-                <a
-                  href="mailto:business@oxecimm.com"
-                  className="hover:text-white transition" style={{fontSize: '15px'}}
-                >
-                  business@oxecimm.com
-                </a>
+                <p style={{fontSize: '15px'}}>
+                  邮件：
+                  <a
+                    href="mailto:business@oxecimm.com"
+                    className="hover:text-white transition"
+                  >
+                    business@oxecimm.com
+                  </a>
+                </p>
               </div>
             </div>
 
@@ -85,7 +86,7 @@ export function Footer({}: FooterProps) {
               <h4 className="font-bold text-sm mb-3" style={{ color: '#FFFFFF', fontSize: '15px' }}>
                 免责声明
               </h4>
-              <p className="text-xs leading-relaxed" style={{ color: '#E5E7EB', fontSize: '15px' }}>
+              <p className="leading-relaxed" style={{ color: '#E5E7EB', fontSize: '14px' }}>
                 本网页所载信息仅供一般参考之用，不应被视为法律意见，亦不构成顾问与客户之间的正式代理关系。除非双方签署正式的《专业服务协议》(Retainer Agreement)，否则本事务所对依赖上述信息产生的任何后果不承担担保责任。
               </p>
               
@@ -96,13 +97,13 @@ export function Footer({}: FooterProps) {
                   alt="CICC - College of Immigration and Citizenship Consultants"
                   className="h-16 w-auto mb-4"
                 />
-                <p className="text-xs" style={{ color: '#E5E7EB', fontSize: '14px' }}>
+                <p className="leading-relaxed" style={{ color: '#E5E7EB', fontSize: '14px' }}>
                   <a
                     href="https://college-ic.ca/protecting-the-public/find-an-immigration-consultant"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="hover:text-white transition"
-                    style={{ color: '#60A5FA' }}
+                    style={{ color: '#E5E7EB' }}
                   >
                     通过CICC核实移民顾问身份
                   </a>
