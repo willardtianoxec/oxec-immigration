@@ -184,7 +184,7 @@ export default function Home() {
             <Link href="/businessclass">
               <div className="group relative overflow-hidden bg-white border border-border cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-2" style={{borderRadius: '0px'}}>
                 <div className="relative h-40 overflow-hidden">
-                  <img src="/service-1.jpg" alt="Investment Immigration" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                  <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663292376041/fgGPQFerLMkuAdRf.jpg" alt="Investment Immigration" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </div>
                 <div className="p-6">
@@ -198,7 +198,7 @@ export default function Home() {
             <Link href="/familyclass">
               <div className="group relative overflow-hidden bg-white border border-border cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-2" style={{borderRadius: '0px'}}>
                 <div className="relative h-40 overflow-hidden">
-                  <img src="/service-2.jpg" alt="Family Reunification" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                  <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663292376041/KhxxYEppSEUjeQkQ.jpg" alt="Family Reunification" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </div>
                 <div className="p-6">
@@ -212,7 +212,7 @@ export default function Home() {
             <Link href="/prcard">
               <div className="group relative overflow-hidden bg-white border border-border cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-2" style={{borderRadius: '0px'}}>
                 <div className="relative h-40 overflow-hidden">
-                  <img src="/service-3.jpg" alt="PR Card Renewal" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                  <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663292376041/rvJWecgriFmwUjBk.jpg" alt="PR Card Renewal" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </div>
                 <div className="p-6">
@@ -226,7 +226,7 @@ export default function Home() {
             <Link href="/reconsideration">
               <div className="group relative overflow-hidden bg-white border border-border cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-2" style={{borderRadius: '0px'}}>
                 <div className="relative h-40 overflow-hidden">
-                  <img src="/service-2.jpg" alt="Refusal & Procedural Fairness" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                  <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663292376041/VgBXmJUHhJeMKVtb.jpg" alt="Refusal & Procedural Fairness" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </div>
                 <div className="p-6">
@@ -240,7 +240,7 @@ export default function Home() {
             <Link href="/temporary">
               <div className="group relative overflow-hidden bg-white border border-border cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-2" style={{borderRadius: '0px'}}>
                 <div className="relative h-40 overflow-hidden">
-                  <img src="/service-1.jpg" alt="Study & Visitor" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                  <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663292376041/HDGZKfSynBhXiUbR.jpg" alt="Study & Visitor" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </div>
                 <div className="p-6">
