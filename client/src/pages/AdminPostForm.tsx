@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useParams, useLocation } from "wouter";
 import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
-import { Loader2, X, RotateCcw } from "lucide-react";
+import { Loader2, X, RotateCcw, Upload, Bold, Italic, List, Link as LinkIcon, Image as ImageIcon, AlignLeft } from "lucide-react";
 import { generateSlug, isValidSlug } from "@/lib/slugGenerator";
 
 const BLOG_CATEGORY_OPTIONS = [
@@ -15,18 +15,10 @@ const BLOG_CATEGORY_OPTIONS = [
   { value: "news", label: "新闻" },
   { value: "immigration-life", label: "移居生活" },
   { value: "immigration-story", label: "移民故事" },
-  { value: "immigration-project", label: "移民项目" },
+  { value: "immigration-project", label: "项目介绍" },
 ];
 
 const SUCCESS_CASE_CATEGORY_OPTIONS = [
-  { value: "investment-immigration", label: "投资移民" },
-  { value: "skilled-worker", label: "技术移民" },
-  { value: "family-reunion", label: "家庭团聚移民" },
-  { value: "reconsideration", label: "拒签与程序公正信" },
-  { value: "temporary-visit", label: "临时访问申请" },
-];
-
-const CONTENT_CATEGORY_OPTIONS = [
   { value: "investment-immigration", label: "投资移民" },
   { value: "family-reunion", label: "家庭团聚" },
   { value: "maple-leaf-renewal", label: "枫叶卡续签" },
@@ -53,6 +45,8 @@ export function AdminPostForm() {
   const postId = params?.id ? parseInt(params.id) : undefined;
   const isEditing = !!postId;
   const [, setLocation] = useLocation();
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const { data: authData } = trpc.auth.me.useQuery();
   const { data: post } = trpc.posts.getById.useQuery(
@@ -78,16 +72,19 @@ export function AdminPostForm() {
     slug: "",
     content: "",
     excerpt: "",
+
     type: "blog" as "blog" | "success-case",
-    blogCategory: "" as "policy-interpretation" | "news" | "immigration-life" | "immigration-story" | "immigration-project" | "",
-    successCaseCategory: "" as "investment-immigration" | "skilled-worker" | "family-reunion" | "reconsideration" | "temporary-visit" | "",
-    contentCategory: "" as "investment-immigration" | "family-reunion" | "maple-leaf-renewal" | "reconsideration" | "temporary-resident" | "skilled-worker" | "citizenship" | "other" | "",
+    blogCategory: "" as string,
+    contentCategory: "" as string,
     tags: "",
     coverImage: "",
     published: false,
+    publishedAt: new Date().toISOString().split('T')[0],
   });
 
   const [slugError, setSlugError] = useState("");
+  const [coverImagePreview, setCoverImagePreview] = useState<string>("");
+  const [isDragging, setIsDragging] = useState(false);
 
   useEffect(() => {
     if (post) {
@@ -97,14 +94,18 @@ export function AdminPostForm() {
         slug: post.slug,
         content: post.content,
         excerpt: post.excerpt || "",
+    
         type: post.type as "blog" | "success-case",
-        blogCategory: (post.blogCategory || "") as "policy-interpretation" | "news" | "immigration-life" | "immigration-story" | "immigration-project" | "",
-        successCaseCategory: (post.successCaseCategory || "") as "investment-immigration" | "skilled-worker" | "family-reunion" | "reconsideration" | "temporary-visit" | "",
-        contentCategory: (post.contentCategory || "") as "investment-immigration" | "family-reunion" | "maple-leaf-renewal" | "reconsideration" | "temporary-resident" | "skilled-worker" | "citizenship" | "other" | "",
+        blogCategory: post.blogCategory || "",
+        contentCategory: post.contentCategory || "",
         tags: post.tags || "",
         coverImage: post.coverImage || "",
         published: post.published,
+        publishedAt: post.publishedAt ? new Date(post.publishedAt).toISOString().split('T')[0] : new Date().toISOString().split('T')[0],
       });
+      if (post.coverImage) {
+        setCoverImagePreview(post.coverImage);
+      }
     }
   }, [post]);
 
@@ -146,84 +147,78 @@ export function AdminPostForm() {
     }
   };
 
-  const handleSaveDraft = () => {
-    if (!formData.contentCategory) {
-      alert("请选择内容分类");
+  // Handle image upload
+  const handleImageUpload = async (file: File) => {
+    if (!file.type.startsWith("image/")) {
+      alert("请选择图片文件");
       return;
     }
 
-    if (isEditing && postId) {
-      updateMutation.mutate({
-        id: postId,
-        title: formData.title,
-        subtitle: formData.subtitle || undefined,
-        slug: formData.slug,
-        content: formData.content,
-        excerpt: formData.excerpt || undefined,
-        contentCategory: formData.contentCategory as "investment-immigration" | "family-reunion" | "maple-leaf-renewal" | "reconsideration" | "temporary-resident" | "skilled-worker" | "citizenship" | "other" | undefined,
-        tags: formData.tags || undefined,
-        coverImage: formData.coverImage || undefined,
-        publishedAt: undefined,
-      });
-    } else {
-      createMutation.mutate({
-        title: formData.title,
-        subtitle: formData.subtitle || undefined,
-        slug: formData.slug,
-        content: formData.content,
-        excerpt: formData.excerpt || undefined,
-        type: formData.type,
-        contentCategory: formData.contentCategory as "investment-immigration" | "family-reunion" | "maple-leaf-renewal" | "reconsideration" | "temporary-resident" | "skilled-worker" | "citizenship" | "other" | undefined,
-        tags: formData.tags || undefined,
-        coverImage: formData.coverImage || undefined,
-      });
-    }
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const result = e.target?.result as string;
+      setCoverImagePreview(result);
+      setFormData({ ...formData, coverImage: result });
+    };
+    reader.readAsDataURL(file);
   };
 
-  const handlePublish = () => {
-    if (!formData.contentCategory) {
-      alert("请选择内容分类");
-      return;
-    }
-
-    if (isEditing && postId) {
-      updateMutation.mutate({
-        id: postId,
-        title: formData.title,
-        subtitle: formData.subtitle || undefined,
-        slug: formData.slug,
-        content: formData.content,
-        excerpt: formData.excerpt || undefined,
-        contentCategory: formData.contentCategory as "investment-immigration" | "family-reunion" | "maple-leaf-renewal" | "reconsideration" | "temporary-resident" | "skilled-worker" | "citizenship" | "other" | undefined,
-        tags: formData.tags || undefined,
-        coverImage: formData.coverImage || undefined,
-        published: true,
-        publishedAt: new Date(),
-      });
-    } else {
-      createMutation.mutate({
-        title: formData.title,
-        subtitle: formData.subtitle || undefined,
-        slug: formData.slug,
-        content: formData.content,
-        excerpt: formData.excerpt || undefined,
-        type: formData.type,
-        contentCategory: formData.contentCategory as "investment-immigration" | "family-reunion" | "maple-leaf-renewal" | "reconsideration" | "temporary-resident" | "skilled-worker" | "citizenship" | "other" | undefined,
-        tags: formData.tags || undefined,
-        coverImage: formData.coverImage || undefined,
-        published: true,
-        publishedAt: new Date(),
-      });
-    }
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
-    if (formData.published) {
-      handlePublish();
-    } else {
-      handleSaveDraft();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = () => {
+    setIsDragging(false);
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(false);
+    const files = e.dataTransfer.files;
+    if (files.length > 0) {
+      handleImageUpload(files[0]);
     }
+  };
+
+  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (files && files.length > 0) {
+      handleImageUpload(files[0]);
+    }
+  };
+
+  // Get content categories based on type
+  const getContentCategories = () => {
+    if (formData.type === "blog") {
+      return BLOG_CATEGORY_OPTIONS;
+    } else {
+      return SUCCESS_CASE_CATEGORY_OPTIONS;
+    }
+  };
+
+  // Editor toolbar functions
+  const insertMarkdown = (before: string, after: string = "") => {
+    if (!textareaRef.current) return;
+    
+    const textarea = textareaRef.current;
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    const selectedText = formData.content.substring(start, end);
+    const newContent = 
+      formData.content.substring(0, start) +
+      before +
+      selectedText +
+      after +
+      formData.content.substring(end);
+    
+    setFormData({ ...formData, content: newContent });
+    
+    // Restore cursor position
+    setTimeout(() => {
+      textarea.focus();
+      textarea.setSelectionRange(start + before.length, start + before.length + selectedText.length);
+    }, 0);
   };
 
   const handleAddTag = (tag: string) => {
@@ -257,9 +252,97 @@ export function AdminPostForm() {
 
   const isSubmitting = createMutation.isPending || updateMutation.isPending;
 
+  const handleSaveDraft = () => {
+    if (!formData.contentCategory) {
+      alert("请选择内容分类");
+      return;
+    }
+
+    const publishedAt = formData.published ? new Date(formData.publishedAt) : undefined;
+
+    if (isEditing && postId) {
+      updateMutation.mutate({
+        id: postId,
+        title: formData.title,
+        subtitle: formData.subtitle || undefined,
+        slug: formData.slug,
+        content: formData.content,
+        excerpt: formData.excerpt || undefined,
+
+        contentCategory: formData.contentCategory as any,
+        tags: formData.tags || undefined,
+        coverImage: formData.coverImage || undefined,
+        publishedAt: undefined,
+      });
+    } else {
+      createMutation.mutate({
+        title: formData.title,
+        subtitle: formData.subtitle || undefined,
+        slug: formData.slug,
+        content: formData.content,
+        excerpt: formData.excerpt || undefined,
+
+        type: formData.type,
+        contentCategory: formData.contentCategory as any,
+        tags: formData.tags || undefined,
+        coverImage: formData.coverImage || undefined,
+      });
+    }
+  };
+
+  const handlePublish = () => {
+    if (!formData.contentCategory) {
+      alert("请选择内容分类");
+      return;
+    }
+
+    const publishedAt = new Date(formData.publishedAt);
+
+    if (isEditing && postId) {
+      updateMutation.mutate({
+        id: postId,
+        title: formData.title,
+        subtitle: formData.subtitle || undefined,
+        slug: formData.slug,
+        content: formData.content,
+        excerpt: formData.excerpt || undefined,
+
+        contentCategory: formData.contentCategory as any,
+        tags: formData.tags || undefined,
+        coverImage: formData.coverImage || undefined,
+        published: true,
+        publishedAt,
+      });
+    } else {
+      createMutation.mutate({
+        title: formData.title,
+        subtitle: formData.subtitle || undefined,
+        slug: formData.slug,
+        content: formData.content,
+        excerpt: formData.excerpt || undefined,
+
+        type: formData.type,
+        contentCategory: formData.contentCategory as any,
+        tags: formData.tags || undefined,
+        coverImage: formData.coverImage || undefined,
+        published: true,
+        publishedAt,
+      });
+    }
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (formData.published) {
+      handlePublish();
+    } else {
+      handleSaveDraft();
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background">
-      <div className="container max-w-4xl mx-auto py-8">
+      <div className="container max-w-6xl mx-auto py-8">
         <div className="flex items-center justify-between mb-8">
           <h1 className="text-3xl font-bold">{isEditing ? "编辑文章" : "新建文章"}</h1>
           <Button variant="outline" onClick={() => setLocation("/admin/posts")}>
@@ -304,6 +387,7 @@ export function AdminPostForm() {
                 setFormData({
                   ...formData,
                   type: e.target.value as "blog" | "success-case",
+                  contentCategory: "", // Reset content category when type changes
                 })
               }
               className="w-full px-3 py-2 border border-input rounded-md bg-background"
@@ -313,72 +397,23 @@ export function AdminPostForm() {
             </select>
           </div>
 
-          {/* 博客分类或成功案例分类 */}
-          {formData.type === "blog" ? (
-            <div>
-              <label className="block text-sm font-medium mb-2">
-                博客分类 <span className="text-red-500">*</span>
-              </label>
-              <select
-                value={formData.blogCategory}
-                onChange={(e) =>
-                  setFormData({
-                    ...formData,
-                    blogCategory: e.target.value as any,
-                  })
-                }
-                className="w-full px-3 py-2 border border-input rounded-md bg-background"
-              >
-                <option value="">选择博客分类</option>
-                {BLOG_CATEGORY_OPTIONS.map((opt) => (
-                  <option key={opt.value} value={opt.value}>
-                    {opt.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-          ) : (
-            <div>
-              <label className="block text-sm font-medium mb-2">
-                成功案例分类 <span className="text-red-500">*</span>
-              </label>
-              <select
-                value={formData.successCaseCategory}
-                onChange={(e) =>
-                  setFormData({
-                    ...formData,
-                    successCaseCategory: e.target.value as any,
-                  })
-                }
-                className="w-full px-3 py-2 border border-input rounded-md bg-background"
-              >
-                <option value="">选择成功案例分类</option>
-                {SUCCESS_CASE_CATEGORY_OPTIONS.map((opt) => (
-                  <option key={opt.value} value={opt.value}>
-                    {opt.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-          )}
-
-          {/* 内容分类 */}
+          {/* 内容分类 - 根据文章类型动态显示 */}
           <div>
             <label className="block text-sm font-medium mb-2">
-              内容分类 <span className="text-red-500">*</span>
+              {formData.type === "blog" ? "博客分类" : "成功案例分类"} <span className="text-red-500">*</span>
             </label>
             <select
               value={formData.contentCategory}
               onChange={(e) =>
                 setFormData({
                   ...formData,
-                  contentCategory: e.target.value as any,
+                  contentCategory: e.target.value,
                 })
               }
               className="w-full px-3 py-2 border border-input rounded-md bg-background"
             >
-              <option value="">选择内容分类</option>
-              {CONTENT_CATEGORY_OPTIONS.map((opt) => (
+              <option value="">选择分类</option>
+              {getContentCategories().map((opt) => (
                 <option key={opt.value} value={opt.value}>
                   {opt.label}
                 </option>
@@ -451,11 +486,50 @@ export function AdminPostForm() {
           {/* 封面图 */}
           <div>
             <label className="block text-sm font-medium mb-2">封面图</label>
-            <div className="border-2 border-dashed border-border rounded-lg p-8 text-center">
+            <div
+              onDragOver={handleDragOver}
+              onDragLeave={handleDragLeave}
+              onDrop={handleDrop}
+              className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors ${
+                isDragging
+                  ? "border-primary bg-primary/5"
+                  : "border-border hover:border-primary/50"
+              }`}
+              onClick={() => fileInputRef.current?.click()}
+            >
+              <Upload className="w-8 h-8 mx-auto mb-2 text-muted-foreground" />
               <p className="text-muted-foreground">
                 拖拽图片到此处或点击选择 支持 JPG、PNG 等格式，将自动裁剪为 16:9 比例
               </p>
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                onChange={handleFileSelect}
+                className="hidden"
+              />
             </div>
+            {coverImagePreview && (
+              <div className="mt-4 relative">
+                <img
+                  src={coverImagePreview}
+                  alt="Cover preview"
+                  className="w-full h-48 object-cover rounded-lg"
+                />
+                <Button
+                  type="button"
+                  variant="destructive"
+                  size="sm"
+                  className="absolute top-2 right-2"
+                  onClick={() => {
+                    setCoverImagePreview("");
+                    setFormData({ ...formData, coverImage: "" });
+                  }}
+                >
+                  删除
+                </Button>
+              </div>
+            )}
           </div>
 
           {/* 摘要 */}
@@ -469,19 +543,97 @@ export function AdminPostForm() {
             />
           </div>
 
+          {/* 发布日期 */}
+          <div>
+            <label className="block text-sm font-medium mb-2">发布日期</label>
+            <Input
+              type="date"
+              value={formData.publishedAt}
+              onChange={(e) => setFormData({ ...formData, publishedAt: e.target.value })}
+            />
+            <p className="text-xs text-muted-foreground mt-1">
+              选择文章显示的发布日期（不同于实际发布时间）
+            </p>
+          </div>
+
           {/* 内容编辑器 */}
           <div>
             <label className="block text-sm font-medium mb-2">
               内容 <span className="text-red-500">*</span>
             </label>
+            
+            {/* 编辑工具栏 */}
+            <div className="flex flex-wrap gap-1 mb-2 p-2 bg-muted rounded-t-lg border border-b-0 border-input">
+              <Button
+                type="button"
+                variant="ghost"
+                size="sm"
+                title="加粗"
+                onClick={() => insertMarkdown("**", "**")}
+              >
+                <Bold className="w-4 h-4" />
+              </Button>
+              <Button
+                type="button"
+                variant="ghost"
+                size="sm"
+                title="斜体"
+                onClick={() => insertMarkdown("*", "*")}
+              >
+                <Italic className="w-4 h-4" />
+              </Button>
+              <div className="w-px bg-border mx-1" />
+              <Button
+                type="button"
+                variant="ghost"
+                size="sm"
+                title="无序列表"
+                onClick={() => insertMarkdown("- ")}
+              >
+                <List className="w-4 h-4" />
+              </Button>
+              <Button
+                type="button"
+                variant="ghost"
+                size="sm"
+                title="链接"
+                onClick={() => insertMarkdown("[链接文本](", ")")}
+              >
+                <LinkIcon className="w-4 h-4" />
+              </Button>
+              <Button
+                type="button"
+                variant="ghost"
+                size="sm"
+                title="图片"
+                onClick={() => insertMarkdown("![图片描述](", ")")}
+              >
+                <ImageIcon className="w-4 h-4" />
+              </Button>
+              <Button
+                type="button"
+                variant="ghost"
+                size="sm"
+                title="标题"
+                onClick={() => insertMarkdown("## ")}
+              >
+                <AlignLeft className="w-4 h-4" />
+              </Button>
+            </div>
+
+            {/* 编辑框 */}
             <Textarea
+              ref={textareaRef}
               placeholder="输入文章内容（支持Markdown）"
               value={formData.content}
               onChange={(e) => setFormData({ ...formData, content: e.target.value })}
-              rows={15}
+              rows={25}
               required
-              className="font-mono text-sm"
+              className="font-mono text-sm border-t-0 rounded-t-none"
             />
+            <p className="text-xs text-muted-foreground mt-1">
+              支持 Markdown 格式。使用工具栏快速插入格式化内容。
+            </p>
           </div>
 
           {/* 发布选项 */}

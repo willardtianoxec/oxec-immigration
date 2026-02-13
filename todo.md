@@ -488,3 +488,10 @@
 - [x] 更新SuccessCaseDetail.tsx - 使用新的PostDetailLayout模板
 - [x] 实现响应式调整 - 移动端改为上下堆厠，background-attachment改为scroll
 - [x] 测试所有屏幕尺寸 - 验证桥接、平板、移动设备的显示效果
+
+## Article Editor Enhancement (Current Sprint - Phase 45)
+- [x] 修复图片上传功能 - 实现拖拽上传和点击上传封面图
+- [x] 重构分类逻辑 - 根据文章类型动态显示对应的内容分类选项
+- [x] 添加发布日期自定义 - 允许用户自定义文章显示的发布时间
+- [x] 扩大编辑框高度 - 增加侧边滑动条，提升编辑体验
+- [x] 添加编辑功能 - 实现字体、程数、颜色、行距、缩进、对齐、插入图片等功能
