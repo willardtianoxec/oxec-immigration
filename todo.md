@@ -470,3 +470,6 @@
 - [x] 恢复服务全球文字 - 右侧文字已是正确的，不需要修改
 - [x] 修复CICC验证链接样式 - 字体颜色和size与"免责声明"保持一致
 - [x] 修复最新资讯引用 - 替换为LatestArticlesSection组件，正常显示已发布文章
+
+## Content Update Phase (Current Sprint - Phase 42)
+- [x] Update Global Service section text - Modify title and content

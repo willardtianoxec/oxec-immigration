@@ -315,9 +315,12 @@ export default function Home() {
               />
             </div>
             <div>
-              <h2 className="font-bold text-foreground mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: '48px', fontWeight: 900 }}>全球服务范围</h2>
+              <h2 className="font-bold text-foreground mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: '48px', fontWeight: 900 }}>欢迎帮助我们"点亮地图"</h2>
               <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-                傲赛（OXEC）为来自全球各地的客户提供专业的加拿大移民咨询与代理服务。无论您身在何处，我们都致力于帮助您实现加拿大移民梦想。
+                我们为来自加拿大各地及世界各国的客户提供移民咨询服务。您来自我们尚未服务过的国家，我们诚挚期待与您建立联系。每一位客户都是一段全新的旅程——在为您提供专业支持的同时，我们也渴望汲取您深厚的文化底蕴与移民故事，并分享我们的专业经验。
+              </p>
+              <p className="text-lg text-muted-foreground leading-relaxed mb-6">
+                我们期待与您共同走过这段旅程。
               </p>
               <Link href="/booking">
                 <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none">
