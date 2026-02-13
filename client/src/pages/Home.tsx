@@ -126,10 +126,10 @@ export default function Home() {
         )}
       </nav>
 
-      {/* Split Hero Section - Fixed Height with Responsive Adjustments */}
-      <section className="relative w-full overflow-hidden bg-background flex" style={{minHeight: '80vh', height: 'auto'}}>
+      {/* Split Hero Section - Responsive Height */}
+      <section className="relative w-full overflow-hidden bg-background flex flex-col lg:flex-row" style={{minHeight: '100vh'}}>
         {/* Left: Image - Full Height, No Padding */}
-        <div className="w-full lg:w-1/2 order-2 lg:order-1 h-64 lg:h-auto flex items-center justify-center">
+        <div className="w-full lg:w-1/2 order-2 lg:order-1 flex items-center justify-center" style={{minHeight: '100%'}}>
           <img
             src="/hero-canadian.jpg"
             alt="Canadian Immigration - Flag and Parliament"
@@ -138,12 +138,12 @@ export default function Home() {
         </div>
 
         {/* Right: Content - Deep Blue Background */}
-        <div className="w-full lg:w-1/2 order-1 lg:order-2 flex items-center justify-center p-8 lg:p-16 relative z-10" style={{ backgroundColor: "#335577" }}>
+        <div className="w-full lg:w-1/2 order-1 lg:order-2 flex items-center justify-center p-8 lg:p-16 relative z-10" style={{ backgroundColor: "#335577", minHeight: '100%' }}>
           <div className="space-y-6 w-full max-w-lg">
             <div className="inline-block px-4 py-2 rounded-full text-sm font-semibold" style={{ color: "#ffffff", backgroundColor: "rgba(255, 255, 255, 0.1)" }}>
               {t('hero.subtitle')}
             </div>
-            <h1 className="text-4xl lg:text-5xl font-bold leading-tight" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontWeight: 900, color: "#ffffff" }}>
+            <h1 className="text-4xl lg:text-5xl font-black leading-tight" style={{ fontFamily: '"Alibaba PuHuiTi", sans-serif', fontWeight: 900, color: "#ffffff" }}>
               <span style={{ display: 'inline-block', whiteSpace: 'nowrap' }}>{t("hero.title_part1")}</span>
               <span className="block mt-2" style={{ color: "#ffffff" }}>
                 {t("hero.title_part2")}

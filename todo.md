@@ -447,3 +447,8 @@
 - [x] 创建默认文章标题图 - 生成带傲赛移民 OXEC Immigration文字的默认图片
 - [x] 更新首页文章引用 - 创建LatestArticlesSection组件引用真实已发布的文章
 - [x] 验证所有section标题字体 - 确保视觉厚重感一致
+
+## Bug Fixes (Current Sprint - Phase 38)
+- [x] 修复Hero Section响应式高度 - 修改为minHeight: 100vh，使用flex-col lg:flex-row布局
+- [x] 修复标题字体加载 - 在index.html中添加阿里巴巴普惠体CDN字体链接
+- [x] 修复最新文章引用 - 优化LatestArticlesSection的数据获取逻辑
