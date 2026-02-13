@@ -38,12 +38,12 @@ export function LatestArticlesSection() {
           <p className="text-lg text-muted-foreground">了解最新的移民政策和成功案例</p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 mb-8">
+        <div className="flex flex-wrap justify-center gap-8 mb-8">
           {/* Latest Blog Article */}
           {latestBlog && !blogLoading ? (
             <Link href={`/blog/${latestBlog.id}`}>
-              <div className="group relative overflow-hidden bg-white border border-border cursor-pointer transition-all duration-300 hover:shadow-lg">
-                <div className="relative h-48 overflow-hidden">
+              <div className="group relative overflow-hidden bg-white border border-border cursor-pointer transition-all duration-300 hover:shadow-lg" style={{ maxWidth: '640px', width: '100%' }}>
+                <div className="relative overflow-hidden" style={{ aspectRatio: '16 / 9' }}>
                   <img 
                     src={latestBlog.coverImage || DEFAULT_COVER_URL} 
                     alt={latestBlog.title} 
@@ -59,8 +59,8 @@ export function LatestArticlesSection() {
             </Link>
           ) : (
             <Link href="/blog">
-              <div className="group relative overflow-hidden bg-white border border-border cursor-pointer transition-all duration-300 hover:shadow-lg">
-                <div className="relative h-48 overflow-hidden">
+              <div className="group relative overflow-hidden bg-white border border-border cursor-pointer transition-all duration-300 hover:shadow-lg" style={{ maxWidth: '640px', width: '100%' }}>
+                <div className="relative overflow-hidden" style={{ aspectRatio: '16 / 9' }}>
                   <img src={DEFAULT_COVER_URL} alt="Latest Blog" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                 </div>
                 <div className="p-6">
@@ -75,8 +75,8 @@ export function LatestArticlesSection() {
           {/* Latest Success Case */}
           {latestSuccessCase && !successLoading ? (
             <Link href={`/success-cases/${latestSuccessCase.id}`}>
-              <div className="group relative overflow-hidden bg-white border border-border cursor-pointer transition-all duration-300 hover:shadow-lg">
-                <div className="relative h-48 overflow-hidden">
+              <div className="group relative overflow-hidden bg-white border border-border cursor-pointer transition-all duration-300 hover:shadow-lg" style={{ maxWidth: '640px', width: '100%' }}>
+                <div className="relative overflow-hidden" style={{ aspectRatio: '16 / 9' }}>
                   <img 
                     src={latestSuccessCase.coverImage || DEFAULT_COVER_URL} 
                     alt={latestSuccessCase.title} 
@@ -92,8 +92,8 @@ export function LatestArticlesSection() {
             </Link>
           ) : (
             <Link href="/success-cases">
-              <div className="group relative overflow-hidden bg-white border border-border cursor-pointer transition-all duration-300 hover:shadow-lg">
-                <div className="relative h-48 overflow-hidden">
+              <div className="group relative overflow-hidden bg-white border border-border cursor-pointer transition-all duration-300 hover:shadow-lg" style={{ maxWidth: '640px', width: '100%' }}>
+                <div className="relative overflow-hidden" style={{ aspectRatio: '16 / 9' }}>
                   <img src={DEFAULT_COVER_URL} alt="Latest Success Case" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                 </div>
                 <div className="p-6">

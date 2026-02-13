@@ -244,8 +244,8 @@ export default function Home() {
                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </div>
                 <div className="p-6">
-                  <h3 className="text-lg font-bold text-foreground mb-2 text-center">{t("services.study")}</h3>
-                  <p className="text-muted-foreground text-sm text-center">{t("services.study_desc")}</p>
+                  <h3 className="text-lg font-bold text-foreground mb-2 text-center">留学与访问</h3>
+                  <p className="text-muted-foreground text-sm text-center">专业的留学签证和访问签证申请指导与支持。</p>
                 </div>
               </div>
             </Link>

@@ -473,3 +473,10 @@
 
 ## Content Update Phase (Current Sprint - Phase 42)
 - [x] Update Global Service section text - Modify title and content
+
+## Home Page Adjustments (Current Sprint - Phase 43)
+- [x] 修改Hero标题 - "专业、领先、值得信赖的伙伴"改为"专业、资深、值得信赖的"
+- [ ] 更新服务卡片图片 - 五个卡片使用更能体现服务内容的图片
+- [x] 修复第五个卡片文本 - 改为"留学与访问"和相应的服务内容说明
+- [x] 实现客户评价滑动 - 添加左右滑动功能，显示前10条评价
+- [x] 修复最新资讯卡片 - 固定16:9比例，卡片宽度不超过640px

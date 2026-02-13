@@ -13,7 +13,7 @@ export const translations: Record<Language, Record<string, string>> = {
 
     // Hero Section
     'hero.subtitle': 'We are OXEC Immigration Services',
-    'hero.title_part1': 'Professional, Leading, and Trustworthy',
+    'hero.title_part1': 'Professional, Senior, and Trustworthy',
     'hero.title_part2': 'Canadian Immigration Partner',
     'hero.description': 'OXEC Immigration Services Ltd. provides comprehensive immigration consulting services with expert guidance, personalized strategies, and a proven track record of success in helping clients achieve their Canadian dreams.',
     'hero.book_consultation': 'Book Consultation',
@@ -102,7 +102,7 @@ export const translations: Record<Language, Record<string, string>> = {
 
     // Hero Section
     'hero.subtitle': '我们是傲赛（OXEC）移民事务所',
-    'hero.title_part1': '专业、领先、值得信赖的',
+    'hero.title_part1': '专业、资深、值得信赖的',
     'hero.title_part2': '加拿大移民合作伙伴',
     'hero.description': 'OXEC移民事务所提供全面的移民咨询服务，拥有专家指导、个性化策略和成功帮助客户实现加拿大梦想的良好记录。',
     'hero.book_consultation': '预约咨询',
