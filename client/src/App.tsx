@@ -68,6 +68,7 @@ function Router() {
       <Route path="/term-of-service" component={TermOfService} />
       <Route path="/term-of-use" component={TermOfUse} />
       <Route path="/admin/posts/:id/preview" component={AdminPostPreview} />
+      <Route path="/admin/posts/new" component={AdminPostForm} />
       <Route path="/admin/posts/:id" component={AdminPostForm} />
       <Route path="/admin/posts" component={AdminPosts} />
       <Route path="/404" component={NotFound} />

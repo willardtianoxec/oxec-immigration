@@ -70,7 +70,7 @@ export default function AdminPosts() {
       <div className="container mx-auto px-4 py-8">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-bold">文章管理</h1>
-          <Button onClick={() => navigate("/admin/posts")}>
+          <Button onClick={() => navigate("/admin/posts/new")}>
             <Plus className="w-4 h-4 mr-2" />
             新建文章
           </Button>
@@ -204,7 +204,7 @@ export default function AdminPosts() {
         ) : (
           <div className="text-center py-12">
             <p className="text-muted-foreground mb-4">暂无文章</p>
-            <Button onClick={() => navigate("/admin/posts")}>
+            <Button onClick={() => navigate("/admin/posts/new")}>
               创建第一篇文章
             </Button>
           </div>
