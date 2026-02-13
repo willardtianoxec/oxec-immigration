@@ -480,3 +480,11 @@
 - [x] 修复第五个卡片文本 - 改为"留学与访问"和相应的服务内容说明
 - [x] 实现客户评价滑动 - 添加左右滑动功能，显示前10条评价
 - [x] 修复最新资讯卡片 - 固定16:9比例，卡片宽度不超过640px
+
+## Post Detail Page Redesign (Current Sprint - Phase 44)
+- [x] 上传两张背景图到S3 - 博客文章和成功案例各一张
+- [x] 创建PostDetailLayout组件 - 实现固定背景图、毛玻璃效果和侧边栏
+- [x] 更新BlogPost.tsx - 使用新的PostDetailLayout模板
+- [x] 更新SuccessCaseDetail.tsx - 使用新的PostDetailLayout模板
+- [x] 实现响应式调整 - 移动端改为上下堆厠，background-attachment改为scroll
+- [x] 测试所有屏幕尺寸 - 验证桥接、平板、移动设备的显示效果
