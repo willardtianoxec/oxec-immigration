@@ -1,6 +1,11 @@
 import { Link } from 'wouter';
 
-export function Footer() {
+interface FooterProps {}
+
+// CICC verification link
+const CICC_VERIFICATION_URL = 'https://college-ic.ca/protecting-the-public/find-an-immigration-consultant';
+
+export function Footer({}: FooterProps) {
   return (
     <footer className="w-full" style={{ backgroundColor: '#203341' }}>
       <div className="container mx-auto px-4 py-16">
@@ -83,6 +88,26 @@ export function Footer() {
               <p className="text-xs leading-relaxed" style={{ color: '#E5E7EB', fontSize: '15px' }}>
                 本网页所载信息仅供一般参考之用，不应被视为法律意见，亦不构成顾问与客户之间的正式代理关系。除非双方签署正式的《专业服务协议》(Retainer Agreement)，否则本事务所对依赖上述信息产生的任何后果不承担担保责任。
               </p>
+              
+              {/* CICC Logo and Verification */}
+              <div className="mt-6 pt-6 border-t border-gray-600">
+                <img
+                  src="/cicc-logo.png"
+                  alt="CICC - College of Immigration and Citizenship Consultants"
+                  className="h-16 w-auto mb-4"
+                />
+                <p className="text-xs" style={{ color: '#E5E7EB', fontSize: '14px' }}>
+                  <a
+                    href="https://college-ic.ca/protecting-the-public/find-an-immigration-consultant"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-white transition"
+                    style={{ color: '#60A5FA' }}
+                  >
+                    通过CICC核实移民顾问身份
+                  </a>
+                </p>
+              </div>
             </div>
           </div>
 
