@@ -1,0 +1,34 @@
+{
+  "query": "SELECT id, title, type, contentCategory FROM posts LIMIT 5;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2MHEakYmYxuSUJe.root --database ERSfzVi6JGQA5UonrK4h6y --execute SELECT id, title, type, contentCategory FROM posts LIMIT 5;",
+  "rows": [
+    {
+      "id": "1",
+      "title": "详说拒签史",
+      "type": "blog",
+      "contentCategory": "NULL"
+    },
+    {
+      "id": "30001",
+      "title": "详说拒签史",
+      "type": "blog",
+      "contentCategory": "NULL"
+    },
+    {
+      "id": "60001",
+      "title": "李女士成功获得加拿大投资移民签证",
+      "type": "success-case",
+      "contentCategory": "investment-immigration"
+    },
+    {
+      "id": "90001",
+      "title": "王先生成功获得加拿大技术移民签证",
+      "type": "success-case",
+      "contentCategory": "skilled-worker"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\ttype\tcontentCategory\n1\t详说拒签史\tblog\tNULL\n30001\t详说拒签史\tblog\tNULL\n60001\t李女士成功获得加拿大投资移民签证\tsuccess-case\tinvestment-immigration\n90001\t王先生成功获得加拿大技术移民签证\tsuccess-case\tskilled-worker\n",
+  "stderr": "",
+  "execution_time_ms": 353
+}

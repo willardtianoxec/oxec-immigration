@@ -1,0 +1,15 @@
+{
+  "query": "SELECT id, title, contentCategory FROM posts WHERE id = 30001;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2MHEakYmYxuSUJe.root --database ERSfzVi6JGQA5UonrK4h6y --execute SELECT id, title, contentCategory FROM posts WHERE id = 30001;",
+  "rows": [
+    {
+      "id": "30001",
+      "title": "详说拒签史",
+      "contentCategory": "NULL"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\tcontentCategory\n30001\t详说拒签史\tNULL\n",
+  "stderr": "",
+  "execution_time_ms": 413
+}

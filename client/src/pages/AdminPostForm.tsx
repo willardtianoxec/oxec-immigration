@@ -261,7 +261,13 @@ export function AdminPostForm() {
   const isSubmitting = createMutation.isPending || updateMutation.isPending;
 
   const handleSaveDraft = () => {
-    if (!formData.contentCategory) {
+    // 对于博客文章，contentCategory可以为空（使用blogCategory）
+    // 对于成功案例，contentCategory必须选择
+    if (formData.type === "success-case" && !formData.contentCategory) {
+      alert("请选择内容分类");
+      return;
+    }
+    if (formData.type === "blog" && !formData.contentCategory) {
       alert("请选择内容分类");
       return;
     }
@@ -277,7 +283,7 @@ export function AdminPostForm() {
         content: formData.content,
         excerpt: formData.excerpt || undefined,
 
-        contentCategory: formData.contentCategory as any,
+        contentCategory: formData.contentCategory ? (formData.contentCategory as any) : undefined,
         tags: formData.tags || undefined,
         coverImage: formData.coverImage || undefined,
         publishedAt: undefined,
@@ -291,7 +297,7 @@ export function AdminPostForm() {
         excerpt: formData.excerpt || undefined,
 
         type: formData.type,
-        contentCategory: formData.contentCategory as any,
+        contentCategory: formData.contentCategory ? (formData.contentCategory as any) : undefined,
         tags: formData.tags || undefined,
         coverImage: formData.coverImage || undefined,
       });
@@ -299,7 +305,13 @@ export function AdminPostForm() {
   };
 
   const handlePublish = () => {
-    if (!formData.contentCategory) {
+    // 对于博客文章，contentCategory可以为空（使用blogCategory）
+    // 对于成功案例，contentCategory必须选择
+    if (formData.type === "success-case" && !formData.contentCategory) {
+      alert("请选择内容分类");
+      return;
+    }
+    if (formData.type === "blog" && !formData.contentCategory) {
       alert("请选择内容分类");
       return;
     }
@@ -315,7 +327,7 @@ export function AdminPostForm() {
         content: formData.content,
         excerpt: formData.excerpt || undefined,
 
-        contentCategory: formData.contentCategory as any,
+        contentCategory: formData.contentCategory ? (formData.contentCategory as any) : undefined,
         tags: formData.tags || undefined,
         coverImage: formData.coverImage || undefined,
         published: true,
@@ -330,7 +342,7 @@ export function AdminPostForm() {
         excerpt: formData.excerpt || undefined,
 
         type: formData.type,
-        contentCategory: formData.contentCategory as any,
+        contentCategory: formData.contentCategory ? (formData.contentCategory as any) : undefined,
         tags: formData.tags || undefined,
         coverImage: formData.coverImage || undefined,
         published: true,
