@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { trpc } from "@/lib/trpc";
 import { Link } from "wouter";
@@ -57,9 +57,9 @@ export default function Blog() {
         ) : filteredPosts && filteredPosts.length > 0 ? (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredPosts.map((post) => (
-              <Card key={post.id} className="flex flex-col hover:shadow-lg transition-shadow">
+              <Card key={post.id} className="flex flex-col overflow-hidden hover:shadow-lg transition-shadow">
                 {post.coverImage && (
-                  <div className="h-48 overflow-hidden rounded-t-lg">
+                  <div className="h-48 overflow-hidden">
                     <img
                       src={post.coverImage}
                       alt={post.title}
@@ -67,29 +67,19 @@ export default function Blog() {
                     />
                   </div>
                 )}
-                <CardHeader>
-                  <div className="flex items-center text-sm text-muted-foreground mb-2">
-                    <Calendar className="h-4 w-4 mr-1" />
+                <CardHeader className="flex-1 flex flex-col">
+                  <div className="flex items-center text-sm text-muted-foreground mb-3">
+                    <Calendar className="h-4 w-4 mr-2" />
                     {format(new Date(post.publishedAt || post.createdAt), "MMM d, yyyy")}
                   </div>
-                  {post.blogCategory && (
-                    <div className="inline-block px-2 py-1 bg-accent/10 text-accent text-xs rounded mb-2">
-                      {post.blogCategory}
-                    </div>
-                  )}
-                  <CardTitle className="line-clamp-2">{post.title}</CardTitle>
-                </CardHeader>
-                <CardContent className="flex-1 flex flex-col">
-                  <CardDescription className="line-clamp-3 flex-1">
-                    {post.excerpt || post.content.substring(0, 150) + "..."}
-                  </CardDescription>
+                  <CardTitle className="line-clamp-2 mb-4 flex-1">{post.title}</CardTitle>
                   <Link href={`/blog/${post.slug}`}>
-                    <Button variant="ghost" className="mt-4 p-0 h-auto text-primary hover:text-primary/80">
-                      Read More
+                    <Button variant="ghost" className="p-0 h-auto text-primary hover:text-primary/80">
+                      Click to Read
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
                   </Link>
-                </CardContent>
+                </CardHeader>
               </Card>
             ))}
           </div>
