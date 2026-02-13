@@ -439,3 +439,4 @@
 - [x] 获取Google Place评价数据 - 创建 googlePlacesAPI.ts模块，使用新版Places API
 - [x] 更新GoogleReviewsPreview组件 - 更新routers.ts使用真实API
 - [x] 测试Google Place集成 - 使用正确的Place ID，验证评价显示效果
+- [x] 验证真实评价显示 - 首页已成功显示Google Place的真实客户评价（Bofan Li、Willard Tian等）
