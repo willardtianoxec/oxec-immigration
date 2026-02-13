@@ -421,3 +421,15 @@
 - [x] 简化卡片内容 - 移除正文信息，只显示时间、标题和"点击阅读"按钮
 - [x] 调整图片样式 - 移除圆角，使图片上缘与卡片边框对齐
 - [ ] 测试卡片显示效果 - 验证在不同屏幕尺寸下的显示效果
+
+## Home Page Layout Optimization (Current Sprint - Phase 35)
+- [x] 修复Hero Section自适应高度 - 将height改为min-height: 80vh，使用height: auto或min-height
+- [x] 添加overflow: hidden - 防止内部绝对定位元素溢出
+- [x] 清除negative margin - 确保Hero Section与下一section紧挨，无重叠
+- [x] 标准化section间距 - 所有section设置padding使用clamp函数实现响应式
+- [x] 实现响应式间距 - 使用clamp函数，手机端自动变为padding: 40px 0;
+- [x] 修复z-index问题 - 为Services及后续section添加relative z-20确保可编辑
+- [x] 检查"我们的移民服务"标题字体 - 确认使用Alibaba PuHuiTi Black 64px
+- [x] 统一所有标题字体 - 所有section标题使用Alibaba PuHuiTi Black 64px fontWeight 900
+- [ ] 测试不同窗口尺寸 - 验证响应式布局效果
+- [ ] 验证可编辑性 - 确保所有文字元素可点击和编辑

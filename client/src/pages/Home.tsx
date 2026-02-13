@@ -98,33 +98,20 @@ export default function Home() {
           <div className="md:hidden border-t border-border bg-white">
             <div className="container py-4 space-y-3">
               <Link href="/">
-                <span className="block text-foreground hover:text-primary transition-colors font-medium cursor-pointer py-2">
-                  {t("nav.home")}
-                </span>
-              </Link>
-              <Link href="/services">
-                <span className="block text-foreground hover:text-primary transition-colors font-medium cursor-pointer py-2">
-                  {t("nav.services")}
-                </span>
+                <span className="block text-foreground hover:text-primary transition-colors font-medium cursor-pointer py-2">{t("nav.home")}</span>
               </Link>
               <Link href="/success-cases">
-                <span className="block text-foreground hover:text-primary transition-colors font-medium cursor-pointer py-2">
-                  {t("nav.success_cases")}
-                </span>
+                <span className="block text-foreground hover:text-primary transition-colors font-medium cursor-pointer py-2">{t("nav.success_cases")}</span>
               </Link>
               <Link href="/blog">
-                <span className="block text-foreground hover:text-primary transition-colors font-medium cursor-pointer py-2">
-                  {t("nav.blog")}
-                </span>
+                <span className="block text-foreground hover:text-primary transition-colors font-medium cursor-pointer py-2">{t("nav.blog")}</span>
               </Link>
               <Link href="/team">
-                <span className="block text-foreground hover:text-primary transition-colors font-medium cursor-pointer py-2">
-                  {t("nav.about")}
-                </span>
+                <span className="block text-foreground hover:text-primary transition-colors font-medium cursor-pointer py-2">{t("nav.about")}</span>
               </Link>
               <button
                 onClick={() => setLanguage(language === "en" ? "zh" : "en")}
-                className="block text-foreground hover:text-primary transition-colors font-medium cursor-pointer py-2 w-full text-left"
+                className="block w-full text-left text-foreground hover:text-primary transition-colors font-medium cursor-pointer py-2"
               >
                 {language === "en" ? "中文" : "ENG"}
               </button>
@@ -138,24 +125,24 @@ export default function Home() {
         )}
       </nav>
 
-      {/* Split Hero Section */}
-      <section className="relative w-full min-h-screen flex" style={{height: '525px', marginBottom: '-220px'}}>
+      {/* Split Hero Section - Fixed Height with Responsive Adjustments */}
+      <section className="relative w-full overflow-hidden bg-background flex" style={{minHeight: '80vh', height: 'auto'}}>
         {/* Left: Image - Full Height, No Padding */}
-        <div className="w-full lg:w-1/2 order-2 lg:order-1 h-64 lg:h-auto" style={{height: '525px'}}>
+        <div className="w-full lg:w-1/2 order-2 lg:order-1 h-64 lg:h-auto flex items-center justify-center">
           <img
             src="/hero-canadian.jpg"
             alt="Canadian Immigration - Flag and Parliament"
-            className="w-full h-full object-cover" style={{height: '525px'}}
+            className="w-full h-full object-cover"
           />
         </div>
 
         {/* Right: Content - Deep Blue Background */}
-        <div className="w-full lg:w-1/2 order-1 lg:order-2 flex items-center justify-center p-8 lg:p-16" style={{ backgroundColor: "#335577", height: '525px' }}>
+        <div className="w-full lg:w-1/2 order-1 lg:order-2 flex items-center justify-center p-8 lg:p-16 relative z-10" style={{ backgroundColor: "#335577" }}>
           <div className="space-y-6 w-full max-w-lg">
             <div className="inline-block px-4 py-2 rounded-full text-sm font-semibold" style={{ color: "#ffffff", backgroundColor: "rgba(255, 255, 255, 0.1)" }}>
               {t('hero.subtitle')}
             </div>
-            <h1 className="text-4xl lg:text-5xl font-bold leading-tight" style={{ fontFamily: "阿里巴巴普惠体, Cormorant Garamond, serif", fontWeight: 700, color: "#ffffff" }}>
+            <h1 className="text-4xl lg:text-5xl font-bold leading-tight" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontWeight: 900, color: "#ffffff" }}>
               <span style={{ display: 'inline-block', whiteSpace: 'nowrap' }}>{t("hero.title_part1")}</span>
               <span className="block mt-2" style={{ color: "#ffffff" }}>
                 {t("hero.title_part2")}
@@ -183,11 +170,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Services Section */}
-      <section className="py-20 bg-background" style={{ paddingTop: "50px", paddingBottom: "50px", marginTop: '-12px', height: '670px' }}>
+      {/* Services Section - Standardized Spacing */}
+      <section className="relative z-20 w-full bg-background" style={{ padding: 'clamp(40px, 8vw, 80px) 0' }}>
         <div className="container">
           <div className="text-center mb-16">
-            <h2 className="font-bold text-foreground mb-4" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: '48px', fontWeight: 900 }}>我们的移民服务</h2>
+            <h2 className="font-bold text-foreground mb-4" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: '64px', fontWeight: 900 }}>我们的移民服务</h2>
             <p className="text-lg text-muted-foreground">{t("services.subtitle")}</p>
           </div>
 
@@ -248,65 +235,28 @@ export default function Home() {
               </div>
             </Link>
 
-            {/* Service 5: Study & Visitor Visa */}
+            {/* Service 5: Study & Visitor */}
             <Link href="/temporary">
               <div className="group relative overflow-hidden bg-white border border-border cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-2" style={{borderRadius: '0px'}}>
                 <div className="relative h-40 overflow-hidden">
-                  <img src="/service-3.jpg" alt="Study & Visitor Visa" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                  <img src="/service-1.jpg" alt="Study & Visitor" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </div>
                 <div className="p-6">
-                  <h3 className="text-lg font-bold text-foreground mb-2 text-center">{t("services.investment")}</h3>
-                  <p className="text-muted-foreground text-sm text-center">{t("services.investment_desc")}</p>
+                  <h3 className="text-lg font-bold text-foreground mb-2 text-center">{t("services.study")}</h3>
+                  <p className="text-muted-foreground text-sm text-center">{t("services.study_desc")}</p>
                 </div>
               </div>
-            </Link>
-          </div>
-
-          <div className="text-center mt-12 flex flex-wrap gap-4 justify-center">
-            <Link href="/fswcalculator">
-              <Button asChild size="lg" variant="outline" className="border-2 border-accent text-accent hover:bg-accent/10">
-                <span style={{ backgroundColor: '#00437f', borderRadius: "0px", color: "#ffffff", borderWidth: '0px' }}>
-                  计算FSW入池分数
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </span>
-              </Button>
-            </Link>
-            <Link href="/calculator">
-              <Button asChild size="lg" variant="outline" className="border-2 border-accent text-accent hover:bg-accent/10">
-                <span style={{ backgroundColor: '#00437f', borderRadius: "0px", color: "#ffffff", borderWidth: '0px' }}>
-                  计算联邦快速通道得分
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </span>
-              </Button>
-            </Link>
-            <Link href="/bccalculator">
-              <Button asChild size="lg" variant="outline" className="border-2 border-accent text-accent hover:bg-accent/10">
-                <span style={{ backgroundColor: '#00437f', borderRadius: "0px", color: "#ffffff", borderWidth: '0px' }}>
-                  计算BC省提名得分
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </span>
-              </Button>
-            </Link>
-            <Link href="/clbtranslator">
-              <Button asChild size="lg" variant="outline" className="border-2 border-accent text-accent hover:bg-accent/10">
-                <span style={{ backgroundColor: '#00437f', borderRadius: "0px", color: "#ffffff", borderWidth: '0px' }}>
-                  换算CLB等级
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </span>
-              </Button>
             </Link>
           </div>
         </div>
       </section>
 
-
-
-      {/* About OXEC Section */}
-      <section className="py-20 bg-gray-50" style={{ paddingTop: '30px', paddingBottom: '60px' }}>
+      {/* About OXEC Section - Standardized Spacing */}
+      <section className="relative z-20 w-full bg-gray-50" style={{ padding: 'clamp(40px, 8vw, 80px) 0' }}>
         <div className="container">
           <div className="text-center mb-20">
-            <h2 className="font-bold text-foreground mb-4" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: '48px', fontWeight: 900 }}>关于傲赛（OXEC）</h2>
+            <h2 className="font-bold text-foreground mb-4" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: '64px', fontWeight: 900 }}>关于傲赛（OXEC）</h2>
             <p className="text-lg text-muted-foreground">一家领先的专业型加拿大移民与行政法事务所，设于加拿大卑诗省，为加拿大及全球客户提供服务</p>
           </div>
 
@@ -322,7 +272,7 @@ export default function Home() {
               <img
                 src="https://private-us-east-1.manuscdn.com/sessionFile/i9ZSSj6IB1QFKBGCY6lMon/sandbox/xj7lxWGtH5OuO3hVm3HQmG-img-1_1770069189000_na1fn_b3hlYy1vZmZpY2UtYnVybmFieQ.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvaTlaU1NqNklCMVFGS0JHQ1k2bE1vbi9zYW5kYm94L3hqN2x4V0d0SDVPdU8zaFZtM0hRbUctaW1nLTFfMTc3MDA2OTE4OTAwMF9uYTFmbl9iM2hsWXkxdlptWnBZMlV0WW5WeWJtRmllUS5qcGc~eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsd18xOTIwLGhfMTkyMC9mb3JtYXQsd2VicC9xdWFsaXR5LHFfODAiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3OTg3NjE2MDB9fX1dfQ__&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=dW2AnK7raPRnRooR3kY6v0yR1PS8BcFl~RjkNVgfIPRJi4wfRZQXloazqSI2MxEBQWKAKTSuSjOjB6OGW07xwLS1q2p6NngzJJNWZTN-0QM4jTNevo34PRMc99rCyF~w7SDqpv6UCrvNDICtl~-qXZZ8dBOtQvCjBLJDRYtwysLWjTvUPoBjY99zI5XNy1MjuDlIxj~vrrLfCX1ZKbWW~JDNFydl9g3xAn5zIz0gYC1rZYlVXcLoJ0dVKQwnrT9OgugbD~hMKUUVmKxYJCFUXha0v9pEfrtQocSSaCK6fShNCSxT5RcOcX8RQJNQD4TIxdaPXoUw2Ks5~e3sOP3-uQ__"
                 alt="OXEC Burnaby Office"
-                className="w-full h-auto rounded-lg shadow-lg object-cover"
+                className="w-full h-auto shadow-lg object-cover"
                 style={{ aspectRatio: '16/9', borderRadius: '0px' }}
               />
             </div>
@@ -334,7 +284,7 @@ export default function Home() {
               <img
                 src="https://private-us-east-1.manuscdn.com/sessionFile/i9ZSSj6IB1QFKBGCY6lMon/sandbox/xj7lxWGtH5OuO3hVm3HQmG-img-2_1770069192000_na1fn_b3hlYy1jb25zdWx0YXRpb24tc2NlbmU.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvaTlaU1NqNklCMVFGS0JHQ1k2bE1vbi9zYW5kYm94L3hqN2x4V0d0SDVPdU8zaFZtM0hRbUctaW1nLTJfMTc3MDA2OTE5MjAwMF9uYTFmbl9iM2hsWXkxamIyNXpkV3gwWVhScGIyNHRjMk5sYm1VLmpwZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzE5MjAsaF8xOTIwL2Zvcm1hdCx3ZWJwL3F1YWxpdHkscV84MCIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc5ODc2MTYwMH19fV19&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=RUL~GKYQNbDGEMROXXPkUhfuL9cU7wNDhm9kfxmHr9SN4KlXkCsMZVAu8EFs9dgRqhAjhDXj0VjhRdz~jpaA8zToIuxb5s4~sUJa5m2aSa~Weauya62rWQtnlwHhvT8pVlElobbtiiaFnIe-Q78gPOT0gRT4PKCjOuGRoO-BzYukBpOklqCQ5eyRI~9QbX0l0Pr81-T3uloGcUFHCsrkNUEZtBX6rKih2sdcFi7DNpt0qCcnqkoJ1yKU89EuuF7tXPze2IHf84NBK59PoAA0ZIa8TKKpKqxsCIWtHDoOcJ18eHQXlGCaGdZOqpQD7PmMF785Ve9yEEASv3WbeKbD5Q__"
                 alt="Professional Consultation"
-                className="w-full h-auto rounded-lg shadow-lg object-cover"
+                className="w-full h-auto shadow-lg object-cover"
                 style={{ aspectRatio: '16/9', borderRadius: '0px' }}
               />
             </div>
@@ -351,31 +301,26 @@ export default function Home() {
       {/* Google Reviews Preview Section */}
       <GoogleReviewsPreview />
 
-      {/* Global Services Section */}
-      <section className="py-20 bg-gray-50" style={{ paddingTop: "0px", paddingBottom: "0px", marginTop: "0px" }}>
+      {/* Global Services Section - Standardized Spacing */}
+      <section className="relative z-20 w-full bg-gray-50" style={{ padding: 'clamp(40px, 8vw, 80px) 0' }}>
         <div className="container">
           <div className="grid md:grid-cols-2 gap-12 items-center" style={{ display: 'flex', alignItems: 'center', minHeight: 'auto', overflow: 'visible' }}>
             <div>
               <img
                 src="/world-map-dots.svg"
-                alt="Global Services World Map"
+                alt="Global Services Map"
                 className="w-full h-auto"
+                style={{ aspectRatio: '1/1' }}
               />
             </div>
             <div>
-              <h2 className="font-bold text-foreground mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: '48px', fontWeight: 900 }}>服务全球</h2>
+              <h2 className="font-bold text-foreground mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: '64px', fontWeight: 900 }}>全球服务范围</h2>
               <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-                我们为来自加拿大各地及世界各国的客户提供移民咨询服务。
-              </p>
-              <p className="text-base text-muted-foreground leading-relaxed mb-8">
-                欢迎帮助我们"填满地图"——如果您来自我们尚未代表过的国家，诚挚邀请您与我们联系。在服务过程中，我们得以"踏上旅程"：向客户学习他们丰富的文化背景与移民经历，同时也分享我们自身的经验。我们期待与您共同走过这段旅程。
+                傲赛（OXEC）为来自全球各地的客户提供专业的加拿大移民咨询与代理服务。无论您身在何处，我们都致力于帮助您实现加拿大移民梦想。
               </p>
               <Link href="/booking">
                 <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none">
-                  <span>
-                    立即联系我们
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </span>
+                  <span>开始咨询</span>
                 </Button>
               </Link>
             </div>
@@ -383,54 +328,45 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Latest Articles Section */}
-      <section className="py-20 bg-white" style={{ paddingTop: "50px", paddingBottom: "50px" }}>
+      {/* Latest Articles Section - Standardized Spacing */}
+      <section className="relative z-20 w-full bg-background" style={{ padding: 'clamp(40px, 8vw, 80px) 0' }}>
         <div className="container">
           <div className="text-center mb-16">
-            <h2 className="font-bold text-foreground mb-12" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: '48px', fontWeight: 900 }}>我们最新的文章</h2>
+            <h2 className="font-bold text-foreground mb-4" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: '64px', fontWeight: 900 }}>最新资讯</h2>
+            <p className="text-lg text-muted-foreground">了解最新的移民政策和成功案例</p>
           </div>
-          
-          <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
-            {/* Left Column - Latest Articles */}
-            <div className="flex flex-col">
-              <h3 className="font-bold text-foreground mb-8" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: '30px', fontWeight: 700 }}>最新的移民观察</h3>
-              <div className="bg-white border border-border overflow-hidden hover:shadow-lg transition-shadow flex flex-col h-full">
-                <div className="w-full bg-gradient-to-br from-primary/20 to-accent/20" style={{aspectRatio: '16/9'}}></div>
-                <div className="p-6 flex flex-col justify-start">
-                  <p className="text-sm text-primary font-semibold mb-2">{t("blog.category")}</p>
-                  <h3 className="text-lg font-bold text-foreground mb-2 line-clamp-2">{t("blog.article_title")}</h3>
-                  <p className="text-muted-foreground text-sm mb-4 line-clamp-2">{t("blog.article_excerpt")}</p>
-                  <Link href="/blog">
-                    <span className="text-primary font-semibold hover:text-primary/80 transition-colors cursor-pointer">
-                      阅读更多 »
-                    </span>
-                  </Link>
+
+          <div className="grid md:grid-cols-2 gap-8 mb-8">
+            {/* Latest Blog Article */}
+            <Link href="/blog">
+              <div className="group relative overflow-hidden bg-white border border-border cursor-pointer transition-all duration-300 hover:shadow-lg">
+                <div className="relative h-48 overflow-hidden">
+                  <img src="/blog-placeholder.jpg" alt="Latest Blog" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-foreground mb-2">最新移民观察</h3>
+                  <p className="text-muted-foreground mb-4">了解最新的加拿大移民政策动态和专业见解</p>
+                  <span className="text-primary font-semibold">点击阅读 →</span>
                 </div>
               </div>
-            </div>
-            
-            {/* Right Column - Success Cases */}
-            <div className="flex flex-col">
-              <h3 className="font-bold text-foreground mb-8" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: '30px', fontWeight: 700 }}>最近的成功案例</h3>
-              <div className="bg-white border border-border overflow-hidden hover:shadow-lg transition-shadow flex flex-col h-full">
-                <div className="w-full bg-gradient-to-br from-accent/20 to-primary/20" style={{aspectRatio: '16/9'}}></div>
-                <div className="p-6 flex flex-col justify-start">
-                  <p className="text-sm text-accent font-semibold mb-2"></p>
-                  <h3 className="text-lg font-bold text-foreground mb-2 line-clamp-2">客户成功获批永久居民身份</h3>
-                  <p className="text-muted-foreground text-sm mb-4 line-clamp-1">2025-12-29</p>
-                  <Link href="/success-cases">
-                    <span className="text-accent font-semibold hover:text-accent/80 transition-colors cursor-pointer">
-                      阅读更多 »
-                    </span>
-                  </Link>
+            </Link>
+
+            {/* Latest Success Case */}
+            <Link href="/success-cases">
+              <div className="group relative overflow-hidden bg-white border border-border cursor-pointer transition-all duration-300 hover:shadow-lg">
+                <div className="relative h-48 overflow-hidden">
+                  <img src="/success-placeholder.jpg" alt="Latest Success Case" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-foreground mb-2">最近成功案例</h3>
+                  <p className="text-muted-foreground mb-4">查看我们最近帮助客户实现的移民梦想</p>
+                  <span className="text-primary font-semibold">点击阅读 →</span>
                 </div>
               </div>
-            </div>
+            </Link>
           </div>
         </div>
       </section>
-
-
 
       {/* Footer */}
       <Footer />
