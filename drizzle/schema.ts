@@ -101,6 +101,20 @@ export const posts = mysqlTable("posts", {
   excerpt: text("excerpt"),
   type: mysqlEnum("type", ["blog", "success-case"]).notNull(),
   category: varchar("category", { length: 100 }),
+  blogCategory: mysqlEnum("blogCategory", [
+    "policy-interpretation",
+    "news",
+    "immigration-life",
+    "immigration-story",
+    "immigration-project"
+  ]),
+  successCaseCategory: mysqlEnum("successCaseCategory", [
+    "investment-immigration",
+    "skilled-worker",
+    "family-reunion",
+    "reconsideration",
+    "temporary-visit"
+  ]),
   contentCategory: mysqlEnum("contentCategory", [
     "investment-immigration",
     "family-reunion",
@@ -113,6 +127,7 @@ export const posts = mysqlTable("posts", {
   ]),
   tags: text("tags"), // JSON array stored as string
   coverImage: varchar("coverImage", { length: 500 }),
+  author: varchar("author", { length: 100 }).default("OXEC Immigration").notNull(),
   published: boolean("published").default(false).notNull(),
   publishedAt: timestamp("publishedAt"),
   authorId: int("authorId").notNull(),

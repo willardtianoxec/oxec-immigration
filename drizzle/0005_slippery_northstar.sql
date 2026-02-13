@@ -1,0 +1,3 @@
+ALTER TABLE `posts` ADD `blogCategory` enum('policy-interpretation','news','immigration-life','immigration-story','immigration-project');--> statement-breakpoint
+ALTER TABLE `posts` ADD `successCaseCategory` enum('investment-immigration','skilled-worker','family-reunion','reconsideration','temporary-visit');--> statement-breakpoint
+ALTER TABLE `posts` ADD `author` varchar(100) DEFAULT 'OXEC Immigration' NOT NULL;

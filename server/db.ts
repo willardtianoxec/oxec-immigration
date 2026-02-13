@@ -1,4 +1,4 @@
-import { eq, desc, like, and } from "drizzle-orm";
+import { eq, desc, like, and, ne } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { 
   InsertUser, 
@@ -249,7 +249,7 @@ export async function getPostBySlug(slug: string) {
   return result.length > 0 ? result[0] : null;
 }
 
-export async function getPosts(filters?: { type?: string; category?: string; contentCategory?: string; publishedOnly?: boolean }) {
+export async function getPosts(filters?: { type?: string; category?: string; blogCategory?: string; successCaseCategory?: string; contentCategory?: string; publishedOnly?: boolean; limit?: number; excludeId?: number }) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
   
@@ -267,15 +267,33 @@ export async function getPosts(filters?: { type?: string; category?: string; con
     conditions.push(eq(posts.category, filters.category));
   }
 
+  if (filters?.blogCategory) {
+    conditions.push(eq(posts.blogCategory, filters.blogCategory as any));
+  }
+
+  if (filters?.successCaseCategory) {
+    conditions.push(eq(posts.successCaseCategory, filters.successCaseCategory as any));
+  }
+
   if (filters?.contentCategory) {
     conditions.push(eq(posts.contentCategory, filters.contentCategory as any));
+  }
+
+  if (filters?.excludeId) {
+    conditions.push(ne(posts.id, filters.excludeId));
   }
   
   const whereClause = conditions.length > 0 ? and(...conditions) : undefined;
   
-  return await db.select().from(posts)
+  const baseQuery = db.select().from(posts)
     .where(whereClause)
     .orderBy(desc(posts.publishedAt || posts.createdAt));
+
+  if (filters?.limit) {
+    return await baseQuery.limit(filters.limit);
+  }
+  
+  return await baseQuery;
 }
 
 export async function publishPost(id: number) {
@@ -316,7 +334,7 @@ export async function getPostsByContentCategory(contentCategory: string, limit?:
   return await query;
 }
 
-export async function searchPosts(query: string, filters?: { type?: string; category?: string; contentCategory?: string }) {
+export async function searchPosts(query: string, filters?: { type?: string; category?: string; blogCategory?: string; successCaseCategory?: string; contentCategory?: string }) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
   
@@ -328,6 +346,14 @@ export async function searchPosts(query: string, filters?: { type?: string; cate
   
   if (filters?.type) {
     conditions.push(eq(posts.type, filters.type as any));
+  }
+
+  if (filters?.blogCategory) {
+    conditions.push(eq(posts.blogCategory, filters.blogCategory as any));
+  }
+
+  if (filters?.successCaseCategory) {
+    conditions.push(eq(posts.successCaseCategory, filters.successCaseCategory as any));
   }
 
   if (filters?.contentCategory) {

@@ -10,6 +10,22 @@ import { Badge } from "@/components/ui/badge";
 import { Loader2, X, RotateCcw } from "lucide-react";
 import { generateSlug, isValidSlug } from "@/lib/slugGenerator";
 
+const BLOG_CATEGORY_OPTIONS = [
+  { value: "policy-interpretation", label: "政策解读" },
+  { value: "news", label: "新闻" },
+  { value: "immigration-life", label: "移居生活" },
+  { value: "immigration-story", label: "移民故事" },
+  { value: "immigration-project", label: "移民项目" },
+];
+
+const SUCCESS_CASE_CATEGORY_OPTIONS = [
+  { value: "investment-immigration", label: "投资移民" },
+  { value: "skilled-worker", label: "技术移民" },
+  { value: "family-reunion", label: "家庭团聚移民" },
+  { value: "reconsideration", label: "拒签与程序公正信" },
+  { value: "temporary-visit", label: "临时访问申请" },
+];
+
 const CONTENT_CATEGORY_OPTIONS = [
   { value: "investment-immigration", label: "投资移民" },
   { value: "family-reunion", label: "家庭团聚" },
@@ -63,6 +79,8 @@ export function AdminPostForm() {
     content: "",
     excerpt: "",
     type: "blog" as "blog" | "success-case",
+    blogCategory: "" as "policy-interpretation" | "news" | "immigration-life" | "immigration-story" | "immigration-project" | "",
+    successCaseCategory: "" as "investment-immigration" | "skilled-worker" | "family-reunion" | "reconsideration" | "temporary-visit" | "",
     contentCategory: "" as "investment-immigration" | "family-reunion" | "maple-leaf-renewal" | "reconsideration" | "temporary-resident" | "skilled-worker" | "citizenship" | "other" | "",
     tags: "",
     coverImage: "",
@@ -80,6 +98,8 @@ export function AdminPostForm() {
         content: post.content,
         excerpt: post.excerpt || "",
         type: post.type as "blog" | "success-case",
+        blogCategory: (post.blogCategory || "") as "policy-interpretation" | "news" | "immigration-life" | "immigration-story" | "immigration-project" | "",
+        successCaseCategory: (post.successCaseCategory || "") as "investment-immigration" | "skilled-worker" | "family-reunion" | "reconsideration" | "temporary-visit" | "",
         contentCategory: (post.contentCategory || "") as "investment-immigration" | "family-reunion" | "maple-leaf-renewal" | "reconsideration" | "temporary-resident" | "skilled-worker" | "citizenship" | "other" | "",
         tags: post.tags || "",
         coverImage: post.coverImage || "",
@@ -273,49 +293,97 @@ export function AdminPostForm() {
             />
           </div>
 
-          {/* 文章类型和内容分类 */}
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium mb-2">
-                文章类型 <span className="text-red-500">*</span>
-              </label>
-              <select
-                value={formData.type}
-                onChange={(e) =>
-                  setFormData({
-                    ...formData,
-                    type: e.target.value as "blog" | "success-case",
-                  })
-                }
-                className="w-full px-3 py-2 border border-input rounded-md bg-background"
-              >
-                <option value="blog">博客文章</option>
-                <option value="success-case">成功案例</option>
-              </select>
-            </div>
+          {/* 文章类型 */}
+          <div>
+            <label className="block text-sm font-medium mb-2">
+              文章类型 <span className="text-red-500">*</span>
+            </label>
+            <select
+              value={formData.type}
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  type: e.target.value as "blog" | "success-case",
+                })
+              }
+              className="w-full px-3 py-2 border border-input rounded-md bg-background"
+            >
+              <option value="blog">博客文章</option>
+              <option value="success-case">成功案例</option>
+            </select>
+          </div>
 
+          {/* 博客分类或成功案例分类 */}
+          {formData.type === "blog" ? (
             <div>
               <label className="block text-sm font-medium mb-2">
-                内容分类 <span className="text-red-500">*</span>
+                博客分类 <span className="text-red-500">*</span>
               </label>
               <select
-                value={formData.contentCategory}
+                value={formData.blogCategory}
                 onChange={(e) =>
                   setFormData({
                     ...formData,
-                    contentCategory: e.target.value as any,
+                    blogCategory: e.target.value as any,
                   })
                 }
                 className="w-full px-3 py-2 border border-input rounded-md bg-background"
               >
-                <option value="">选择内容分类</option>
-                {CONTENT_CATEGORY_OPTIONS.map((opt) => (
+                <option value="">选择博客分类</option>
+                {BLOG_CATEGORY_OPTIONS.map((opt) => (
                   <option key={opt.value} value={opt.value}>
                     {opt.label}
                   </option>
                 ))}
               </select>
             </div>
+          ) : (
+            <div>
+              <label className="block text-sm font-medium mb-2">
+                成功案例分类 <span className="text-red-500">*</span>
+              </label>
+              <select
+                value={formData.successCaseCategory}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    successCaseCategory: e.target.value as any,
+                  })
+                }
+                className="w-full px-3 py-2 border border-input rounded-md bg-background"
+              >
+                <option value="">选择成功案例分类</option>
+                {SUCCESS_CASE_CATEGORY_OPTIONS.map((opt) => (
+                  <option key={opt.value} value={opt.value}>
+                    {opt.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
+
+          {/* 内容分类 */}
+          <div>
+            <label className="block text-sm font-medium mb-2">
+              内容分类 <span className="text-red-500">*</span>
+            </label>
+            <select
+              value={formData.contentCategory}
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  contentCategory: e.target.value as any,
+                })
+              }
+              className="w-full px-3 py-2 border border-input rounded-md bg-background"
+            >
+              <option value="">选择内容分类</option>
+              {CONTENT_CATEGORY_OPTIONS.map((opt) => (
+                <option key={opt.value} value={opt.value}>
+                  {opt.label}
+                </option>
+              ))}
+            </select>
           </div>
 
           {/* URL Slug */}

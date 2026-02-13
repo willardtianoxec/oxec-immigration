@@ -18,7 +18,7 @@
 - [x] Create immigration points calculator with real-time scoring
 - [x] Build success cases showcase section
 - [x] Create blog listing page with categories and search
-- [ ] Build individual blog post page
+- [x] Build individual blog post page
 - [ ] Create About Us section
 - [x] Build footer with contact information
 
@@ -391,3 +391,26 @@
 - [x] 添加文本截断 - 使用line-clamp防止文本溢出
 - [x] 测试响应式效果 - 验证桌面、平板、移动视图的显示
 - [x] 保存检查点 - 完成最新文章卡片响应式修复
+
+## Article Page Layout Optimization (Current Sprint - Phase 41)
+- [ ] 更新数据库Schema - 为posts表添加author字段，默认为"OXEC Immigration"
+- [ ] 更新文章编辑器 - 添加博客文章分类选择（政策解读、新闻、移居生活、移民故事、移民项目）
+- [ ] 更新BlogPost页面 - 添加导航栏、作者信息、两栏布局（左主内容，右侧栏）
+- [ ] 更新SuccessCaseDetail页面 - 添加导航栏、作者信息、两栏布局
+- [ ] 创建ArticleSidebar组件 - 实现右侧栏（分类、最近文章、标签、搜索）
+- [ ] 实现标签点击功能 - 点击标签后跳转到标签文章列表页面
+- [ ] 创建TaggedArticles页面 - 显示指定标签下的所有文章列表
+- [ ] 实现搜索功能 - 在右侧栏搜索框中搜索文章
+- [ ] 测试和保存检查点 - 验证所有功能正常
+
+## Article Page Layout Optimization (Current Sprint - Phase 33)
+- [x] 更新数据库Schema - 为posts表添加author字段和博客/成功案例分类字段
+- [x] 更新文章编辑器 - 添加博客分类和成功案例分类选择
+- [x] 更新API端点 - 支持新的分类字段过滤
+- [x] 重构BlogPost页面 - 添加导航栏、作者信息、两栏布局
+- [x] 创建ArticleSidebar组件 - 包含分类、最近文章、标签、搜索功能
+- [x] 重构SuccessCaseDetail页面 - 添加导航栏、作者信息、两栏布局
+- [x] 创建标签搜索页面 - TaggedArticles.tsx，支持按标签过滤文章
+- [x] 添加路由配置 - /tagged/:tag 路由
+- [ ] 测试所有文章页面功能 - 验证导航、侧边栏、标签搜索
+- [ ] 优化响应式设计 - 确保移动设备上的显示效果

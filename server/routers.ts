@@ -724,6 +724,8 @@ export const appRouter = router({
         content: z.string().min(1),
         excerpt: z.string().optional(),
         type: z.enum(["blog", "success-case"]),
+        blogCategory: z.enum(["policy-interpretation", "news", "immigration-life", "immigration-story", "immigration-project"]).optional(),
+        successCaseCategory: z.enum(["investment-immigration", "skilled-worker", "family-reunion", "reconsideration", "temporary-visit"]).optional(),
         contentCategory: z.enum(["investment-immigration", "family-reunion", "maple-leaf-renewal", "reconsideration", "temporary-resident", "skilled-worker", "citizenship", "other"]).optional(),
         tags: z.string().optional(),
         coverImage: z.string().optional(),
@@ -747,6 +749,8 @@ export const appRouter = router({
         slug: z.string().min(1).optional(),
         content: z.string().min(1).optional(),
         excerpt: z.string().optional(),
+        blogCategory: z.enum(["policy-interpretation", "news", "immigration-life", "immigration-story", "immigration-project"]).optional(),
+        successCaseCategory: z.enum(["investment-immigration", "skilled-worker", "family-reunion", "reconsideration", "temporary-visit"]).optional(),
         contentCategory: z.enum(["investment-immigration", "family-reunion", "maple-leaf-renewal", "reconsideration", "temporary-resident", "skilled-worker", "citizenship", "other"]).optional(),
         tags: z.string().optional(),
         coverImage: z.string().optional(),
@@ -779,12 +783,16 @@ export const appRouter = router({
     list: publicProcedure
       .input(z.object({
         type: z.enum(["blog", "success-case"]).optional(),
+        blogCategory: z.string().optional(),
+        successCaseCategory: z.string().optional(),
         contentCategory: z.string().optional(),
         publishedOnly: z.boolean().optional(),
       }).optional())
       .query(async ({ input }) => {
         return await getPosts({
           type: input?.type,
+          blogCategory: input?.blogCategory,
+          successCaseCategory: input?.successCaseCategory,
           contentCategory: input?.contentCategory,
           publishedOnly: input?.publishedOnly ?? true,
         });
@@ -794,11 +802,15 @@ export const appRouter = router({
       .input(z.object({
         query: z.string(),
         type: z.enum(["blog", "success-case"]).optional(),
+        blogCategory: z.string().optional(),
+        successCaseCategory: z.string().optional(),
         contentCategory: z.string().optional(),
       }))
       .query(async ({ input }) => {
         return await searchPosts(input.query, {
           type: input.type,
+          blogCategory: input.blogCategory,
+          successCaseCategory: input.successCaseCategory,
           contentCategory: input.contentCategory,
         });
       }),
