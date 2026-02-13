@@ -20,7 +20,7 @@ export default function Home() {
     { label: "投资移民", href: "/businessclass" },
     { label: "家庭团聚移民", href: "/familyclass" },
     { label: "枫叶卡续签与加急", href: "/prcard" },
-    { label: "拒签与程序公证信", href: "/reconsideration" },
+    { label: "拒签与程序公正信", href: "/reconsideration" },
     { label: "留学与访问", href: "/temporary" },
     { label: "技术移民", href: "/skillworker" },
     { label: "公民入籍", href: "/citizenship" },
@@ -126,10 +126,10 @@ export default function Home() {
         )}
       </nav>
 
-      {/* Split Hero Section - Responsive Height */}
-      <section className="relative w-full overflow-hidden bg-background flex flex-col lg:flex-row" style={{minHeight: '80vh'}}>
+      {/* Split Hero Section - Fixed Height 560px */}
+      <section className="relative w-full overflow-hidden bg-background flex flex-col lg:flex-row" style={{height: '560px'}}>
         {/* Left: Image - Full Height, No Padding */}
-        <div className="w-full lg:w-1/2 order-2 lg:order-1 flex items-center justify-center" style={{height: 'auto', minHeight: '300px'}}>
+        <div className="w-full lg:w-1/2 order-2 lg:order-1 flex items-center justify-center" style={{height: '100%'}}>
           <img
             src="/hero-canadian.jpg"
             alt="Canadian Immigration - Flag and Parliament"
@@ -138,7 +138,7 @@ export default function Home() {
         </div>
 
         {/* Right: Content - Deep Blue Background */}
-        <div className="w-full lg:w-1/2 order-1 lg:order-2 flex items-center justify-center p-8 lg:p-16 relative z-10" style={{ backgroundColor: "#335577", minHeight: '100%' }}>
+        <div className="w-full lg:w-1/2 order-1 lg:order-2 flex items-center justify-center p-8 lg:p-16 relative z-10" style={{ backgroundColor: "#335577", height: '100%' }}>
           <div className="space-y-6 w-full max-w-lg">
             <div className="inline-block px-4 py-2 rounded-full text-sm font-semibold" style={{ color: "#ffffff", backgroundColor: "rgba(255, 255, 255, 0.1)" }}>
               {t('hero.subtitle')}

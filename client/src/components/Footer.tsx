@@ -95,7 +95,8 @@ export function Footer({}: FooterProps) {
                 <img
                   src="/cicc-logo.png"
                   alt="CICC - College of Immigration and Citizenship Consultants"
-                  className="h-16 w-auto mb-4"
+                  className="mb-4"
+                  style={{ height: '60px', width: 'auto', aspectRatio: 'auto' }}
                 />
                 <p className="leading-relaxed" style={{ color: '#E5E7EB', fontSize: '14px' }}>
                   <a
