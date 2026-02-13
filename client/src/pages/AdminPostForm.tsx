@@ -10,6 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { Loader2, X, RotateCcw, Upload, Bold, Italic, List, Link as LinkIcon, Image as ImageIcon, AlignLeft } from "lucide-react";
 import { generateSlug, isValidSlug } from "@/lib/slugGenerator";
 
+// 博客分类选项
 const BLOG_CATEGORY_OPTIONS = [
   { value: "policy-interpretation", label: "政策解读" },
   { value: "news", label: "新闻" },
@@ -18,6 +19,7 @@ const BLOG_CATEGORY_OPTIONS = [
   { value: "immigration-project", label: "项目介绍" },
 ];
 
+// 成功案例分类选项（用于显示，但实际上发送的是contentCategory）
 const SUCCESS_CASE_CATEGORY_OPTIONS = [
   { value: "investment-immigration", label: "投资移民" },
   { value: "family-reunion", label: "家庭团聚" },
@@ -195,6 +197,12 @@ export function AdminPostForm() {
     } else {
       return SUCCESS_CASE_CATEGORY_OPTIONS;
     }
+  };
+
+  // Get category label based on type and value
+  const getCategoryLabel = (value: string) => {
+    const categories = getContentCategories();
+    return categories.find(cat => cat.value === value)?.label || value;
   };
 
   // Editor toolbar functions
