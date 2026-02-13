@@ -7,6 +7,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import DotMatrixWorldMap from "@/components/DotMatrixWorldMap";
 import { Footer } from "@/components/Footer";
 import { GoogleReviewsPreview } from "@/components/GoogleReviewsPreview";
+import { LatestArticlesSection } from "@/components/LatestArticlesSection";
 
 export default function Home() {
   const { user, isAuthenticated } = useAuth();
@@ -309,8 +310,8 @@ export default function Home() {
               <img
                 src="/world-map-dots.svg"
                 alt="Global Services Map"
-                className="w-full h-auto"
-                style={{ aspectRatio: '1/1' }}
+                className="w-full"
+                style={{ height: 'auto', objectFit: 'contain' }}
               />
             </div>
             <div>

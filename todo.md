@@ -440,3 +440,10 @@
 - [x] 更新GoogleReviewsPreview组件 - 更新routers.ts使用真实API
 - [x] 测试Google Place集成 - 使用正确的Place ID，验证评价显示效果
 - [x] 验证真实评价显示 - 首页已成功显示Google Place的真实客户评价（Bofan Li、Willard Tian等）
+
+## Home Page Final Optimization (Current Sprint - Phase 37)
+- [x] 修复世界地图变形 - 设置width: 100%; height: auto; object-fit: contain;
+- [x] 全局字体强制统一 - 所有标题使用48px Alibaba PuHuiTi Black
+- [x] 创建默认文章标题图 - 生成带傲赛移民 OXEC Immigration文字的默认图片
+- [x] 更新首页文章引用 - 创建LatestArticlesSection组件引用真实已发布的文章
+- [x] 验证所有section标题字体 - 确保视觉厚重感一致
