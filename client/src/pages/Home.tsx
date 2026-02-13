@@ -139,7 +139,7 @@ export default function Home() {
       </nav>
 
       {/* Split Hero Section */}
-      <section className="relative w-full min-h-screen flex" style={{height: '700px', marginBottom: '-202px'}}>
+      <section className="relative w-full min-h-screen flex" style={{height: '525px', marginBottom: '-220px'}}>
         {/* Left: Image - Full Height, No Padding */}
         <div className="w-full lg:w-1/2 order-2 lg:order-1 h-64 lg:h-auto" style={{height: '525px'}}>
           <img
