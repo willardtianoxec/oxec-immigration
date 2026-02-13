@@ -60,11 +60,19 @@ export function AdminPostForm() {
     onSuccess: () => {
       setLocation("/admin/posts");
     },
+    onError: (error) => {
+      console.error("Create post error:", error);
+      alert(`创建文章失败: ${error.message}`);
+    },
   });
 
   const updateMutation = trpc.posts.update.useMutation({
     onSuccess: () => {
       setLocation("/admin/posts");
+    },
+    onError: (error) => {
+      console.error("Update post error:", error);
+      alert(`更新文章失败: ${error.message}`);
     },
   });
 
@@ -265,6 +273,20 @@ export function AdminPostForm() {
   const isSubmitting = createMutation.isPending || updateMutation.isPending;
 
   const handleSaveDraft = () => {
+    // 基本验证
+    if (!formData.title.trim()) {
+      alert("请输入文章标题");
+      return;
+    }
+    if (!formData.slug.trim()) {
+      alert("请输入URL Slug");
+      return;
+    }
+    if (!formData.content.trim()) {
+      alert("请输入文章内容");
+      return;
+    }
+    
     // 对于成功案例，contentCategory必须选择
     if (formData.type === "success-case" && !formData.contentCategory) {
       alert("请选择内容分类");
@@ -304,6 +326,20 @@ export function AdminPostForm() {
   };
 
   const handlePublish = () => {
+    // 基本验证
+    if (!formData.title.trim()) {
+      alert("请输入文章标题");
+      return;
+    }
+    if (!formData.slug.trim()) {
+      alert("请输入URL Slug");
+      return;
+    }
+    if (!formData.content.trim()) {
+      alert("请输入文章内容");
+      return;
+    }
+    
     // 对于成功案例，contentCategory必须选择
     if (formData.type === "success-case" && !formData.contentCategory) {
       alert("请选择内容分类");
