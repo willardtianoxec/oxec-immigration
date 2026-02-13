@@ -10,7 +10,7 @@ import { format } from "date-fns";
 export default function Blog() {
   const [searchQuery, setSearchQuery] = useState("");
   
-  const { data: posts, isLoading } = trpc.blog.list.useQuery({ publishedOnly: true });
+  const { data: posts, isLoading } = trpc.posts.list.useQuery({ type: "blog", publishedOnly: true });
 
   const filteredPosts = posts?.filter(post =>
     post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -70,11 +70,11 @@ export default function Blog() {
                 <CardHeader>
                   <div className="flex items-center text-sm text-muted-foreground mb-2">
                     <Calendar className="h-4 w-4 mr-1" />
-                    {format(new Date(post.createdAt), "MMM d, yyyy")}
+                    {format(new Date(post.publishedAt || post.createdAt), "MMM d, yyyy")}
                   </div>
-                  {post.category && (
+                  {post.blogCategory && (
                     <div className="inline-block px-2 py-1 bg-accent/10 text-accent text-xs rounded mb-2">
-                      {post.category}
+                      {post.blogCategory}
                     </div>
                   )}
                   <CardTitle className="line-clamp-2">{post.title}</CardTitle>

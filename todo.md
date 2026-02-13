@@ -412,5 +412,7 @@
 - [x] 重构SuccessCaseDetail页面 - 添加导航栏、作者信息、两栏布局
 - [x] 创建标签搜索页面 - TaggedArticles.tsx，支持按标签过滤文章
 - [x] 添加路由配置 - /tagged/:tag 路由
+- [x] 修复Blog.tsx - 更新为使用posts.list端点而不是blog.list
+- [x] 验证SuccessCases.tsx - 已正确使用posts.list端点
 - [ ] 测试所有文章页面功能 - 验证导航、侧边栏、标签搜索
 - [ ] 优化响应式设计 - 确保移动设备上的显示效果
