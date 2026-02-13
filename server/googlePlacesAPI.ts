@@ -1,5 +1,5 @@
 /**
- * Google Places API集成
+ * Google Places API集成 (使用新版API)
  * 用于获取真实的Google评价数据
  */
 
@@ -7,10 +7,12 @@ import { GoogleReviewsData, GoogleReview } from "./mockGoogleReviews";
 
 // Google Places API配置
 const GOOGLE_PLACES_API_KEY = process.env.VITE_GOOGLE_PLACES_API_KEY;
-const PLACE_ID = "ChIJZ-e3jZdxMlQRCb6sPXx0MYE"; // OXEC Immigration的Google Place ID (需要替换为实际的)
+// OXEC Immigration的Google Place ID
+// 地址: 1008-4710, Kingsway, Burnaby, BC V5H 4M2, Canada
+const PLACE_ID = "ChIJORL_fbF3hlQRDkdWbOI9Yl8";
 
 /**
- * 从Google Places API获取真实的评价数据
+ * 从Google Places API (New)获取真实的评价数据
  * @param limit 返回的评价数量限制
  * @returns Google评价数据
  */
@@ -21,45 +23,48 @@ export async function getRealGoogleReviews(limit: number = 4): Promise<GoogleRev
   }
 
   try {
-    const apiUrl = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${PLACE_ID}&key=${GOOGLE_PLACES_API_KEY}&fields=rating,user_ratings_total,reviews&reviews_sort=newest`;
+    // 使用新版Places API (New) - Text Search或Place Details
+    // 首先尝试使用Place Details API获取地点信息
+    const apiUrl = `https://places.googleapis.com/v1/places/${PLACE_ID}?fields=displayName,rating,userRatingCount,reviews&key=${GOOGLE_PLACES_API_KEY}`;
     
-    const response = await fetch(apiUrl);
+    console.log("Fetching Google Places reviews using new API...");
+    const response = await fetch(apiUrl, {
+      headers: {
+        "X-Goog-Api-Key": GOOGLE_PLACES_API_KEY,
+      },
+    });
 
     if (!response.ok) {
       console.error("Google Places API request failed:", response.statusText);
+      const errorText = await response.text();
+      console.error("Error details:", errorText);
       return getMockGoogleReviews(limit);
     }
 
     const data = await response.json();
 
-    if (data.status !== "OK") {
-      console.error("Google Places API error:", data.status, data.error_message);
-      return getMockGoogleReviews(limit);
-    }
-
-    if (!data.result) {
+    if (!data) {
       console.warn("No result from Google Places API, using mock data");
       return getMockGoogleReviews(limit);
     }
 
-    const result = data.result;
-    const reviews = result.reviews || [];
+    const reviews = data.reviews || [];
 
     // 转换Google Places API的评价格式为我们的格式
     const convertedReviews: GoogleReview[] = reviews.slice(0, limit).map((review: any) => ({
-      id: `review_${review.time}`,
-      author: review.author_name,
-      authorUrl: review.author_url || "https://www.google.com/maps",
-      profilePhotoUrl: review.profile_photo_url || "https://lh3.googleusercontent.com/a-/default-user=s64",
-      rating: review.rating,
-      text: review.text,
-      time: review.time * 1000, // Convert Unix timestamp to milliseconds
-      relativeTimeDescription: getRelativeTimeDescription(review.time),
+      id: `review_${review.publishTime}`,
+      author: review.authorAttribution?.displayName || "Anonymous",
+      authorUrl: review.authorAttribution?.uri || "https://www.google.com/maps",
+      profilePhotoUrl: review.authorAttribution?.photoUri || "https://lh3.googleusercontent.com/a-/default-user=s64",
+      rating: review.rating || 5,
+      text: review.originalText?.text || review.text || "",
+      time: new Date(review.publishTime).getTime(),
+      relativeTimeDescription: getRelativeTimeDescription(new Date(review.publishTime).getTime()),
     }));
 
     return {
-      rating: result.rating || 5.0,
-      reviewCount: result.user_ratings_total || reviews.length,
+      rating: data.rating || 5.0,
+      reviewCount: data.userRatingCount || reviews.length,
       reviews: convertedReviews,
     };
   } catch (error) {
@@ -71,9 +76,9 @@ export async function getRealGoogleReviews(limit: number = 4): Promise<GoogleRev
 /**
  * 获取相对时间描述（例如"1个月前"）
  */
-function getRelativeTimeDescription(unixTimestamp: number): string {
-  const now = Math.floor(Date.now() / 1000);
-  const secondsAgo = now - unixTimestamp;
+function getRelativeTimeDescription(timestamp: number): string {
+  const now = Date.now();
+  const secondsAgo = (now - timestamp) / 1000;
 
   if (secondsAgo < 60) {
     return "刚刚";
