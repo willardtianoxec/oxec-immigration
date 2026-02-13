@@ -28,8 +28,9 @@ import {
 import { notifyOwner } from "./_core/notification";
 import { sendAppointmentEmail } from "./_core/emailService";
 import { calculateCRS as calculateCRSLogic } from "./crsCalculator";
+import { getRealGoogleReviews } from "./googlePlacesAPI";
 import { storagePut } from "./storage";
-import { getMockGoogleReviews } from "./mockGoogleReviews";
+
 
 
 // Admin-only procedure
@@ -1014,9 +1015,9 @@ export const appRouter = router({
       .input(z.object({
         limit: z.number().min(1).max(50).default(4),
       }).optional())
-      .query(({ input }) => {
+      .query(async ({ input }) => {
         const limit = input?.limit || 4;
-        return getMockGoogleReviews(limit);
+        return await getRealGoogleReviews(limit);
       }),
   }),
 });

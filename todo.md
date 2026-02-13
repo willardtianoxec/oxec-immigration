@@ -433,3 +433,9 @@
 - [x] 统一所有标题字体 - 所有section标题使用Alibaba PuHuiTi Black 64px fontWeight 900
 - [ ] 测试不同窗口尺寸 - 验证响应式布局效果
 - [ ] 验证可编辑性 - 确保所有文字元素可点击和编辑
+
+## Google Place API Integration (Current Sprint - Phase 36)
+- [x] 配置Google Place API密钥 - 将API Key添加到环境变量
+- [x] 获取Google Place评价数据 - 创建 googlePlacesAPI.ts模块
+- [x] 更新GoogleReviewsPreview组件 - 更新routers.ts使用真实API
+- [x] 测试Google Place集成 - 验证评价显示效果（当前API密钥权限不足，回退到虫拟数据）
