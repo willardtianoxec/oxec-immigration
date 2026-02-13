@@ -127,9 +127,9 @@ export default function Home() {
       </nav>
 
       {/* Split Hero Section - Responsive Height */}
-      <section className="relative w-full overflow-hidden bg-background flex flex-col lg:flex-row" style={{minHeight: '100vh'}}>
+      <section className="relative w-full overflow-hidden bg-background flex flex-col lg:flex-row" style={{minHeight: '80vh'}}>
         {/* Left: Image - Full Height, No Padding */}
-        <div className="w-full lg:w-1/2 order-2 lg:order-1 flex items-center justify-center" style={{minHeight: '100%'}}>
+        <div className="w-full lg:w-1/2 order-2 lg:order-1 flex items-center justify-center" style={{height: 'auto', minHeight: '300px'}}>
           <img
             src="/hero-canadian.jpg"
             alt="Canadian Immigration - Flag and Parliament"
