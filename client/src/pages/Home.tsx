@@ -132,7 +132,7 @@ export default function Home() {
           <img
             src="/hero-canadian.jpg"
             alt="Canadian Immigration - Flag and Parliament"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover" style={{display: 'flex'}}
           />
         </div>
 
@@ -174,7 +174,7 @@ export default function Home() {
       <section className="relative z-20 w-full bg-background" style={{ padding: 'clamp(40px, 8vw, 80px) 0' }}>
         <div className="container">
           <div className="text-center mb-16">
-            <h2 className="font-bold text-foreground mb-4" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: '64px', fontWeight: 900 }}>我们的移民服务</h2>
+            <h2 className="font-bold text-foreground mb-4" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: '48px', fontWeight: 900 }}>我们的移民服务</h2>
             <p className="text-lg text-muted-foreground">{t("services.subtitle")}</p>
           </div>
 
@@ -256,7 +256,7 @@ export default function Home() {
       <section className="relative z-20 w-full bg-gray-50" style={{ padding: 'clamp(40px, 8vw, 80px) 0' }}>
         <div className="container">
           <div className="text-center mb-20">
-            <h2 className="font-bold text-foreground mb-4" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: '64px', fontWeight: 900 }}>关于傲赛（OXEC）</h2>
+            <h2 className="font-bold text-foreground mb-4" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: '48px', fontWeight: 900 }}>关于傲赛（OXEC）</h2>
             <p className="text-lg text-muted-foreground">一家领先的专业型加拿大移民与行政法事务所，设于加拿大卑诗省，为加拿大及全球客户提供服务</p>
           </div>
 
@@ -314,7 +314,7 @@ export default function Home() {
               />
             </div>
             <div>
-              <h2 className="font-bold text-foreground mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: '64px', fontWeight: 900 }}>全球服务范围</h2>
+              <h2 className="font-bold text-foreground mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: '48px', fontWeight: 900 }}>全球服务范围</h2>
               <p className="text-lg text-muted-foreground leading-relaxed mb-6">
                 傲赛（OXEC）为来自全球各地的客户提供专业的加拿大移民咨询与代理服务。无论您身在何处，我们都致力于帮助您实现加拿大移民梦想。
               </p>
@@ -332,7 +332,7 @@ export default function Home() {
       <section className="relative z-20 w-full bg-background" style={{ padding: 'clamp(40px, 8vw, 80px) 0' }}>
         <div className="container">
           <div className="text-center mb-16">
-            <h2 className="font-bold text-foreground mb-4" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: '64px', fontWeight: 900 }}>最新资讯</h2>
+            <h2 className="font-bold text-foreground mb-4" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: '48px', fontWeight: 900 }}>最新资讯</h2>
             <p className="text-lg text-muted-foreground">了解最新的移民政策和成功案例</p>
           </div>
 
