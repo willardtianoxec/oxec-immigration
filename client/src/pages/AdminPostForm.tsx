@@ -265,13 +265,8 @@ export function AdminPostForm() {
   const isSubmitting = createMutation.isPending || updateMutation.isPending;
 
   const handleSaveDraft = () => {
-    // 对于博客文章，contentCategory可以为空（使用blogCategory）
     // 对于成功案例，contentCategory必须选择
     if (formData.type === "success-case" && !formData.contentCategory) {
-      alert("请选择内容分类");
-      return;
-    }
-    if (formData.type === "blog" && !formData.contentCategory) {
       alert("请选择内容分类");
       return;
     }
@@ -309,13 +304,8 @@ export function AdminPostForm() {
   };
 
   const handlePublish = () => {
-    // 对于博客文章，contentCategory可以为空（使用blogCategory）
     // 对于成功案例，contentCategory必须选择
     if (formData.type === "success-case" && !formData.contentCategory) {
-      alert("请选择内容分类");
-      return;
-    }
-    if (formData.type === "blog" && !formData.contentCategory) {
       alert("请选择内容分类");
       return;
     }
