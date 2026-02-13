@@ -88,8 +88,11 @@ export function AdminPostForm() {
   const [coverImagePreview, setCoverImagePreview] = useState<string>("");
   const [isDragging, setIsDragging] = useState(false);
 
+  // 仅在初始加载时设置表单数据
+  const [isInitialized, setIsInitialized] = useState(false);
+  
   useEffect(() => {
-    if (post) {
+    if (post && !isInitialized) {
       setFormData({
         title: post.title,
         subtitle: post.subtitle || "",
@@ -108,8 +111,9 @@ export function AdminPostForm() {
       if (post.coverImage) {
         setCoverImagePreview(post.coverImage);
       }
+      setIsInitialized(true);
     }
-  }, [post]);
+  }, [post, isInitialized]);
 
   const user = authData;
 
@@ -126,7 +130,7 @@ export function AdminPostForm() {
   }
 
   const handleTitleChange = (newTitle: string) => {
-    setFormData({ ...formData, title: newTitle });
+    setFormData((prev) => ({ ...prev, title: newTitle }));
     if (!isEditing) {
       const newSlug = generateSlug(newTitle);
       setFormData((prev) => ({ ...prev, slug: newSlug }));
@@ -136,12 +140,12 @@ export function AdminPostForm() {
 
   const handleRegenerateSlug = () => {
     const newSlug = generateSlug(formData.title);
-    setFormData({ ...formData, slug: newSlug });
+    setFormData((prev) => ({ ...prev, slug: newSlug }));
     setSlugError("");
   };
 
   const handleSlugChange = (newSlug: string) => {
-    setFormData({ ...formData, slug: newSlug });
+    setFormData((prev) => ({ ...prev, slug: newSlug }));
     if (!isValidSlug(newSlug)) {
       setSlugError("URL Slug只能包含小写字母、数字和连字符");
     } else {
@@ -160,7 +164,7 @@ export function AdminPostForm() {
     reader.onload = (e) => {
       const result = e.target?.result as string;
       setCoverImagePreview(result);
-      setFormData({ ...formData, coverImage: result });
+      setFormData((prev) => ({ ...prev, coverImage: result }));
     };
     reader.readAsDataURL(file);
   };
@@ -220,7 +224,7 @@ export function AdminPostForm() {
       after +
       formData.content.substring(end);
     
-    setFormData({ ...formData, content: newContent });
+    setFormData((prev) => ({ ...prev, content: newContent }));
     
     // Restore cursor position
     setTimeout(() => {
@@ -392,7 +396,7 @@ export function AdminPostForm() {
               type="text"
               placeholder="输入副标题（可选）"
               value={formData.subtitle}
-              onChange={(e) => setFormData({ ...formData, subtitle: e.target.value })}
+              onChange={(e) => setFormData((prev) => ({ ...prev, subtitle: e.target.value }))}
             />
           </div>
 
@@ -404,11 +408,11 @@ export function AdminPostForm() {
             <select
               value={formData.type}
               onChange={(e) =>
-                setFormData({
-                  ...formData,
+                setFormData((prev) => ({
+                  ...prev,
                   type: e.target.value as "blog" | "success-case",
                   contentCategory: "", // Reset content category when type changes
-                })
+                }))
               }
               className="w-full px-3 py-2 border border-input rounded-md bg-background"
             >
@@ -425,10 +429,10 @@ export function AdminPostForm() {
             <select
               value={formData.contentCategory}
               onChange={(e) =>
-                setFormData({
-                  ...formData,
+                setFormData((prev) => ({
+                  ...prev,
                   contentCategory: e.target.value,
-                })
+                }))
               }
               className="w-full px-3 py-2 border border-input rounded-md bg-background"
             >
@@ -474,7 +478,7 @@ export function AdminPostForm() {
               type="text"
               placeholder="多个标签用逗号分隔"
               value={formData.tags}
-              onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
+              onChange={(e) => setFormData((prev) => ({ ...prev, tags: e.target.value }))}
             />
             <div className="mt-3 flex flex-wrap gap-2">
               {SUGGESTED_TAGS.map((tag) => (
@@ -543,7 +547,7 @@ export function AdminPostForm() {
                   className="absolute top-2 right-2"
                   onClick={() => {
                     setCoverImagePreview("");
-                    setFormData({ ...formData, coverImage: "" });
+                    setFormData((prev) => ({ ...prev, coverImage: "" }));
                   }}
                 >
                   删除
@@ -558,7 +562,7 @@ export function AdminPostForm() {
             <Textarea
               placeholder="文章摘要（可选）"
               value={formData.excerpt}
-              onChange={(e) => setFormData({ ...formData, excerpt: e.target.value })}
+              onChange={(e) => setFormData((prev) => ({ ...prev, excerpt: e.target.value }))}
               rows={3}
             />
           </div>
@@ -569,7 +573,7 @@ export function AdminPostForm() {
             <Input
               type="date"
               value={formData.publishedAt}
-              onChange={(e) => setFormData({ ...formData, publishedAt: e.target.value })}
+              onChange={(e) => setFormData((prev) => ({ ...prev, publishedAt: e.target.value }))}
             />
             <p className="text-xs text-muted-foreground mt-1">
               选择文章显示的发布日期（不同于实际发布时间）
@@ -646,7 +650,7 @@ export function AdminPostForm() {
               ref={textareaRef}
               placeholder="输入文章内容（支持Markdown）"
               value={formData.content}
-              onChange={(e) => setFormData({ ...formData, content: e.target.value })}
+              onChange={(e) => setFormData((prev) => ({ ...prev, content: e.target.value }))}
               rows={25}
               required
               className="font-mono text-sm border-t-0 rounded-t-none"
@@ -662,7 +666,7 @@ export function AdminPostForm() {
               id="published"
               type="checkbox"
               checked={formData.published}
-              onChange={(e) => setFormData({ ...formData, published: e.target.checked })}
+              onChange={(e) => setFormData((prev) => ({ ...prev, published: e.target.checked }))}
               className="w-4 h-4"
             />
             <label htmlFor="published" className="text-sm font-medium cursor-pointer">
