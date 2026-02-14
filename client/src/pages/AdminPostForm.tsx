@@ -316,8 +316,8 @@ export function AdminPostForm() {
         slug: formData.slug,
         content: formData.content,
         excerpt: formData.excerpt || undefined,
-
-        contentCategory: formData.contentCategory ? (formData.contentCategory as any) : undefined,
+        blogCategory: formData.type === "blog" ? (formData.blogCategory as any || undefined) : undefined,
+        contentCategory: formData.type === "success-case" ? (formData.contentCategory as any || undefined) : undefined,
         tags: formData.tags || undefined,
         coverImage: formData.coverImage || undefined,
         publishedAt: undefined,
@@ -329,9 +329,9 @@ export function AdminPostForm() {
         slug: formData.slug,
         content: formData.content,
         excerpt: formData.excerpt || undefined,
-
         type: formData.type,
-        contentCategory: formData.contentCategory ? (formData.contentCategory as any) : undefined,
+        blogCategory: formData.type === "blog" ? (formData.blogCategory as any || undefined) : undefined,
+        contentCategory: formData.type === "success-case" ? (formData.contentCategory as any || undefined) : undefined,
         tags: formData.tags || undefined,
         coverImage: formData.coverImage || undefined,
       });

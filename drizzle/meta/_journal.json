@@ -43,6 +43,13 @@
       "when": 1770966013372,
       "tag": "0005_slippery_northstar",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1771030769941,
+      "tag": "0006_abnormal_jack_power",
+      "breakpoints": true
     }
   ]
 }

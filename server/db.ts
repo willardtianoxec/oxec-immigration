@@ -236,16 +236,31 @@ export async function updatePost(id: number, data: Partial<InsertPost>) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
   
-  // Filter out undefined values to avoid SQL errors
-  const cleanData = Object.fromEntries(
-    Object.entries(data).filter(([, value]) => value !== undefined)
-  ) as Partial<InsertPost>;
+  // Get the existing post to preserve required fields
+  const existing = await getPostById(id);
+  if (!existing) throw new Error("Post not found");
+  
+  // Filter out undefined values and validate required fields
+  const cleanData: Record<string, any> = {};
+  
+  for (const [key, value] of Object.entries(data)) {
+    if (value === undefined) continue;
+    cleanData[key] = value;
+  }
+  
+  // Ensure required fields are always present
+  if (!cleanData.title) cleanData.title = existing.title;
+  if (!cleanData.slug) cleanData.slug = existing.slug;
+  if (!cleanData.content) cleanData.content = existing.content;
+  if (!cleanData.type) cleanData.type = existing.type;
+  if (!cleanData.authorId) cleanData.authorId = existing.authorId;
+  if (cleanData.published === undefined) cleanData.published = existing.published;
   
   if (Object.keys(cleanData).length === 0) {
     throw new Error("No fields to update");
   }
   
-  return await db.update(posts).set(cleanData).where(eq(posts.id, id));
+  return await db.update(posts).set(cleanData as Partial<InsertPost>).where(eq(posts.id, id));
 }
 
 export async function deletePost(id: number) {
