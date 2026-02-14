@@ -512,3 +512,15 @@
 - [x] 修复TypeScript类型错误 - 解决SuccessCases.tsx和TaggedArticles.tsx中的类型错误
 - [x] 修复GoogleReviewsPreview中的API调用 - 将getGoogleReviews改为list
 - [ ] 测试完整的发布流程 - 创建、保存草稿、发布文章的完整测试
+
+
+## Article Sidebar Enhancement (Current Sprint - Phase 42)
+- [x] 修改ArticleSidebar组件 - 添加分类显示，支持成功案例和博客分类
+- [x] 实现分类点击功能 - 点击分类后跳转到对应列表页面并筛选
+- [x] 调整分类样式 - 浅色底、深色文字、无圆角
+- [x] 调整标签样式 - 浅色底、深色文字、无圆角
+- [x] 改进搜索框样式 - 加粗边框、无圆角、按钮高度一致
+- [x] 实现搜索功能 - 跳转到列表页面并筛选搜索结果
+- [x] 更新Blog和SuccessCaseDetail页面 - 传递分类信息到ArticleSidebar
+- [x] 测试所有功能 - 验证分类、标签、搜索功能
+- [ ] 保存checkpoint - 完成右边栏优化

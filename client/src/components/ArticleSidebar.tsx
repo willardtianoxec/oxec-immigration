@@ -3,7 +3,6 @@ import { useLocation } from "wouter";
 import { trpc } from "@/lib/trpc";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { Loader2, Search } from "lucide-react";
 
 interface ArticleSidebarProps {
@@ -14,21 +13,21 @@ interface ArticleSidebarProps {
   tags?: string[];
 }
 
-const BLOG_CATEGORY_LABELS: Record<string, string> = {
-  "policy-interpretation": "政策解读",
-  "news": "新闻",
-  "immigration-life": "移居生活",
-  "immigration-story": "移民故事",
-  "immigration-project": "移民项目",
-};
+const BLOG_CATEGORIES = [
+  { key: "policy-interpretation", label: "政策解读" },
+  { key: "news", label: "新闻" },
+  { key: "immigration-life", label: "移居生活" },
+  { key: "immigration-story", label: "移民故事" },
+  { key: "immigration-project", label: "移民项目" },
+];
 
-const SUCCESS_CASE_CATEGORY_LABELS: Record<string, string> = {
-  "investment-immigration": "投资移民",
-  "skilled-worker": "技术移民",
-  "family-reunion": "家庭团聚移民",
-  "reconsideration": "拒签与程序公正信",
-  "temporary-visit": "临时访问申请",
-};
+const SUCCESS_CASE_CATEGORIES = [
+  { key: "investment-immigration", label: "投资移民" },
+  { key: "skilled-worker", label: "技术移民" },
+  { key: "family-reunion", label: "家庭团聚移民" },
+  { key: "reconsideration", label: "拒签与程序公正信" },
+  { key: "temporary-visit", label: "临时访问申请" },
+];
 
 export function ArticleSidebar({
   currentPostId,
@@ -49,29 +48,50 @@ export function ArticleSidebar({
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      setLocation(`/search?q=${encodeURIComponent(searchQuery)}&type=${postType}`);
+      // 根据文章类型跳转到对应页面并传递搜索关键词
+      const baseUrl = postType === "blog" ? "/blog" : "/success-cases";
+      setLocation(`${baseUrl}?search=${encodeURIComponent(searchQuery)}`);
     }
   };
 
-  const handleTagClick = (tag: string) => {
-    setLocation(`/tagged/${encodeURIComponent(tag)}?type=${postType}`);
+  const handleCategoryClick = (categoryKey: string) => {
+    // 根据文章类型跳转到对应页面并筛选分类
+    const baseUrl = postType === "blog" ? "/blog" : "/success-cases";
+    setLocation(`${baseUrl}?category=${encodeURIComponent(categoryKey)}`);
   };
 
-  const categoryLabel = postType === "blog"
-    ? (blogCategory ? BLOG_CATEGORY_LABELS[blogCategory] : "未分类")
-    : (successCaseCategory ? SUCCESS_CASE_CATEGORY_LABELS[successCaseCategory] : "未分类");
+  const handleTagClick = (tag: string) => {
+    // 根据文章类型跳转到对应页面并筛选标签
+    const baseUrl = postType === "blog" ? "/blog" : "/success-cases";
+    setLocation(`${baseUrl}?tag=${encodeURIComponent(tag)}`);
+  };
+
+  const categories = postType === "blog" ? BLOG_CATEGORIES : SUCCESS_CASE_CATEGORIES;
+  const currentCategory = postType === "blog" ? blogCategory : successCaseCategory;
 
   // 获取最近的其他文章（排除当前文章）
   const otherPosts = latestPosts?.filter(p => p.id !== currentPostId).slice(0, 3) || [];
 
   return (
     <div className="space-y-8">
-      {/* 分类 */}
+      {/* 文章分类 */}
       <div>
         <h3 className="text-lg font-semibold mb-4 pb-2 border-b border-border">文章分类</h3>
-        <Badge variant="secondary" className="text-base py-2 px-3">
-          {categoryLabel}
-        </Badge>
+        <div className="flex flex-wrap gap-2">
+          {categories.map((cat) => (
+            <button
+              key={cat.key}
+              onClick={() => handleCategoryClick(cat.key)}
+              className={`px-3 py-2 text-sm font-medium transition-colors ${
+                currentCategory === cat.key
+                  ? "bg-gray-300 text-gray-900"
+                  : "bg-gray-200 text-gray-800 hover:bg-gray-300"
+              }`}
+            >
+              {cat.label}
+            </button>
+          ))}
+        </div>
       </div>
 
       {/* 最近的文章 */}
@@ -87,7 +107,10 @@ export function ArticleSidebar({
               <div key={post.id} className="pb-4 border-b border-border last:border-b-0 last:pb-0">
                 <h4 className="font-medium text-sm mb-2 line-clamp-2 hover:text-primary cursor-pointer">
                   <button
-                    onClick={() => setLocation(`/blog/${post.slug}`)}
+                    onClick={() => {
+                      const url = postType === "blog" ? `/blog/${post.slug}` : `/success-cases/${post.slug}`;
+                      setLocation(url);
+                    }}
                     className="text-left hover:text-primary transition-colors"
                   >
                     {post.title}
@@ -106,14 +129,15 @@ export function ArticleSidebar({
                         day: "numeric",
                       })}
                 </p>
-                <Button
-                  variant="link"
-                  size="sm"
-                  className="p-0 h-auto text-xs"
-                  onClick={() => setLocation(`/blog/${post.slug}`)}
+                <button
+                  onClick={() => {
+                    const url = postType === "blog" ? `/blog/${post.slug}` : `/success-cases/${post.slug}`;
+                    setLocation(url);
+                  }}
+                  className="text-xs text-primary hover:text-primary/80 transition-colors"
                 >
                   点击阅读 →
-                </Button>
+                </button>
               </div>
             ))}
           </div>
@@ -128,14 +152,13 @@ export function ArticleSidebar({
           <h3 className="text-lg font-semibold mb-4 pb-2 border-b border-border">标签</h3>
           <div className="flex flex-wrap gap-2">
             {tags.map((tag) => (
-              <Badge
+              <button
                 key={tag}
-                variant="outline"
-                className="cursor-pointer hover:bg-secondary transition-colors"
                 onClick={() => handleTagClick(tag)}
+                className="px-3 py-2 text-sm bg-gray-200 text-gray-800 hover:bg-gray-300 transition-colors"
               >
                 {tag}
-              </Badge>
+              </button>
             ))}
           </div>
         </div>
@@ -145,15 +168,20 @@ export function ArticleSidebar({
       <div>
         <h3 className="text-lg font-semibold mb-4 pb-2 border-b border-border">搜索文章</h3>
         <form onSubmit={handleSearch} className="space-y-2">
-          <div className="flex gap-2">
+          <div className="flex gap-0">
             <Input
               type="text"
               placeholder="搜索..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="text-sm"
+              className="text-sm border-2 border-gray-400 rounded-none flex-1"
             />
-            <Button type="submit" size="sm" variant="default">
+            <Button
+              type="submit"
+              size="sm"
+              variant="default"
+              className="rounded-none h-auto px-4 py-2"
+            >
               <Search className="w-4 h-4" />
             </Button>
           </div>

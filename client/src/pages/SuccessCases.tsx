@@ -1,16 +1,59 @@
+import { useState, useMemo } from "react";
+import { useSearch } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { trpc } from "@/lib/trpc";
 import { Link } from "wouter";
 import { ArrowLeft, CheckCircle2 } from "lucide-react";
 import { Streamdown } from "streamdown";
 
+const SUCCESS_CASE_CATEGORIES = [
+  { key: "investment-immigration", label: "投资移民" },
+  { key: "skilled-worker", label: "技术移民" },
+  { key: "family-reunion", label: "家庭团聚移民" },
+  { key: "reconsideration", label: "拒签与程序公正信" },
+  { key: "temporary-visit", label: "临时访问申请" },
+];
+
 export default function SuccessCases() {
+  const searchParams = new URLSearchParams(useSearch());
+  const urlCategory = searchParams.get("category");
+  const urlSearch = searchParams.get("search");
+  
+  const [searchQuery, setSearchQuery] = useState(urlSearch || "");
+  const [selectedCategory, setSelectedCategory] = useState(urlCategory || "");
+
   const { data: cases, isLoading } = trpc.posts.list.useQuery({
     type: "success-case",
     publishedOnly: true,
   });
+
+  const filteredCases = useMemo(() => {
+    if (!cases) return [];
+    
+    return cases.filter((post: any) => {
+      // 按分类过滤
+      if (selectedCategory && post.successCaseCategory !== selectedCategory) {
+        return false;
+      }
+      
+      // 按搜索关键词过滤
+      if (searchQuery) {
+        const query = searchQuery.toLowerCase();
+        return (
+          post.title.toLowerCase().includes(query) ||
+          post.excerpt?.toLowerCase().includes(query) ||
+          post.content?.toLowerCase().includes(query)
+        );
+      }
+      
+      return true;
+    });
+  }, [cases, selectedCategory, searchQuery]);
+
+  const handleCategoryClick = (categoryKey: string) => {
+    setSelectedCategory(categoryKey === selectedCategory ? "" : categoryKey);
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -34,13 +77,52 @@ export default function SuccessCases() {
       </div>
 
       <div className="container py-12">
+        {/* 分类过滤 */}
+        <div className="mb-8">
+          <h3 className="text-lg font-semibold mb-4">按分类筛选</h3>
+          <div className="flex flex-wrap gap-2">
+            {SUCCESS_CASE_CATEGORIES.map((cat) => (
+              <button
+                key={cat.key}
+                onClick={() => handleCategoryClick(cat.key)}
+                className={`px-4 py-2 text-sm font-medium transition-colors ${
+                  selectedCategory === cat.key
+                    ? "bg-gray-400 text-white"
+                    : "bg-gray-200 text-gray-800 hover:bg-gray-300"
+                }`}
+              >
+                {cat.label}
+              </button>
+            ))}
+            {selectedCategory && (
+              <button
+                onClick={() => setSelectedCategory("")}
+                className="px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-800"
+              >
+                清除筛选
+              </button>
+            )}
+          </div>
+        </div>
+
+        {/* Search */}
+        <div className="mb-8">
+          <input
+            type="text"
+            placeholder="搜索成功案例..."
+            className="w-full max-w-xl px-4 py-2 border-2 border-gray-400"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </div>
+
         {isLoading ? (
           <div className="text-center py-12">
             <p className="text-muted-foreground">加载中...</p>
           </div>
-        ) : cases && cases.length > 0 ? (
+        ) : filteredCases && filteredCases.length > 0 ? (
           <div className="space-y-8">
-            {cases.map((post: any) => (
+            {filteredCases.map((post: any) => (
               <Link key={post.id} href={`/success-cases/${post.slug}`}>
                 <Card className="overflow-hidden hover:shadow-lg transition-shadow cursor-pointer">
                   <div className="grid lg:grid-cols-3 gap-6">
@@ -56,10 +138,10 @@ export default function SuccessCases() {
                     <div className={post.coverImage ? "lg:col-span-2" : "lg:col-span-3"}>
                       <CardHeader>
                         <div className="flex items-center gap-2 mb-2">
-                          {post.contentCategory && (
-                            <Badge variant="secondary" className="bg-accent/10 text-accent">
-                              {getCategoryLabel(post.contentCategory)}
-                            </Badge>
+                          {post.successCaseCategory && (
+                            <span className="px-3 py-1 bg-gray-200 text-gray-800 text-sm font-medium">
+                              {getCategoryLabel(post.successCaseCategory)}
+                            </span>
                           )}
                         </div>
                         <CardTitle className="text-2xl">{post.title}</CardTitle>
@@ -97,7 +179,9 @@ export default function SuccessCases() {
           </div>
         ) : (
           <div className="text-center py-12">
-            <p className="text-muted-foreground">暂无成功案例。</p>
+            <p className="text-muted-foreground">
+              {searchQuery || selectedCategory ? "未找到匹配的成功案例。" : "暂无成功案例。"}
+            </p>
           </div>
         )}
 
@@ -127,11 +211,13 @@ export default function SuccessCases() {
 function getCategoryLabel(category: string): string {
   const labels: Record<string, string> = {
     "investment-immigration": "投资移民",
-    "family-reunion": "家庭团聚",
-    "maple-leaf-renewal": "枫叶卡续签",
-    "reconsideration": "拒签重审",
-    "temporary-resident": "临时居民申请",
     "skilled-worker": "技术移民",
+    "family-reunion": "家庭团聚移民",
+    "reconsideration": "拒签与程序公正信",
+    "temporary-visit": "临时访问申请",
+    "family-reunion-migration": "家庭团聚移民",
+    "maple-leaf-renewal": "枫叶卡续签",
+    "temporary-resident": "临时居民申请",
     "citizenship": "公民入籍",
     "other": "其他",
   };
