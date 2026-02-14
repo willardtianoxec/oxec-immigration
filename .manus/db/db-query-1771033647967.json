@@ -1,0 +1,20 @@
+{
+  "query": "SELECT id, slug, type FROM posts WHERE type = 'success-case' ORDER BY id DESC LIMIT 5;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2MHEakYmYxuSUJe.root --database ERSfzVi6JGQA5UonrK4h6y --execute SELECT id, slug, type FROM posts WHERE type = 'success-case' ORDER BY id DESC LIMIT 5;",
+  "rows": [
+    {
+      "id": "90001",
+      "slug": "espionage-inspection",
+      "type": "success-case"
+    },
+    {
+      "id": "60001",
+      "slug": "chenggongjianadayiminqianzheng",
+      "type": "success-case"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tslug\ttype\n90001\tespionage-inspection\tsuccess-case\n60001\tchenggongjianadayiminqianzheng\tsuccess-case\n",
+  "stderr": "",
+  "execution_time_ms": 371
+}

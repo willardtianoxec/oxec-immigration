@@ -1,0 +1,15 @@
+{
+  "query": "SELECT id, title, slug FROM posts WHERE id = 90001 LIMIT 1;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2MHEakYmYxuSUJe.root --database ERSfzVi6JGQA5UonrK4h6y --execute SELECT id, title, slug FROM posts WHERE id = 90001 LIMIT 1;",
+  "rows": [
+    {
+      "id": "90001",
+      "title": "一场安全调查攻防战",
+      "slug": "espionage-inspection"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\tslug\n90001\t一场安全调查攻防战\tespionage-inspection\n",
+  "stderr": "",
+  "execution_time_ms": 353
+}

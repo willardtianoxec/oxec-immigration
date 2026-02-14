@@ -260,7 +260,15 @@ export const appRouter = router({
     getBySlug: publicProcedure
       .input(z.object({ slug: z.string() }))
       .query(async ({ input }) => {
-        const post = await getPostBySlug(input.slug);
+        // 尝试按slug查询，如果slug是数字，也尝试按ID查询
+        let post = await getPostBySlug(input.slug);
+        
+        // 如果slug是数字，尝试按ID查询
+        if (!post && /^\d+$/.test(input.slug)) {
+          const id = parseInt(input.slug, 10);
+          post = await getPostById(id);
+        }
+        
         if (!post) {
           throw new TRPCError({
             code: "NOT_FOUND",

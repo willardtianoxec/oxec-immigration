@@ -390,20 +390,24 @@
 - [x] 改进间距配置 - 使用gap-8 lg:gap-12替代固定gap-12
 - [x] 添加文本截断 - 使用line-clamp防止文本溢出
 - [x] 测试响应式效果 - 验证桌面、平板、移动视图的显示
-- [x] 保存检查点 - 完成最新文章卡片响应式修复
+- [x] 保存检查点 - 完成最新文章卡片响## Bug Fixes & Improvements (Completed)
+- [x] 修复图片上传Data Too Long错误 - 使用S3上传而不是Data URL
+- [x] 添加"显示草稿"选项到管理后台
+- [x] 修复TypeScript类型错误
+- [x] 修复GoogleReviewsPreview中的API调用
+- [x] 修复/success-cases/{id}页面错误 - 修改getBySlug procedure以支持ID和slug
 
 ## Article Page Layout Optimization (Current Sprint - Phase 41)
-- [ ] 更新数据库Schema - 为posts表添加author字段，默认为"OXEC Immigration"
-- [ ] 更新文章编辑器 - 添加博客文章分类选择（政策解读、新闻、移居生活、移民故事、移民项目）
-- [ ] 更新BlogPost页面 - 添加导航栏、作者信息、两栏布局（左主内容，右侧栏）
-- [ ] 更新SuccessCaseDetail页面 - 添加导航栏、作者信息、两栏布局
-- [ ] 创建ArticleSidebar组件 - 实现右侧栏（分类、最近文章、标签、搜索）
-- [ ] 实现标签点击功能 - 点击标签后跳转到标签文章列表页面
-- [ ] 创建TaggedArticles页面 - 显示指定标签下的所有文章列表
-- [ ] 实现搜索功能 - 在右侧栏搜索框中搜索文章
-- [ ] 测试和保存检查点 - 验证所有功能正常
-
-## Article Page Layout Optimization (Current Sprint - Phase 33)
+- [x] 更新数据库Schema - 为posts表添加author字段，默认为"OXEC Immigration"
+- [x] 更新文章编辑器 - 添加博客文章分类选择（政策解读、新闻、移居生活、移民故事、移民项目）
+- [x] 更新BlogPost页面 - 添加导航栏、作者信息、两栏布局（左主内容，右侧栏）
+- [x] 更新SuccessCaseDetail页面 - 添加导航栏、作者信息、两栏布局
+- [x] 创建了ArticleSidebar组件 - 实现右侧栏（分类、最近文章、标签、搜索）
+- [x] 实现标签点击功能 - 点击标签后跳转到标签文章列表页面
+- [x] 创建了TaggedArticles页面 - 显示指定标签下的所有文章列表
+- [x] 实现搜索功能 - 在右侧栏搜索框中搜索文章
+- [x] 测试预览功能流程 - 验证编辑-预览-发布的完整流程
+- [x] 保存检查点 - 完成预览功能实现ptimization (Current Sprint - Phase 33)
 - [x] 更新数据库Schema - 为posts表添加author字段和博客/成功案例分类字段
 - [x] 更新文章编辑器 - 添加博客分类和成功案例分类选择
 - [x] 更新API端点 - 支持新的分类字段过滤

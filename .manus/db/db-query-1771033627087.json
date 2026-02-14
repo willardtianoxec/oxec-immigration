@@ -1,0 +1,17 @@
+{
+  "query": "SELECT id, title, slug, type, published FROM posts WHERE id = 90001;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2MHEakYmYxuSUJe.root --database ERSfzVi6JGQA5UonrK4h6y --execute SELECT id, title, slug, type, published FROM posts WHERE id = 90001;",
+  "rows": [
+    {
+      "id": "90001",
+      "title": "一场安全调查攻防战",
+      "slug": "espionage-inspection",
+      "type": "success-case",
+      "published": "1"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\tslug\ttype\tpublished\n90001\t一场安全调查攻防战\tespionage-inspection\tsuccess-case\t1\n",
+  "stderr": "",
+  "execution_time_ms": 355
+}
