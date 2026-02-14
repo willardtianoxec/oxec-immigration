@@ -1,0 +1,90 @@
+{
+  "query": "SELECT id, title, slug, type, published, createdAt FROM posts ORDER BY createdAt DESC LIMIT 10;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2MHEakYmYxuSUJe.root --database ERSfzVi6JGQA5UonrK4h6y --execute SELECT id, title, slug, type, published, createdAt FROM posts ORDER BY createdAt DESC LIMIT 10;",
+  "rows": [
+    {
+      "id": "120012",
+      "title": "加拿大移民最新政策解读 - 2026年技术移民新规",
+      "slug": "jianadayimin2026jishuyimin",
+      "type": "blog",
+      "published": "0",
+      "createdAt": "2026-02-14 01:12:44"
+    },
+    {
+      "id": "120011",
+      "title": "Updated Blog Post",
+      "slug": "test-blog-post-update-1771031288217",
+      "type": "blog",
+      "published": "0",
+      "createdAt": "2026-02-14 01:08:08"
+    },
+    {
+      "id": "120010",
+      "title": "Test Blog Post Upload",
+      "slug": "test-blog-post-upload-1771031287243",
+      "type": "blog",
+      "published": "0",
+      "createdAt": "2026-02-14 01:08:07"
+    },
+    {
+      "id": "120009",
+      "title": "Updated Blog Post",
+      "slug": "test-blog-post-update-1771031280661",
+      "type": "blog",
+      "published": "0",
+      "createdAt": "2026-02-14 01:08:00"
+    },
+    {
+      "id": "120008",
+      "title": "Test Blog Post Upload",
+      "slug": "test-blog-post-upload-1771031279688",
+      "type": "blog",
+      "published": "0",
+      "createdAt": "2026-02-14 01:07:59"
+    },
+    {
+      "id": "120007",
+      "title": "Updated Blog Post",
+      "slug": "test-blog-post-update-1771031273364",
+      "type": "blog",
+      "published": "0",
+      "createdAt": "2026-02-14 01:07:53"
+    },
+    {
+      "id": "120006",
+      "title": "Test Blog Post Upload",
+      "slug": "test-blog-post-upload-1771031272188",
+      "type": "blog",
+      "published": "0",
+      "createdAt": "2026-02-14 01:07:52"
+    },
+    {
+      "id": "120003",
+      "title": "Test Blog Post for Update",
+      "slug": "test-blog-post-update",
+      "type": "blog",
+      "published": "0",
+      "createdAt": "2026-02-14 01:06:35"
+    },
+    {
+      "id": "120002",
+      "title": "Test Blog Post Upload",
+      "slug": "test-blog-post-upload",
+      "type": "blog",
+      "published": "0",
+      "createdAt": "2026-02-14 01:06:34"
+    },
+    {
+      "id": "120001",
+      "title": "测试文章标题",
+      "slug": "test-article-slug",
+      "type": "blog",
+      "published": "0",
+      "createdAt": "2026-02-14 00:55:15"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\tslug\ttype\tpublished\tcreatedAt\n120012\t加拿大移民最新政策解读 - 2026年技术移民新规\tjianadayimin2026jishuyimin\tblog\t0\t2026-02-14 01:12:44\n120011\tUpdated Blog Post\ttest-blog-post-update-1771031288217\tblog\t0\t2026-02-14 01:08:08\n120010\tTest Blog Post Upload\ttest-blog-post-upload-1771031287243\tblog\t0\t2026-02-14 01:08:07\n120009\tUpdated Blog Post\ttest-blog-post-update-1771031280661\tblog\t0\t2026-02-14 01:08:00\n120008\tTest Blog Post Upload\ttest-blog-post-upload-1771031279688\tblog\t0\t2026-02-14 01:07:59\n120007\tUpdated Blog Post\ttest-blog-post-update-1771031273364\tblog\t0\t2026-02-14 01:07:53\n120006\tTest Blog Post Upload\ttest-blog-post-upload-1771031272188\tblog\t0\t2026-02-14 01:07:52\n120003\tTest Blog Post for Update\ttest-blog-post-update\tblog\t0\t2026-02-14 01:06:35\n120002\tTest Blog Post Upload\ttest-blog-post-upload\tblog\t0\t2026-02-14 01:06:34\n120001\t测试文章标题\ttest-article-slug\tblog\t0\t2026-02-14 00:55:15\n",
+  "stderr": "",
+  "execution_time_ms": 360
+}

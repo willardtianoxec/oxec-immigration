@@ -501,3 +501,10 @@
 - [ ] 添加成功提示 - 实现Toast通知显示保存成功消息
 - [ ] 改进错误提示 - 改进错误显示方式，使其更清晰
 - [ ] 添加加载状态 - 添加加载指示器，提高用户体验
+
+
+## Article Editor & Admin Panel Improvements (Current Sprint - Phase 32)
+- [x] 添加"显示草稿"选项到管理后台 - 在文章列表中添加toggle来显示/隐藏草稿文章
+- [x] 修复TypeScript类型错误 - 解决SuccessCases.tsx和TaggedArticles.tsx中的类型错误
+- [x] 修复GoogleReviewsPreview中的API调用 - 将getGoogleReviews改为list
+- [ ] 测试完整的发布流程 - 创建、保存草稿、发布文章的完整测试

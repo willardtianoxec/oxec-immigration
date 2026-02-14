@@ -81,7 +81,7 @@ export function TaggedArticles() {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {posts?.map((post) => (
+            {posts?.map((post: any) => (
               <Card
                 key={post.id}
                 className="overflow-hidden hover:shadow-lg transition-shadow cursor-pointer"

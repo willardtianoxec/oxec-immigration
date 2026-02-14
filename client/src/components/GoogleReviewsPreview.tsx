@@ -4,9 +4,7 @@ import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
 
 export function GoogleReviewsPreview() {
-  const { data, isLoading, error } = trpc.reviews.getGoogleReviews.useQuery({
-    limit: 10,
-  });
+  const { data, isLoading, error } = trpc.reviews.list.useQuery();
   
   const [currentIndex, setCurrentIndex] = useState(0);
   const itemsPerPage = 3;

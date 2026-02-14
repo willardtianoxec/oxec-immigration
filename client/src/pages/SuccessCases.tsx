@@ -40,7 +40,7 @@ export default function SuccessCases() {
           </div>
         ) : cases && cases.length > 0 ? (
           <div className="space-y-8">
-            {cases.map((post) => (
+            {cases.map((post: any) => (
               <Link key={post.id} href={`/success-cases/${post.slug}`}>
                 <Card className="overflow-hidden hover:shadow-lg transition-shadow cursor-pointer">
                   <div className="grid lg:grid-cols-3 gap-6">

@@ -29,12 +29,13 @@ export default function AdminPosts() {
   const [location, setLocation] = useLocation();
   const [postType, setPostType] = useState<"blog" | "success-case">("blog");
   const [contentCategory, setContentCategory] = useState<string | null>(null);
+  const [showDrafts, setShowDrafts] = useState(true);
 
   const { data: authData } = trpc.auth.me.useQuery();
   const { data: posts, isLoading, refetch } = trpc.posts.list.useQuery({
     type: postType,
     contentCategory: contentCategory || undefined,
-    publishedOnly: false,
+    publishedOnly: !showDrafts,
   });
 
   const deleteMutation = trpc.posts.delete.useMutation({
@@ -76,7 +77,7 @@ export default function AdminPosts() {
           </Button>
         </div>
 
-        {/* 类型切换和内容分类筛选 */}
+        {/* 类型切换、内容分类筛选和显示草稿选项 */}
         <div className="flex gap-4 mb-6 flex-wrap items-center">
           <div className="flex gap-4">
             <Button
@@ -115,6 +116,17 @@ export default function AdminPosts() {
               </SelectContent>
             </Select>
           </div>
+
+          {/* 显示草稿选项 */}
+          <div className="flex items-center gap-2 ml-auto">
+            <Button
+              variant={showDrafts ? "default" : "outline"}
+              size="sm"
+              onClick={() => setShowDrafts(!showDrafts)}
+            >
+              {showDrafts ? "显示所有" : "仅显示已发布"}
+            </Button>
+          </div>
         </div>
 
         {/* 文章列表 */}
@@ -124,7 +136,7 @@ export default function AdminPosts() {
           </div>
         ) : posts && posts.length > 0 ? (
           <div className="space-y-4">
-            {posts.map((post) => (
+            {posts.map((post: any) => (
               <Card key={post.id} className="p-4">
                 <div className="flex justify-between items-start">
                   <div className="flex-1">
@@ -153,11 +165,11 @@ export default function AdminPosts() {
                       <span
                         className={
                           post.published
-                            ? "text-green-600"
-                            : "text-yellow-600"
+                            ? "text-green-600 font-semibold"
+                            : "text-yellow-600 font-semibold"
                         }
                       >
-                        {post.published ? "已发布" : "草稿"}
+                        {post.published ? "✓ 已发布" : "◉ 草稿"}
                       </span>
                       {post.publishedAt && (
                         <span>

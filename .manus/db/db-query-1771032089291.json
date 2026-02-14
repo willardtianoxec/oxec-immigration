@@ -1,0 +1,18 @@
+{
+  "query": "SELECT type, COUNT(*) as count FROM posts GROUP BY type;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2MHEakYmYxuSUJe.root --database ERSfzVi6JGQA5UonrK4h6y --execute SELECT type, COUNT(*) as count FROM posts GROUP BY type;",
+  "rows": [
+    {
+      "type": "success-case",
+      "count": "2"
+    },
+    {
+      "type": "blog",
+      "count": "13"
+    }
+  ],
+  "messages": [],
+  "stdout": "type\tcount\nsuccess-case\t2\nblog\t13\n",
+  "stderr": "",
+  "execution_time_ms": 344
+}
