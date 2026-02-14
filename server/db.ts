@@ -215,8 +215,21 @@ export async function createPost(data: InsertPost) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
   
-  const result = await db.insert(posts).values(data);
-  return result;
+  try {
+    const result = await db.insert(posts).values(data);
+    return result;
+  } catch (error: any) {
+    // Handle unique constraint violation on slug
+    if (error.code === 'ER_DUP_ENTRY' && error.message.includes('slug')) {
+      console.warn(`[Database] Slug already exists: ${data.slug}, attempting to update existing record`);
+      // Try to update the existing record instead
+      const existing = await getPostBySlug(data.slug);
+      if (existing) {
+        return await updatePost(existing.id, data);
+      }
+    }
+    throw error;
+  }
 }
 
 export async function updatePost(id: number, data: Partial<InsertPost>) {

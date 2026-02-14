@@ -1,0 +1,42 @@
+{
+  "query": "SELECT id, title, slug, type, published, createdAt FROM posts ORDER BY slug, id DESC;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2MHEakYmYxuSUJe.root --database ERSfzVi6JGQA5UonrK4h6y --execute SELECT id, title, slug, type, published, createdAt FROM posts ORDER BY slug, id DESC;",
+  "rows": [
+    {
+      "id": "90001",
+      "title": "王先生成功获得加拿大技术移民签证",
+      "slug": "chenggongjianadajishuyiminqianzheng",
+      "type": "success-case",
+      "published": "1",
+      "createdAt": "2026-02-12 04:00:39"
+    },
+    {
+      "id": "60001",
+      "title": "李女士成功获得加拿大投资移民签证",
+      "slug": "chenggongjianadayiminqianzheng",
+      "type": "success-case",
+      "published": "0",
+      "createdAt": "2026-02-12 00:29:20"
+    },
+    {
+      "id": "30001",
+      "title": "详说拒签史",
+      "slug": "refusal",
+      "type": "blog",
+      "published": "1",
+      "createdAt": "2026-02-11 06:30:44"
+    },
+    {
+      "id": "1",
+      "title": "详说拒签史",
+      "slug": "refusal_explanation",
+      "type": "blog",
+      "published": "0",
+      "createdAt": "2026-02-06 18:15:50"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\tslug\ttype\tpublished\tcreatedAt\n90001\t王先生成功获得加拿大技术移民签证\tchenggongjianadajishuyiminqianzheng\tsuccess-case\t1\t2026-02-12 04:00:39\n60001\t李女士成功获得加拿大投资移民签证\tchenggongjianadayiminqianzheng\tsuccess-case\t0\t2026-02-12 00:29:20\n30001\t详说拒签史\trefusal\tblog\t1\t2026-02-11 06:30:44\n1\t详说拒签史\trefusal_explanation\tblog\t0\t2026-02-06 18:15:50\n",
+  "stderr": "",
+  "execution_time_ms": 506
+}
