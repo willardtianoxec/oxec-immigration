@@ -19,7 +19,7 @@ const BLOG_CATEGORY_OPTIONS = [
   { value: "immigration-project", label: "项目介绍" },
 ];
 
-// 成功案例分类选项（用于显示，但实际上发送的是contentCategory）
+// 成功案例分类选项
 const SUCCESS_CASE_CATEGORY_OPTIONS = [
   { value: "investment-immigration", label: "投资移民" },
   { value: "family-reunion", label: "家庭团聚" },
@@ -76,6 +76,13 @@ export function AdminPostForm() {
     },
   });
 
+  const uploadMutation = trpc.posts.upload.useMutation({
+    onError: (error) => {
+      console.error("Upload error:", error);
+      alert(`图片上传失败: ${error.message}`);
+    },
+  });
+
   const [formData, setFormData] = useState({
     title: "",
     subtitle: "",
@@ -95,6 +102,7 @@ export function AdminPostForm() {
   const [slugError, setSlugError] = useState("");
   const [coverImagePreview, setCoverImagePreview] = useState<string>("");
   const [isDragging, setIsDragging] = useState(false);
+  const [isUploadingImage, setIsUploadingImage] = useState(false);
 
   // 仅在初始加载时设置表单数据
   const [isInitialized, setIsInitialized] = useState(false);
@@ -161,20 +169,48 @@ export function AdminPostForm() {
     }
   };
 
-  // Handle image upload
+  // Handle image upload - upload to S3 and save URL
   const handleImageUpload = async (file: File) => {
     if (!file.type.startsWith("image/")) {
       alert("请选择图片文件");
       return;
     }
 
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const result = e.target?.result as string;
-      setCoverImagePreview(result);
-      setFormData((prev) => ({ ...prev, coverImage: result }));
-    };
-    reader.readAsDataURL(file);
+    setIsUploadingImage(true);
+
+    try {
+      // Create preview using Data URL (for display only)
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const dataUrl = e.target?.result as string;
+        setCoverImagePreview(dataUrl);
+      };
+      reader.readAsDataURL(file);
+
+      // Upload to S3
+      const fileReader = new FileReader();
+      fileReader.onload = async (e) => {
+        const base64String = e.target?.result as string;
+        try {
+          const result = await uploadMutation.mutateAsync({
+            file: base64String,
+            filename: file.name,
+          });
+          // Save S3 URL to formData
+          setFormData((prev) => ({ ...prev, coverImage: result.url }));
+        } catch (error) {
+          alert("图片上传失败，请重试");
+          setCoverImagePreview("");
+        } finally {
+          setIsUploadingImage(false);
+        }
+      };
+      fileReader.readAsDataURL(file);
+    } catch (error) {
+      alert("图片处理失败，请重试");
+      setCoverImagePreview("");
+      setIsUploadingImage(false);
+    }
   };
 
   const handleDragOver = (e: React.DragEvent) => {
@@ -260,10 +296,10 @@ export function AdminPostForm() {
       .map((t) => t.trim())
       .filter((t) => t);
     if (!currentTags.includes(tag)) {
-      setFormData({
-        ...formData,
+      setFormData((prev) => ({
+        ...prev,
         tags: [...currentTags, tag].join(", "),
-      });
+      }));
     }
   };
 
@@ -272,10 +308,10 @@ export function AdminPostForm() {
       .split(",")
       .map((t) => t.trim())
       .filter((t) => t !== tagToRemove);
-    setFormData({
-      ...formData,
+    setFormData((prev) => ({
+      ...prev,
       tags: currentTags.join(", "),
-    });
+    }));
   };
 
   const currentTags = formData.tags
@@ -316,6 +352,7 @@ export function AdminPostForm() {
         slug: formData.slug,
         content: formData.content,
         excerpt: formData.excerpt || undefined,
+        type: formData.type,
         blogCategory: formData.type === "blog" ? (formData.blogCategory as any || undefined) : undefined,
         contentCategory: formData.type === "success-case" ? (formData.contentCategory as any || undefined) : undefined,
         tags: formData.tags || undefined,
@@ -556,19 +593,29 @@ export function AdminPostForm() {
                 isDragging
                   ? "border-primary bg-primary/5"
                   : "border-border hover:border-primary/50"
-              }`}
-              onClick={() => fileInputRef.current?.click()}
+              } ${isUploadingImage ? "opacity-50 pointer-events-none" : ""}`}
+              onClick={() => !isUploadingImage && fileInputRef.current?.click()}
             >
-              <Upload className="w-8 h-8 mx-auto mb-2 text-muted-foreground" />
-              <p className="text-muted-foreground">
-                拖拽图片到此处或点击选择 支持 JPG、PNG 等格式，将自动裁剪为 16:9 比例
-              </p>
+              {isUploadingImage ? (
+                <>
+                  <Loader2 className="w-8 h-8 mx-auto mb-2 text-muted-foreground animate-spin" />
+                  <p className="text-muted-foreground">上传中...</p>
+                </>
+              ) : (
+                <>
+                  <Upload className="w-8 h-8 mx-auto mb-2 text-muted-foreground" />
+                  <p className="text-muted-foreground">
+                    拖拽图片到此处或点击选择 支持 JPG、PNG 等格式，将自动裁剪为 16:9 比例
+                  </p>
+                </>
+              )}
               <input
                 ref={fileInputRef}
                 type="file"
                 accept="image/*"
                 onChange={handleFileSelect}
                 className="hidden"
+                disabled={isUploadingImage}
               />
             </div>
             {coverImagePreview && (
@@ -587,6 +634,7 @@ export function AdminPostForm() {
                     setCoverImagePreview("");
                     setFormData((prev) => ({ ...prev, coverImage: "" }));
                   }}
+                  disabled={isUploadingImage}
                 >
                   删除
                 </Button>
@@ -598,7 +646,7 @@ export function AdminPostForm() {
           <div>
             <label className="block text-sm font-medium mb-2">摘要</label>
             <Textarea
-              placeholder="文章摘要（可选）"
+              placeholder="输入文章摘要（可选）"
               value={formData.excerpt}
               onChange={(e) => setFormData((prev) => ({ ...prev, excerpt: e.target.value }))}
               rows={3}
@@ -613,9 +661,6 @@ export function AdminPostForm() {
               value={formData.publishedAt}
               onChange={(e) => setFormData((prev) => ({ ...prev, publishedAt: e.target.value }))}
             />
-            <p className="text-xs text-muted-foreground mt-1">
-              选择文章显示的发布日期（不同于实际发布时间）
-            </p>
           </div>
 
           {/* 内容编辑器 */}
@@ -625,118 +670,104 @@ export function AdminPostForm() {
             </label>
             
             {/* 编辑工具栏 */}
-            <div className="flex flex-wrap gap-1 mb-2 p-2 bg-muted rounded-t-lg border border-b-0 border-input">
+            <div className="flex gap-1 mb-2 p-2 border border-input rounded-t-md bg-muted/30 flex-wrap">
               <Button
                 type="button"
-                variant="ghost"
+                variant="outline"
                 size="sm"
-                title="加粗"
                 onClick={() => insertMarkdown("**", "**")}
+                title="加粗"
               >
                 <Bold className="w-4 h-4" />
               </Button>
               <Button
                 type="button"
-                variant="ghost"
+                variant="outline"
                 size="sm"
-                title="斜体"
                 onClick={() => insertMarkdown("*", "*")}
+                title="斜体"
               >
                 <Italic className="w-4 h-4" />
               </Button>
-              <div className="w-px bg-border mx-1" />
               <Button
                 type="button"
-                variant="ghost"
+                variant="outline"
                 size="sm"
+                onClick={() => insertMarkdown("- ", "")}
                 title="无序列表"
-                onClick={() => insertMarkdown("- ")}
               >
                 <List className="w-4 h-4" />
               </Button>
               <Button
                 type="button"
-                variant="ghost"
+                variant="outline"
                 size="sm"
+                onClick={() => insertMarkdown("[", "](url)")}
                 title="链接"
-                onClick={() => insertMarkdown("[链接文本](", ")")}
               >
                 <LinkIcon className="w-4 h-4" />
               </Button>
               <Button
                 type="button"
-                variant="ghost"
+                variant="outline"
                 size="sm"
+                onClick={() => insertMarkdown("![alt](", ")")}
                 title="图片"
-                onClick={() => insertMarkdown("![图片描述](", ")")}
               >
                 <ImageIcon className="w-4 h-4" />
               </Button>
               <Button
                 type="button"
-                variant="ghost"
+                variant="outline"
                 size="sm"
+                onClick={() => insertMarkdown("# ", "")}
                 title="标题"
-                onClick={() => insertMarkdown("## ")}
               >
                 <AlignLeft className="w-4 h-4" />
               </Button>
             </div>
 
-            {/* 编辑框 */}
             <Textarea
               ref={textareaRef}
-              placeholder="输入文章内容（支持Markdown）"
+              placeholder="输入文章内容（支持Markdown格式）"
               value={formData.content}
               onChange={(e) => setFormData((prev) => ({ ...prev, content: e.target.value }))}
               rows={25}
+              className="font-mono text-sm"
               required
-              className="font-mono text-sm border-t-0 rounded-t-none"
             />
-            <p className="text-xs text-muted-foreground mt-1">
-              支持 Markdown 格式。使用工具栏快速插入格式化内容。
-            </p>
           </div>
 
           {/* 发布选项 */}
-          <div className="flex items-center gap-2">
-            <input
-              id="published"
-              type="checkbox"
-              checked={formData.published}
-              onChange={(e) => setFormData((prev) => ({ ...prev, published: e.target.checked }))}
-              className="w-4 h-4"
-            />
-            <label htmlFor="published" className="text-sm font-medium cursor-pointer">
-              立即发布
+          <div className="flex items-center gap-4">
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={formData.published}
+                onChange={(e) => setFormData((prev) => ({ ...prev, published: e.target.checked }))}
+                className="w-4 h-4"
+              />
+              <span className="text-sm font-medium">立即发布</span>
             </label>
           </div>
 
-          {/* 按钮 */}
-          <div className="flex gap-3 justify-end">
+          {/* 提交按钮 */}
+          <div className="flex gap-4 pt-6 border-t">
+            <Button
+              type="submit"
+              disabled={isSubmitting || isUploadingImage}
+              className="flex-1"
+            >
+              {isSubmitting && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
+              {formData.published ? "发布文章" : "保存草稿"}
+            </Button>
             <Button
               type="button"
               variant="outline"
               onClick={() => setLocation("/admin/posts")}
+              disabled={isSubmitting}
             >
               取消
-            </Button>
-            <Button
-              type="button"
-              variant="outline"
-              onClick={handleSaveDraft}
-              disabled={isSubmitting}
-            >
-              {isSubmitting && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
-              保存草稿
-            </Button>
-            <Button
-              type="button"
-              onClick={handlePublish}
-              disabled={isSubmitting}
-            >
-              {isSubmitting && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
-              发布文章
             </Button>
           </div>
         </form>

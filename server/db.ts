@@ -217,7 +217,10 @@ export async function createPost(data: InsertPost) {
   
   try {
     const result = await db.insert(posts).values(data);
-    return result;
+    // Get the inserted post to return complete object with id
+    const insertedPost = await getPostBySlug(data.slug);
+    if (!insertedPost) throw new Error("Failed to retrieve inserted post");
+    return insertedPost;
   } catch (error: any) {
     // Handle unique constraint violation on slug
     if (error.code === 'ER_DUP_ENTRY' && error.message.includes('slug')) {
@@ -260,7 +263,11 @@ export async function updatePost(id: number, data: Partial<InsertPost>) {
     throw new Error("No fields to update");
   }
   
-  return await db.update(posts).set(cleanData as Partial<InsertPost>).where(eq(posts.id, id));
+  await db.update(posts).set(cleanData as Partial<InsertPost>).where(eq(posts.id, id));
+  // Return the updated post
+  const updated = await getPostById(id);
+  if (!updated) throw new Error("Failed to retrieve updated post");
+  return updated;
 }
 
 export async function deletePost(id: number) {
