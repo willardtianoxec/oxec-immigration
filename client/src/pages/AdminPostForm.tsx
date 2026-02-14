@@ -211,6 +211,19 @@ export function AdminPostForm() {
     }
   };
 
+  // Determine which category field to use based on type
+  const getCategoryFieldValue = () => {
+    return formData.type === "blog" ? formData.blogCategory : formData.contentCategory;
+  };
+
+  const setCategoryFieldValue = (value: string) => {
+    if (formData.type === "blog") {
+      return setFormData((prev) => ({ ...prev, blogCategory: value }));
+    } else {
+      return setFormData((prev) => ({ ...prev, contentCategory: value }));
+    }
+  };
+
   // Get category label based on type and value
   const getCategoryLabel = (value: string) => {
     const categories = getContentCategories();
@@ -340,9 +353,10 @@ export function AdminPostForm() {
       return;
     }
     
-    // 对于成功案例，contentCategory必须选择
-    if (formData.type === "success-case" && !formData.contentCategory) {
-      alert("请选择内容分类");
+    // 验证分类选择
+    const categoryValue = formData.type === "blog" ? formData.blogCategory : formData.contentCategory;
+    if (!categoryValue) {
+      alert("请选择分类");
       return;
     }
 
@@ -357,7 +371,8 @@ export function AdminPostForm() {
         content: formData.content,
         excerpt: formData.excerpt || undefined,
 
-        contentCategory: formData.contentCategory ? (formData.contentCategory as any) : undefined,
+        blogCategory: formData.type === "blog" ? (formData.blogCategory as any || undefined) : undefined,
+        contentCategory: formData.type === "success-case" ? (formData.contentCategory as any || undefined) : undefined,
         tags: formData.tags || undefined,
         coverImage: formData.coverImage || undefined,
         published: true,
@@ -372,7 +387,8 @@ export function AdminPostForm() {
         excerpt: formData.excerpt || undefined,
 
         type: formData.type,
-        contentCategory: formData.contentCategory ? (formData.contentCategory as any) : undefined,
+        blogCategory: formData.type === "blog" ? (formData.blogCategory as any || undefined) : undefined,
+        contentCategory: formData.type === "success-case" ? (formData.contentCategory as any || undefined) : undefined,
         tags: formData.tags || undefined,
         coverImage: formData.coverImage || undefined,
         published: true,
@@ -437,7 +453,8 @@ export function AdminPostForm() {
                 setFormData((prev) => ({
                   ...prev,
                   type: e.target.value as "blog" | "success-case",
-                  contentCategory: "", // Reset content category when type changes
+                  blogCategory: "",
+                  contentCategory: "", // Reset both categories when type changes
                 }))
               }
               className="w-full px-3 py-2 border border-input rounded-md bg-background"
@@ -453,13 +470,8 @@ export function AdminPostForm() {
               {formData.type === "blog" ? "博客分类" : "成功案例分类"} <span className="text-red-500">*</span>
             </label>
             <select
-              value={formData.contentCategory}
-              onChange={(e) =>
-                setFormData((prev) => ({
-                  ...prev,
-                  contentCategory: e.target.value,
-                }))
-              }
+              value={getCategoryFieldValue()}
+              onChange={(e) => setCategoryFieldValue(e.target.value)}
               className="w-full px-3 py-2 border border-input rounded-md bg-background"
             >
               <option value="">选择分类</option>
