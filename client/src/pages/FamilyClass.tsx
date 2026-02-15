@@ -7,6 +7,7 @@ import { Footer } from "@/components/Footer";
 import { Link } from "wouter";
 import { FamilyClassProcessFlow } from "@/components/FamilyClassProcessFlow";
 
+
 export default function FamilyClass() {
   const [isEnglish, setIsEnglish] = useState(false);
   const [, navigate] = useLocation();
@@ -34,6 +35,12 @@ export default function FamilyClass() {
         nav: {
           back: "Back to Home",
           language: "中文",
+          home: "Home",
+          services: "Services",
+          success_cases: "Success Cases",
+          blog: "Blog",
+          about: "About",
+          contact: "Book Now",
         },
         overview: {
           title: "Family Reunion Immigration: Bringing Love Together in Canada",
@@ -51,18 +58,24 @@ export default function FamilyClass() {
             "Canada accepts applications from the following categories of family members:\n• Spouses and Partners: Including legal spouses, common-law partners, or conjugal partners.\n• Dependent Children: Usually under 22 years old and unmarried.\n• Parents and Grandparents: Through annual quotas or super visa programs.\n• Other Relatives: In specific special circumstances (such as orphaned siblings) may apply.",
         },
         process: {
-          title: "Categories & Application Process",
+          title: "Project Categories & Application Process",
           inlandOutland:
             "There are two main pathways: In-land sponsorship (for those already in Canada) and Out-land sponsorship (for those outside Canada). The process involves assessment, documentation collection, application submission to IRCC, security and medical checks, and finally obtaining permanent resident status.",
           cta: "Start Your Reunion Journey - Book Consultation Now",
         },
         successCases: "Family Reunion Success Cases",
-        readyText: "Ready to start your family reunion journey?",
+        readyText: "Ready to Reunite Your Family in Canada?",
       }
     : {
         nav: {
           back: "返回主页",
           language: "ENG",
+          home: "首页",
+          services: "服务",
+          success_cases: "成功案例",
+          blog: "博客",
+          about: "关于我们",
+          contact: "预约咨询",
         },
         overview: {
           title: "家庭团聚移民：让爱在加拿大团聚",
@@ -86,91 +99,93 @@ export default function FamilyClass() {
           cta: "开启您的团聚之旅 - 立即预约专业咨询",
         },
         successCases: "家庭团聚成功案例",
-        readyText: "准备开启您的团聚之旅了吗？",
+        readyText: "准备与您的家人在加拿大团聚吗？",
       };
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* Top Navigation - Same as BusinessClass */}
-      <div className="sticky top-0 z-50 bg-white border-b border-gray-200">
-        <div className="container py-4 flex justify-between items-center">
-          <div className="flex items-center gap-8">
-            <Link href="/">
-              <a className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:text-gray-900 transition-colors">
-                <ArrowLeft className="w-5 h-5" />
-                <span className="font-medium">{t.nav.back}</span>
-              </a>
-            </Link>
+    <div className="min-h-screen flex flex-col bg-background">
+      {/* Navigation Bar - Same as Home */}
+      <nav className="sticky top-0 z-50 bg-white border-b border-border shadow-sm" style={{ height: '55px' }}>
+        <div className="container flex items-center py-4" style={{ justifyContent: 'space-between', height: '55px' }}>
+          {/* Logo */}
+          <Link href="/">
+            <img src="/oxec-logo.png" alt="OXEC Immigration Services Ltd." className="cursor-pointer flex-shrink-0" style={{ height: '40px', width: '160px' }} />
+          </Link>
 
-            {/* Services Dropdown */}
-            <div className="relative">
+          {/* Desktop Menu - Single Unified Navigation Group */}
+          <div className="hidden md:flex items-center" style={{ flex: 1, justifyContent: 'space-around', marginLeft: '32px' }}>
+            <Link href="/">
+              <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">{t.nav.home}</span>
+            </Link>
+            <div className="relative group">
               <button
-                onClick={() => setServicesDropdownOpen(!servicesDropdownOpen)}
-                className="flex items-center gap-1 px-4 py-2 text-gray-700 hover:text-gray-900 transition-colors font-medium"
+                onMouseEnter={() => setServicesDropdownOpen(true)}
+                onMouseLeave={() => setServicesDropdownOpen(false)}
+                className="flex items-center text-foreground hover:text-primary transition-colors font-medium cursor-pointer"
               >
-                服务
-                <ChevronDown className="w-4 h-4" />
+                {t.nav.services}
+                <ChevronDown className="ml-1 h-4 w-4" />
               </button>
               {servicesDropdownOpen && (
-                <div className="absolute top-full left-0 mt-0 bg-white border border-gray-200 rounded-lg shadow-lg z-10">
+                <div
+                  onMouseEnter={() => setServicesDropdownOpen(true)}
+                  onMouseLeave={() => setServicesDropdownOpen(false)}
+                  className="absolute left-0 mt-0 w-56 bg-white border border-border rounded-md shadow-lg z-50"
+                >
                   {serviceItems.map((item) => (
                     <Link key={item.href} href={item.href}>
-                      <a className="block px-4 py-2 text-gray-700 hover:bg-gray-50 first:rounded-t-lg last:rounded-b-lg transition-colors">
+                      <span className="block px-4 py-3 text-foreground hover:bg-primary/10 hover:text-primary transition-colors cursor-pointer first:rounded-t-md last:rounded-b-md">
                         {item.label}
-                      </a>
+                      </span>
                     </Link>
                   ))}
                 </div>
               )}
             </div>
-
             <Link href="/success-cases">
-              <a className="px-4 py-2 text-gray-700 hover:text-gray-900 transition-colors font-medium">
-                成功案例
-              </a>
+              <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">{t.nav.success_cases}</span>
             </Link>
-
             <Link href="/blog">
-              <a className="px-4 py-2 text-gray-700 hover:text-gray-900 transition-colors font-medium">
-                博客
-              </a>
+              <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">{t.nav.blog}</span>
             </Link>
-
-            <Link href="/">
-              <a className="px-4 py-2 text-gray-700 hover:text-gray-900 transition-colors font-medium">
-                关于我们
-              </a>
+            <Link href="/team">
+              <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">{t.nav.about}</span>
+            </Link>
+            <button
+              onClick={() => setIsEnglish(!isEnglish)}
+              className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer"
+            >
+              {isEnglish ? '中文' : 'ENG'}
+            </button>
+            <Link href="/booking">
+              <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none">
+                <span>{t.nav.contact}</span>
+              </Button>
             </Link>
           </div>
 
-          <button
-            onClick={() => setIsEnglish(!isEnglish)}
-            className="px-4 py-2 bg-accent text-white rounded-lg hover:bg-accent/90 transition-colors font-medium"
-            style={{ borderRadius: "0px" }}
-          >
-            {t.nav.language}
+          {/* Mobile Menu Button */}
+          <button className="md:hidden" onClick={() => navigate("/")}>
+            <ArrowLeft className="h-6 w-6" />
           </button>
         </div>
-      </div>
+      </nav>
 
-      {/* Section 1: Overview - Left Text, Right Image */}
+      {/* Section 1: Overview */}
       <section className="py-20 bg-white">
         <div className="container">
           <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-              <h1
-                className="text-4xl lg:text-5xl font-black text-foreground mb-6"
-                style={{ fontFamily: "'Alibaba PuHuiTi', sans-serif", fontWeight: 900 }}
-              >
+            <div className="order-2 md:order-1">
+              <h2 className="text-3xl lg:text-4xl font-black text-foreground mb-6" style={{ fontFamily: "'Alibaba PuHuiTi', sans-serif", fontWeight: 900 }}>
                 {t.overview.title}
-              </h1>
+              </h2>
               <p className="text-lg text-muted-foreground leading-relaxed">{t.overview.content}</p>
             </div>
-            <div>
+            <div className="order-1 md:order-2">
               <img
-                src="https://private-us-east-1.manuscdn.com/sessionFile/i9ZSSj6IB1QFKBGCY6lMon/sandbox/SNunBhAdXlz5RhNsw0eVAp-img-1_1770159644000_na1fn_ZmFtaWx5Y2xhc3Mtb3ZlcnZpZXc.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvaTlaU1NqNklCMVFGS0JHQ1k2bE1vbi9zYW5kYm94L1NOdW5CaEFkWGx6NVJoTnN3MGVWQXAtaW1nLTFfMTc3MDE1OTY0NDAwMF9uYTFmbl9abUZ0YVd4NVkyeGhjM010YjNabGNuWnBaWGMuanBnP3gtb3NzLXByb2Nlc3M9aW1hZ2UvcmVzaXplLHdfMTkyMCxoXzE5MjAvZm9ybWF0LHdlYnAvcXVhbGl0eSxxXzgwIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNzk4NzYxNjAwfX19XX0_&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=upFT9VLDooUlK1CxBPCNvBlvxj0AQ5EhXF--6~HapwWvVQSqyhWLbBi4MlGHTpsyVLyu2Klvj6Jbb0x9JWpKVcIhNX5cFPxUSsPr8jfCmAR1L1vtF4VDZ-iuxz4k0IlKNc~4G4yV2iXniw0htd6zghJuMdrA6DTH4NpjlNIqqLQhh2t~vvm~SdmWI97mbYn4YABAkhk7hDUrHQNWC~osmGfkHYIbTs12btAY1dZs6cMmEn~Ra61yQrWK8vOwh5acmpqKdr9k21R6PMoVKInb4sO535rUcSXzn98BZXdnOSAuvZ7i9LAUaItNrj5Z~4LbbCJIuQiHXrAFrIk~mfiKxw__"
-                alt="Family Reunion"
-                className="w-full h-auto rounded-lg shadow-lg object-cover"
+                src="/family-reunion-hero.jpg"
+                alt="Family Reunion in Canada"
+                className="w-full h-auto shadow-lg object-cover"
                 style={{ aspectRatio: "16/9", borderRadius: "0px" }}
               />
             </div>
@@ -178,23 +193,20 @@ export default function FamilyClass() {
         </div>
       </section>
 
-      {/* Section 2: Who Can Sponsor - Left Image, Right Text */}
+      {/* Section 2: Who Can Sponsor */}
       <section className="py-20 bg-gray-50">
         <div className="container">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <img
-                src="https://private-us-east-1.manuscdn.com/sessionFile/i9ZSSj6IB1QFKBGCY6lMon/sandbox/SNunBhAdXlz5RhNsw0eVAp-img-2_1770159642000_na1fn_ZmFtaWx5Y2xhc3Mtc3BvbnNvcg.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvaTlaU1NqNklCMVFGS0JHQ1k2bE1vbi9zYW5kYm94L1NOdW5CaEFkWGx6NVJoTnN3MGVWQXAtaW1nLTJfMTc3MDE1OTY0MjAwMF9uYTFmbl9abUZ0YVd4NVkyeGhjM010YzNCdmJuTnZjZy5qcGc~eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsd18xOTIwLGhfMTkyMC9mb3JtYXQsd2VicC9xdWFsaXR5LHFfODAiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3OTg3NjE2MDB9fX1dfQ__&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=RFE6l1vVNqhS8sZsnzm53h~mqb7uBbPLKqUZhb~7xVN0Pgrz~hepR86k2j2cQeuSLi8ouPW~tf5UENKFqauQYNWdT6EvhG1fBO9~68512kwFa93uSpMroVP~4QWqjaoYy6kIJfHxFXoKgaUjIAqv1yA8AB4~KFru4Ts-MuHtesUccddOjXFHVzRpy13V~7dXYHpELP9n2I3rreeQ1dEZXnhC7F9-qrBJzyZmi67AM1-OM0cLaxPskj9DLpxDZqGxlOvE-WrliU7HayOBK1Xg5LYMnvaAFO--a-AYBSbfL5ckV5KVYJ~gOIovBL8~-aLY8cqxru0aKssEUF~aXMHL~Q__"
-                alt="Sponsor Qualification"
-                className="w-full h-auto rounded-lg shadow-lg object-cover"
+                src="/sponsor-meeting.jpg"
+                alt="Sponsor Meeting"
+                className="w-full h-auto shadow-lg object-cover"
                 style={{ aspectRatio: "16/9", borderRadius: "0px" }}
               />
             </div>
             <div>
-              <h2
-                className="text-3xl lg:text-4xl font-black text-foreground mb-6"
-                style={{ fontFamily: "'Alibaba PuHuiTi', sans-serif", fontWeight: 900 }}
-              >
+              <h2 className="text-3xl lg:text-4xl font-black text-foreground mb-6" style={{ fontFamily: "'Alibaba PuHuiTi', sans-serif", fontWeight: 900 }}>
                 {t.sponsor.title}
               </h2>
               <p className="text-lg text-muted-foreground leading-relaxed whitespace-pre-line">{t.sponsor.content}</p>
@@ -203,28 +215,60 @@ export default function FamilyClass() {
         </div>
       </section>
 
-      {/* Section 3: Who Can Be Sponsored - Left Text, Right Image */}
+      {/* Section 3: Which Relatives */}
       <section className="py-20 bg-white">
         <div className="container">
           <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2
-                className="text-3xl lg:text-4xl font-black text-foreground mb-6"
-                style={{ fontFamily: "'Alibaba PuHuiTi', sans-serif", fontWeight: 900 }}
-              >
+            <div className="order-2 md:order-1">
+              <h2 className="text-3xl lg:text-4xl font-black text-foreground mb-6" style={{ fontFamily: "'Alibaba PuHuiTi', sans-serif", fontWeight: 900 }}>
                 {t.sponsored.title}
               </h2>
               <p className="text-lg text-muted-foreground leading-relaxed whitespace-pre-line">{t.sponsored.content}</p>
             </div>
-            <div>
+            <div className="order-1 md:order-2">
               <img
-                src="https://private-us-east-1.manuscdn.com/sessionFile/i9ZSSj6IB1QFKBGCY6lMon/sandbox/SNunBhAdXlz5RhNsw0eVAp-img-3_1770159655000_na1fn_ZmFtaWx5Y2xhc3Mtc3BvbnNvcmVk.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvaTlaU1NqNklCMVFGS0JHQ1k2bE1vbi9zYW5kYm94L1NOdW5CaEFkWGx6NVJoTnN3MGVWQXAtaW1nLTNfMTc3MDE1OTY1NTAwMF9uYTFmbl9abUZ0YVd4NVkyeGhjM010YzNCdmJuTnZjbVZrLmpwZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzE5MjAsaF8xOTIwL2Zvcm1hdCx3ZWJwL3F1YWxpdHkscV84MCIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc5ODc2MTYwMH19fV19&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=kgXoM7oPnyuQNkm4absV9ctSvsZkvwfwi9-HXNEekY8Tfm3Zqi8Sg29omFxo4JjttCCFB-Fk8DGSVdKvJizqU77wCwpaBe-MQIpfAihnWTxpyfWRu5kSVYHmgNjiramhTpJcFzgleBrzIPAQ0SkO2QY-2H0CLPW~b5XGhFkkzZ4YbzVntK1aSwGMzm4DDn8nEvJavQYi9An6HicrJeTgbCkE1xYcgm8plz3FgQGOkmYTv2sbWYzfCvHHDq2twmnmJJSWGooUKZMHvVl2BpYxkW691Z0iV-viJbLYKeK0uK-mYaYU~-hx4oVyzxpCRGbtgo6lmpZ9OsAo5sbRFZOjfg__"
-                alt="Sponsored Family Members"
-                className="w-full h-auto rounded-lg shadow-lg object-cover"
+                src="/family-gathering.jpg"
+                alt="Family Gathering"
+                className="w-full h-auto shadow-lg object-cover"
                 style={{ aspectRatio: "16/9", borderRadius: "0px" }}
               />
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* CTA Section with Background Image - Before Success Cases */}
+      <section
+        className="py-20 flex items-center justify-center relative overflow-hidden"
+        style={{
+          backgroundImage: `url('https://files.manuscdn.com/user_upload_by_module/session_file/310519663292376041/WZnaCRpbTuyKXGGm.jpg')`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundAttachment: "fixed",
+          minHeight: "400px",
+        }}
+      >
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-black/40"></div>
+
+        {/* Content */}
+        <div className="container text-center relative z-10">
+          <h2 className="text-3xl lg:text-4xl font-bold text-white mb-8">{t.readyText}</h2>
+          <Button
+            size="lg"
+            className="font-bold text-lg px-8 py-6"
+            style={{
+              borderRadius: '0px',
+              borderWidth: '3px',
+              borderColor: '#ffffff',
+              color: '#ffffff',
+              backgroundColor: '#388088'
+            }}
+            onClick={() => navigate("/booking")}
+          >
+            {t.process.cta}
+            <ArrowRight className="ml-2 h-5 w-5" />
+          </Button>
         </div>
       </section>
 
@@ -241,18 +285,18 @@ export default function FamilyClass() {
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">{t.process.inlandOutland}</p>
           </div>
 
-          <FamilyClassProcessFlow isEnglish={isEnglish} />
-
-          <div className="text-center mt-12">
-            <Button
-              size="lg"
-              className="px-8 py-3 bg-accent text-white hover:bg-accent/90 transition-colors font-bold text-lg"
-              style={{ borderRadius: "0px" }}
-              onClick={() => navigate("/booking")}
-            >
-              {t.process.cta}
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+              <img
+                src="https://private-us-east-1.manuscdn.com/sessionFile/i9ZSSj6IB1QFKBGCY6lMon/sandbox/1KnEnHRJ5m7G4yZchCDKJn-img-2_1771140735000_na1fn_ZG9jdW1lbnQtc3VibWlzc2lvbi1vZmZpY2U.png?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvaTlaU1NqNklCMVFGS0JHQ1k2bE1vbi9zYW5kYm94LzFLbkVuSFJKNW03RzR5WmNoQ0RLSm4taW1nLTJfMTc3MTE0MDczNTAwMF9uYTFmbl9aRzlqZFcxbGJuUXRjM1ZpYldsemMybHZiaTF2Wm1acFkyVS5wbmc~eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsd18xOTIwLGhfMTkyMC9mb3JtYXQsd2VicC9xdWFsaXR5LHFfODAiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3OTg3NjE2MDB9fX1dfQ__&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=I4TlxHs7ICyTRpYrWJTOAjzyqatyH2vTdwiRLVCPTA49kXyERI3MN8K1LWMZqcZMu5e34Lx8xr7eWTckQAeHklCdSHrxaIFOC7h55vCDeAb0Yn~dJGMHcn42mrLS07uILaaQf5r1OACLtprriOQ1r9giMMzsfnMBBZB5F~CKnyknvfxJuTIXEB-nhPYEjyc-q2Tm9Q~792lnuLE5yq-3tTmQN91PTiT7x6m1OJYJzttbZTnPaDXo4IEWy9GRLmSFGucogzBaZQtTnm6u9QR6u0Hre-AT7MCzaAXDDDU6SuIosZv2zbSsnMcW4SY9mDrTfBYHyCk5-QcF1RSDJbsJ3A__"
+                alt="Document Submission Office"
+                className="w-full h-auto shadow-lg object-cover"
+                style={{ aspectRatio: "16/9", borderRadius: "0px" }}
+              />
+            </div>
+            <div>
+              <FamilyClassProcessFlow isEnglish={isEnglish} />
+            </div>
           </div>
         </div>
       </section>
@@ -267,7 +311,9 @@ export default function FamilyClass() {
             >
               {t.successCases}
             </h2>
-            <p className="text-lg text-muted-foreground">来自我们客户的真实成功故事</p>
+            <p className="text-lg text-muted-foreground">
+              {isEnglish ? "Real success stories from our clients" : "来自我们客户的真实成功故事"}
+            </p>
           </div>
 
           {/* Success Cases Grid - Show max 3 cases or fewer if available */}
@@ -277,10 +323,10 @@ export default function FamilyClass() {
                 <a
                   key={post.id}
                   href={`/success-cases/${post.slug}`}
-                  className="bg-gray-50 overflow-hidden shadow-md hover:shadow-lg transition-shadow cursor-pointer group"
-                  style={{ width: "450px", height: "360px" }}
+                  className="bg-gray-50 overflow-hidden shadow-md hover:shadow-lg transition-shadow cursor-pointer group flex flex-col"
+                  style={{ width: '450px', height: '360px' }}
                 >
-                  <div className="aspect-video bg-gradient-to-br from-blue-400 to-blue-600 overflow-hidden">
+                  <div className="bg-gradient-to-br from-blue-400 to-blue-600 overflow-hidden flex-shrink-0" style={{ height: '220px' }}>
                     {post.coverImage && (
                       <img
                         src={post.coverImage}
@@ -290,12 +336,12 @@ export default function FamilyClass() {
                       />
                     )}
                   </div>
-                  <div className="p-4">
+                  <div className="p-4 flex-grow flex flex-col justify-between">
                     <h3 className="text-base font-bold text-foreground mb-2 line-clamp-2">{post.title}</h3>
                     <p className="text-muted-foreground text-xs mb-3 line-clamp-2">{post.excerpt}</p>
                     <div className="flex items-center justify-between text-xs text-muted-foreground">
                       <span>{post.author?.name || "OXEC Immigration"}</span>
-                      <span>{new Date(post.createdAt).toLocaleDateString("zh-CN")}</span>
+                      <span>{new Date(post.createdAt).toLocaleDateString()}</span>
                     </div>
                   </div>
                 </a>
@@ -303,25 +349,9 @@ export default function FamilyClass() {
             </div>
           ) : (
             <div className="text-center py-12">
-              <p className="text-muted-foreground">暂无成功案例</p>
+              <p className="text-muted-foreground">{isEnglish ? "No success cases yet" : "暂无成功案例"}</p>
             </div>
           )}
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20 bg-blue-600">
-        <div className="container text-center">
-          <h2 className="text-3xl lg:text-4xl font-bold text-white mb-8">{t.readyText}</h2>
-          <Button
-            size="lg"
-            className="px-8 py-3 bg-white text-blue-600 hover:bg-gray-100 transition-colors font-bold text-lg"
-            style={{ borderRadius: "0px" }}
-            onClick={() => navigate("/booking")}
-          >
-            {t.process.cta}
-            <ArrowRight className="ml-2 h-5 w-5" />
-          </Button>
         </div>
       </section>
 
