@@ -273,7 +273,14 @@ export default function BusinessClass() {
           <a href="/booking">
             <Button
               size="lg"
-              className="bg-white text-accent hover:bg-gray-100 font-bold text-lg px-8 py-6"
+              className="font-bold text-lg px-8 py-6"
+              style={{
+                borderRadius: '0px',
+                borderWidth: '3px',
+                borderColor: '#ffffff',
+                color: '#ffffff',
+                backgroundColor: '#388088'
+              }}
             >
               {t.cta}
               <ArrowRight className="ml-2 h-5 w-5" />
