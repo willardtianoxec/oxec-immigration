@@ -363,10 +363,10 @@ export default function BusinessClass() {
               <a
                 key={post.id}
                 href={`/success-cases/${post.slug}`}
-                className="bg-gray-50 overflow-hidden shadow-md hover:shadow-lg transition-shadow cursor-pointer group"
-                style={{ width: '280px' }}
+                className="bg-gray-50 overflow-hidden shadow-md hover:shadow-lg transition-shadow cursor-pointer group flex flex-col"
+                style={{ width: '450px', height: '360px' }}
               >
-                <div className="aspect-video bg-gradient-to-br from-blue-400 to-blue-600 overflow-hidden">
+                <div className="bg-gradient-to-br from-blue-400 to-blue-600 overflow-hidden flex-shrink-0" style={{ height: '220px' }}>
                   {post.coverImage && (
                     <img
                       src={post.coverImage}
@@ -376,7 +376,7 @@ export default function BusinessClass() {
                     />
                   )}
                 </div>
-                <div className="p-4">
+                <div className="p-4 flex-grow flex flex-col justify-between">
                   <h3 className="text-base font-bold text-foreground mb-2 line-clamp-2">{post.title}</h3>
                   <p className="text-muted-foreground text-xs mb-3 line-clamp-2">{post.excerpt}</p>
                   <div className="flex items-center justify-between text-xs text-muted-foreground">
