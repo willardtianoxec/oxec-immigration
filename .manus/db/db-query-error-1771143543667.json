@@ -1,0 +1,8 @@
+{
+  "query": "INSERT INTO posts (title, slug, excerpt, content, coverImage, authorId, contentCategory, isPublished, createdAt, updatedAt) VALUES ('王女士成功获得配偶担保 - 家庭团聚基础类', 'wang-spouse-sponsorship-success', '王女士通过配偶担保项目成功获得永久居民身份。作为加拿大公民的配偶，她在充分的经济支持和完整的文件准备下，顺利通过了所有审查阶段，最终成功获得永久居民身份。', '王女士通过配偶担保项目成功获得永久居民身份。作为加拿大公民的配偶，她在充分的经济支持和完整的文件准备下，顺利通过了所有审查阶段，最终成功获得永久居民身份。\\n\\n**申请周期：** 8个月\\n**关键成功点：** 境内担保获批、文件完整性高、经济证明充分', '/hero-canadian.jpg', 1, 'family-reunion', true, NOW(), NOW())",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2MHEakYmYxuSUJe.root --database ERSfzVi6JGQA5UonrK4h6y --execute INSERT INTO posts (title, slug, excerpt, content, coverImage, authorId, contentCategory, isPublished, createdAt, updatedAt) VALUES ('王女士成功获得配偶担保 - 家庭团聚基础类', 'wang-spouse-sponsorship-success', '王女士通过配偶担保项目成功获得永久居民身份。作为加拿大公民的配偶，她在充分的经济支持和完整的文件准备下，顺利通过了所有审查阶段，最终成功获得永久居民身份。', '王女士通过配偶担保项目成功获得永久居民身份。作为加拿大公民的配偶，她在充分的经济支持和完整的文件准备下，顺利通过了所有审查阶段，最终成功获得永久居民身份。\\n\\n**申请周期：** 8个月\\n**关键成功点：** 境内担保获批、文件完整性高、经济证明充分', '/hero-canadian.jpg', 1, 'family-reunion', true, NOW(), NOW())",
+  "returncode": 1,
+  "logs": [
+    "ERROR 1054 (42S22) at line 1: Unknown column 'isPublished' in 'field list'"
+  ]
+}
