@@ -1,0 +1,9 @@
+{
+  "query": "SELECT id, title, contentCategory, type FROM posts WHERE type = 'success-case' AND contentCategory = '投资移民' LIMIT 5;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2MHEakYmYxuSUJe.root --database ERSfzVi6JGQA5UonrK4h6y --execute SELECT id, title, contentCategory, type FROM posts WHERE type = 'success-case' AND contentCategory = '投资移民' LIMIT 5;",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 384
+}

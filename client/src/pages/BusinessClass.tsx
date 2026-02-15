@@ -5,6 +5,8 @@ import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { trpc } from "@/lib/trpc";
+import { Footer } from "@/components/Footer";
+import { Link } from "wouter";
 
 export default function BusinessClass() {
   const [isEnglish, setIsEnglish] = useState(false);
@@ -13,7 +15,7 @@ export default function BusinessClass() {
   // Fetch success cases
   const { data: successCases = [] } = trpc.posts.list.useQuery({
     type: "success-case",
-    category: "投资移民",
+    category: "investment-immigration",
     publishedOnly: true,
   });
 
@@ -118,43 +120,60 @@ export default function BusinessClass() {
 
   const t = isEnglish ? content.en : content.zh;
 
-  // Add Google Font for Alibaba Sans
+  // Add Google Font for Alibaba PuHuiTi Black
   const fontStyle = `
-    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@900&display=swap');
     .section-title {
       font-family: 'Noto Sans SC', sans-serif;
-      font-weight: 700;
+      font-weight: 900;
       font-size: 48px;
+      letter-spacing: 0.5px;
     }
   `;
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white flex flex-col">
       <style>{fontStyle}</style>
 
-      {/* Top Navigation Bar */}
-      <div className="sticky top-0 z-50 bg-white border-b border-gray-200">
-        <div className="container flex items-center justify-between h-16">
-          <button
-            onClick={() => navigate("/")}
-            className="flex items-center gap-2 text-foreground hover:text-accent transition-colors"
-          >
-            <ArrowLeft className="w-5 h-5" />
-            <span className="font-medium">{t.nav.back}</span>
-          </button>
+      {/* Top Navigation Bar - Same as Home */}
+      <nav className="sticky top-0 z-50 bg-white border-b border-border shadow-sm" style={{height: '55px'}}>
+        <div className="container flex items-center py-4" style={{ justifyContent: 'space-between', height: '55px' }}>
+          {/* Logo */}
+          <Link href="/">
+            <img src="/oxec-logo.png" alt="OXEC Immigration Services Ltd." className="cursor-pointer flex-shrink-0" style={{ height: '40px', width: '160px' }} />
+          </Link>
 
-          {/* Page Title */}
-          <h1 className="text-xl font-bold text-foreground">{t.title}</h1>
+          {/* Desktop Menu */}
+          <div className="hidden md:flex items-center" style={{ flex: 1, justifyContent: 'space-around', marginLeft: '32px' }}>
+            <Link href="/">
+              <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">{isEnglish ? 'Home' : '首页'}</span>
+            </Link>
+            <span className="text-foreground font-medium">{t.title}</span>
+            <Link href="/success-cases">
+              <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">{isEnglish ? 'Success Cases' : '成功案例'}</span>
+            </Link>
+            <Link href="/blog">
+              <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">{isEnglish ? 'Blog' : '博客'}</span>
+            </Link>
+            <button
+              onClick={() => setIsEnglish(!isEnglish)}
+              className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer"
+            >
+              {isEnglish ? '中文' : 'ENG'}
+            </button>
+            <Link href="/booking">
+              <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none">
+                <span>{isEnglish ? 'Book Now' : '预约咨询'}</span>
+              </Button>
+            </Link>
+          </div>
 
-          <button
-            onClick={() => setIsEnglish(!isEnglish)}
-            className="px-4 py-2 bg-accent text-white hover:bg-accent/90 transition-colors font-medium"
-            style={{ borderRadius: "0px" }}
-          >
-            {t.nav.language}
+          {/* Mobile Menu Button */}
+          <button className="md:hidden" onClick={() => navigate("/")}>
+            <ArrowLeft className="h-6 w-6" />
           </button>
         </div>
-      </div>
+      </nav>
 
       {/* Section 1: Overview */}
       <section className="py-20 bg-white">
@@ -213,7 +232,7 @@ export default function BusinessClass() {
             </div>
             <div className="order-1 md:order-2">
               <img
-                src="https://private-us-east-1.manuscdn.com/sessionFile/i9ZSSj6IB1QFKBGCY6lMon/sandbox/CzR3vynOXwkVLil8nGhSBg-img-3_1770078011000_na1fn_YnVzaW5lc3NjbGFzcy1jYXRlZ29yaWVz.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvaTlaU1NqNklCMVFGS0JHQ1k2bE1vbi9zYW5kYm94L0N6UjN2eW5PWHdrVkxpbDhuR2hTQmctaW1nLTNfMTc3MDA3ODAxMTAwMF9uYTFmbl9ZblZ6YVc1bGMzTmpiR0Z6Y3kxallYUmxaMjl5YVdWei5qcGc~eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsd18xOTIwLGhfMTkyMC9mb3JtYXQsd2VicC9xdWFsaXR5LHFfODAiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3OTg3NjE2MDB9fX1dfQ__&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=tHHDgE5VW3LYOJJ8Jq0W7xHU6WWGqqO5hkrE5teiqZMZKkgkCDdaUQx0kJT0XLPWcnnXOrlzXee~kufMM5lmTZKv2sG8KmLMlLSRDjSVlOLDX0hzT3xxsshz3O9ZiVozawixuz228E~ONo5qAFaSWf6Z4wuP4ZgPfik1F2AKe1O7BBkgvaxPNhvRtjaN1djF7wTrCM9D6x1y4gQtQV5DxnDOzIjPahKhhDmFyRlIeQpQ747X~jCqHfqwfUDh9CeXmlUX~-PB4HsWpV7zh-U2J45O6RyTUWCU7LxgHGRLQjO4TGVaRBq-eajKmRr9OMvCuh3N9nV7BIr0LQDVA6Am~w__"
+                src="https://private-us-east-1.manuscdn.com/sessionFile/i9ZSSj6IB1QFKBGCY6lMon/sandbox/CzR3vynOXwkVLil8nGhSBg-img-3_1770078026000_na1fn_YnVzaW5lc3NjbGFzcy1jYXRlZ29yaWVz.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvaTlaU1NqNklCMVFGS0JHQ1k2bE1vbi9zYW5kYm94L0N6UjN2eW5PWHdrVkxpbDhuR2hTQmctaW1nLTNfMTc3MDA3ODAyNjAwMF9uYTFmbl9ZblZ6YVc1bGMzTmpiR0Z6Y3kxd2NtOWpaWE56LmpwZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzE5MjAsaF8xOTIwL2Zvcm1hdCx3ZWJwL3F1YWxpdHkscV84MCIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc5ODc2MTYwMH19fV19&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=cw6W1ZIETdX8HrY4NNZvR6LvGgBSfqn6hou0CDb7S01xgcSK9K7Mp~b7YBq9H6AIne6aFiUMn6QuPCqJ3iVBN7uxjvsARZWAzbgsX4tgg7AQshvpmujeZpnaJ28lzzMziBhLeieMj5XTWtRjxV0Nwe3G1oyocX6SPMCOGpFBRA-HbrIkeQqG9no0ZMI1qXzApjC2GGj8mG0XG1gH4461JurZ6qkh05TE8MapIqGo-k2ohfOsKNkMpJMEta5UAn6wP40OUxri-Ot7zR8Od6MT1Zko4Ru5JW911H6Sse3lZdh7zGER6CEfjGe3TSQu7xH01weB9ttg71gqUo54C9~8eg__"
                 alt="BC Regions"
                 className="w-full h-auto shadow-lg object-cover"
                 style={{ aspectRatio: "16/9", borderRadius: "0px" }}
@@ -318,9 +337,6 @@ export default function BusinessClass() {
                   )}
                 </div>
                 <div className="p-6">
-                  <p className="text-sm text-accent font-semibold mb-2">
-                    {new Date(post.publishedAt || post.createdAt).getFullYear()}
-                  </p>
                   <h3 className="text-xl font-bold text-foreground mb-3 line-clamp-2">{post.title}</h3>
                   <p className="text-muted-foreground text-sm mb-4 line-clamp-2">{post.excerpt}</p>
                   <div className="flex items-center justify-between text-xs text-muted-foreground">
@@ -334,38 +350,8 @@ export default function BusinessClass() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-gray-900 text-gray-300 py-12">
-        <div className="container">
-          <div className="grid md:grid-cols-4 gap-8 mb-8">
-            <div>
-              <h4 className="text-white font-bold mb-4">OXEC Immigration</h4>
-              <p className="text-sm">专业的加拿大移民服务提供商</p>
-            </div>
-            <div>
-              <h4 className="text-white font-bold mb-4">服务</h4>
-              <ul className="space-y-2 text-sm">
-                <li><a href="/businessclass" className="hover:text-white transition-colors">投资移民</a></li>
-                <li><a href="/" className="hover:text-white transition-colors">其他服务</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-white font-bold mb-4">联系我们</h4>
-              <ul className="space-y-2 text-sm">
-                <li>电话: +1 (604) 123-4567</li>
-                <li>邮箱: business@oxecimm.com</li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-white font-bold mb-4">关注我们</h4>
-              <p className="text-sm">在社交媒体上关注我们了解最新信息</p>
-            </div>
-          </div>
-          <div className="border-t border-gray-700 pt-8 text-center text-sm">
-            <p>&copy; 2026 OXEC Immigration Services Ltd. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
+      {/* Footer - Use the same Footer component as Home */}
+      <Footer />
     </div>
   );
 }

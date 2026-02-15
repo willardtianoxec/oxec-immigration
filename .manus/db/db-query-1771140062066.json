@@ -1,0 +1,9 @@
+{
+  "query": "INSERT INTO posts (title, slug, excerpt, content, coverImage, type, contentCategory, published, publishedAt, authorId, createdAt, updatedAt) VALUES ('李先生成功获得BC省提名 - 投资移民基础类', 'li-bc-pnp-entrepreneur-success', '李先生通过BC省企业家移民项目基础类成功获得省提名。作为一名资深商业人士，他在温哥华建立了一家科技公司，创造了10个本地就业机会，最终成功获得BC PNP提名。', '李先生在咨询OXEC移民事务所时，已经有明确的商业计划。他计划在温哥华建立一家专注于AI和数据分析的科技公司。通过详细的商业计划准备、充足的资金准备、EOI提交、获得邀请、申请工作签证等步骤，李先生最终成功获得BC PNP提名。', 'https://files.manuscdn.com/user_upload_by_module/session_file/310519663292376041/WZnaCRpbTuyKXGGm.jpg', 'success-case', 'investment-immigration', true, NOW(), 1, NOW(), NOW());",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2MHEakYmYxuSUJe.root --database ERSfzVi6JGQA5UonrK4h6y --execute INSERT INTO posts (title, slug, excerpt, content, coverImage, type, contentCategory, published, publishedAt, authorId, createdAt, updatedAt) VALUES ('李先生成功获得BC省提名 - 投资移民基础类', 'li-bc-pnp-entrepreneur-success', '李先生通过BC省企业家移民项目基础类成功获得省提名。作为一名资深商业人士，他在温哥华建立了一家科技公司，创造了10个本地就业机会，最终成功获得BC PNP提名。', '李先生在咨询OXEC移民事务所时，已经有明确的商业计划。他计划在温哥华建立一家专注于AI和数据分析的科技公司。通过详细的商业计划准备、充足的资金准备、EOI提交、获得邀请、申请工作签证等步骤，李先生最终成功获得BC PNP提名。', 'https://files.manuscdn.com/user_upload_by_module/session_file/310519663292376041/WZnaCRpbTuyKXGGm.jpg', 'success-case', 'investment-immigration', true, NOW(), 1, NOW(), NOW());",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 394
+}
