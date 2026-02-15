@@ -358,12 +358,13 @@ export default function BusinessClass() {
 
           {/* Success Cases Grid - Show max 3 cases or fewer if available */}
           {successCases.length > 0 ? (
-          <div className={`grid ${successCases.length === 1 ? 'md:grid-cols-1' : successCases.length === 2 ? 'md:grid-cols-2' : 'md:grid-cols-3'} gap-8 max-w-6xl mx-auto`}>
+          <div className="flex flex-wrap justify-center gap-8">
             {successCases.slice(0, 3).map((post) => (
               <a
                 key={post.id}
                 href={`/success-cases/${post.slug}`}
                 className="bg-gray-50 overflow-hidden shadow-md hover:shadow-lg transition-shadow cursor-pointer group"
+                style={{ width: '280px' }}
               >
                 <div className="aspect-video bg-gradient-to-br from-blue-400 to-blue-600 overflow-hidden">
                   {post.coverImage && (
@@ -375,9 +376,9 @@ export default function BusinessClass() {
                     />
                   )}
                 </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-foreground mb-3 line-clamp-2">{post.title}</h3>
-                  <p className="text-muted-foreground text-sm mb-4 line-clamp-2">{post.excerpt}</p>
+                <div className="p-4">
+                  <h3 className="text-base font-bold text-foreground mb-2 line-clamp-2">{post.title}</h3>
+                  <p className="text-muted-foreground text-xs mb-3 line-clamp-2">{post.excerpt}</p>
                   <div className="flex items-center justify-between text-xs text-muted-foreground">
                     <span>OXEC Immigration</span>
                     <span>{new Date(post.publishedAt || post.createdAt).toLocaleDateString()}</span>
