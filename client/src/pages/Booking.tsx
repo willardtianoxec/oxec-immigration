@@ -144,7 +144,7 @@ export default function Booking() {
     mapRef.current = map;
     const marker = new google.maps.marker.AdvancedMarkerElement({
       map,
-      position: { lat: 49.2261785, lng: -123.0012802 },
+      position: { lat: 49.227280, lng: -123.000137 },
       title: "OXEC Immigration Services Ltd.",
     });
   };
@@ -464,8 +464,8 @@ export default function Booking() {
               <CardContent>
                 <MapView
                   onMapReady={handleMapReady}
-                  defaultCenter={{ lat: 49.2261785, lng: -123.0012802 }}
-                  defaultZoom={16}
+                  initialCenter={{ lat: 49.227280, lng: -123.000137 }}
+                  initialZoom={16}
                   className="w-full h-96 rounded-md"
                 />
                 <div className="mt-4 space-y-2 text-sm">
