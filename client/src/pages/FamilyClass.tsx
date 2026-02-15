@@ -142,7 +142,7 @@ export default function FamilyClass() {
         <div className="container">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="order-2 md:order-1">
-              <h2 className="text-foreground mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", sans-serif', fontWeight: 900, fontSize: '48pt' }}>
+              <h2 className="text-foreground mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", sans-serif', fontWeight: 900, fontSize: '48px' }}>
                 {isEnglish ? "Family Reunion Immigration: Bringing Love Together in Canada" : "家庭团聚移民：让爱在加拿大团聚"}
               </h2>
               <p className="text-lg text-muted-foreground leading-relaxed">
@@ -177,7 +177,7 @@ export default function FamilyClass() {
               />
             </div>
             <div>
-              <h2 className="text-foreground mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", sans-serif', fontWeight: 900, fontSize: '48pt' }}>
+              <h2 className="text-foreground mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", sans-serif', fontWeight: 900, fontSize: '48px' }}>
                 {isEnglish ? "Who Can Sponsor Family Members?" : "谁可以担保家庭成员？"}
               </h2>
               <p className="text-lg text-muted-foreground leading-relaxed">
@@ -196,7 +196,7 @@ export default function FamilyClass() {
         <div className="container">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="order-2 md:order-1">
-              <h2 className="text-foreground mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", sans-serif', fontWeight: 900, fontSize: '48pt' }}>
+              <h2 className="text-foreground mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", sans-serif', fontWeight: 900, fontSize: '48px' }}>
                 {isEnglish ? "Which Relatives Can Be Sponsored?" : "哪些亲属可以被担保？"}
               </h2>
               <p className="text-lg text-muted-foreground leading-relaxed">
@@ -249,7 +249,7 @@ export default function FamilyClass() {
                 backgroundColor: '#388088'
               }}
             >
-              {isEnglish ? "Start Your Reunion Journey - Book Consultation Now" : "开启您的团聚之旅 - 立即预约专业咨询"}
+              {isEnglish ? "Book Now" : "立即预约咨询"}
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </a>
@@ -269,7 +269,7 @@ export default function FamilyClass() {
               />
             </div>
             <div>
-              <h2 className="text-foreground mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", sans-serif', fontWeight: 900, fontSize: '48pt' }}>
+              <h2 className="text-foreground mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", sans-serif', fontWeight: 900, fontSize: '48px' }}>
                 {isEnglish ? "Project Application Process" : "项目申请流程"}
               </h2>
               <p className="text-lg text-muted-foreground leading-relaxed mb-8">
@@ -316,7 +316,7 @@ export default function FamilyClass() {
       <section className="py-20 bg-white">
         <div className="container">
           <div className="text-center mb-16">
-            <h2 className="text-foreground mb-4" style={{ fontFamily: '"Alibaba PuHuiTi", sans-serif', fontWeight: 900, fontSize: '48pt' }}>
+            <h2 className="text-foreground mb-4" style={{ fontFamily: '"Alibaba PuHuiTi", sans-serif', fontWeight: 900, fontSize: '48px' }}>
               {isEnglish ? "Family Reunion Success Cases" : "家庭团聚成功案例"}
             </h2>
             <p className="text-lg text-muted-foreground">
