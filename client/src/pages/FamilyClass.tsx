@@ -183,7 +183,7 @@ export default function FamilyClass() {
             </div>
             <div className="order-1 md:order-2">
               <img
-                src="/family-reunion-hero.jpg"
+                src="/hero-canadian.jpg"
                 alt="Family Reunion in Canada"
                 className="w-full h-auto shadow-lg object-cover"
                 style={{ aspectRatio: "16/9", borderRadius: "0px" }}
@@ -199,7 +199,7 @@ export default function FamilyClass() {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <img
-                src="/sponsor-meeting.jpg"
+                src="/team-member-1.jpg"
                 alt="Sponsor Meeting"
                 className="w-full h-auto shadow-lg object-cover"
                 style={{ aspectRatio: "16/9", borderRadius: "0px" }}
@@ -227,7 +227,7 @@ export default function FamilyClass() {
             </div>
             <div className="order-1 md:order-2">
               <img
-                src="/family-gathering.jpg"
+                src="/team-member-2.jpg"
                 alt="Family Gathering"
                 className="w-full h-auto shadow-lg object-cover"
                 style={{ aspectRatio: "16/9", borderRadius: "0px" }}
@@ -282,20 +282,71 @@ export default function FamilyClass() {
             >
               {t.process.title}
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">{t.process.inlandOutland}</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <img
-                src="https://private-us-east-1.manuscdn.com/sessionFile/i9ZSSj6IB1QFKBGCY6lMon/sandbox/1KnEnHRJ5m7G4yZchCDKJn-img-2_1771140735000_na1fn_ZG9jdW1lbnQtc3VibWlzc2lvbi1vZmZpY2U.png?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvaTlaU1NqNklCMVFGS0JHQ1k2bE1vbi9zYW5kYm94LzFLbkVuSFJKNW03RzR5WmNoQ0RLSm4taW1nLTJfMTc3MTE0MDczNTAwMF9uYTFmbl9aRzlqZFcxbGJuUXRjM1ZpYldsemMybHZiaTF2Wm1acFkyVS5wbmc~eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsd18xOTIwLGhfMTkyMC9mb3JtYXQsd2VicC9xdWFsaXR5LHFfODAiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3OTg3NjE2MDB9fX1dfQ__&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=I4TlxHs7ICyTRpYrWJTOAjzyqatyH2vTdwiRLVCPTA49kXyERI3MN8K1LWMZqcZMu5e34Lx8xr7eWTckQAeHklCdSHrxaIFOC7h55vCDeAb0Yn~dJGMHcn42mrLS07uILaaQf5r1OACLtprriOQ1r9giMMzsfnMBBZB5F~CKnyknvfxJuTIXEB-nhPYEjyc-q2Tm9Q~792lnuLE5yq-3tTmQN91PTiT7x6m1OJYJzttbZTnPaDXo4IEWy9GRLmSFGucogzBaZQtTnm6u9QR6u0Hre-AT7MCzaAXDDDU6SuIosZv2zbSsnMcW4SY9mDrTfBYHyCk5-QcF1RSDJbsJ3A__"
+                src="/hero-professional.jpg"
                 alt="Document Submission Office"
                 className="w-full h-auto shadow-lg object-cover"
                 style={{ aspectRatio: "16/9", borderRadius: "0px" }}
               />
             </div>
             <div>
-              <FamilyClassProcessFlow isEnglish={isEnglish} />
+              <div className="space-y-4">
+                {isEnglish ? (
+                  <>
+                    <p className="text-lg text-muted-foreground mb-6">From assessment, business plan preparation, registration, invitation (ITA), work permit to final obtaining permanent resident status, the basic process is:</p>
+                    {[
+                      { num: 1, title: "Initial Assessment & Consultation" },
+                      { num: 2, title: "Prepare Business Plan & Financial Documents" },
+                      { num: 3, title: "Submit EOI (Expression of Interest) or Direct Application" },
+                      { num: 4, title: "Receive Invitation (ITA)" },
+                      { num: 5, title: "Submit Work Permit Application" },
+                      { num: 6, title: "Obtain Provincial Nomination" },
+                      { num: 7, title: "Apply for Permanent Residence" }
+                    ].map((step) => (
+                      <div key={step.num} className="flex gap-4 items-start">
+                        <div
+                          className="flex-shrink-0 w-10 h-10 rounded flex items-center justify-center text-white font-bold"
+                          style={{ backgroundColor: "#4a7c7e" }}
+                        >
+                          {step.num}
+                        </div>
+                        <div>
+                          <p className="font-semibold text-foreground">{step.title}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </>
+                ) : (
+                  <>
+                    <p className="text-lg text-muted-foreground mb-6">从考察、商业计划书准备、注册、受邀 (ITA)、工作签证到最终获得提名的基本流程：</p>
+                    {[
+                      { num: 1, title: "初步评估与咨询" },
+                      { num: 2, title: "准备商业计划书与财务文件" },
+                      { num: 3, title: "提交 EOI（意向书）或直接申请" },
+                      { num: 4, title: "获得邀请 (ITA)" },
+                      { num: 5, title: "申请工作签证" },
+                      { num: 6, title: "获得省提名" },
+                      { num: 7, title: "申请永久居民身份" }
+                    ].map((step) => (
+                      <div key={step.num} className="flex gap-4 items-start">
+                        <div
+                          className="flex-shrink-0 w-10 h-10 rounded flex items-center justify-center text-white font-bold"
+                          style={{ backgroundColor: "#4a7c7e" }}
+                        >
+                          {step.num}
+                        </div>
+                        <div>
+                          <p className="font-semibold text-foreground">{step.title}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </>
+                )}
+              </div>
             </div>
           </div>
         </div>
