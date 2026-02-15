@@ -1,252 +1,357 @@
-import React, { useState } from 'react';
-import { useLocation } from 'wouter';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Link } from 'wouter';
-import { FamilyClassProcessFlow } from '@/components/FamilyClassProcessFlow';
+"use client";
+
+import { useState } from "react";
+import { useLocation } from "wouter";
+import { Button } from "@/components/ui/button";
+import { ArrowLeft, ArrowRight, ChevronDown } from "lucide-react";
+import { trpc } from "@/lib/trpc";
+import { Footer } from "@/components/Footer";
+import { Link } from "wouter";
 
 export default function FamilyClass() {
   const [isEnglish, setIsEnglish] = useState(false);
   const [, navigate] = useLocation();
+  const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false);
 
-  const t = isEnglish
-    ? {
-        nav: {
-          back: 'Back to Home',
-          language: '中文',
-        },
-        overview: {
-          title: 'Family Reunion Immigration: Bringing Love Together in Canada',
-          content:
-            'The Canadian government believes that family completeness is the foundation of social stability and prosperity. Based on deep humanitarian care, Canada\'s immigration system regards "family reunification" as one of its core objectives. Whether it\'s spouses, children, or parents, we are committed to providing professional legal services to shorten the distance and help your family start a new chapter of life together in the Maple Leaf nation.',
-        },
-        sponsor: {
-          title: 'Who Can Sponsor Family Members?',
-          content:
-            'To become a qualified sponsor, you typically need to meet the following basic conditions:\n• Must be a Canadian citizen or permanent resident (PR).\n• Must be at least 18 years old.\n• Must be able to demonstrate sufficient financial capacity to support the sponsored person\'s basic living needs in Canada.\n• Must sign a sponsorship agreement, committing to provide financial support for the sponsored person for a certain period.',
-        },
-        sponsored: {
-          title: 'Which Relatives Can Be Sponsored?',
-          content:
-            'Canada accepts applications from the following categories of family members:\n• Spouses and Partners: Including legal spouses, common-law partners, or conjugal partners.\n• Dependent Children: Usually under 22 years old and unmarried.\n• Parents and Grandparents: Through annual quotas or super visa programs.\n• Other Relatives: In specific special circumstances (such as orphaned siblings) may apply.',
-        },
-        process: {
-          title: 'Categories & Application Process',
-          inlandOutland:
-            'There are two main pathways: "In-land sponsorship" (for those already in Canada) and "Out-land sponsorship" (for those outside Canada). The process involves assessment, documentation collection, application submission to IRCC, security and medical checks, and finally obtaining permanent resident status.',
-          cta: 'Start Your Reunion Journey - Book Consultation Now',
-        },
-        successCases: {
-          title: 'Family Reunion Success Cases',
-          description: 'Real stories of families successfully reunited in Canada',
-        },
-      }
-    : {
-        nav: {
-          back: '返回主页',
-          language: 'ENG',
-        },
-        overview: {
-          title: '家庭团聚移民：让爱在加拿大团聚',
-          content:
-            '加拿大政府深信，家庭的完整是社会稳定与繁荣的基石。基于深厚的人道主义关怀，加拿大移民体系将"家庭团聚"视为核心宗旨之一。无论是配偶、子女还是父母，我们致力于通过专业的法律服务，缩短时空距离，帮助您的家人在枫叶之国开启共同生活的新篇章。',
-        },
-        sponsor: {
-          title: '谁可以担保家庭成员？',
-          content:
-            '要成为合格的担保人，您通常需要满足以下基本条件：\n• 必须是加拿大公民或永久居民（PR）。\n• 年满 18 周岁。\n• 能够证明有足够的经济能力负担受担保人在加拿大期间的基本生活需求。\n• 签署担保协议，承诺在一定期限内为受担保人提供财务支持。',
-        },
-        sponsored: {
-          title: '哪些亲属可以被担保？',
-          content:
-            '加拿大接收以下类别的家庭成员申请：\n• 配偶与伴侣：包括合法配偶、同居伴侣（Common-law partner）或婚姻事实伴侣（Conjugal partner）。\n• 受抚养子女：通常为 22 周岁以下且未婚。\n• 父母与祖父母：通过每年特定的配额或超级签证项目申请。\n• 其他亲属：在特定特殊情况下（如孤儿兄弟姐妹）可申请。',
-        },
-        process: {
-          title: '项目分支与申请流程',
-          inlandOutland:
-            '存在两种主要途径："境内担保"（针对已在加拿大的申请人）和"境外担保"（针对加拿大境外的申请人）。流程包括评估、材料收集、向 IRCC 递交申请、安全和医疗检查，最终获得永久居民身份。',
-          cta: '开启您的团聚之旅 - 立即预约专业咨询',
-        },
-        successCases: {
-          title: '家庭团聚成功案例',
-          description: '真实的家庭在加拿大成功团聚的故事',
-        },
-      };
-
-  // Sample success cases
-  const successCases = [
-    {
-      id: 1,
-      title: isEnglish ? 'Spouse Sponsorship Success' : '配偶担保成功案例',
-      category: isEnglish ? 'Spouse Sponsorship' : '配偶担保',
-      timeline: isEnglish ? '8 months' : '8个月',
-      keyPoint: isEnglish ? 'In-land sponsorship approved' : '境内担保获批',
-      image: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=400&h=300&fit=crop',
-    },
-    {
-      id: 2,
-      title: isEnglish ? 'Parents Super Visa' : '父母超级签证案例',
-      category: isEnglish ? 'Parents & Grandparents' : '父母祖父母',
-      timeline: isEnglish ? '4 months' : '4个月',
-      keyPoint: isEnglish ? 'Super Visa approved, 10-year validity' : '超级签证获批，有效期10年',
-      image: 'https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=400&h=300&fit=crop',
-    },
-    {
-      id: 3,
-      title: isEnglish ? 'Dependent Children Sponsorship' : '受抚养子女担保案例',
-      category: isEnglish ? 'Dependent Children' : '受抚养子女',
-      timeline: isEnglish ? '6 months' : '6个月',
-      keyPoint: isEnglish ? 'Multiple children approved together' : '多个子女同时获批',
-      image: 'https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=400&h=300&fit=crop',
-    },
+  const serviceItems = [
+    { label: "投资移民", href: "/businessclass" },
+    { label: "家庭团聚移民", href: "/familyclass" },
+    { label: "枫叶卡续签与加急", href: "/prcard" },
+    { label: "拒签与程序公正信", href: "/reconsideration" },
+    { label: "留学与访问", href: "/temporary" },
+    { label: "技术移民", href: "/skillworker" },
+    { label: "公民入籍", href: "/citizenship" },
   ];
 
+  // Fetch success cases - only family-reunion category using contentCategory
+  const { data: successCases = [] } = trpc.posts.list.useQuery({
+    type: "success-case",
+    contentCategory: "family-reunion",
+    publishedOnly: true,
+  });
+
+  const content = {
+    zh: {
+      nav: {
+        back: "返回主页",
+        language: "ENG",
+      },
+      title: "家庭团聚移民",
+      overview: {
+        title: "家庭团聚移民：加拿大团聚计划",
+        text: "加拿大重视家庭团聚。通过家庭团聚移民项目，加拿大公民和永久居民可以担保其符合条件的家庭成员移民加拿大。无论是配偶、子女、父母还是祖父母，我们都提供专业的指导和支持，帮助您和家人团聚。",
+      },
+      whoApplies: {
+        title: "谁适合家庭团聚移民项目？",
+        text: "家庭团聚移民项目适合有加拿大公民或永久居民亲属的申请人。如果您想与配偶、子女、父母或祖父母团聚，或者您是加拿大公民/永久居民想要担保家庭成员，家庭团聚移民将是您的理想选择。",
+      },
+      categories: {
+        title: "主要团聚类别",
+        items: [
+          {
+            name: "配偶和同居伴侣",
+            description: "加拿大公民或永久居民可以担保其合法配偶或同居伴侣移民。申请人需要证明真实的婚姻或同居关系，提供充分的经济支持，并满足其他相关要求。",
+          },
+          {
+            name: "父母和祖父母",
+            description: "加拿大公民或永久居民可以通过父母祖父母团聚计划或超级签证担保其父母或祖父母。超级签证允许父母和祖父母在加拿大停留最长10年，无需续签。",
+          },
+          {
+            name: "受抚养子女",
+            description: "加拿大公民或永久居民可以担保其受抚养的子女，包括亲生子女、继子女和收养子女。申请人需要证明有能力提供经济支持，并满足其他相关要求。",
+          },
+        ],
+      },
+      process: {
+        title: "项目申请流程",
+        text: "从初步评估、文件准备、提交申请、安全检查到最终获得永久居民身份的基本流程：",
+        steps: [
+          "初步评估与咨询",
+          "准备担保文件与财务证明",
+          "提交申请表格与相关文件",
+          "接收确认并进行安全检查",
+          "等待审批与最终决定",
+          "获得永久居民身份",
+        ],
+      },
+      cta: "立即预约专业咨询",
+      successCases: "家庭团聚成功案例",
+      readyText: "准备开启您的团聚之旅了吗？",
+    },
+    en: {
+      nav: {
+        back: "Back to Home",
+        language: "中文",
+      },
+      title: "Family Reunification Immigration",
+      overview: {
+        title: "Family Reunification Immigration: Canada's Family Reunification Program",
+        text: "Canada values family unity. Through the Family Reunification Immigration program, Canadian citizens and permanent residents can sponsor eligible family members to immigrate to Canada. Whether it's spouses, children, parents, or grandparents, we provide professional guidance and support to help you reunite with your family.",
+      },
+      whoApplies: {
+        title: "Who Should Apply for Family Reunification Immigration?",
+        text: "The Family Reunification Immigration program is suitable for applicants with Canadian citizen or permanent resident relatives. If you want to reunite with spouses, children, parents, or grandparents, or if you are a Canadian citizen/permanent resident who wants to sponsor family members, Family Reunification Immigration is your ideal choice.",
+      },
+      categories: {
+        title: "Main Reunification Categories",
+        items: [
+          {
+            name: "Spouses and Common-law Partners",
+            description: "Canadian citizens or permanent residents can sponsor their legal spouses or common-law partners to immigrate. Applicants need to prove a genuine marital or common-law relationship, provide sufficient financial support, and meet other relevant requirements.",
+          },
+          {
+            name: "Parents and Grandparents",
+            description: "Canadian citizens or permanent residents can sponsor their parents or grandparents through the Parents and Grandparents Sponsorship Program or Super Visa. The Super Visa allows parents and grandparents to stay in Canada for up to 10 years without renewal.",
+          },
+          {
+            name: "Dependent Children",
+            description: "Canadian citizens or permanent residents can sponsor their dependent children, including biological children, stepchildren, and adopted children. Applicants need to prove they have the financial capacity to provide support and meet other relevant requirements.",
+          },
+        ],
+      },
+      process: {
+        title: "Application Process",
+        text: "The basic process from initial assessment, document preparation, application submission, security check to final permanent residence approval:",
+        steps: [
+          "Initial Assessment and Consultation",
+          "Prepare Sponsorship Documents and Financial Proof",
+          "Submit Application Forms and Supporting Documents",
+          "Receive Confirmation and Undergo Security Check",
+          "Wait for Review and Final Decision",
+          "Obtain Permanent Residence Status",
+        ],
+      },
+      cta: "Schedule Professional Consultation Now",
+      successCases: "Family Reunification Success Cases",
+      readyText: "Ready to Start Your Family Reunification Journey?",
+    },
+  };
+
+  const t = isEnglish ? content.en : content.zh;
+
+  // Add Google Font for Alibaba PuHuiTi Black
+  const fontStyle = `
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@900&display=swap');
+    .section-title {
+      font-family: 'Noto Sans SC', sans-serif;
+      font-weight: 900;
+      font-size: 48px;
+      letter-spacing: 0.5px;
+    }
+  `;
+
   return (
-    <div className="min-h-screen bg-white">
-      {/* Top Navigation */}
-      <div className="sticky top-0 z-50 bg-white border-b border-gray-200">
-        <div className="container py-4 flex justify-between items-center">
-          <button
-            onClick={() => navigate('/')}
-            className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:text-gray-900 transition-colors"
-          >
-            <ArrowLeft className="w-5 h-5" />
-            <span className="font-medium">{t.nav.back}</span>
-          </button>
-          <button
-            onClick={() => setIsEnglish(!isEnglish)}
-            className="px-4 py-2 bg-accent text-white rounded-lg hover:bg-accent/90 transition-colors font-medium"
-            style={{ borderRadius: '0px' }}
-          >
-            {t.nav.language}
+    <div className="min-h-screen bg-white flex flex-col">
+      <style>{fontStyle}</style>
+
+      {/* Top Navigation Bar - Same as Home */}
+      <nav className="sticky top-0 z-50 bg-white border-b border-border shadow-sm" style={{height: '55px'}}>
+        <div className="container flex items-center py-4" style={{ justifyContent: 'space-between', height: '55px' }}>
+          {/* Logo */}
+          <Link href="/">
+            <img src="/oxec-logo.png" alt="OXEC Immigration Services Ltd." className="cursor-pointer flex-shrink-0" style={{ height: '40px', width: '160px' }} />
+          </Link>
+
+          {/* Desktop Menu */}
+          <div className="hidden md:flex items-center" style={{ flex: 1, justifyContent: 'space-around', marginLeft: '32px' }}>
+            <Link href="/">
+              <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">{isEnglish ? 'Home' : '首页'}</span>
+            </Link>
+            <div className="relative group">
+              <button
+                onMouseEnter={() => setServicesDropdownOpen(true)}
+                onMouseLeave={() => setServicesDropdownOpen(false)}
+                className="flex items-center text-foreground hover:text-primary transition-colors font-medium cursor-pointer"
+              >
+                {isEnglish ? 'Services' : '服务'}
+                <ChevronDown className="ml-1 h-4 w-4" />
+              </button>
+              {servicesDropdownOpen && (
+                <div
+                  onMouseEnter={() => setServicesDropdownOpen(true)}
+                  onMouseLeave={() => setServicesDropdownOpen(false)}
+                  className="absolute left-0 mt-0 w-56 bg-white border border-border rounded-md shadow-lg z-50"
+                >
+                  {serviceItems.map((item) => (
+                    <Link key={item.href} href={item.href}>
+                      <span className="block px-4 py-3 text-foreground hover:bg-primary/10 hover:text-primary transition-colors cursor-pointer first:rounded-t-md last:rounded-b-md">
+                        {item.label}
+                      </span>
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+            <Link href="/success-cases">
+              <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">{isEnglish ? 'Success Cases' : '成功案例'}</span>
+            </Link>
+            <Link href="/blog">
+              <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">{isEnglish ? 'Blog' : '博客'}</span>
+            </Link>
+            <Link href="/team">
+              <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">{isEnglish ? 'About' : '关于我们'}</span>
+            </Link>
+            <button
+              onClick={() => setIsEnglish(!isEnglish)}
+              className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer"
+            >
+              {isEnglish ? '中文' : 'ENG'}
+            </button>
+            <Link href="/booking">
+              <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none">
+                <span>{isEnglish ? 'Book Now' : '预约咨询'}</span>
+              </Button>
+            </Link>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button className="md:hidden" onClick={() => navigate("/")}>
+            <ArrowLeft className="h-6 w-6" />
           </button>
         </div>
-      </div>
+      </nav>
 
       {/* Section 1: Overview */}
       <section className="py-20 bg-white">
         <div className="container">
-          <div className="text-center mb-20">
-            <h2 className="text-3xl lg:text-5xl font-bold text-foreground mb-4">{t.overview.title}</h2>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-12 items-center mb-20">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="order-2 md:order-1">
-              <p className="text-lg text-muted-foreground leading-relaxed mb-6">{t.overview.content}</p>
+              <h2 className="section-title text-foreground mb-6">{t.overview.title}</h2>
+              <p className="text-lg text-muted-foreground leading-relaxed">{t.overview.text}</p>
             </div>
             <div className="order-1 md:order-2">
               <img
-                src="https://private-us-east-1.manuscdn.com/sessionFile/i9ZSSj6IB1QFKBGCY6lMon/sandbox/SNunBhAdXlz5RhNsw0eVAp-img-1_1770159644000_na1fn_ZmFtaWx5Y2xhc3Mtb3ZlcnZpZXc.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvaTlaU1NqNklCMVFGS0JHQ1k2bE1vbi9zYW5kYm94L1NOdW5CaEFkWGx6NVJoTnN3MGVWQXAtaW1nLTFfMTc3MDE1OTY0NDAwMF9uYTFmbl9abUZ0YVd4NVkyeGhjM010YjNabGNuWnBaWGMuanBnP3gtb3NzLXByb2Nlc3M9aW1hZ2UvcmVzaXplLHdfMTkyMCxoXzE5MjAvZm9ybWF0LHdlYnAvcXVhbGl0eSxxXzgwIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNzk4NzYxNjAwfX19XX0_&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=upFT9VLDooUlK1CxBPCNvBlvxj0AQ5EhXF--6~HapwWvVQSqyhWLbBi4MlGHTpsyVLyu2Klvj6Jbb0x9JWpKVcIhNX5cFPxUSsPr8jfCmAR1L1vtF4VDZ-iuxz4k0IlKNc~4G4yV2iXniw0htd6zghJuMdrA6DTH4NpjlNIqqLQhh2t~vvm~SdmWI97mbYn4YABAkhk7hDUrHQNWC~osmGfkHYIbTs12btAY1dZs6cMmEn~Ra61yQrWK8vOwh5acmpqKdr9k21R6PMoVKInb4sO535rUcSXzn98BZXdnOSAuvZ7i9LAUaItNrj5Z~4LbbCJIuQiHXrAFrIk~mfiKxw__"
-                alt="Family Reunion"
-                className="w-full h-auto rounded-lg shadow-lg object-cover"
-                style={{ aspectRatio: '16/9', borderRadius: '0px' }}
+                src="/service-2.jpg"
+                alt="Family Reunification"
+                className="w-full h-auto rounded-lg shadow-lg"
               />
             </div>
           </div>
         </div>
       </section>
 
-      {/* Section 2: Who Can Sponsor */}
+      {/* Section 2: Who Applies */}
       <section className="py-20 bg-gray-50">
         <div className="container">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <img
-                src="https://private-us-east-1.manuscdn.com/sessionFile/i9ZSSj6IB1QFKBGCY6lMon/sandbox/SNunBhAdXlz5RhNsw0eVAp-img-2_1770159642000_na1fn_ZmFtaWx5Y2xhc3Mtc3BvbnNvcg.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvaTlaU1NqNklCMVFGS0JHQ1k2bE1vbi9zYW5kYm94L1NOdW5CaEFkWGx6NVJoTnN3MGVWQXAtaW1nLTJfMTc3MDE1OTY0MjAwMF9uYTFmbl9abUZ0YVd4NVkyeGhjM010YzNCdmJuTnZjZy5qcGc~eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsd18xOTIwLGhfMTkyMC9mb3JtYXQsd2VicC9xdWFsaXR5LHFfODAiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3OTg3NjE2MDB9fX1dfQ__&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=RFE6l1vVNqhS8sZsnzm53h~mqb7uBbPLKqUZhb~7xVN0Pgrz~hepR86k2j2cQeuSLi8ouPW~tf5UENKFqauQYNWdT6EvhG1fBO9~68512kwFa93uSpMroVP~4QWqjaoYy6kIJfHxFXoKgaUjIAqv1yA8AB4~KFru4Ts-MuHtesUccddOjXFHVzRpy13V~7dXYHpELP9n2I3rreeQ1dEZXnhC7F9-qrBJzyZmi67AM1-OM0cLaxPskj9DLpxDZqGxlOvE-WrliU7HayOBK1Xg5LYMnvaAFO--a-AYBSbfL5ckV5KVYJ~gOIovBL8~-aLY8cqxru0aKssEUF~aXMHL~Q__"
-                alt="Sponsor Qualification"
-                className="w-full h-auto rounded-lg shadow-lg object-cover"
-                style={{ aspectRatio: '16/9', borderRadius: '0px' }}
+                src="/team-member-1.jpg"
+                alt="Who Applies"
+                className="w-full h-auto rounded-lg shadow-lg"
               />
             </div>
             <div>
-              <h2 className="text-2xl lg:text-3xl font-bold text-foreground mb-6">{t.sponsor.title}</h2>
-              <p className="text-lg text-muted-foreground leading-relaxed whitespace-pre-line">{t.sponsor.content}</p>
+              <h2 className="section-title text-foreground mb-6">{t.whoApplies.title}</h2>
+              <p className="text-lg text-muted-foreground leading-relaxed">{t.whoApplies.text}</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Section 3: Who Can Be Sponsored */}
+      {/* Section 3: Categories */}
       <section className="py-20 bg-white">
         <div className="container">
-          <div className="grid md:grid-cols-2 gap-12 items-center mb-20">
-            <div className="order-2 md:order-1">
-              <h2 className="text-2xl lg:text-3xl font-bold text-foreground mb-6">{t.sponsored.title}</h2>
-              <p className="text-lg text-muted-foreground leading-relaxed whitespace-pre-line">{t.sponsored.content}</p>
-            </div>
-            <div className="order-1 md:order-2">
-              <img
-                src="https://private-us-east-1.manuscdn.com/sessionFile/i9ZSSj6IB1QFKBGCY6lMon/sandbox/SNunBhAdXlz5RhNsw0eVAp-img-3_1770159655000_na1fn_ZmFtaWx5Y2xhc3Mtc3BvbnNvcmVk.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvaTlaU1NqNklCMVFGS0JHQ1k2bE1vbi9zYW5kYm94L1NOdW5CaEFkWGx6NVJoTnN3MGVWQXAtaW1nLTNfMTc3MDE1OTY1NTAwMF9uYTFmbl9abUZ0YVd4NVkyeGhjM010YzNCdmJuTnZjbVZrLmpwZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzE5MjAsaF8xOTIwL2Zvcm1hdCx3ZWJwL3F1YWxpdHkscV84MCIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc5ODc2MTYwMH19fV19&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=kgXoM7oPnyuQNkm4absV9ctSvsZkvwfwi9-HXNEekY8Tfm3Zqi8Sg29omFxo4JjttCCFB-Fk8DGSVdKvJizqU77wCwpaBe-MQIpfAihnWTxpyfWRu5kSVYHmgNjiramhTpJcFzgleBrzIPAQ0SkO2QY-2H0CLPW~b5XGhFkkzZ4YbzVntK1aSwGMzm4DDn8nEvJavQYi9An6HicrJeTgbCkE1xYcgm8plz3FgQGOkmYTv2sbWYzfCvHHDq2twmnmJJSWGooUKZMHvVl2BpYxkW691Z0iV-viJbLYKeK0uK-mYaYU~-hx4oVyzxpCRGbtgo6lmpZ9OsAo5sbRFZOjfg__"
-                alt="Sponsored Family Members"
-                className="w-full h-auto rounded-lg shadow-lg object-cover"
-                style={{ aspectRatio: '16/9', borderRadius: '0px' }}
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Section 4: Process & Flow */}
-      <section className="py-20 bg-gray-50">
-        <div className="container">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">{t.process.title}</h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">{t.process.inlandOutland}</p>
-          </div>
-
-          <FamilyClassProcessFlow isEnglish={isEnglish} />
-
-          <div className="text-center mt-12">
-            <Link href="/booking">
-              <Button
-                size="lg"
-                className="px-8 py-3 bg-accent text-white hover:bg-accent/90 transition-colors font-bold text-lg"
-                style={{ borderRadius: '0px' }}
-              >
-                {t.process.cta}
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Section 5: Success Cases */}
-      <section className="py-20 bg-white">
-        <div className="container">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">{t.successCases.title}</h2>
-            <p className="text-lg text-muted-foreground">{t.successCases.description}</p>
-          </div>
-
+          <h2 className="section-title text-center text-foreground mb-12">{t.categories.title}</h2>
           <div className="grid md:grid-cols-3 gap-8">
-            {successCases.map((caseItem) => (
-              <div
-                key={caseItem.id}
-                className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow"
-              >
-                <img
-                  src={caseItem.image}
-                  alt={caseItem.title}
-                  className="w-full h-48 object-cover"
-                />
-                <div className="p-6">
-                  <div className="text-sm font-semibold text-accent mb-2">{caseItem.category}</div>
-                  <h3 className="text-xl font-bold text-foreground mb-3">{caseItem.title}</h3>
-                  <div className="space-y-2 text-sm text-muted-foreground">
-                    <p>
-                      <span className="font-semibold">Timeline:</span> {caseItem.timeline}
-                    </p>
-                    <p>
-                      <span className="font-semibold">Key Point:</span> {caseItem.keyPoint}
-                    </p>
-                  </div>
-                </div>
+            {t.categories.items.map((item, index) => (
+              <div key={index} className="bg-gray-50 p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                <h3 className="text-xl font-bold text-foreground mb-4">{item.name}</h3>
+                <p className="text-muted-foreground leading-relaxed">{item.description}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
+
+      {/* Section 4: Application Process */}
+      <section className="py-20 bg-gray-50">
+        <div className="container">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="section-title text-foreground mb-6">{t.process.title}</h2>
+              <p className="text-lg text-muted-foreground leading-relaxed mb-8">{t.process.text}</p>
+              <div className="space-y-4">
+                {t.process.steps.map((step, index) => (
+                  <div key={index} className="flex items-start gap-4">
+                    <div className="flex-shrink-0 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center font-bold">
+                      {index + 1}
+                    </div>
+                    <p className="text-muted-foreground pt-1">{step}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div>
+              <img
+                src="/service-3.jpg"
+                alt="Application Process"
+                className="w-full h-auto rounded-lg shadow-lg"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Section 5: CTA */}
+      <section className="py-20 bg-primary text-white">
+        <div className="container text-center">
+          <h2 className="text-4xl font-bold mb-6">{t.readyText}</h2>
+          <Link href="/booking">
+            <Button size="lg" className="bg-white text-primary hover:bg-gray-100 rounded-none">
+              {t.cta}
+            </Button>
+          </Link>
+        </div>
+      </section>
+
+      {/* Section 6: Success Cases */}
+      <section className="py-20 bg-white">
+        <div className="container">
+          <h2 className="section-title text-center text-foreground mb-4">{t.successCases}</h2>
+          <p className="text-center text-muted-foreground mb-12">来自我们客户的真实成功故事</p>
+
+          {/* Success Cases Grid - Show max 3 cases or fewer if available */}
+          {successCases.length > 0 ? (
+          <div className="flex flex-wrap justify-center gap-8">
+            {successCases.slice(0, 3).map((post) => (
+              <a
+                key={post.id}
+                href={`/success-cases/${post.slug}`}
+                className="bg-gray-50 overflow-hidden shadow-md hover:shadow-lg transition-shadow cursor-pointer group flex flex-col"
+                style={{ width: '450px', height: '360px' }}
+              >
+                <div className="bg-gradient-to-br from-blue-400 to-blue-600 overflow-hidden flex-shrink-0" style={{ height: '220px' }}>
+                  {post.coverImage && (
+                    <img
+                      src={post.coverImage}
+                      alt={post.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      style={{ borderRadius: "0px" }}
+                    />
+                  )}
+                </div>
+                <div className="p-4 flex-grow flex flex-col justify-between">
+                  <h3 className="text-base font-bold text-foreground mb-2 line-clamp-2">{post.title}</h3>
+                  <p className="text-muted-foreground text-xs mb-3 line-clamp-2">{post.excerpt}</p>
+                  <div className="flex items-center justify-between text-xs text-muted-foreground">
+                    <span>OXEC Immigration</span>
+                    <span>{new Date(post.publishedAt || post.createdAt).toLocaleDateString()}</span>
+                  </div>
+                </div>
+              </a>
+            ))}
+          </div>
+          ) : (
+            <div className="text-center py-12">
+              <p className="text-muted-foreground">{isEnglish ? 'No success cases available yet.' : '暂无成功案例'}</p>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
-};
+}
