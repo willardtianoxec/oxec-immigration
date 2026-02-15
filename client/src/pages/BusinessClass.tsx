@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, ChevronDown } from "lucide-react";
 import { trpc } from "@/lib/trpc";
 import { Footer } from "@/components/Footer";
 import { Link } from "wouter";
@@ -11,6 +11,17 @@ import { Link } from "wouter";
 export default function BusinessClass() {
   const [isEnglish, setIsEnglish] = useState(false);
   const [, navigate] = useLocation();
+  const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false);
+
+  const serviceItems = [
+    { label: "投资移民", href: "/businessclass" },
+    { label: "家庭团聚移民", href: "/familyclass" },
+    { label: "枫叶卡续签与加急", href: "/prcard" },
+    { label: "拒签与程序公正信", href: "/reconsideration" },
+    { label: "留学与访问", href: "/temporary" },
+    { label: "技术移民", href: "/skillworker" },
+    { label: "公民入籍", href: "/citizenship" },
+  ];
 
   // Fetch success cases
   const { data: successCases = [] } = trpc.posts.list.useQuery({
@@ -148,12 +159,39 @@ export default function BusinessClass() {
             <Link href="/">
               <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">{isEnglish ? 'Home' : '首页'}</span>
             </Link>
-            <span className="text-foreground font-medium">{t.title}</span>
+            <div className="relative group">
+              <button
+                onMouseEnter={() => setServicesDropdownOpen(true)}
+                onMouseLeave={() => setServicesDropdownOpen(false)}
+                className="flex items-center text-foreground hover:text-primary transition-colors font-medium cursor-pointer"
+              >
+                {isEnglish ? 'Services' : '服务'}
+                <ChevronDown className="ml-1 h-4 w-4" />
+              </button>
+              {servicesDropdownOpen && (
+                <div
+                  onMouseEnter={() => setServicesDropdownOpen(true)}
+                  onMouseLeave={() => setServicesDropdownOpen(false)}
+                  className="absolute left-0 mt-0 w-56 bg-white border border-border rounded-md shadow-lg z-50"
+                >
+                  {serviceItems.map((item) => (
+                    <Link key={item.href} href={item.href}>
+                      <span className="block px-4 py-3 text-foreground hover:bg-primary/10 hover:text-primary transition-colors cursor-pointer first:rounded-t-md last:rounded-b-md">
+                        {item.label}
+                      </span>
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
             <Link href="/success-cases">
               <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">{isEnglish ? 'Success Cases' : '成功案例'}</span>
             </Link>
             <Link href="/blog">
               <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">{isEnglish ? 'Blog' : '博客'}</span>
+            </Link>
+            <Link href="/team">
+              <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">{isEnglish ? 'About' : '关于我们'}</span>
             </Link>
             <button
               onClick={() => setIsEnglish(!isEnglish)}
@@ -232,7 +270,7 @@ export default function BusinessClass() {
             </div>
             <div className="order-1 md:order-2">
               <img
-                src="https://private-us-east-1.manuscdn.com/sessionFile/i9ZSSj6IB1QFKBGCY6lMon/sandbox/CzR3vynOXwkVLil8nGhSBg-img-3_1770078026000_na1fn_YnVzaW5lc3NjbGFzcy1jYXRlZ29yaWVz.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvaTlaU1NqNklCMVFGS0JHQ1k2bE1vbi9zYW5kYm94L0N6UjN2eW5PWHdrVkxpbDhuR2hTQmctaW1nLTNfMTc3MDA3ODAyNjAwMF9uYTFmbl9ZblZ6YVc1bGMzTmpiR0Z6Y3kxd2NtOWpaWE56LmpwZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzE5MjAsaF8xOTIwL2Zvcm1hdCx3ZWJwL3F1YWxpdHkscV84MCIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc5ODc2MTYwMH19fV19&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=cw6W1ZIETdX8HrY4NNZvR6LvGgBSfqn6hou0CDb7S01xgcSK9K7Mp~b7YBq9H6AIne6aFiUMn6QuPCqJ3iVBN7uxjvsARZWAzbgsX4tgg7AQshvpmujeZpnaJ28lzzMziBhLeieMj5XTWtRjxV0Nwe3G1oyocX6SPMCOGpFBRA-HbrIkeQqG9no0ZMI1qXzApjC2GGj8mG0XG1gH4461JurZ6qkh05TE8MapIqGo-k2ohfOsKNkMpJMEta5UAn6wP40OUxri-Ot7zR8Od6MT1Zko4Ru5JW911H6Sse3lZdh7zGER6CEfjGe3TSQu7xH01weB9ttg71gqUo54C9~8eg__"
+                src="https://private-us-east-1.manuscdn.com/sessionFile/i9ZSSj6IB1QFKBGCY6lMon/sandbox/1KnEnHRJ5m7G4yZchCDKJn-img-1_1771140725000_na1fn_YmMtcmVnaW9ucy1tYXA.png?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvaTlaU1NqNklCMVFGS0JHQ1k2bE1vbi9zYW5kYm94LzFLbkVuSFJKNW03RzR5WmNoQ0RLSm4taW1nLTFfMTc3MTE0MDcyNTAwMF9uYTFmbl9ZbU10Y21WbmFXOXVjeTF0WVhBLnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzE5MjAsaF8xOTIwL2Zvcm1hdCx3ZWJwL3F1YWxpdHkscV84MCIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc5ODc2MTYwMH19fV19&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=Nj5hl2xcOF~UUhfxPB1ItLqd2QAZfGwLHWwyU76qn6kwDaOzVa7BVb9WhdJMoVrxREn3QcWd-CIHJiMcgM4d6vsuKwGHGtIEXE8HghB2HJj8XDGyalBST34vWF2aAzNxwTbr6VSbng-sSXGhbuFjmNDWDlqw5YrbrbB-trsVTLtjjTU2DmwJEWEF1c~WaIvrwYEWac1EEkmIMNVmXvIM~oS2ozJ0O8Ks4kLCQCXwUT7LD1aokKOuigeHw7r9vv~mbOSom1t7DjRqrq3m1jC4o21Kr~1DqJYXELSzY0g3ENgaNa6XkwbOEawJoSDBF77m9tHHQmeS7vPF51-DJBLvcQ__"
                 alt="BC Regions"
                 className="w-full h-auto shadow-lg object-cover"
                 style={{ aspectRatio: "16/9", borderRadius: "0px" }}
@@ -248,8 +286,8 @@ export default function BusinessClass() {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <img
-                src="https://private-us-east-1.manuscdn.com/sessionFile/i9ZSSj6IB1QFKBGCY6lMon/sandbox/CzR3vynOXwkVLil8nGhSBg-img-4_1770078029000_na1fn_YnVzaW5lc3NjbGFzcy1wcm9jZXNz.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvaTlaU1NqNklCMVFGS0JHQ1k2bE1vbi9zYW5kYm94L0N6UjN2eW5PWHdrVkxpbDhuR2hTQmctaW1nLTRfMTc3MDA3ODAyOTAwMF9uYTFmbl9ZblZ6YVc1bGMzTmpiR0Z6Y3kxd2NtOWpaWE56LmpwZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzE5MjAsaF8xOTIwL2Zvcm1hdCx3ZWJwL3F1YWxpdHkscV84MCIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc5ODc2MTYwMH19fV19&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=eo67CWQb70EaHi-yh-Umy1uhw8wMC~zyokHWe-LBq9JGNRJMGMD4tqdQdVY0cL2o9YECVe~~jZu634On~PTuEHarW~X9i5~dh2wVyRp8G9Ogr6FxUuwAy3y4zBj5FxUJ7gLhjrisjgNefKKSwhqLR2UOmCHdpi2WCjorH48YWRTmMzNTKH69GevKbLjckb1SORnek4tkd5wakv-jPTuo2FZBgQFq~cRIkKhx69MKyVfxVG3epr2dwBoooVEDdj82fwTWpK5KMBVh2Now4DUU6xfIMTH7yuGfdorsYswf1-B5xTwbdVfGj9ZilNsSOkvyFibBodFEumsw9SHxrxvYcw__"
-                alt="Process Flowchart"
+                src="https://private-us-east-1.manuscdn.com/sessionFile/i9ZSSj6IB1QFKBGCY6lMon/sandbox/1KnEnHRJ5m7G4yZchCDKJn-img-2_1771140735000_na1fn_ZG9jdW1lbnQtc3VibWlzc2lvbi1vZmZpY2U.png?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvaTlaU1NqNklCMVFGS0JHQ1k2bE1vbi9zYW5kYm94LzFLbkVuSFJKNW03RzR5WmNoQ0RLSm4taW1nLTJfMTc3MTE0MDczNTAwMF9uYTFmbl9aRzlqZFcxbGJuUXRjM1ZpYldsemMybHZiaTF2Wm1acFkyVS5wbmc~eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsd18xOTIwLGhfMTkyMC9mb3JtYXQsd2VicC9xdWFsaXR5LHFfODAiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3OTg3NjE2MDB9fX1dfQ__&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=I4TlxHs7ICyTRpYrWJTOAjzyqatyH2vTdwiRLVCPTA49kXyERI3MN8K1LWMZqcZMu5e34Lx8xr7eWTckQAeHklCdSHrxaIFOC7h55vCDeAb0Yn~dJGMHcn42mrLS07uILaaQf5r1OACLtprriOQ1r9giMMzsfnMBBZB5F~CKnyknvfxJuTIXEB-nhPYEjyc-q2Tm9Q~792lnuLE5yq-3tTmQN91PTiT7x6m1OJYJzttbZTnPaDXo4IEWy9GRLmSFGucogzBaZQtTnm6u9QR6u0Hre-AT7MCzaAXDDDU6SuIosZv2zbSsnMcW4SY9mDrTfBYHyCk5-QcF1RSDJbsJ3A__"
+                alt="Document Submission Office"
                 className="w-full h-auto shadow-lg object-cover"
                 style={{ aspectRatio: "16/9", borderRadius: "0px" }}
               />
