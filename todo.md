@@ -547,3 +547,14 @@
 - [x] 更新地址信息 - 显示完整地址"1008-4710 Kingsway, Burnaby, BC V5H 4M2"
 - [x] 更新邮箱信息 - 从info@oxecimm.com改为business@oxecimm.com
 - [x] 测试地图定位 - 验证地图正确显示公司位置
+
+
+## Business Class Service Page Redesign (Current Sprint - Phase 45)
+- [x] 添加首页导航栏和Footer到/businessclass页面
+- [x] 在返回主页和ENG按钮之间增加页面标题"投资移民"
+- [x] 去掉所有图片的圆角（border-radius: 0）
+- [x] 调整各section标题样式为阿里巴巴普惠体Black，48磅
+- [x] 创建投资移民成功案例文章（使用文章编辑器）
+- [x] 在/businessclass页面引用成功案例卡片（最多显示两个）
+- [x] 替换背景图片为用户上传的Vancouver图片
+- [x] 测试整个页面并保存checkpoint
