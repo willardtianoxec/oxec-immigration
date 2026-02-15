@@ -539,3 +539,11 @@
 - [x] 实现30秒强制提交间隔 - 不能频繁提交表单
 - [x] 测试整个流程 - 验证成功后提交表单
 - [x] 保存checkpoint - 完成预约咨询功能优化
+
+
+## Google Maps Location Fix - COMPLETED
+- [x] 查找OXEC Immigration Services Ltd.的准确地址和GPS坐标
+- [x] 修改Booking.tsx中的地图坐标 - 从49.2208, -122.9497改为49.2261785, -123.0012802
+- [x] 更新地址信息 - 显示完整地址"1008-4710 Kingsway, Burnaby, BC V5H 4M2"
+- [x] 更新邮箱信息 - 从info@oxecimm.com改为business@oxecimm.com
+- [x] 测试地图定位 - 验证地图正确显示公司位置

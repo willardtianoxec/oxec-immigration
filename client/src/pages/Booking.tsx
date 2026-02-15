@@ -144,7 +144,7 @@ export default function Booking() {
     mapRef.current = map;
     const marker = new google.maps.marker.AdvancedMarkerElement({
       map,
-      position: { lat: 49.2208, lng: -122.9497 },
+      position: { lat: 49.2261785, lng: -123.0012802 },
       title: "OXEC Immigration Services Ltd.",
     });
   };
@@ -464,14 +464,14 @@ export default function Booking() {
               <CardContent>
                 <MapView
                   onMapReady={handleMapReady}
-                  defaultCenter={{ lat: 49.2208, lng: -122.9497 }}
-                  defaultZoom={15}
+                  defaultCenter={{ lat: 49.2261785, lng: -123.0012802 }}
+                  defaultZoom={16}
                   className="w-full h-96 rounded-md"
                 />
                 <div className="mt-4 space-y-2 text-sm">
-                  <p><strong>地址：</strong> Vancouver, BC</p>
+                  <p><strong>地址：</strong> 1008-4710 Kingsway, Burnaby, BC V5H 4M2</p>
                   <p><strong>电话：</strong> +1 (604) 123-4567</p>
-                  <p><strong>邮箱：</strong> info@oxecimm.com</p>
+                  <p><strong>邮箱：</strong> business@oxecimm.com</p>
                 </div>
               </CardContent>
             </Card>
