@@ -1,0 +1,16 @@
+{
+  "query": "SELECT id, title, successCaseCategory, contentCategory FROM posts WHERE title = '一场安全调查攻防战';",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2MHEakYmYxuSUJe.root --database ERSfzVi6JGQA5UonrK4h6y --execute SELECT id, title, successCaseCategory, contentCategory FROM posts WHERE title = '一场安全调查攻防战';",
+  "rows": [
+    {
+      "id": "90001",
+      "title": "一场安全调查攻防战",
+      "successCaseCategory": "reconsideration",
+      "contentCategory": "reconsideration"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\tsuccessCaseCategory\tcontentCategory\n90001\t一场安全调查攻防战\treconsideration\treconsideration\n",
+  "stderr": "",
+  "execution_time_ms": 352
+}

@@ -23,10 +23,10 @@ export default function BusinessClass() {
     { label: "公民入籍", href: "/citizenship" },
   ];
 
-  // Fetch success cases - only investment-immigration category
+  // Fetch success cases - only investment-immigration category using contentCategory
   const { data: successCases = [] } = trpc.posts.list.useQuery({
     type: "success-case",
-    successCaseCategory: "investment-immigration",
+    contentCategory: "investment-immigration",
     publishedOnly: true,
   });
 

@@ -1,0 +1,26 @@
+{
+  "query": "SELECT id, title, type, successCaseCategory, contentCategory, published FROM posts WHERE type = 'success-case' AND published = true ORDER BY publishedAt DESC;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2MHEakYmYxuSUJe.root --database ERSfzVi6JGQA5UonrK4h6y --execute SELECT id, title, type, successCaseCategory, contentCategory, published FROM posts WHERE type = 'success-case' AND published = true ORDER BY publishedAt DESC;",
+  "rows": [
+    {
+      "id": "150001",
+      "title": "李先生成功获得BC省提名 - 投资移民基础类",
+      "type": "success-case",
+      "successCaseCategory": "NULL",
+      "contentCategory": "investment-immigration",
+      "published": "1"
+    },
+    {
+      "id": "90001",
+      "title": "一场安全调查攻防战",
+      "type": "success-case",
+      "successCaseCategory": "NULL",
+      "contentCategory": "reconsideration",
+      "published": "1"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\ttype\tsuccessCaseCategory\tcontentCategory\tpublished\n150001\t李先生成功获得BC省提名 - 投资移民基础类\tsuccess-case\tNULL\tinvestment-immigration\t1\n90001\t一场安全调查攻防战\tsuccess-case\tNULL\treconsideration\t1\n",
+  "stderr": "",
+  "execution_time_ms": 406
+}

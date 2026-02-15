@@ -1,0 +1,28 @@
+{
+  "query": "SELECT id, title, successCaseCategory, contentCategory FROM posts WHERE type = 'success-case' LIMIT 10;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2MHEakYmYxuSUJe.root --database ERSfzVi6JGQA5UonrK4h6y --execute SELECT id, title, successCaseCategory, contentCategory FROM posts WHERE type = 'success-case' LIMIT 10;",
+  "rows": [
+    {
+      "id": "60001",
+      "title": "李女士成功获得加拿大投资移民签证",
+      "successCaseCategory": "NULL",
+      "contentCategory": "investment-immigration"
+    },
+    {
+      "id": "90001",
+      "title": "一场安全调查攻防战",
+      "successCaseCategory": "NULL",
+      "contentCategory": "reconsideration"
+    },
+    {
+      "id": "150001",
+      "title": "李先生成功获得BC省提名 - 投资移民基础类",
+      "successCaseCategory": "NULL",
+      "contentCategory": "investment-immigration"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\tsuccessCaseCategory\tcontentCategory\n60001\t李女士成功获得加拿大投资移民签证\tNULL\tinvestment-immigration\n90001\t一场安全调查攻防战\tNULL\treconsideration\n150001\t李先生成功获得BC省提名 - 投资移民基础类\tNULL\tinvestment-immigration\n",
+  "stderr": "",
+  "execution_time_ms": 361
+}
