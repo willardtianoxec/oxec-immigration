@@ -23,10 +23,10 @@ export default function BusinessClass() {
     { label: "公民入籍", href: "/citizenship" },
   ];
 
-  // Fetch success cases
+  // Fetch success cases - only investment-immigration category
   const { data: successCases = [] } = trpc.posts.list.useQuery({
     type: "success-case",
-    category: "investment-immigration",
+    successCaseCategory: "investment-immigration",
     publishedOnly: true,
   });
 
@@ -356,9 +356,10 @@ export default function BusinessClass() {
             </p>
           </div>
 
-          {/* Success Cases Grid - Show max 2 cases */}
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {successCases.slice(0, 2).map((post) => (
+          {/* Success Cases Grid - Show max 3 cases or fewer if available */}
+          {successCases.length > 0 ? (
+          <div className={`grid ${successCases.length === 1 ? 'md:grid-cols-1' : successCases.length === 2 ? 'md:grid-cols-2' : 'md:grid-cols-3'} gap-8 max-w-6xl mx-auto`}>
+            {successCases.slice(0, 3).map((post) => (
               <a
                 key={post.id}
                 href={`/success-cases/${post.slug}`}
@@ -385,6 +386,13 @@ export default function BusinessClass() {
               </a>
             ))}
           </div>
+          ) : (
+            <div className="text-center py-12">
+              <p className="text-muted-foreground text-lg">
+                {isEnglish ? "No success cases available yet" : "暂无成功案例"}
+              </p>
+            </div>
+          )}
         </div>
       </section>
 
