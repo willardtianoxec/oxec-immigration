@@ -143,7 +143,7 @@ export default function FamilyClass() {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="order-2 md:order-1">
               <h2 className="text-foreground mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", sans-serif', fontWeight: 900, fontSize: '48px' }}>
-                {isEnglish ? "Family Reunion Immigration: Bringing Love Together in Canada" : "家庭团聚移民：让爱在加拿大团聚"}
+                {isEnglish ? "Family Reunion Immigration: Bringing Love Together in Canada" : "与家人在加拿大团聚"}
               </h2>
               <p className="text-lg text-muted-foreground leading-relaxed">
                 {isEnglish 
@@ -199,12 +199,23 @@ export default function FamilyClass() {
               <h2 className="text-foreground mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", sans-serif', fontWeight: 900, fontSize: '48px' }}>
                 {isEnglish ? "Which Relatives Can Be Sponsored?" : "哪些亲属可以被担保？"}
               </h2>
-              <p className="text-lg text-muted-foreground leading-relaxed">
-                {isEnglish
-                  ? "Canada accepts applications from the following categories of family members:\n• Spouses and Partners: Including legal spouses, common-law partners, or conjugal partners.\n• Dependent Children: Usually under 22 years old and unmarried.\n• Parents and Grandparents: Through annual quotas or super visa programs.\n• Other Relatives: In specific special circumstances (such as orphaned siblings) may apply."
-                  : "加拿大接受以下类别家庭成员的申请：\n• 配偶和伴侣：包括法律配偶、同居伴侣或婚外伴侣。\n• 受抚养子女：通常在 22 岁以下且未婚。\n• 父母和祖父母：通过年度配额或超级签证计划。\n• 其他亲属：在特定特殊情况下（如孤儿兄弟姐妹）可申请。"
-                }
-              </p>
+              <div className="text-lg text-muted-foreground leading-relaxed space-y-3">
+                {isEnglish ? (
+                  <>
+                    <p>• Spouses and Partners: Including legal spouses, common-law partners, or conjugal partners.</p>
+                    <p>• Dependent Children: Usually under 22 years old and unmarried.</p>
+                    <p>• Parents and Grandparents: Through annual quotas or super visa programs.</p>
+                    <p>• Other Relatives: In specific special circumstances (such as orphaned siblings) may apply.</p>
+                  </>
+                ) : (
+                  <>
+                    <p>• 配偶和伴侣：包括法律配偶、同居伴侣或婚外伴侣。</p>
+                    <p>• 受护养子女：通常在 22 岁以下且未婚。</p>
+                    <p>• 父母和祖父母：通过年度配额或超级签证计划。</p>
+                    <p>• 其他亲属：在特定特殊情况下（如孤儿兄弟姊妹）可申请。</p>
+                  </>
+                )}
+              </div>
             </div>
             <div className="order-1 md:order-2">
               <img
