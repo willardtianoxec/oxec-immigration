@@ -244,16 +244,15 @@ export default function FamilyClass() {
           <FamilyClassProcessFlow isEnglish={isEnglish} />
 
           <div className="text-center mt-12">
-            <Link href="/booking">
-              <Button
-                size="lg"
-                className="px-8 py-3 bg-accent text-white hover:bg-accent/90 transition-colors font-bold text-lg"
-                style={{ borderRadius: "0px" }}
-              >
-                {t.process.cta}
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-            </Link>
+            <Button
+              size="lg"
+              className="px-8 py-3 bg-accent text-white hover:bg-accent/90 transition-colors font-bold text-lg"
+              style={{ borderRadius: "0px" }}
+              onClick={() => navigate("/booking")}
+            >
+              {t.process.cta}
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
           </div>
         </div>
       </section>
