@@ -313,16 +313,15 @@ export default function FamilyClass() {
       <section className="py-20 bg-blue-600">
         <div className="container text-center">
           <h2 className="text-3xl lg:text-4xl font-bold text-white mb-8">{t.readyText}</h2>
-          <Link href="/booking">
-            <Button
-              size="lg"
-              className="px-8 py-3 bg-white text-blue-600 hover:bg-gray-100 transition-colors font-bold text-lg"
-              style={{ borderRadius: "0px" }}
-            >
-              {t.process.cta}
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
-          </Link>
+          <Button
+            size="lg"
+            className="px-8 py-3 bg-white text-blue-600 hover:bg-gray-100 transition-colors font-bold text-lg"
+            style={{ borderRadius: "0px" }}
+            onClick={() => navigate("/booking")}
+          >
+            {t.process.cta}
+            <ArrowRight className="ml-2 h-5 w-5" />
+          </Button>
         </div>
       </section>
 
