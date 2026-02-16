@@ -180,12 +180,23 @@ export default function FamilyClass() {
               <h2 className="text-foreground mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", sans-serif', fontWeight: 900, fontSize: '48px' }}>
                 {isEnglish ? "Who Can Sponsor Family Members?" : "谁可以担保家庭成员？"}
               </h2>
-              <p className="text-lg text-muted-foreground leading-relaxed">
-                {isEnglish
-                  ? "To become a qualified sponsor, you typically need to meet the following basic conditions:\n• Must be a Canadian citizen or permanent resident (PR).\n• Must be at least 18 years old.\n• Must be able to demonstrate sufficient financial capacity to support the sponsored person's basic living needs in Canada.\n• Must sign a sponsorship agreement, committing to provide financial support for the sponsored person for a certain period."
-                  : "要成为合格的担保人，您通常需要满足以下基本条件：\n• 必须是加拿大公民或永久居民（PR）。\n• 年满 18 周岁。\n• 能够证明有足够的经济能力负担受担保人在加拿大期间的基本生活需求。\n• 签署担保协议，承诺在一定期限内为受担保人提供财务支持。"
-                }
-              </p>
+              <div className="text-lg text-muted-foreground leading-relaxed space-y-3">
+                {isEnglish ? (
+                  <>
+                    <p>• Must be a Canadian citizen or permanent resident (PR).</p>
+                    <p>• Must be at least 18 years old.</p>
+                    <p>• Must be able to demonstrate sufficient financial capacity to support the sponsored person's basic living needs in Canada.</p>
+                    <p>• Must sign a sponsorship agreement, committing to provide financial support for the sponsored person for a certain period.</p>
+                  </>
+                ) : (
+                  <>
+                    <p>• 必须是加拿大公民或永久居民（PR）。</p>
+                    <p>• 年满 18 周岁。</p>
+                    <p>• 能够证明有足够的经济能力负担受担保人在加拿大期间的基本生活需求。</p>
+                    <p>• 签署担保协议，承诺在一定期限内为受担保人提供财务支持。</p>
+                  </>
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -285,29 +296,27 @@ export default function FamilyClass() {
               </h2>
               <p className="text-lg text-muted-foreground leading-relaxed mb-8">
                 {isEnglish
-                  ? "There are two main pathways: In-land sponsorship (for those already in Canada) and Out-land sponsorship (for those outside Canada). The process involves assessment, documentation collection, application submission to IRCC, security and medical checks, and finally obtaining permanent resident status."
-                  : "存在两种主要途径：境内担保（针对已在加拿大的申请人）和境外担保（针对在加拿大以外的申请人）。流程包括评估、文件收集、向 IRCC 提交申请、安全和医疗检查，最终获得永久居民身份。"
+                  ? "There are two main pathways: In-land sponsorship (for those already in Canada) and Out-land sponsorship (for those outside Canada). PR sponsors must remain in Canada throughout the application; citizen sponsors can apply from abroad but must declare plans to return to Canada."
+                  : "存在两种主要途径：境内担保（针对已在加拿大的申请人）和境外担保（针对在加拿大以外的申请人）。在申请期间，PR担保人需要一直待在加拿大境内；公民担保人可以从境外递交但必须表明计划回加定居。"
                 }
               </p>
               <ol className="space-y-3">
                 {(isEnglish
                   ? [
-                      "Initial assessment and consultation",
-                      "Prepare business plan and financial documents",
-                      "Submit EOI (Letter of Intent) or direct application",
-                      "Receive invitation (ITA)",
-                      "Apply for work permit",
-                      "Obtain provincial nomination",
-                      "Apply for permanent residence",
+                      "Qualifications Assessment and Consultation",
+                      "Prepare Documentation and Relationship Proof",
+                      "Verify Document Completeness",
+                      "Submit Application",
+                      "Security and Medical Checks",
+                      "Obtain Permanent Resident Status",
                     ]
                   : [
-                      "初步评估与咨询",
-                      "准备商业计划书与财务文件",
-                      "提交 EOI（意向书）或直接申请",
-                      "获得邀请 (ITA)",
-                      "申请工作签证",
-                      "获得省提名",
-                      "申请永久居民身份",
+                      "资质评估与方案咨询",
+                      "准备文件与关系证明",
+                      "检查材料完整性",
+                      "递交申请",
+                      "安全与医疗检查",
+                      "获得永久居民身份",
                     ]
                 ).map((step, index) => (
                   <li key={index} className="flex items-start gap-4">
