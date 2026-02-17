@@ -255,7 +255,7 @@ export default function SuccessCases() {
             <div className="lg:col-span-2 space-y-8">
               {filteredCases.map((post: any) => (
                 <Link key={post.id} href={`/success-cases/${post.slug}`}>
-                  <div className="bg-white hover:shadow-lg transition-shadow cursor-pointer border-b pb-8">
+                  <div className="bg-white cursor-pointer pb-8">
                     <div className="grid md:grid-cols-2 gap-6">
                       {/* Cover Image */}
                       {post.coverImage && (
