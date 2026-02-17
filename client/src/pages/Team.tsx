@@ -16,36 +16,54 @@ interface TeamMember {
   position: "left" | "right";
 }
 
-const teamMembers: TeamMember[] = [
+interface TeamMemberWithTranslation extends TeamMember {
+  nameEn: string;
+  titleEn: string;
+  descriptionEn: string;
+}
+
+const teamMembers: TeamMemberWithTranslation[] = [
   {
     id: "member-1",
     name: "李明",
+    nameEn: "Li Ming",
     title: "RCIC 注册移民顾问 / 创始人",
+    titleEn: "RCIC Registered Immigration Consultant / Founder",
     description: "拥有多年加拿大移民法律服务经验，专注于复杂的投资移民和上诉案件。李明顾问以其深厚的法律知识和丰富的实践经验，帮助数百个家庭成功实现加拿大梦想。",
+    descriptionEn: "With years of experience in Canadian immigration law services, specializing in complex investment immigration and appeal cases. Consultant Li Ming has helped hundreds of families realize their Canadian dreams through his profound legal knowledge and rich practical experience.",
     image: "/team-member-1.jpg",
     position: "left"
   },
   {
     id: "member-2",
     name: "王琳",
+    nameEn: "Wang Lin",
     title: "法律顾问",
+    titleEn: "Legal Consultant",
     description: "精通家庭团聚与雇主担保类申请，以严谨的办案风格和极高的成功率深受客户信赖。王琳律师专注于处理复杂的家庭移民案件，确保每一个申请都得到最专业的指导。",
+    descriptionEn: "Proficient in family sponsorship and employer-sponsored applications, trusted by clients for her rigorous approach and high success rate. Lawyer Wang Lin focuses on handling complex family immigration cases, ensuring every application receives the most professional guidance.",
     image: "/team-member-2.jpg",
     position: "right"
   },
   {
     id: "member-3",
     name: "张涛",
+    nameEn: "Zhang Tao",
     title: "留学与签证专家",
+    titleEn: "Study and Visa Expert",
     description: "擅长处理各类疑难留学签证及访问签申请，为申请人提供量身定制的学习计划建议。张涛专家拥有丰富的国际教育背景，深刻理解学生的需求和挑战。",
+    descriptionEn: "Expert in handling various difficult study visa and visitor visa applications, providing customized study plan recommendations for applicants. Expert Zhang Tao has extensive international education background and deep understanding of students' needs and challenges.",
     image: "/team-member-3.jpg",
     position: "left"
   },
   {
     id: "member-4",
     name: "陈慧",
+    nameEn: "Chen Hui",
     title: "运营与客户服务主管",
+    titleEn: "Operations and Customer Service Manager",
     description: "负责公司整体运营与客户沟通，确保每一个申请流程的高效透明。陈慧主管致力于为每一位客户提供卓越的服务体验和全程的专业支持。",
+    descriptionEn: "Responsible for overall company operations and customer communication, ensuring efficient and transparent application processes. Manager Chen Hui is committed to providing excellent service experience and comprehensive professional support to every client.",
     image: "/team-member-4.jpg",
     position: "right"
   }
@@ -206,28 +224,28 @@ export default function Team() {
             </div>
 
             {/* Team Members Gallery Grid */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-32">
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
               {teamMembers.map((member) => (
                 <div
                   key={member.id}
                   onClick={() => scrollToMember(member.id)}
-                  className="cursor-pointer group text-center transition-all duration-300 hover:transform hover:scale-105 border-2 border-gray-300 p-4"
+                  className="cursor-pointer group text-center transition-all duration-300 hover:transform hover:scale-105 border-2 border-gray-300 rounded-lg p-6 bg-white"
                 >
-                  <div className="relative mb-6 overflow-hidden">
+                  <div className="relative mb-6 overflow-hidden rounded-lg">
                     <img
                       src={member.image}
-                      alt={member.name}
+                      alt={language === "en" ? member.nameEn : member.name}
                       className="w-full aspect-square object-cover group-hover:brightness-90 transition-all duration-300"
                     />
                   </div>
-                  <h3 className="text-xl font-bold text-foreground mb-2">{member.name}</h3>
-                  <p className="text-sm text-muted-foreground">{member.title}</p>
+                  <h3 className="text-xl font-bold text-foreground mb-2" style={{ fontFamily: '"Alibaba PuHuiTi", sans-serif', fontWeight: 900 }}>{language === "en" ? member.nameEn : member.name}</h3>
+                  <p className="text-sm text-muted-foreground">{language === "en" ? member.titleEn : member.title}</p>
                 </div>
               ))}
             </div>
 
             {/* Detailed Profiles Section */}
-            <div className="space-y-32">
+            <div className="space-y-16">
               {teamMembers.map((member, index) => (
                 <div
                   key={member.id}
@@ -236,29 +254,29 @@ export default function Team() {
                   }}
                   className="scroll-mt-20"
                 >
-                  <div className={`grid md:grid-cols-2 gap-16 items-center ${member.position === "right" ? "md:flex-row-reverse" : ""}`}>
+                  <div className={`grid md:grid-cols-2 gap-12 items-start ${member.position === "right" ? "md:flex-row-reverse" : ""}`}>
                     {/* Image - 6:4 vertical format */}
                     <div className={`${member.position === "right" ? "md:order-2" : ""}`}>
-                      <div className="relative overflow-hidden border-2 border-gray-300">
+                      <div className="relative overflow-hidden rounded-lg">
                         <img
                           src={member.image}
-                          alt={member.name}
+                          alt={language === "en" ? member.nameEn : member.name}
                           className="w-full aspect-[3/4] object-cover"
                         />
                       </div>
                     </div>
 
                     {/* Text Content */}
-                    <div className={`${member.position === "right" ? "md:order-1" : ""} space-y-6`}>
+                    <div className={`${member.position === "right" ? "md:order-1" : ""} space-y-4`}>
                       <div>
-                        <h2 className="text-4xl font-bold text-foreground mb-2" style={{ fontFamily: '"Alibaba PuHuiTi", sans-serif', fontWeight: 900, fontSize: '36px' }}>
-                          {member.name}
+                        <h2 className="text-4xl font-bold text-foreground mb-1" style={{ fontFamily: '"Alibaba PuHuiTi", sans-serif', fontWeight: 900, fontSize: '36px' }}>
+                          {language === "en" ? member.nameEn : member.name}
                         </h2>
-                        <p className="text-lg text-primary font-semibold">{member.title}</p>
+                        <p className="text-lg text-primary font-semibold">{language === "en" ? member.titleEn : member.title}</p>
                       </div>
 
                       <p className="text-lg text-muted-foreground leading-relaxed">
-                        {member.description}
+                        {language === "en" ? member.descriptionEn : member.description}
                       </p>
 
                       <div className="pt-6">
@@ -274,10 +292,7 @@ export default function Team() {
                     </div>
                   </div>
 
-                  {/* Divider */}
-                  {index < teamMembers.length - 1 && (
-                    <div className="mt-32 border-t border-border/30"></div>
-                  )}
+
                 </div>
               ))}
             </div>
@@ -292,7 +307,7 @@ export default function Team() {
             </h2>
             <div className="w-full h-96 rounded-lg overflow-hidden border-2 border-gray-300">
               <MapView
-                initialCenter={{ lat: 49.2827, lng: -122.8207 }}
+                initialCenter={{ lat: 49.227280, lng: -123.000137 }}
                 initialZoom={15}
               />
             </div>
