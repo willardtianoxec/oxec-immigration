@@ -74,6 +74,18 @@ export default function Team() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false);
   const detailRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
+  const mapRef = useRef<google.maps.Map | null>(null);
+
+  const handleMapReady = (map: google.maps.Map) => {
+    mapRef.current = map;
+    // Add marker to the office location
+    const officeLocation = { lat: 49.227280, lng: -123.000137 };
+    new google.maps.marker.AdvancedMarkerElement({
+      map,
+      position: officeLocation,
+      title: "OXEC Immigration Services - Metrotown Tower",
+    });
+  };
 
   const serviceItems = [
     { label: "投资移民", href: "/businessclass" },
@@ -224,18 +236,18 @@ export default function Team() {
             </div>
 
             {/* Team Members Gallery Grid */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+            <div className="flex flex-wrap justify-center gap-8 mb-16">
               {teamMembers.map((member) => (
                 <div
                   key={member.id}
                   onClick={() => scrollToMember(member.id)}
-                  className="cursor-pointer group text-center transition-all duration-300 hover:transform hover:scale-105 border-2 border-gray-300 rounded-lg p-6 bg-white"
+                  className="cursor-pointer group text-center transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 w-64 rounded-lg p-6 bg-white shadow-lg"
                 >
                   <div className="relative mb-6 overflow-hidden rounded-lg">
                     <img
                       src={member.image}
                       alt={language === "en" ? member.nameEn : member.name}
-                      className="w-full aspect-square object-cover group-hover:brightness-90 transition-all duration-300"
+                      className="w-full h-64 object-cover group-hover:brightness-90 transition-all duration-300"
                     />
                   </div>
                   <h3 className="text-xl font-bold text-foreground mb-2" style={{ fontFamily: '"Alibaba PuHuiTi", sans-serif', fontWeight: 900 }}>{language === "en" ? member.nameEn : member.name}</h3>
@@ -257,7 +269,7 @@ export default function Team() {
                   <div className={`grid md:grid-cols-2 gap-12 items-start ${member.position === "right" ? "md:flex-row-reverse" : ""}`}>
                     {/* Image - 6:4 vertical format */}
                     <div className={`${member.position === "right" ? "md:order-2" : ""}`}>
-                      <div className="relative overflow-hidden rounded-lg">
+                      <div className="relative overflow-hidden">
                         <img
                           src={member.image}
                           alt={language === "en" ? member.nameEn : member.name}
@@ -307,8 +319,9 @@ export default function Team() {
             </h2>
             <div className="w-full h-96 rounded-lg overflow-hidden border-2 border-gray-300">
               <MapView
+                onMapReady={handleMapReady}
                 initialCenter={{ lat: 49.227280, lng: -123.000137 }}
-                initialZoom={15}
+                initialZoom={16}
               />
             </div>
           </div>
