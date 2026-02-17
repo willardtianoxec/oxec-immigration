@@ -1,0 +1,34 @@
+{
+  "query": "SELECT id, title, successCaseCategory, type FROM posts WHERE type = 'success-case' LIMIT 10;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2MHEakYmYxuSUJe.root --database ERSfzVi6JGQA5UonrK4h6y --execute SELECT id, title, successCaseCategory, type FROM posts WHERE type = 'success-case' LIMIT 10;",
+  "rows": [
+    {
+      "id": "60001",
+      "title": "李女士成功获得加拿大投资移民签证",
+      "successCaseCategory": "NULL",
+      "type": "success-case"
+    },
+    {
+      "id": "90001",
+      "title": "一场安全调查攻防战",
+      "successCaseCategory": "reconsideration",
+      "type": "success-case"
+    },
+    {
+      "id": "150001",
+      "title": "李先生成功获得BC省提名 - 投资移民基础类",
+      "successCaseCategory": "NULL",
+      "type": "success-case"
+    },
+    {
+      "id": "150002",
+      "title": "王女士成功获得配偶担保 - 家庭团聚基础类",
+      "successCaseCategory": "NULL",
+      "type": "success-case"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\tsuccessCaseCategory\ttype\n60001\t李女士成功获得加拿大投资移民签证\tNULL\tsuccess-case\n90001\t一场安全调查攻防战\treconsideration\tsuccess-case\n150001\t李先生成功获得BC省提名 - 投资移民基础类\tNULL\tsuccess-case\n150002\t王女士成功获得配偶担保 - 家庭团聚基础类\tNULL\tsuccess-case\n",
+  "stderr": "",
+  "execution_time_ms": 495
+}
