@@ -5,7 +5,7 @@ import { ArrowRight, Menu, X, ChevronDown } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useState } from "react";
 import { Footer } from "@/components/Footer";
-
+import { MapView } from "@/components/Map";
 
 interface TeamMember {
   id: string;
@@ -290,8 +290,11 @@ export default function Team() {
             <h2 className="text-4xl font-bold text-foreground mb-12 text-center" style={{ fontFamily: '"Alibaba PuHuiTi", sans-serif', fontWeight: 900, fontSize: '48px' }}>
               {language === "en" ? "Our Office" : "我们的办公室"}
             </h2>
-            <div className="w-full h-96 rounded-lg overflow-hidden border-2 border-gray-300 bg-gray-100 flex items-center justify-center">
-              <p className="text-muted-foreground">{language === "en" ? "Google Maps - Office Location" : "谷歌地图 - 办公室位置"}</p>
+            <div className="w-full h-96 rounded-lg overflow-hidden border-2 border-gray-300">
+              <MapView
+                initialCenter={{ lat: 49.2827, lng: -122.8207 }}
+                initialZoom={15}
+              />
             </div>
           </div>
         </section>
