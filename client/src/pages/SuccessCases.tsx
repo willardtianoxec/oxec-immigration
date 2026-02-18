@@ -1,5 +1,3 @@
-"use client";
-
 import { useState, useMemo } from "react";
 import { useSearch } from "wouter";
 import { Button } from "@/components/ui/button";
@@ -38,7 +36,7 @@ export default function SuccessCases() {
     { label: "公民入籍", href: "/citizenship" },
   ];
 
-  const { data: cases = [], isLoading } = trpc.posts.list.useQuery({
+  const { data: cases, isLoading } = trpc.posts.list.useQuery({
     type: "success-case",
     publishedOnly: true,
   });
