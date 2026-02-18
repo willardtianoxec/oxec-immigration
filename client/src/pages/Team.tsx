@@ -236,12 +236,13 @@ export default function Team() {
             </div>
 
             {/* Team Members Gallery Grid */}
-            <div className="flex flex-wrap justify-center gap-8 mb-16">
+            <div className="flex flex-wrap justify-center gap-4 mb-8 -mt-8">
               {teamMembers.map((member) => (
                 <div
                   key={member.id}
                   onClick={() => scrollToMember(member.id)}
-                  className="cursor-pointer group text-center transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 w-64 rounded-lg p-6 bg-white shadow-lg"
+                  className="cursor-pointer group text-center transition-all duration-300 hover:shadow-xl hover:-translate-y-2 w-64 rounded-lg p-3 bg-white shadow-md"
+                  style={{ boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)' }}
                 >
                   <div className="relative mb-6 overflow-hidden rounded-lg">
                     <img
