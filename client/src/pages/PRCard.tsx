@@ -1,192 +1,402 @@
-import React, { useState } from 'react';
-import { useLocation } from 'wouter';
-import { ArrowLeft, Shield } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Link } from 'wouter';
+"use client";
+
+import { useState } from "react";
+import { useLocation } from "wouter";
+import { Button } from "@/components/ui/button";
+import { ChevronDown } from "lucide-react";
+import { Footer } from "@/components/Footer";
+import { Link } from "wouter";
 
 export default function PRCard() {
   const [isEnglish, setIsEnglish] = useState(false);
   const [, navigate] = useLocation();
+  const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false);
 
-  const t = isEnglish
-    ? {
-        nav: {
-          back: "Back to Home",
-          language: "中文",
-        },
-        overview: {
-          title: "PR Card Renewal: Maintaining Your Permanent Resident Status",
-          text: "As a Canadian Permanent Resident (PR), holding a valid PR card is an essential document for entering and exiting Canada and maintaining your status. According to Canadian law, permanent residents must have accumulated at least 730 days (2 years) of physical presence in Canada within the past 5 years. Timely and compliant PR card renewal is crucial to safeguard your long-term rights and privileges in Canada.",
-        },
-        challenges: {
-          title: "Why Your PR Card Renewal May Face Risks?",
-          text: "In practice, many permanent residents face renewal obstacles due to the following situations:\n\n• Miscalculation of Residency Time: Frequent international travel can result in insufficient accumulated days in Canada, falling short of the required 730 days.\n\n• Prolonged Overseas Stay: Due to family emergencies, health issues, or unforeseen circumstances, you may have been unable to return to Canada on time, resulting in insufficient residency duration.\n\n• Urgent Domestic Matters: Unexpected emergencies in your home country requiring immediate departure, but your PR card has expired or is about to expire, leaving you unable to return to Canada.",
-        },
-        solutions: {
-          title: "OXEC's Professional Solutions: Humanitarian Exemptions & Expedited Processing",
-          text: "For cases involving insufficient residency time or urgent travel needs, we offer two core solutions:\n\n• Humanitarian & Compassionate (H&C) Exemption Application: If you were unable to meet the residency requirement due to circumstances beyond your control, we can assist you in applying for a waiver of the residency requirement based on humanitarian and compassionate grounds.\n\n• Urgent Processing Service: For clients with urgent travel needs (such as serious illness of immediate family members or urgent business travel), we can apply for expedited processing, significantly reducing the approval timeline.",
-        },
-        trust: {
-          title: "Trust OXEC for Professional Protection of Your PR Status",
-          text: "While PR card renewal may appear straightforward, any residency time deficiency can trigger immigration investigations and potentially result in loss of status. OXEC has accumulated extensive practical experience in handling complex PR card renewals and humanitarian exemption cases. We are committed to protecting your permanent resident status through professional legal guidance and strategic case management.",
-          button: "Protect Your PR Status - Consult an Expert Now",
-        },
-      }
-    : {
-        nav: {
-          back: "返回主页",
-          language: "ENG",
-        },
-        overview: {
-          title: "枫叶卡续签：维系您的永久居民身份",
-          text: "作为加拿大永久居民（PR），持有有效的枫叶卡是您出入国境及维持身份的必要凭证。根据法律要求，永久居民通常需在过去五年内在加拿大境内累计住满 730 天。准时且合规地完成续卡申请，是保障您在加拿大长期生活权益的关键一步。",
-        },
-        challenges: {
-          title: "为什么您的续卡申请可能面临风险？",
-          text: "在实际申请中，许多永久居民常因以下突发状况导致续签受阻：\n\n• 居住时间计算失误：因频繁出入境，导致实际居留天数未能精准达到 730 天。\n\n• 因故滞留境外：由于家庭、健康或突发外部环境因素，未能及时返回加拿大，导致居留时长不足。\n\n• 原籍国紧急状况：国内发生必须亲自处理的紧急事务需要立即离境，但此时枫叶卡已过期或即将到期，面临\"出得去、进不来\"的困境。",
-        },
-        solutions: {
-          title: "困局之下：人道豁免与加急办理",
-          text: "针对居留时间不足或紧急离境的需求，我们提供两种核心应对方案：\n\n• H&C 人道理由豁免申请：若您因无法控制的特殊原因未能住满规定时间，我们可协助您通过\"人道主义和同情理由（Humanitarian & Compassionate grounds）\"向移民局申请居留要求豁免。\n\n• 加急续签处理 (Urgent Processing)：针对有紧急旅行需求（如直系亲属重病、商务紧急出差等）的客户，我们可以申请加急处理通道，显著缩短获批周期。",
-        },
-        trust: {
-          title: "信任傲赛，专业护航",
-          text: "枫叶卡续签看似流程简单，但一旦涉及居留时间瑕疵，极易触发移民局的背景调查甚至导致身份丧失。傲赛（OXEC）在处理各类疑难续卡、人道豁免案件中积累了深厚的实战经验。我们致力于通过专业的法律指导和战略性的案件管理，为您的永久居民身份保驾护航。",
-          button: "保护您的 PR 身份 - 立即咨询专家",
-        },
-      };
+  const serviceItems = [
+    { label: "投资移民", href: "/businessclass" },
+    { label: "家庭团聚移民", href: "/familyclass" },
+    { label: "枫叶卡续签与加急", href: "/prcard" },
+    { label: "拒签与程序公正信", href: "/reconsideration" },
+    { label: "留学与访问", href: "/temporary" },
+    { label: "技术移民", href: "/skillworker" },
+    { label: "公民入籍", href: "/citizenship" },
+  ];
+
+  const content = {
+    zh: {
+      nav: {
+        back: "返回主页",
+        language: "ENG",
+      },
+      title: "枫叶卡续签与加急",
+      overview: {
+        title: "枫叶卡续签与加急：保持您的永久居民身份",
+        text: "加拿大永久居民卡（PR卡）是您在加拿大的身份证明。如果您的PR卡即将过期或已经过期，或者您需要紧急入境加拿大处理家庭紧急情况，傲赛提供专业的续签和加急办理服务。",
+      },
+      whoApplies: {
+        title: "谁需要续签或加急办理PR卡？",
+        text: "任何PR卡即将过期（通常在过期前9个月）或已经过期的永久居民都需要续签。此外，如果您因家庭紧急情况（如家人病危、突发事故等）需要紧急返回加拿大，我们提供人道豁免和加急办理服务。",
+      },
+      categories: {
+        title: "我们的服务",
+        items: [
+          {
+            name: "常规续签",
+            description: "标准的PR卡续签流程，适用于卡片即将过期或已过期的申请人。我们协助您准备所有必需文件，确保申请符合加拿大移民局的所有要求。处理时间通常为4-6周。",
+          },
+          {
+            name: "加急办理",
+            description: "如果您需要更快获得PR卡，我们提供加急服务。这对于计划出国旅行或需要快速返回加拿大的申请人特别有用。加急处理通常可在2-3周内完成。",
+          },
+          {
+            name: "人道豁免",
+            description: "在紧急情况下（如家人病危、重大事故等），我们可以帮助您申请人道豁免，允许您在没有有效PR卡的情况下紧急返回加拿大。这需要证明确实存在紧急情况和不可预见的困难。",
+          },
+        ],
+      },
+      process: {
+        title: "项目申请流程",
+        text: "无论是常规续签还是加急办理，我们都遵循以下流程确保您的申请顺利进行：",
+        steps: [
+          "初步咨询与资格评估",
+          "准备所需文件与照片",
+          "提交申请至加拿大移民局",
+          "跟踪申请进度",
+          "接收并激活新的PR卡",
+        ],
+      },
+      cta: "立即预约咨询",
+      readyText: "准备续签您的枫叶卡了吗？",
+    },
+    en: {
+      nav: {
+        back: "Back to Home",
+        language: "中文",
+      },
+      title: "PR Card Renewal & Urgent Processing",
+      overview: {
+        title: "PR Card Renewal & Urgent Processing: Maintain Your Permanent Resident Status",
+        text: "The Canadian Permanent Resident Card (PR Card) is your proof of identity as a permanent resident. If your PR card is expiring soon or has already expired, or if you need urgent entry to Canada to handle a family emergency, OXEC provides professional renewal and urgent processing services.",
+      },
+      whoApplies: {
+        title: "Who Needs PR Card Renewal or Urgent Processing?",
+        text: "Any permanent resident whose PR card is expiring soon (typically within 9 months of expiration) or has already expired needs renewal. Additionally, if you need to urgently return to Canada due to a family emergency (such as a seriously ill family member or sudden accident), we provide humanitarian exemption and urgent processing services.",
+      },
+      categories: {
+        title: "Our Services",
+        items: [
+          {
+            name: "Standard Renewal",
+            description: "Standard PR card renewal process for applicants whose cards are expiring soon or have expired. We assist you in preparing all required documents to ensure your application meets all requirements of Immigration, Refugees and Citizenship Canada. Processing time is typically 4-6 weeks.",
+          },
+          {
+            name: "Urgent Processing",
+            description: "If you need to obtain your PR card faster, we offer urgent processing services. This is especially useful for applicants planning international travel or needing to quickly return to Canada. Urgent processing can typically be completed within 2-3 weeks.",
+          },
+          {
+            name: "Humanitarian Exemption",
+            description: "In emergency situations (such as a seriously ill family member or major accident), we can help you apply for a humanitarian exemption, allowing you to urgently return to Canada without a valid PR card. This requires proof of a genuine emergency and unforeseen hardship.",
+          },
+        ],
+      },
+      process: {
+        title: "Application Process",
+        text: "Whether it's standard renewal or urgent processing, we follow this process to ensure your application proceeds smoothly:",
+        steps: [
+          "Initial Consultation & Eligibility Assessment",
+          "Prepare Required Documents & Photos",
+          "Submit Application to Immigration Canada",
+          "Track Application Progress",
+          "Receive & Activate Your New PR Card",
+        ],
+      },
+      cta: "Book a Consultation Now",
+      readyText: "Ready to renew your PR card?",
+    },
+  };
+
+  const currentContent = isEnglish ? content.en : content.zh;
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Top Navigation */}
-      <div className="sticky top-0 z-50 bg-white border-b border-gray-200">
-        <div className="container py-4 flex justify-between items-center">
-          <button
-            onClick={() => navigate('/')}
-            className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:text-gray-900 transition-colors"
-          >
-            <ArrowLeft className="w-5 h-5" />
-            <span className="font-medium">{t.nav.back}</span>
-          </button>
+      {/* Navigation */}
+      <nav className="sticky top-0 z-50 bg-white border-b border-gray-200">
+        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+          <Link href="/">
+            <a className="flex items-center gap-2 hover:opacity-80">
+              <img src="/oxec-logo.png" alt="OXEC" className="h-8" />
+              <span className="font-bold text-lg">OXEC</span>
+            </a>
+          </Link>
 
-          <button
-            onClick={() => setIsEnglish(!isEnglish)}
-            className="px-4 py-2 bg-accent text-white rounded-lg hover:bg-accent/90 transition-colors font-medium"
-            style={{borderRadius: '0px'}}
-          >
-            {t.nav.language}
-          </button>
+          <div className="flex items-center gap-8">
+            <Link href="/">
+              <a className="text-gray-700 hover:text-blue-600">
+                {isEnglish ? "Home" : "首页"}
+              </a>
+            </Link>
+
+            <div className="relative group">
+              <button
+                onClick={() => setServicesDropdownOpen(!servicesDropdownOpen)}
+                className="flex items-center gap-2 text-gray-700 hover:text-blue-600"
+              >
+                {isEnglish ? "Services" : "服务"}
+                <ChevronDown size={16} />
+              </button>
+              {servicesDropdownOpen && (
+                <div className="absolute left-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg">
+                  {serviceItems.map((item) => (
+                    <Link key={item.href} href={item.href}>
+                      <a className="block px-4 py-2 text-gray-700 hover:bg-gray-100 first:rounded-t-lg last:rounded-b-lg">
+                        {item.label}
+                      </a>
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <Link href="/success-cases">
+              <a className="text-gray-700 hover:text-blue-600">
+                {isEnglish ? "Success Cases" : "成功案例"}
+              </a>
+            </Link>
+
+            <Link href="/blog">
+              <a className="text-gray-700 hover:text-blue-600">
+                {isEnglish ? "Blog" : "博客"}
+              </a>
+            </Link>
+
+            <Link href="/team">
+              <a className="text-gray-700 hover:text-blue-600">
+                {isEnglish ? "About" : "关于我们"}
+              </a>
+            </Link>
+
+            <button
+              onClick={() => setIsEnglish(!isEnglish)}
+              className="px-3 py-1 border border-gray-300 rounded hover:bg-gray-100"
+            >
+              {currentContent.nav.language}
+            </button>
+
+            <Link href="/booking">
+              <a>
+                <Button className="bg-blue-600 hover:bg-blue-700">
+                  {isEnglish ? "Book Consultation" : "预约咨询"}
+                </Button>
+              </a>
+            </Link>
+          </div>
         </div>
-      </div>
+      </nav>
 
-      {/* Section 1: Overview */}
+      {/* Hero Section */}
+      <section className="py-20 bg-gradient-to-r from-blue-50 to-blue-100">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl">
+            <h1
+              className="text-foreground mb-6"
+              style={{
+                fontFamily: '"Alibaba PuHuiTi", sans-serif',
+                fontWeight: 900,
+                fontSize: "48px",
+              }}
+            >
+              {currentContent.title}
+            </h1>
+            <p className="text-lg text-muted-foreground mb-8">
+              {currentContent.overview.text}
+            </p>
+            <Link href="/booking">
+              <a>
+                <Button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3">
+                  {currentContent.cta}
+                </Button>
+              </a>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Overview Section */}
       <section className="py-20 bg-white">
-        <div className="container">
-          <div className="grid md:grid-cols-2 gap-12 items-center mb-20">
+        <div className="container mx-auto px-4">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="order-2 md:order-1">
-              <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-6">{t.overview.title}</h2>
-              <p className="text-lg text-muted-foreground leading-relaxed">{t.overview.text}</p>
+              <h2
+                className="text-foreground mb-6"
+                style={{
+                  fontFamily: '"Alibaba PuHuiTi", sans-serif',
+                  fontWeight: 900,
+                  fontSize: "48px",
+                }}
+              >
+                {currentContent.overview.title}
+              </h2>
+              <p className="text-lg text-muted-foreground leading-relaxed">
+                {currentContent.overview.text}
+              </p>
             </div>
             <div className="order-1 md:order-2">
               <img
-                src="https://private-us-east-1.manuscdn.com/sessionFile/i9ZSSj6IB1QFKBGCY6lMon/sandbox/dkNyJ2ZpH4nPNmNJgUI8V8-img-1_1770160568000_na1fn_cHJjYXJkLW92ZXJ2aWV3.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvaTlaU1NqNklCMVFGS0JHQ1k2bE1vbi9zYW5kYm94L2RrTnlKMlpwSDRuUE5tTkpnVUk4VjgtaW1nLTFfMTc3MDE2MDU2ODAwMF9uYTFmbl9jSEpqWVhKa0xXOTJaWEoyYVdWMy5qcGc~eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsd18xOTIwLGhfMTkyMC9mb3JtYXQsd2VicC9xdWFsaXR5LHFfODAiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3OTg3NjE2MDB9fX1dfQ__&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=VVRE4o~NK0XaFIpniY2g1sZkLlRHwbPah~7s9Y53aJm3mfSqnFs~nY0oYj6wnyCGHQVrusrM5YUBYX5b6mqzTeaqTIhgOyXtxfwm5cKk6RNoJa1w7lir2deEaWqwdyBVqdASqc7gTeT47D7QZyCFkYjxNh8rcu-HrzpmoMs4ageGe7OOlObkkovEK72Rg5mPEkVPHjF0kOdyMGB5NzN3rPm7whvr5l1yrz3KZ~9pnZd38ypi1esWER7UCAVVkRWQgvcKU3nqcv-nk5Wz1xu166wx3jd47Ud0zKKCaF42-ca9AfoZjmFX3gb8gbSQesXJKYsQ28QG7fBJxtJaqpPXRA__"
-                alt="PR Card and Passport"
-                className="w-full h-auto rounded-lg shadow-lg object-cover"
-                style={{ aspectRatio: '16/9', borderRadius: '0px' }}
+                src="https://private-us-east-1.manuscdn.com/sessionFile/i9ZSSj6IB1QFKBGCY6lMon/sandbox/XnGLwIhhmxNA7O3v0G3qAj-img-1_1771374647000_na1fn_aHVtYW5pdGFyaWFuLWV4ZW1wdGlvbi1zY2VuZQ.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvaTlaU1NqNklCMVFGS0JHQ1k2bE1vbi9zYW5kYm94L1huR0x3SWhobXhOQTdPM3YwRzNxQWotaW1nLTFfMTc3MTM3NDY0NzAwMF9uYTFmbl9hSFZ0WVc1cGRHRnlhV0Z1TFdWNFpXMXdkR2x2YmkxelkyVnVaUS5qcGc~eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsd18xOTIwLGhfMTkyMC9mb3JtYXQsd2VicC9xdWFsaXR5LHFfODAiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3OTg3NjE2MDB9fX1dfQ__&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=vVZUQ~LLvgLrkTcEFF9iBC8MlXEllGb2vGHEf~tBsgao2jXoneakcdT3DXImf8T1VjUDs1ofzGi1Kx5hJ4UpNrnuNfUi~WBFzkIDjy~WBvSUb7PQ3K8sjxB7Y7yjUMUSjg2wDhl6-fFqzeoax8c2eWVRehtQabqG7zegOTMOPBFrgkvsB~8IA4Mr~S-TjhXUgsmI~4tErUW4xpLAp0dqaEOgwXBsOA2qPp7qkBGJt-xDU66UGUk8Wmik6xci3dExCGKt3x-vW657lOjLvPD51epSjDmFMLTS4tyx3GdtFzpHZFmW7Zl3qEJoHyTTUigsLOG2MsRHZN4PkZtxlNZ2-w__"
+                alt="人道豁免场景"
+                className="rounded-lg shadow-lg w-full h-auto"
               />
             </div>
           </div>
         </div>
       </section>
 
-      {/* Section 2: Challenges */}
+      {/* Who Applies Section */}
       <section className="py-20 bg-gray-50">
-        <div className="container">
+        <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <img
-                src="https://private-us-east-1.manuscdn.com/sessionFile/i9ZSSj6IB1QFKBGCY6lMon/sandbox/dkNyJ2ZpH4nPNmNJgUI8V8-img-2_1770160565000_na1fn_cHJjYXJkLWNoYWxsZW5nZXM.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvaTlaU1NqNklCMVFGS0JHQ1k2bE1vbi9zYW5kYm94L2RrTnlKMlpwSDRuUE5tTkpnVUk4VjgtaW1nLTJfMTc3MDE2MDU2NTAwMF9uYTFmbl9jSEpqWVhKa0xXTm9ZV3hzWlc1blpYTS5qcGc~eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsd18xOTIwLGhfMTkyMC9mb3JtYXQsd2VicC9xdWFsaXR5LHFfODAiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3OTg3NjE2MDB9fX1dfQ__&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=v~hwQm1aAQZ6fHXU4E9EGjwyTId1gc2lDCSZgJxPsJBZpAyU-y6kjL0d8HcfHy3puIjBNYdP3Ygb4o6ravBBri~Zt8IMHzcvJF~MQH-pVpGmBfVBtQErZsy-YPzaX~K9pTIq1EAbL0tzATHd6QTyb4Kc4cf9aH0~OzHPzKGIzc3tW5d4oZJOub8mqfRTAGW6GeIw3GJfenL0e78DCqljjPgSUH5FcsfNMrIC2O3KNjg4~oCo-4Vw7RjgzfJnZtdAxEJzYh7f3RpOau8-Ab3dqLCBw-XQrNKxeu7-ztxkxdwOQOdJybHH-yHIu6zccEH0CUrWR49Rv-wNNR-fGOwhWg__"
-                alt="Anxious Applicant"
-                className="w-full h-auto rounded-lg shadow-lg object-cover"
-                style={{ aspectRatio: '16/9', borderRadius: '0px' }}
+                src="https://private-us-east-1.manuscdn.com/sessionFile/i9ZSSj6IB1QFKBGCY6lMon/sandbox/XnGLwIhhmxNA7O3v0G3qAj-img-2_1771374626000_na1fn_dXJnZW50LWJvYXJkaW5nLXNjZW5l.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvaTlaU1NqNklCMVFGS0JHQ1k2bE1vbi9zYW5kYm94L1huR0x3SWhobXhOQTdPM3YwRzNxQWotaW1nLTJfMTc3MTM3NDYyNjAwMF9uYTFmbl9kWEpuWlc1MExXSnZZWEprYVc1bkxYTmpaVzVsLmpwZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzE5MjAsaF8xOTIwL2Zvcm1hdCx3ZWJwL3F1YWxpdHkscV84MCIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc5ODc2MTYwMH19fV19&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=pGVVQvvruP~2Hd6SqSf8pdVPvZWYymzC8ydg8smB2SJkZg2rP8E~nkXjnIL0SVWD4jMSIqrx8mZwqw7lz0avbYUAM9GLh7U2j937EPBHGxoOtKIXvFCXfoEfZZakYO7tIFZSpLYlziE4jcSY8WYoxP6dlpPop~j9rfoCSmadtNlPRn9JUvuyQtJE8mSFG4ViTqrzt7RHMKGyLAPgF4Pf15SYLaRPLglX7UF34o7fHSzEmwreMALBL6xgKbiKDyCwrF5LDMmoDxVYQn3mVMUXhGiHLTlV-Sh7fduhqvToCFDu2~aQpqkdE-2NomSjOYuNpxd9BSX0J-8oz3kwAUB3-w__"
+                alt="旅客紧急登机"
+                className="rounded-lg shadow-lg w-full h-auto"
               />
             </div>
             <div>
-              <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-6">{t.challenges.title}</h2>
-              <p className="text-lg text-muted-foreground leading-relaxed whitespace-pre-line">{t.challenges.text}</p>
+              <h2
+                className="text-foreground mb-6"
+                style={{
+                  fontFamily: '"Alibaba PuHuiTi", sans-serif',
+                  fontWeight: 900,
+                  fontSize: "48px",
+                }}
+              >
+                {currentContent.whoApplies.title}
+              </h2>
+              <p className="text-lg text-muted-foreground leading-relaxed">
+                {currentContent.whoApplies.text}
+              </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Section 3: Solutions */}
+      {/* Services Categories Section */}
       <section className="py-20 bg-white">
-        <div className="container">
-          <div className="grid md:grid-cols-2 gap-12 items-center mb-20">
+        <div className="container mx-auto px-4">
+          <h2
+            className="text-foreground text-center mb-16"
+            style={{
+              fontFamily: '"Alibaba PuHuiTi", sans-serif',
+              fontWeight: 900,
+              fontSize: "48px",
+            }}
+          >
+            {currentContent.categories.title}
+          </h2>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {currentContent.categories.items.map((item, index) => (
+              <div
+                key={index}
+                className="p-8 bg-gray-50 rounded-lg hover:shadow-lg transition-shadow"
+              >
+                <h3 className="text-xl font-bold mb-4 text-foreground">
+                  {item.name}
+                </h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  {item.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Process Section */}
+      <section className="py-20 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="order-2 md:order-1">
-              <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-6">{t.solutions.title}</h2>
-              <p className="text-lg text-muted-foreground leading-relaxed whitespace-pre-line">{t.solutions.text}</p>
+              <h2
+                className="text-foreground mb-6"
+                style={{
+                  fontFamily: '"Alibaba PuHuiTi", sans-serif',
+                  fontWeight: 900,
+                  fontSize: "48px",
+                }}
+              >
+                {currentContent.process.title}
+              </h2>
+              <p className="text-lg text-muted-foreground leading-relaxed mb-8">
+                {currentContent.process.text}
+              </p>
+
+              <ol className="space-y-4">
+                {currentContent.process.steps.map((step, index) => (
+                  <li key={index} className="flex items-start gap-4">
+                    <span className="flex-shrink-0 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold">
+                      {index + 1}
+                    </span>
+                    <span className="text-lg text-foreground pt-1">{step}</span>
+                  </li>
+                ))}
+              </ol>
             </div>
+
             <div className="order-1 md:order-2">
-              <img
-                src="https://private-us-east-1.manuscdn.com/sessionFile/i9ZSSj6IB1QFKBGCY6lMon/sandbox/dkNyJ2ZpH4nPNmNJgUI8V8-img-3_1770160564000_na1fn_cHJjYXJkLXNvbHV0aW9ucw.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvaTlaU1NqNklCMVFGS0JHQ1k2bE1vbi9zYW5kYm94L2RrTnlKMlpwSDRuUE5tTkpnVUk4VjgtaW1nLTNfMTc3MDE2MDU2NDAwMF9uYTFmbl9jSEpqWVhKa0xYTnZiSFYwYVc5dWN3LmpwZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzE5MjAsaF8xOTIwL2Zvcm1hdCx3ZWJwL3F1YWxpdHkscV84MCIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc5ODc2MTYwMH19fV19&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=YG1nHUfw3-MIDwMm1ZmlUwmUrSIRxv0jPPs9yKMvZKLsIAU5dpWLm9kihOHMIMBOx0YhBZsGgKltHCfiJ1hqoElwHTGNyMrK4-5yHld7~K1K9HyLKGueTfda0-Ag89f5Lm1YkBAGrWFzFdF5rzf~mNGVZarV5DtXCAbTj1BIGXBiVkKopmfBEmvO3~QMt~oPSDSzSkiQ9O6XR0qlfw~I~9Od6wkv7pinDf0M0hfHJxhMzdCrP1e4ccoVzv7KMOKtcRhAjlPKSl0XMEPHacjjQIGrzBxJMyMp7o6L4sSNUf85i3G4p7EhWZ63-7kxdMOq1hCCNgIN3lj4tJxXVSujqA__"
-                alt="Modern Solutions"
-                className="w-full h-auto rounded-lg shadow-lg object-cover"
-                style={{ aspectRatio: '16/9', borderRadius: '0px' }}
-              />
+              <div className="bg-white p-8 rounded-lg shadow-lg">
+                <div className="text-center">
+                  <h3 className="text-2xl font-bold text-blue-600 mb-4">
+                    {isEnglish ? "Need Help?" : "需要帮助？"}
+                  </h3>
+                  <p className="text-gray-600 mb-6">
+                    {isEnglish
+                      ? "Our team is ready to assist you with your PR card renewal or urgent processing needs."
+                      : "我们的团队已准备好协助您处理PR卡续签或加急办理需求。"}
+                  </p>
+                  <Link href="/booking">
+                    <a>
+                      <Button className="bg-blue-600 hover:bg-blue-700 text-white w-full">
+                        {currentContent.cta}
+                      </Button>
+                    </a>
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Section 4: Trust OXEC */}
-      <section className="py-20 bg-white">
-        <div className="container max-w-3xl mx-auto text-center">
-          <div className="flex justify-center mb-6">
-            <Shield className="w-16 h-16 text-accent" />
-          </div>
-          <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-8">{t.trust.title}</h2>
-          <p className="text-lg text-muted-foreground leading-relaxed mb-12">{t.trust.text}</p>
-          
+      {/* CTA Section */}
+      <section
+        className="py-24 bg-cover bg-center text-white relative"
+        style={{
+          backgroundImage:
+            "url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1600&h=400&fit=crop')",
+        }}
+      >
+        <div className="absolute inset-0 bg-black/50"></div>
+        <div className="container mx-auto px-4 relative z-10 text-center">
+          <h2 className="text-4xl font-bold mb-6">{currentContent.readyText}</h2>
+          <p className="text-xl mb-8 max-w-2xl mx-auto">
+            {isEnglish
+              ? "Let our experienced team guide you through the process smoothly and efficiently."
+              : "让我们经验丰富的团队为您顺利高效地指导整个流程。"}
+          </p>
           <Link href="/booking">
-            <Button size="lg" className="bg-accent hover:bg-accent/90 text-white px-8 py-6 text-lg font-semibold rounded-lg">
-              {t.trust.button}
-            </Button>
+            <a>
+              <Button className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-3 text-lg">
+                {currentContent.cta}
+              </Button>
+            </a>
           </Link>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-[#203341] text-white py-16">
-        <div className="container">
-          <div className="grid md:grid-cols-4 gap-8 mb-8">
-            <div>
-              <h3 className="font-bold text-lg mb-4">关于我们 / About</h3>
-              <p className="text-gray-300 text-sm leading-relaxed">傲赛（OXEC）移民事务所 - 专业、领先、值得信赖的加拿大移民合作伙伴</p>
-            </div>
-            <div>
-              <h3 className="font-bold text-lg mb-4">服务 / Services</h3>
-              <ul className="space-y-2 text-gray-300 text-sm">
-                <li><a href="/businessclass" className="hover:text-white transition">投资移民 / Business Immigration</a></li>
-                <li><a href="/familyclass" className="hover:text-white transition">家庭团聚 / Family Sponsorship</a></li>
-                <li><a href="/prcard" className="hover:text-white transition">枫叶卡续签 / PR Card Renewal</a></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-bold text-lg mb-4">联系方式 / Contact</h3>
-              <p className="text-gray-300 text-sm">电话 / Phone: (604) 555-0123</p>
-              <p className="text-gray-300 text-sm">邮箱 / Email: info@oxec.ca</p>
-            </div>
-            <div>
-              <h3 className="font-bold text-lg mb-4">地址 / Address</h3>
-              <p className="text-gray-300 text-sm">Burnaby, BC, Canada</p>
-            </div>
-          </div>
-          <div className="border-t border-gray-600 pt-8 text-center text-gray-400 text-sm">
-            <p>&copy; 2024 OXEC Immigration Services. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
