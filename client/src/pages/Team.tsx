@@ -236,7 +236,7 @@ export default function Team() {
             </div>
 
             {/* Team Members Gallery Grid */}
-            <div className="flex flex-wrap justify-center gap-4 mb-8 -mt-8">
+            <div className="flex flex-wrap justify-center gap-4 mb-8 -mt-8" style={{marginBottom: '60px'}}>
               {teamMembers.map((member) => (
                 <div
                   key={member.id}
