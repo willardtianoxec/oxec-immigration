@@ -10,44 +10,14 @@ const IMAGES_DIR = path.join(process.cwd(), "client", "public", "images");
  * Get all images from the library
  */
 export async function getAllImages() {
+  const db = await getDb();
+  if (!db) {
+    throw new Error("Database not available");
+  }
+
   try {
-    const files = await fs.readdir(IMAGES_DIR);
-    const imageFiles = files.filter((file) =>
-      /\.(jpg|jpeg|png|gif|webp|svg)$/i.test(file)
-    );
-
-    const images = [];
-    for (const filename of imageFiles) {
-      const filePath = getImageFilePath(filename);
-      const stats = await fs.stat(filePath);
-      const relativePath = getImageRelativePath(filename);
-      const mimeType = filename.endsWith('.png')
-        ? 'image/png'
-        : filename.endsWith('.jpg') || filename.endsWith('.jpeg')
-        ? 'image/jpeg'
-        : filename.endsWith('.gif')
-        ? 'image/gif'
-        : filename.endsWith('.webp')
-        ? 'image/webp'
-        : filename.endsWith('.svg')
-        ? 'image/svg+xml'
-        : 'image/unknown';
-
-      images.push({
-        id: Math.random(),
-        filename,
-        relativePath,
-        fileSize: stats.size,
-        mimeType,
-        description: null,
-        category: null,
-        uploadedBy: 0,
-        createdAt: stats.mtime,
-        updatedAt: stats.mtime,
-      });
-    }
-
-    return images.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+    const images = await db.select().from(imageLibrary).orderBy(imageLibrary.createdAt);
+    return images;
   } catch (error) {
     console.error("[Image Management] Error fetching images:", error);
     throw error;

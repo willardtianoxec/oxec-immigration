@@ -36,12 +36,14 @@ export default function SuccessCases() {
     { label: "公民入籍", href: "/citizenship" },
   ];
 
-  const { data: cases = [], isLoading } = trpc.posts.list.useQuery({
+  const { data: cases, isLoading } = trpc.posts.list.useQuery({
     type: "success-case",
     publishedOnly: true,
   });
 
   const filteredCases = useMemo(() => {
+    if (!cases) return [];
+    
     return cases.filter((post: any) => {
       // 按分类过滤 - 检查多个可能的字段名
       const postCategory = post.successCaseCategory || post.contentCategory || post.category;

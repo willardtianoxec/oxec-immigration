@@ -23,7 +23,6 @@ import {
 } from "lucide-react";
 import { format } from "date-fns";
 import { getLoginUrl } from "@/const";
-import { ImageLibrary } from "@/components/ImageLibrary";
 
 export default function Admin() {
   const { user, loading, isAuthenticated } = useAuth();
@@ -102,7 +101,7 @@ export default function Admin() {
           </TabsContent>
 
           <TabsContent value="images">
-            <ImageLibrary />
+            <ImageLibraryManagement />
           </TabsContent>
 
           <TabsContent value="appointments">
@@ -122,13 +121,12 @@ function BlogManagement() {
     slug: "",
     excerpt: "",
     content: "",
-    type: "blog" as "blog" | "success-case",
-      blogCategory: undefined as any,
+    category: "",
     published: false,
   });
 
   const utils = trpc.useUtils();
-  const { data: posts = [], isLoading } = trpc.posts.list.useQuery({ publishedOnly: false });
+  const { data: posts, isLoading } = trpc.posts.list.useQuery({ publishedOnly: false });
 
   const createPost = trpc.posts.create.useMutation({
     onSuccess: () => {
@@ -157,7 +155,7 @@ function BlogManagement() {
   });
 
   const resetForm = () => {
-    setFormData({ title: "", slug: "", excerpt: "", content: "", type: "blog", blogCategory: undefined as any, published: false });
+    setFormData({ title: "", slug: "", excerpt: "", content: "", category: "", published: false });
     setIsCreating(false);
     setEditingId(null);
   };
@@ -165,11 +163,9 @@ function BlogManagement() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (editingId) {
-      const { type, blogCategory, ...updateData } = formData;
-      updatePost.mutate({ id: editingId, ...updateData, blogCategory: blogCategory || undefined });
+      updatePost.mutate({ id: editingId, ...formData });
     } else {
-      const { blogCategory, ...createData } = formData;
-      createPost.mutate({ ...createData, type: "blog", blogCategory: blogCategory || undefined });
+      createPost.mutate(formData);
     }
   };
 
@@ -179,8 +175,7 @@ function BlogManagement() {
       slug: post.slug,
       excerpt: post.excerpt || "",
       content: post.content,
-      type: post.type || "blog",
-      blogCategory: post.blogCategory,
+      category: post.category || "",
       published: post.published,
     });
     setEditingId(post.id);
@@ -221,8 +216,8 @@ function BlogManagement() {
               <Label htmlFor="category">Category</Label>
               <Input
                 id="category"
-      value={formData.blogCategory || ""}
-      onChange={(e) => setFormData({ ...formData, blogCategory: (e.target.value || undefined) as any })}
+                value={formData.category}
+                onChange={(e) => setFormData({ ...formData, category: e.target.value })}
               />
             </div>
 
@@ -344,10 +339,18 @@ function BlogManagement() {
 function CasesManagement() {
   const [isCreating, setIsCreating] = useState(false);
   const [editingId, setEditingId] = useState<number | null>(null);
-  const [formData, setFormData] = useState({ title: "", slug: "", content: "", excerpt: "", published: false });
+  const [formData, setFormData] = useState({
+    title: "",
+    caseType: "",
+    clientBackground: "",
+    challenge: "",
+    solution: "",
+    outcome: "",
+    published: false,
+  });
 
   const utils = trpc.useUtils();
-  const { data: cases = [], isLoading } = trpc.posts.list.useQuery({ publishedOnly: false });
+  const { data: cases, isLoading } = trpc.posts.list.useQuery({ publishedOnly: false });
 
   const createCase = trpc.posts.create.useMutation({
     onSuccess: () => {
@@ -376,7 +379,7 @@ function CasesManagement() {
   });
 
   const resetForm = () => {
-    setFormData({ title: "", slug: "", content: "", excerpt: "", published: false });
+    setFormData({ title: "", caseType: "", clientBackground: "", challenge: "", solution: "", outcome: "", published: false });
     setIsCreating(false);
     setEditingId(null);
   };
@@ -386,16 +389,18 @@ function CasesManagement() {
     if (editingId) {
       updateCase.mutate({ id: editingId, ...formData });
     } else {
-      createCase.mutate({ ...formData, type: "success-case" } as any);
+      createCase.mutate(formData);
     }
   };
 
   const handleEdit = (caseItem: any) => {
     setFormData({
       title: caseItem.title,
-      slug: caseItem.slug,
-      content: caseItem.content,
-      excerpt: caseItem.excerpt || "",
+      caseType: caseItem.caseType,
+      clientBackground: caseItem.clientBackground,
+      challenge: caseItem.challenge || "",
+      solution: caseItem.solution,
+      outcome: caseItem.outcome,
       published: caseItem.published,
     });
     setEditingId(caseItem.id);
@@ -424,55 +429,54 @@ function CasesManagement() {
                 <Label htmlFor="caseType">Case Type *</Label>
                 <Input
                   id="caseType"
-      value={formData.title}
-      onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                  value={formData.caseType}
+                  onChange={(e) => setFormData({ ...formData, caseType: e.target.value })}
                   required
                 />
               </div>
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="slug">Slug *</Label>
-              <Input
-                id="slug"
-      value={formData.slug}
-      onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
+              <Label htmlFor="clientBackground">Client Background *</Label>
+              <Textarea
+                id="clientBackground"
+                rows={3}
+                value={formData.clientBackground}
+                onChange={(e) => setFormData({ ...formData, clientBackground: e.target.value })}
                 required
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="excerpt">Excerpt</Label>
+              <Label htmlFor="challenge">Challenge</Label>
               <Textarea
-                id="excerpt"
-                rows={2}
-      value={formData.excerpt}
-      onChange={(e) => setFormData({ ...formData, excerpt: e.target.value })}
+                id="challenge"
+                rows={3}
+                value={formData.challenge}
+                onChange={(e) => setFormData({ ...formData, challenge: e.target.value })}
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="content">Content *</Label>
+              <Label htmlFor="solution">Solution *</Label>
               <Textarea
-                id="content"
-                rows={6}
-      value={formData.content}
-      onChange={(e) => setFormData({ ...formData, content: e.target.value })}
+                id="solution"
+                rows={3}
+                value={formData.solution}
+                onChange={(e) => setFormData({ ...formData, solution: e.target.value })}
                 required
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="published">Status</Label>
-              <select
-                id="published"
-      value={formData.published ? "published" : "draft"}
-      onChange={(e) => setFormData({ ...formData, published: e.target.value === "published" })}
-                className="w-full px-3 py-2 border border-border rounded-md"
-              >
-                <option value="draft">Draft</option>
-                <option value="published">Published</option>
-              </select>
+              <Label htmlFor="outcome">Outcome *</Label>
+              <Textarea
+                id="outcome"
+                rows={3}
+                value={formData.outcome}
+                onChange={(e) => setFormData({ ...formData, outcome: e.target.value })}
+                required
+              />
             </div>
 
             <div className="flex items-center space-x-2">
@@ -520,7 +524,7 @@ function CasesManagement() {
                 <div className="flex justify-between items-start">
                   <div>
                     <CardTitle>{caseItem.title}</CardTitle>
-                    <CardDescription>{caseItem.contentCategory}</CardDescription>
+                    <CardDescription>{caseItem.caseType}</CardDescription>
                   </div>
                   <div className="flex gap-2">
                     <Button size="sm" variant="outline" onClick={() => handleEdit(caseItem)}>
@@ -542,7 +546,7 @@ function CasesManagement() {
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-muted-foreground line-clamp-2">
-                  {caseItem.excerpt || caseItem.content?.substring(0, 100)}
+                  {caseItem.clientBackground}
                 </p>
                 <div className="mt-2">
                   <span className={`text-xs px-2 py-1 rounded ${
@@ -629,3 +633,185 @@ function AppointmentsManagement() {
   );
 }
 
+
+function ImageLibraryManagement() {
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [description, setDescription] = useState("");
+  const [category, setCategory] = useState("");
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const { data: images = [], isLoading, refetch } = trpc.images.list.useQuery();
+  const uploadMutation = trpc.images.upload.useMutation();
+  const deleteMutation = trpc.images.delete.useMutation();
+
+  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setSelectedFile(file);
+    }
+  };
+
+  const handleUpload = async () => {
+    if (!selectedFile) return;
+
+    try {
+      const reader = new FileReader();
+      reader.onload = async (e) => {
+        const base64 = (e.target?.result as string).split(",")[1];
+        await uploadMutation.mutateAsync({
+          filename: selectedFile.name,
+          base64Data: base64,
+          description,
+          category,
+        });
+        setSelectedFile(null);
+        setDescription("");
+        setCategory("");
+        toast.success("Image uploaded successfully");
+        refetch();
+      };
+      reader.readAsDataURL(selectedFile);
+    } catch (error) {
+      toast.error("Failed to upload image");
+    }
+  };
+
+  const handleDelete = async (id: number) => {
+    if (confirm("确定要删除这张图片吗？")) {
+      try {
+        await deleteMutation.mutateAsync({ id });
+        toast.success("Image deleted successfully");
+        refetch();
+      } catch (error) {
+        toast.error("Failed to delete image");
+      }
+    }
+  };
+
+  const handleCopyPath = (path: string) => {
+    navigator.clipboard.writeText(path);
+    toast.success("Path copied to clipboard");
+  };
+
+  return (
+    <div className="space-y-6">
+      {/* Upload Section */}
+      <Card>
+        <CardHeader>
+          <CardTitle>上传新图片</CardTitle>
+          <CardDescription>上传图片到图库，所有图片将保存在GitHub仓库中</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div
+            className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center cursor-pointer hover:border-primary transition"
+            onClick={() => fileInputRef.current?.click()}
+          >
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              onChange={handleFileSelect}
+              className="hidden"
+            />
+            <Plus className="mx-auto h-8 w-8 text-gray-400 mb-2" />
+            <p className="text-sm text-gray-600">
+              {selectedFile ? selectedFile.name : "点击或拖拽图片到此处"}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="description">图片描述（可选）</Label>
+              <Input
+                id="description"
+                placeholder="例如：PR Card Section 1"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="category">分类（可选）</Label>
+              <Input
+                id="category"
+                placeholder="例如：service-images"
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+              />
+            </div>
+          </div>
+
+          <Button
+            onClick={handleUpload}
+            disabled={!selectedFile || uploadMutation.isPending}
+            className="w-full"
+          >
+            {uploadMutation.isPending ? "上传中..." : "上传图片"}
+          </Button>
+        </CardContent>
+      </Card>
+
+      {/* Image Gallery */}
+      <Card>
+        <CardHeader>
+          <CardTitle>图片库 ({images.length})</CardTitle>
+          <CardDescription>管理所有上传的图片，复制相对路径在页面中使用</CardDescription>
+        </CardHeader>
+        <CardContent>
+          {isLoading ? (
+            <div className="text-center py-8">
+              <Loader2 className="h-8 w-8 animate-spin mx-auto text-primary" />
+            </div>
+          ) : images.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {images.map((image: any) => (
+                <Card key={image.id} className="overflow-hidden hover:shadow-lg transition">
+                  <img
+                    src={image.publicUrl}
+                    alt={image.filename}
+                    className="w-full h-40 object-cover"
+                  />
+                  <div className="p-3 space-y-2">
+                    <p className="text-sm font-medium truncate">{image.filename}</p>
+                    <p className="text-xs text-gray-500 break-all font-mono bg-gray-50 p-2 rounded">
+                      {image.relativePath}
+                    </p>
+                    {image.description && (
+                      <p className="text-xs text-gray-600">{image.description}</p>
+                    )}
+                    {image.category && (
+                      <span className="inline-block text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">
+                        {image.category}
+                      </span>
+                    )}
+                    <div className="flex gap-2 pt-2">
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => handleCopyPath(image.relativePath)}
+                        className="flex-1 text-xs"
+                      >
+                        <Plus className="h-3 w-3 mr-1" />
+                        复制路径
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="destructive"
+                        onClick={() => handleDelete(image.id)}
+                      >
+                        <Trash2 className="h-3 w-3" />
+                      </Button>
+                    </div>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-8 text-gray-500">
+              <p>暂无图片，请上传第一张图片</p>
+            </div>
+          )}
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
