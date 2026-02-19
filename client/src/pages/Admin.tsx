@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -55,57 +55,51 @@ export default function Admin() {
     );
   }
 
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin" />
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <div className="bg-primary text-primary-foreground py-8">
-        <div className="container">
-          <Link href="/">
-            <Button variant="ghost" className="mb-4 text-primary-foreground hover:bg-primary-foreground/10">
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to Home
-            </Button>
-          </Link>
-          <h1 className="text-3xl font-bold">Admin Dashboard</h1>
-          <p className="opacity-90">Manage blog posts, success cases, and appointments</p>
-        </div>
-      </div>
+      <div className="container mx-auto py-8">
+        <Link href="/">
+          <Button variant="ghost" size="sm" className="mb-6">
+            <ArrowLeft className="h-4 w-4 mr-2" />
+            Back to Home
+          </Button>
+        </Link>
 
-      <div className="container py-8">
-        <Tabs defaultValue="blog" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-4 max-w-3xl">
-            <TabsTrigger value="blog">
-              <FileText className="mr-2 h-4 w-4" />
-              Blog Posts
-            </TabsTrigger>
-            <TabsTrigger value="cases">
-              <Award className="mr-2 h-4 w-4" />
-              Success Cases
-            </TabsTrigger>
-            <TabsTrigger value="images">
-              <Image className="mr-2 h-4 w-4" />
-              Images
-            </TabsTrigger>
-            <TabsTrigger value="appointments">
-              <Calendar className="mr-2 h-4 w-4" />
-              Appointments
-            </TabsTrigger>
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold">Admin Dashboard</h1>
+          <p className="text-muted-foreground">Manage blog posts, success cases, and appointments</p>
+        </div>
+
+        <Tabs defaultValue="blog" className="w-full">
+          <TabsList className="grid w-full grid-cols-4">
+            <TabsTrigger value="blog">Blog Posts</TabsTrigger>
+            <TabsTrigger value="cases">Success Cases</TabsTrigger>
+            <TabsTrigger value="images">Images</TabsTrigger>
+            <TabsTrigger value="appointments">Appointments</TabsTrigger>
           </TabsList>
 
-          <TabsContent value="blog">
-            <BlogManagement />
+          <TabsContent value="blog" className="mt-6">
+            <BlogPostsManagement />
           </TabsContent>
 
-          <TabsContent value="cases">
-            <CasesManagement />
+          <TabsContent value="cases" className="mt-6">
+            <SuccessCasesManagement />
           </TabsContent>
 
-          <TabsContent value="images">
+          <TabsContent value="images" className="mt-6">
             <ImageLibraryManagement />
           </TabsContent>
 
-          <TabsContent value="appointments">
-            <AppointmentsManagement />
+          <TabsContent value="appointments" className="mt-6">
+            <AppointmentManagement />
           </TabsContent>
         </Tabs>
       </div>
@@ -113,532 +107,274 @@ export default function Admin() {
   );
 }
 
-function BlogManagement() {
-  const [isCreating, setIsCreating] = useState(false);
+function BlogPostsManagement() {
+  const { data: posts = [], isLoading } = trpc.posts.list.useQuery();
+  const createMutation = trpc.posts.create.useMutation();
+  const updateMutation = trpc.posts.update.useMutation();
+  const deleteMutation = trpc.posts.delete.useMutation();
   const [editingId, setEditingId] = useState<number | null>(null);
-  const [formData, setFormData] = useState({
-    title: "",
-    slug: "",
-    excerpt: "",
-    content: "",
-    category: "",
-    published: false,
-  });
+  const [formData, setFormData] = useState({ title: "", content: "", category: "", published: false });
 
-  const utils = trpc.useUtils();
-  const { data: posts, isLoading } = trpc.posts.list.useQuery({ publishedOnly: false });
+  const handleSubmit = async () => {
+    if (!formData.title || !formData.content) {
+      toast.error("Title and content are required");
+      return;
+    }
 
-  const createPost = trpc.posts.create.useMutation({
-    onSuccess: () => {
-      toast.success("Blog post created successfully");
-      utils.posts.list.invalidate();
-      resetForm();
-    },
-    onError: (error) => toast.error(error.message),
-  });
-
-  const updatePost = trpc.posts.update.useMutation({
-    onSuccess: () => {
-      toast.success("Blog post updated successfully");
-      utils.posts.list.invalidate();
-      resetForm();
-    },
-    onError: (error) => toast.error(error.message),
-  });
-
-  const deletePost = trpc.posts.delete.useMutation({
-    onSuccess: () => {
-      toast.success("Blog post deleted successfully");
-      utils.posts.list.invalidate();
-    },
-    onError: (error) => toast.error(error.message),
-  });
-
-  const resetForm = () => {
-    setFormData({ title: "", slug: "", excerpt: "", content: "", category: "", published: false });
-    setIsCreating(false);
-    setEditingId(null);
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (editingId) {
-      updatePost.mutate({ id: editingId, ...formData });
-    } else {
-      createPost.mutate(formData);
+    try {
+      if (editingId) {
+        await updateMutation.mutateAsync({ id: editingId, ...formData });
+        toast.success("Post updated");
+      } else {
+        await createMutation.mutateAsync(formData);
+        toast.success("Post created");
+      }
+      setFormData({ title: "", content: "", category: "", published: false });
+      setEditingId(null);
+    } catch (error) {
+      toast.error("Failed to save post");
     }
   };
 
-  const handleEdit = (post: any) => {
-    setFormData({
-      title: post.title,
-      slug: post.slug,
-      excerpt: post.excerpt || "",
-      content: post.content,
-      category: post.category || "",
-      published: post.published,
-    });
-    setEditingId(post.id);
-    setIsCreating(true);
-  };
-
-  if (isCreating || editingId) {
-    return (
-      <Card>
-        <CardHeader>
-          <CardTitle>{editingId ? "Edit" : "Create"} Blog Post</CardTitle>
-          <CardDescription>Fill in the details for your blog post</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="grid md:grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="title">Title *</Label>
-                <Input
-                  id="title"
-                  value={formData.title}
-                  onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                  required
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="slug">Slug *</Label>
-                <Input
-                  id="slug"
-                  value={formData.slug}
-                  onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
-                  required
-                />
-              </div>
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="category">Category</Label>
-              <Input
-                id="category"
-                value={formData.category}
-                onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="excerpt">Excerpt</Label>
-              <Textarea
-                id="excerpt"
-                rows={3}
-                value={formData.excerpt}
-                onChange={(e) => setFormData({ ...formData, excerpt: e.target.value })}
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="content">Content *</Label>
-              <Textarea
-                id="content"
-                rows={10}
-                value={formData.content}
-                onChange={(e) => setFormData({ ...formData, content: e.target.value })}
-                required
-              />
-            </div>
-
-            <div className="flex items-center space-x-2">
-              <Switch
-                id="published"
-                checked={formData.published}
-                onCheckedChange={(checked) => setFormData({ ...formData, published: checked })}
-              />
-              <Label htmlFor="published" className="cursor-pointer">Publish immediately</Label>
-            </div>
-
-            <div className="flex gap-2">
-              <Button type="submit" disabled={createPost.isPending || updatePost.isPending}>
-                {editingId ? "Update" : "Create"} Post
-              </Button>
-              <Button type="button" variant="outline" onClick={resetForm}>
-                Cancel
-              </Button>
-            </div>
-          </form>
-        </CardContent>
-      </Card>
-    );
-  }
-
-  return (
-    <div className="space-y-4">
-      <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold">Blog Posts</h2>
-        <Button onClick={() => setIsCreating(true)}>
-          <Plus className="mr-2 h-4 w-4" />
-          New Post
-        </Button>
-      </div>
-
-      {isLoading ? (
-        <div className="text-center py-8">
-          <Loader2 className="h-8 w-8 animate-spin mx-auto text-primary" />
-        </div>
-      ) : posts && posts.length > 0 ? (
-        <div className="space-y-4">
-          {posts.map((post) => (
-            <Card key={post.id}>
-              <CardHeader>
-                <div className="flex justify-between items-start">
-                  <div>
-                    <CardTitle>{post.title}</CardTitle>
-                    <CardDescription>
-                      {post.category && <span className="mr-2">Category: {post.category}</span>}
-                      {format(new Date(post.createdAt), "MMM d, yyyy")}
-                    </CardDescription>
-                  </div>
-                  <div className="flex gap-2">
-                    <Button size="sm" variant="outline" onClick={() => handleEdit(post)}>
-                      <Edit className="h-4 w-4" />
-                    </Button>
-                    <Button
-                      size="sm"
-                      variant="destructive"
-                      onClick={() => {
-                        if (confirm("Are you sure you want to delete this post?")) {
-                          deletePost.mutate({ id: post.id });
-                        }
-                      }}
-                    >
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground line-clamp-2">
-                  {post.excerpt || post.content.substring(0, 150)}
-                </p>
-                <div className="mt-2">
-                  <span className={`text-xs px-2 py-1 rounded ${
-                    post.published ? "bg-green-100 text-green-700" : "bg-gray-100 text-gray-700"
-                  }`}>
-                    {post.published ? "Published" : "Draft"}
-                  </span>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      ) : (
-        <Card>
-          <CardContent className="text-center py-8">
-            <p className="text-muted-foreground">No blog posts yet. Create your first one!</p>
-          </CardContent>
-        </Card>
-      )}
-    </div>
-  );
-}
-
-function CasesManagement() {
-  const [isCreating, setIsCreating] = useState(false);
-  const [editingId, setEditingId] = useState<number | null>(null);
-  const [formData, setFormData] = useState({
-    title: "",
-    caseType: "",
-    clientBackground: "",
-    challenge: "",
-    solution: "",
-    outcome: "",
-    published: false,
-  });
-
-  const utils = trpc.useUtils();
-  const { data: cases, isLoading } = trpc.posts.list.useQuery({ publishedOnly: false });
-
-  const createCase = trpc.posts.create.useMutation({
-    onSuccess: () => {
-      toast.success("Success case created");
-      utils.posts.list.invalidate();
-      resetForm();
-    },
-    onError: (error) => toast.error(error.message),
-  });
-
-  const updateCase = trpc.posts.update.useMutation({
-    onSuccess: () => {
-      toast.success("Success case updated");
-      utils.posts.list.invalidate();
-      resetForm();
-    },
-    onError: (error) => toast.error(error.message),
-  });
-
-  const deleteCase = trpc.posts.delete.useMutation({
-    onSuccess: () => {
-      toast.success("Success case deleted");
-      utils.posts.list.invalidate();
-    },
-    onError: (error) => toast.error(error.message),
-  });
-
-  const resetForm = () => {
-    setFormData({ title: "", caseType: "", clientBackground: "", challenge: "", solution: "", outcome: "", published: false });
-    setIsCreating(false);
-    setEditingId(null);
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (editingId) {
-      updateCase.mutate({ id: editingId, ...formData });
-    } else {
-      createCase.mutate(formData);
+  const handleDelete = async (id: number) => {
+    if (confirm("确定要删除这篇文章吗？")) {
+      try {
+        await deleteMutation.mutateAsync({ id });
+        toast.success("Post deleted");
+      } catch (error) {
+        toast.error("Failed to delete post");
+      }
     }
   };
 
-  const handleEdit = (caseItem: any) => {
-    setFormData({
-      title: caseItem.title,
-      caseType: caseItem.caseType,
-      clientBackground: caseItem.clientBackground,
-      challenge: caseItem.challenge || "",
-      solution: caseItem.solution,
-      outcome: caseItem.outcome,
-      published: caseItem.published,
-    });
-    setEditingId(caseItem.id);
-    setIsCreating(true);
-  };
-
-  if (isCreating || editingId) {
-    return (
+  return (
+    <div className="space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle>{editingId ? "Edit" : "Create"} Success Case</CardTitle>
+          <CardTitle>{editingId ? "Edit Post" : "New Post"}</CardTitle>
         </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="grid md:grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="title">Title *</Label>
-                <Input
-                  id="title"
-                  value={formData.title}
-                  onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                  required
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="caseType">Case Type *</Label>
-                <Input
-                  id="caseType"
-                  value={formData.caseType}
-                  onChange={(e) => setFormData({ ...formData, caseType: e.target.value })}
-                  required
-                />
-              </div>
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="clientBackground">Client Background *</Label>
-              <Textarea
-                id="clientBackground"
-                rows={3}
-                value={formData.clientBackground}
-                onChange={(e) => setFormData({ ...formData, clientBackground: e.target.value })}
-                required
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="challenge">Challenge</Label>
-              <Textarea
-                id="challenge"
-                rows={3}
-                value={formData.challenge}
-                onChange={(e) => setFormData({ ...formData, challenge: e.target.value })}
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="solution">Solution *</Label>
-              <Textarea
-                id="solution"
-                rows={3}
-                value={formData.solution}
-                onChange={(e) => setFormData({ ...formData, solution: e.target.value })}
-                required
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="outcome">Outcome *</Label>
-              <Textarea
-                id="outcome"
-                rows={3}
-                value={formData.outcome}
-                onChange={(e) => setFormData({ ...formData, outcome: e.target.value })}
-                required
-              />
-            </div>
-
-            <div className="flex items-center space-x-2">
-              <Switch
-                id="published"
-                checked={formData.published}
-                onCheckedChange={(checked) => setFormData({ ...formData, published: checked })}
-              />
-              <Label htmlFor="published" className="cursor-pointer">Publish immediately</Label>
-            </div>
-
-            <div className="flex gap-2">
-              <Button type="submit" disabled={createCase.isPending || updateCase.isPending}>
-                {editingId ? "Update" : "Create"} Case
-              </Button>
-              <Button type="button" variant="outline" onClick={resetForm}>
-                Cancel
-              </Button>
-            </div>
-          </form>
+        <CardContent className="space-y-4">
+          <div>
+            <Label>Title</Label>
+            <Input
+              value={formData.title}
+              onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+              placeholder="Post title"
+            />
+          </div>
+          <div>
+            <Label>Content</Label>
+            <Textarea
+              value={formData.content}
+              onChange={(e) => setFormData({ ...formData, content: e.target.value })}
+              placeholder="Post content"
+              rows={6}
+            />
+          </div>
+          <div>
+            <Label>Category</Label>
+            <Input
+              value={formData.category}
+              onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+              placeholder="Category"
+            />
+          </div>
+          <div className="flex items-center gap-2">
+            <Switch
+              checked={formData.published}
+              onCheckedChange={(checked) => setFormData({ ...formData, published: checked })}
+            />
+            <Label>Published</Label>
+          </div>
+          <Button onClick={handleSubmit} disabled={createMutation.isPending || updateMutation.isPending}>
+            {editingId ? "Update" : "Create"}
+          </Button>
+          {editingId && (
+            <Button variant="outline" onClick={() => { setEditingId(null); setFormData({ title: "", content: "", category: "", published: false }); }}>
+              Cancel
+            </Button>
+          )}
         </CardContent>
       </Card>
-    );
-  }
 
-  return (
-    <div className="space-y-4">
-      <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold">Success Cases</h2>
-        <Button onClick={() => setIsCreating(true)}>
-          <Plus className="mr-2 h-4 w-4" />
-          New Case
-        </Button>
-      </div>
-
-      {isLoading ? (
-        <div className="text-center py-8">
-          <Loader2 className="h-8 w-8 animate-spin mx-auto text-primary" />
-        </div>
-      ) : cases && cases.length > 0 ? (
-        <div className="space-y-4">
-          {cases.map((caseItem) => (
-            <Card key={caseItem.id}>
-              <CardHeader>
-                <div className="flex justify-between items-start">
-                  <div>
-                    <CardTitle>{caseItem.title}</CardTitle>
-                    <CardDescription>{caseItem.caseType}</CardDescription>
-                  </div>
-                  <div className="flex gap-2">
-                    <Button size="sm" variant="outline" onClick={() => handleEdit(caseItem)}>
-                      <Edit className="h-4 w-4" />
-                    </Button>
-                    <Button
-                      size="sm"
-                      variant="destructive"
-                      onClick={() => {
-                        if (confirm("Are you sure?")) {
-                          deleteCase.mutate({ id: caseItem.id });
-                        }
-                      }}
-                    >
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
+      <Card>
+        <CardHeader>
+          <CardTitle>Posts</CardTitle>
+        </CardHeader>
+        <CardContent>
+          {isLoading ? (
+            <Loader2 className="h-8 w-8 animate-spin" />
+          ) : posts.length > 0 ? (
+            <div className="space-y-4">
+              {posts.map((post: any) => (
+                <div key={post.id} className="border rounded p-4">
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <h3 className="font-semibold">{post.title}</h3>
+                      <p className="text-sm text-gray-500">{post.category}</p>
+                      <p className="text-xs text-gray-400">{format(new Date(post.createdAt), "MMM d, yyyy")}</p>
+                    </div>
+                    <div className="flex gap-2">
+                      <Button size="sm" variant="outline" onClick={() => { setEditingId(post.id); setFormData(post); }}>
+                        <Edit className="h-4 w-4" />
+                      </Button>
+                      <Button size="sm" variant="destructive" onClick={() => handleDelete(post.id)}>
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </div>
                   </div>
                 </div>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground line-clamp-2">
-                  {caseItem.clientBackground}
-                </p>
-                <div className="mt-2">
-                  <span className={`text-xs px-2 py-1 rounded ${
-                    caseItem.published ? "bg-green-100 text-green-700" : "bg-gray-100 text-gray-700"
-                  }`}>
-                    {caseItem.published ? "Published" : "Draft"}
-                  </span>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      ) : (
-        <Card>
-          <CardContent className="text-center py-8">
-            <p className="text-muted-foreground">No success cases yet.</p>
-          </CardContent>
-        </Card>
-      )}
+              ))}
+            </div>
+          ) : (
+            <p className="text-gray-500">No posts yet</p>
+          )}
+        </CardContent>
+      </Card>
     </div>
   );
 }
 
-function AppointmentsManagement() {
-  const { data: appointments, isLoading } = trpc.appointments.list.useQuery();
+function SuccessCasesManagement() {
+  const { data: cases = [], isLoading } = trpc.posts.list.useQuery();
+  const createMutation = trpc.posts.create.useMutation();
+  const updateMutation = trpc.posts.update.useMutation();
+  const deleteMutation = trpc.posts.delete.useMutation();
+  const [editingId, setEditingId] = useState<number | null>(null);
+  const [formData, setFormData] = useState({ title: "", content: "", category: "", published: false });
+
+  const handleSubmit = async () => {
+    if (!formData.title || !formData.content) {
+      toast.error("Title and content are required");
+      return;
+    }
+
+    try {
+      if (editingId) {
+        await updateMutation.mutateAsync({ id: editingId, ...formData });
+        toast.success("Case updated");
+      } else {
+        await createMutation.mutateAsync(formData);
+        toast.success("Case created");
+      }
+      setFormData({ title: "", content: "", category: "", published: false });
+      setEditingId(null);
+    } catch (error) {
+      toast.error("Failed to save case");
+    }
+  };
+
+  const handleDelete = async (id: number) => {
+    if (confirm("确定要删除这个案例吗？")) {
+      try {
+        await deleteMutation.mutateAsync({ id });
+        toast.success("Case deleted");
+      } catch (error) {
+        toast.error("Failed to delete case");
+      }
+    }
+  };
 
   return (
-    <div className="space-y-4">
-      <h2 className="text-2xl font-bold">Appointments</h2>
+    <div className="space-y-6">
+      <Card>
+        <CardHeader>
+          <CardTitle>{editingId ? "Edit Case" : "New Case"}</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div>
+            <Label>Title</Label>
+            <Input
+              value={formData.title}
+              onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+              placeholder="Case title"
+            />
+          </div>
+          <div>
+            <Label>Content</Label>
+            <Textarea
+              value={formData.content}
+              onChange={(e) => setFormData({ ...formData, content: e.target.value })}
+              placeholder="Case content"
+              rows={6}
+            />
+          </div>
+          <div>
+            <Label>Category</Label>
+            <Input
+              value={formData.category}
+              onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+              placeholder="Category"
+            />
+          </div>
+          <div className="flex items-center gap-2">
+            <Switch
+              checked={formData.published}
+              onCheckedChange={(checked) => setFormData({ ...formData, published: checked })}
+            />
+            <Label>Published</Label>
+          </div>
+          <Button onClick={handleSubmit} disabled={createMutation.isPending || updateMutation.isPending}>
+            {editingId ? "Update" : "Create"}
+          </Button>
+          {editingId && (
+            <Button variant="outline" onClick={() => { setEditingId(null); setFormData({ title: "", content: "", category: "", published: false }); }}>
+              Cancel
+            </Button>
+          )}
+        </CardContent>
+      </Card>
 
-      {isLoading ? (
-        <div className="text-center py-8">
-          <Loader2 className="h-8 w-8 animate-spin mx-auto text-primary" />
-        </div>
-      ) : appointments && appointments.length > 0 ? (
-        <div className="space-y-4">
-          {appointments.map((apt) => (
-            <Card key={apt.id}>
-              <CardHeader>
-                <div className="flex justify-between items-start">
-                  <div>
-                    <CardTitle>{apt.name}</CardTitle>
-                    <CardDescription>
-                      {apt.email} • {apt.phone}
-                    </CardDescription>
-                  </div>
-                  <span className={`text-xs px-2 py-1 rounded ${
-                    apt.status === "confirmed" ? "bg-green-100 text-green-700" :
-                    apt.status === "pending" ? "bg-yellow-100 text-yellow-700" :
-                    "bg-gray-100 text-gray-700"
-                  }`}>
-                    {apt.status}
-                  </span>
-                </div>
-              </CardHeader>
-              <CardContent className="space-y-2">
-                <div className="grid md:grid-cols-2 gap-4 text-sm">
-                  <div>
-                    <span className="font-semibold">Type:</span> {apt.consultationType}
-                  </div>
-                  <div>
-                    <span className="font-semibold">Preferred Date:</span>{" "}
-                    {apt.preferredDate ? format(new Date(apt.preferredDate), "MMM d, yyyy 'at' h:mm a") : 'N/A'}
+      <Card>
+        <CardHeader>
+          <CardTitle>Success Cases</CardTitle>
+        </CardHeader>
+        <CardContent>
+          {isLoading ? (
+            <Loader2 className="h-8 w-8 animate-spin" />
+          ) : cases.length > 0 ? (
+            <div className="space-y-4">
+              {cases.map((caseItem: any) => (
+                <div key={caseItem.id} className="border rounded p-4">
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <h3 className="font-semibold">{caseItem.title}</h3>
+                      <p className="text-sm text-gray-500">{caseItem.category}</p>
+                      <p className="text-xs text-gray-400">{format(new Date(caseItem.createdAt), "MMM d, yyyy")}</p>
+                    </div>
+                    <div className="flex gap-2">
+                      <Button size="sm" variant="outline" onClick={() => { setEditingId(caseItem.id); setFormData(caseItem); }}>
+                        <Edit className="h-4 w-4" />
+                      </Button>
+                      <Button size="sm" variant="destructive" onClick={() => handleDelete(caseItem.id)}>
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </div>
                   </div>
                 </div>
-                {apt.message && (
-                  <div className="text-sm">
-                    <span className="font-semibold">Message:</span>
-                    <p className="text-muted-foreground mt-1">{apt.message}</p>
-                  </div>
-                )}
+              ))}
+            </div>
+          ) : (
+            <Card>
+              <CardContent className="text-center py-8">
+                <p className="text-muted-foreground">No success cases yet.</p>
               </CardContent>
             </Card>
-          ))}
-        </div>
-      ) : (
-        <Card>
-          <CardContent className="text-center py-8">
-            <p className="text-muted-foreground">No appointments yet.</p>
-          </CardContent>
-        </Card>
-      )}
+          )}
+        </CardContent>
+      </Card>
     </div>
   );
 }
-
 
 function ImageLibraryManagement() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [selectedImageForLightbox, setSelectedImageForLightbox] = useState<any>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const ITEMS_PER_PAGE = 20;
 
   const { data: images = [], isLoading, refetch } = trpc.images.list.useQuery();
   const uploadMutation = trpc.images.upload.useMutation();
@@ -693,122 +429,273 @@ function ImageLibraryManagement() {
     toast.success("Path copied to clipboard");
   };
 
+  const formatFileSize = (bytes: number): string => {
+    if (bytes === 0) return '0 B';
+    const k = 1024;
+    const sizes = ['B', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return Math.round((bytes / Math.pow(k, i)) * 100) / 100 + ' ' + sizes[i];
+  };
+
+  // Calculate pagination
+  const totalPages = Math.ceil(images.length / ITEMS_PER_PAGE);
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const endIndex = startIndex + ITEMS_PER_PAGE;
+  const paginatedImages = images.slice(startIndex, endIndex);
+
   return (
-    <div className="space-y-6">
-      {/* Upload Section */}
-      <Card>
-        <CardHeader>
-          <CardTitle>上传新图片</CardTitle>
-          <CardDescription>上传图片到图库，所有图片将保存在GitHub仓库中</CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
+    <>
+      {/* Lightbox Modal */}
+      {selectedImageForLightbox && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4"
+          onClick={() => setSelectedImageForLightbox(null)}
+        >
           <div
-            className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center cursor-pointer hover:border-primary transition"
-            onClick={() => fileInputRef.current?.click()}
+            className="max-w-4xl max-h-[90vh] relative"
+            onClick={(e) => e.stopPropagation()}
           >
-            <input
-              ref={fileInputRef}
-              type="file"
-              accept="image/*"
-              onChange={handleFileSelect}
-              className="hidden"
+            <button
+              onClick={() => setSelectedImageForLightbox(null)}
+              className="absolute -top-10 right-0 text-white hover:text-gray-300 text-2xl"
+            >
+              ✕
+            </button>
+            <img
+              src={selectedImageForLightbox.publicUrl}
+              alt={selectedImageForLightbox.filename}
+              className="max-w-full max-h-[90vh] object-contain"
             />
-            <Plus className="mx-auto h-8 w-8 text-gray-400 mb-2" />
-            <p className="text-sm text-gray-600">
-              {selectedFile ? selectedFile.name : "点击或拖拽图片到此处"}
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="description">图片描述（可选）</Label>
-              <Input
-                id="description"
-                placeholder="例如：PR Card Section 1"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="category">分类（可选）</Label>
-              <Input
-                id="category"
-                placeholder="例如：service-images"
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-              />
+            <div className="mt-4 text-white text-center">
+              <p className="font-medium">{selectedImageForLightbox.filename}</p>
+              {selectedImageForLightbox.size && (
+                <p className="text-sm text-gray-300">大小: {formatFileSize(selectedImageForLightbox.size)}</p>
+              )}
             </div>
           </div>
+        </div>
+      )}
 
-          <Button
-            onClick={handleUpload}
-            disabled={!selectedFile || uploadMutation.isPending}
-            className="w-full"
-          >
-            {uploadMutation.isPending ? "上传中..." : "上传图片"}
-          </Button>
-        </CardContent>
-      </Card>
+      <div className="space-y-6">
+        {/* Upload Section */}
+        <Card>
+          <CardHeader>
+            <CardTitle>上传新图片</CardTitle>
+            <CardDescription>上传图片到图库，所有图片将保存在GitHub仓库中</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div
+              className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center cursor-pointer hover:border-primary transition"
+              onClick={() => fileInputRef.current?.click()}
+            >
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                onChange={handleFileSelect}
+                className="hidden"
+              />
+              <Plus className="mx-auto h-8 w-8 text-gray-400 mb-2" />
+              <p className="text-sm text-gray-600">
+                {selectedFile ? selectedFile.name : "点击或拖拽图片到此处"}
+              </p>
+            </div>
 
-      {/* Image Gallery */}
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="description">图片描述（可选）</Label>
+                <Input
+                  id="description"
+                  placeholder="例如：PR Card Section 1"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="category">分类（可选）</Label>
+                <Input
+                  id="category"
+                  placeholder="例如：service-images"
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
+                />
+              </div>
+            </div>
+
+            <Button
+              onClick={handleUpload}
+              disabled={!selectedFile || uploadMutation.isPending}
+              className="w-full"
+            >
+              {uploadMutation.isPending ? "上传中..." : "上传图片"}
+            </Button>
+          </CardContent>
+        </Card>
+
+        {/* Image Gallery */}
+        <Card>
+          <CardHeader>
+            <CardTitle>图片库 ({images.length})</CardTitle>
+            <CardDescription>管理所有上传的图片，复制相对路径在页面中使用</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            {isLoading ? (
+              <div className="text-center py-8">
+                <Loader2 className="h-8 w-8 animate-spin mx-auto text-primary" />
+              </div>
+            ) : images.length > 0 ? (
+              <>
+                {/* Pagination Info */}
+                <div className="text-sm text-gray-600">
+                  显示 {startIndex + 1}-{Math.min(endIndex, images.length)} / 共 {images.length} 张图片
+                </div>
+
+                {/* Image Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                  {paginatedImages.map((image: any) => (
+                    <Card key={image.id} className="overflow-hidden hover:shadow-lg transition">
+                      <div
+                        className="w-full h-48 bg-gray-200 cursor-pointer overflow-hidden"
+                        onClick={() => setSelectedImageForLightbox(image)}
+                      >
+                        <img
+                          src={image.publicUrl}
+                          alt={image.filename}
+                          className="w-full h-full object-contain"
+                        />
+                      </div>
+                      <div className="p-3 space-y-2">
+                        <p className="text-sm font-medium truncate">{image.filename}</p>
+                        <p className="text-xs text-gray-500 break-all font-mono bg-gray-50 p-2 rounded">
+                          {image.relativePath}
+                        </p>
+                        {image.size && (
+                          <p className="text-xs text-gray-600">大小: {formatFileSize(image.size)}</p>
+                        )}
+                        {image.description && (
+                          <p className="text-xs text-gray-600">{image.description}</p>
+                        )}
+                        {image.category && (
+                          <span className="inline-block text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">
+                            {image.category}
+                          </span>
+                        )}
+                        <div className="flex gap-2 pt-2">
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => handleCopyPath(image.relativePath)}
+                            className="flex-1 text-xs"
+                          >
+                            <Plus className="h-3 w-3 mr-1" />
+                            复制路径
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="destructive"
+                            onClick={() => handleDelete(image.id)}
+                          >
+                            <Trash2 className="h-3 w-3" />
+                          </Button>
+                        </div>
+                      </div>
+                    </Card>
+                  ))}
+                </div>
+
+                {/* Pagination Controls */}
+                {totalPages > 1 && (
+                  <div className="flex items-center justify-center gap-2 pt-4">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setCurrentPage(1)}
+                      disabled={currentPage === 1}
+                    >
+                      首页
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                      disabled={currentPage === 1}
+                    >
+                      上一页
+                    </Button>
+                    <span className="text-sm text-gray-600">
+                      第 {currentPage} / {totalPages} 页
+                    </span>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+                      disabled={currentPage === totalPages}
+                    >
+                      下一页
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setCurrentPage(totalPages)}
+                      disabled={currentPage === totalPages}
+                    >
+                      末页
+                    </Button>
+                    <Input
+                      type="number"
+                      min="1"
+                      max={totalPages}
+                      value={currentPage}
+                      onChange={(e) => {
+                        const page = parseInt(e.target.value) || 1;
+                        setCurrentPage(Math.min(Math.max(1, page), totalPages));
+                      }}
+                      className="w-16 h-9"
+                      placeholder="页"
+                    />
+                  </div>
+                )}
+              </>
+            ) : (
+              <div className="text-center py-8 text-gray-500">
+                <p>暂无图片，请上传第一张图片</p>
+              </div>
+            )}
+          </CardContent>
+        </Card>
+      </div>
+    </>
+  );
+}
+
+function AppointmentManagement(){
+  const { data: appointments, isLoading } = trpc.appointments.list.useQuery();
+
+  return (
+    <div className="space-y-4">
       <Card>
         <CardHeader>
-          <CardTitle>图片库 ({images.length})</CardTitle>
-          <CardDescription>管理所有上传的图片，复制相对路径在页面中使用</CardDescription>
+          <CardTitle>Appointments</CardTitle>
         </CardHeader>
         <CardContent>
           {isLoading ? (
-            <div className="text-center py-8">
-              <Loader2 className="h-8 w-8 animate-spin mx-auto text-primary" />
-            </div>
-          ) : images.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {images.map((image: any) => (
-                <Card key={image.id} className="overflow-hidden hover:shadow-lg transition">
-                  <img
-                    src={image.publicUrl}
-                    alt={image.filename}
-                    className="w-full h-40 object-cover"
-                  />
-                  <div className="p-3 space-y-2">
-                    <p className="text-sm font-medium truncate">{image.filename}</p>
-                    <p className="text-xs text-gray-500 break-all font-mono bg-gray-50 p-2 rounded">
-                      {image.relativePath}
-                    </p>
-                    {image.description && (
-                      <p className="text-xs text-gray-600">{image.description}</p>
-                    )}
-                    {image.category && (
-                      <span className="inline-block text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">
-                        {image.category}
-                      </span>
-                    )}
-                    <div className="flex gap-2 pt-2">
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        onClick={() => handleCopyPath(image.relativePath)}
-                        className="flex-1 text-xs"
-                      >
-                        <Plus className="h-3 w-3 mr-1" />
-                        复制路径
-                      </Button>
-                      <Button
-                        size="sm"
-                        variant="destructive"
-                        onClick={() => handleDelete(image.id)}
-                      >
-                        <Trash2 className="h-3 w-3" />
-                      </Button>
+            <Loader2 className="h-8 w-8 animate-spin" />
+          ) : appointments && appointments.length > 0 ? (
+            <div className="space-y-4">
+              {appointments.map((appointment: any) => (
+                <div key={appointment.id} className="border rounded p-4">
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <h3 className="font-semibold">{appointment.name}</h3>
+                      <p className="text-sm text-gray-500">{appointment.email}</p>
+                      <p className="text-xs text-gray-400">{format(new Date(appointment.appointmentDate), "MMM d, yyyy HH:mm")}</p>
                     </div>
                   </div>
-                </Card>
+                </div>
               ))}
             </div>
           ) : (
-            <div className="text-center py-8 text-gray-500">
-              <p>暂无图片，请上传第一张图片</p>
-            </div>
+            <p className="text-gray-500">No appointments yet</p>
           )}
         </CardContent>
       </Card>
