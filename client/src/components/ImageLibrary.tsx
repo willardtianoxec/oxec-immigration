@@ -168,9 +168,11 @@ export function ImageLibrary() {
 
         {/* Image Grid */}
         <div
-          className="grid gap-4 mb-6"
+          className="mb-6"
           style={{
+            display: "grid",
             gridTemplateColumns: `repeat(${COLUMNS}, 1fr)`,
+            gap: "1rem",
           }}
         >
           {paginatedImages.map((image) => (
@@ -179,15 +181,18 @@ export function ImageLibrary() {
               className="border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition"
             >
               <div
-                className="w-full h-40 object-cover cursor-pointer bg-gray-100 flex items-center justify-center relative group"
-                onClick={() => setSelectedImage(image)}
+                className="w-full h-40 bg-gray-100 flex items-center justify-center relative group cursor-pointer"
               >
                 <img
                   src={image.publicUrl}
                   alt={image.filename}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover cursor-pointer"
+                  onClick={() => setSelectedImage(image)}
                 />
-                <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition flex items-center justify-center">
+                <div 
+                  className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition flex items-center justify-center pointer-events-none"
+                  onClick={() => setSelectedImage(image)}
+                >
                   <span className="text-white opacity-0 group-hover:opacity-100 transition text-sm font-medium">
                     点击查看原图
                   </span>
