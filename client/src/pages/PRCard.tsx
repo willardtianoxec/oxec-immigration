@@ -21,11 +21,17 @@ export default function PRCard() {
     { label: "公民入籍", href: "/citizenship" },
   ];
 
-  // Image URLs for PR Card sections
-  const prcardImage1 = 'https://files.manuscdn.com/user_upload_by_module/session_file/310519663292376041/oqyCwXSpqVZjOXit.jpg';
-  const prcardImage2 = 'https://files.manuscdn.com/user_upload_by_module/session_file/310519663292376041/sxLiylhjEbzOSvBQ.jpg';
-  const prcardImage3 = 'https://files.manuscdn.com/user_upload_by_module/session_file/310519663292376041/yQpDINPnXnfonPlF.jpg';
-  const ctaBackgroundImage = 'https://private-us-east-1.manuscdn.com/sessionFile/i9ZSSj6IB1QFKBGCY6lMon/sandbox/1KnEnHRJ5m7G4yZchCDKJn-img-2_1771140735000_na1fn_ZG9jdW1lbnQtc3VibWlzc2lvbi1vZmZpY2U.png?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvaTlaU1NqNklCMVFGS0JHQ1k2bE1vbi9zYW5kYm94LzFLbkVuSFJKNW03RzR5WmNoQ0RLSm4taW1nLTJfMTc3MTE0MDczNTAwMF9uYTFmbl9aRzlqZFcxbGJuUXRjM1ZpYldsemMybHZiaTF2Wm1acFkyVS5wbmc~eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsd18xOTIwLGhfMTkyMC9mb3JtYXQsd2VicC9xdWFsaXR5LHFfODAiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3OTg3NjE2MDB9fX1dfQ__&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=I4TlxHs7ICyTRpYrWJTOAjzyqatyH2vTdwiRLVCPTA49kXyERI3MN8K1LWMZqcZMu5e34Lx8xr7eWTckQAeHklCdSHrxaIFOC7h55vCDeAb0Yn~dJGMHcn42mrLS07uILaaQf5r1OACLtprriOQ1r9giMMzsfnMBBZB5F~CKnyknvfxJuTIXEB-nhPYEjyc-q2Tm9Q~792lnuLE5yq-3tTmQN91PTiT7x6m1OJYJzttbZTnPaDXo4IEWy9GRLmSFGucogzBaZQtTnm6u9QR6u0Hre-AT7MCzaAXDDDU6SuIosZv2zbSsnMcW4SY9mDrTfBYHyCk5-QcF1RSDJbsJ3A__';
+  // Image URLs for PR Card sections - using related images from existing library
+  // Section 1: PR Card and documents
+  const prcardImage1 = 'https://private-us-east-1.manuscdn.com/sessionFile/i9ZSSj6IB1QFKBGCY6lMon/sandbox/CzR3vynOXwkVLil8nGhSBg-img-1_1770078013000_na1fn_YnVzaW5lc3NjbGFzcy1vdmVydmlldw.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvaTlaU1NqNklCMVFGS0JHQ1k2bE1vbi9zYW5kYm94L0N6UjN2eW5PWHdrVkxpbDhuR2hTQmctaW1nLTFfMTc3MDA3ODAxMzAwMF9uYTFmbl9ZblZ6YVc1bGMzTmpiR0Z6Y3kxdmRtVnlkbWxsZHcuanBnP3gtb3NzLXByb2Nlc3M9aW1hZ2UvcmVzaXplLHdfMTkyMCxoXzE5MjAvZm9ybWF0LHdlYnAvcXVhbGl0eSxxXzgwIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNzk4NzYxNjAwfX19XX0_&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=cw6W1ZIETdX8HrY4NNZvR6LvGgBSfqn6hou0CDb7S01xgcSK9K7Mp~b7YBq9H6AIne6aFiUMn6QuPCqJ3iVBN7uxjvsARZWAzbgsX4tgg7AQshvpmujeZpnaJ28lzzMziBhLeieMj5XTWtRjxV0Nwe3G1oyocX6SPMCOGpFBRA-HbrIkeQqG9no0ZMI1qXzApjC2GGj8mG0XG1gH4461JurZ6qkh05TE8MapIqGo-k2ohfOsKNkMpJMEta5UAn6wP40OUxri-Ot7zR8Od6MT1Zko4Ru5JW911H6Sse3lZdh7zGER6CEfjGe3TSQu7xH01weB9ttg71gqUo54C9~8eg__';
+  // Section 2: Risk assessment - using professional team image
+  const prcardImage2 = 'https://private-us-east-1.manuscdn.com/sessionFile/i9ZSSj6IB1QFKBGCY6lMon/sandbox/CzR3vynOXwkVLil8nGhSBg-img-2_1770078023000_na1fn_YnVzaW5lc3NjbGFzcy13aG8tYXBwbGllcw.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvaTlaU1NqNklCMVFGS0JHQ1k2bE1vbi9zYW5kYm94L0N6UjN2eW5PWHdrVkxpbDhuR2hTQmctaW1nLTJfMTc3MDA3ODAyMzAwMF9uYTFmbl9ZblZ6YVc1bGMzTmpiR0Z6Y3kxM2FHOHRZWEJ3YkdsbGN3LmpwZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzE5MjAsaF8xOTIwL2Zvcm1hdCx3ZWJwL3F1YWxpdHkscV84MCIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc5ODc2MTYwMH19fV19&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=ZZOETabnRFCdTJq6PJe2zRKrtDmcq8YWH6dTBGzgQQuA3iyhLZwx3h258b8U60OzDz4UPqdK5HbWCILP4zTMoIfCnDooHZG~gSuqq1RDRdqk4~lXE3sDk777n1yU5wu03VpL4y69S4ZFkCFt3qrkExCld2w1P131ZOm7SxSxdCjwenjRmJMsmOhU0keeoa9vwoIcSsEljybyt7pzSIJNuXguywfTovyltKyxrZTwWDsDU788aJINDVZqmCS6ctxW3kB-uMh0VtIWdW1gE~rwEhFZgFSJaVsuBz~Xx-x9jB2wIGz4al1ha5up5CphZpDKCvEXWnkV3koWV4rmWZqIAQ__';
+  // Section 3: Solutions - using document submission office image
+  const prcardImage3 = 'https://private-us-east-1.manuscdn.com/sessionFile/i9ZSSj6IB1QFKBGCY6lMon/sandbox/1KnEnHRJ5m7G4yZchCDKJn-img-2_1771140735000_na1fn_ZG9jdW1lbnQtc3VibWlzc2lvbi1vZmZpY2U.png?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvaTlaU1NqNklCMVFGS0JHQ1k2bE1vbi9zYW5kYm94LzFLbkVuSFJKNW03RzR5WmNoQ0RLSm4taW1nLTJfMTc3MTE0MDczNTAwMF9uYTFmbl9aRzlqZFcxbGJuUXRjM1ZpYldsemMybHZiaTF2Wm1acFkyVS5wbmc~eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsd18xOTIwLGhfMTkyMC9mb3JtYXQsd2VicC9xdWFsaXR5LHFfODAiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3OTg3NjE2MDB9fX1dfQ__&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=I4TlxHs7ICyTRpYrWJTOAjzyqatyH2vTdwiRLVCPTA49kXyERI3MN8K1LWMZqcZMu5e34Lx8xr7eWTckQAeHklCdSHrxaIFOC7h55vCDeAb0Yn~dJGMHcn42mrLS07uILaaQf5r1OACLtprriOQ1r9giMMzsfnMBBZB5F~CKnyknvfxJuTIXEB-nhPYEjyc-q2Tm9Q~792lnuLE5yq-3tTmQN91PTiT7x6m1OJYJzttbZTnPaDXo4IEWy9GRLmSFGucogzBaZQtTnm6u9QR6u0Hre-AT7MCzaAXDDDU6SuIosZv2zbSsnMcW4SY9mDrTfBYHyCk5-QcF1RSDJbsJ3A__';
+  // CTA background - same as /businessclass and /familyclass
+  const ctaBackgroundImage = 'https://files.manuscdn.com/user_upload_by_module/session_file/310519663292376041/WZnaCRpbTuyKXGGm.jpg';
+  // Section 5: Trust and expertise - using professional team image
+  const trustImage = 'https://private-us-east-1.manuscdn.com/sessionFile/i9ZSSj6IB1QFKBGCY6lMon/sandbox/CzR3vynOXwkVLil8nGhSBg-img-2_1770078023000_na1fn_YnVzaW5lc3NjbGFzcy13aG8tYXBwbGllcw.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvaTlaU1NqNklCMVFGS0JHQ1k2bE1vbi9zYW5kYm94L0N6UjN2eW5PWHdrVkxpbDhuR2hTQmctaW1nLTJfMTc3MDA3ODAyMzAwMF9uYTFmbl9ZblZ6YVc1bGMzTmpiR0Z6Y3kxM2FHOHRZWEJ3YkdsbGN3LmpwZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzE5MjAsaF8xOTIwL2Zvcm1hdCx3ZWJwL3F1YWxpdHkscV84MCIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc5ODc2MTYwMH19fV19&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=ZZOETabnRFCdTJq6PJe2zRKrtDmcq8YWH6dTBGzgQQuA3iyhLZwx3h258b8U60OzDz4UPqdK5HbWCILP4zTMoIfCnDooHZG~gSuqq1RDRdqk4~lXE3sDk777n1yU5wu03VpL4y69S4ZFkCFt3qrkExCld2w1P131ZOm7SxSxdCjwenjRmJMsmOhU0keeoa9vwoIcSsEljybyt7pzSIJNuXguywfTovyltKyxrZTwWDsDU788aJINDVZqmCS6ctxW3kB-uMh0VtIWdW1gE~rwEhFZgFSJaVsuBz~Xx-x9jB2wIGz4al1ha5up5CphZpDKCvEXWnkV3koWV4rmWZqIAQ__';
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
@@ -143,7 +149,7 @@ export default function PRCard() {
                 </p>
               </div>
               <div className="order-1 md:order-2">
-                <img src={prcardImage1} alt="PR Card" className="w-full rounded-lg" />
+                <img src={prcardImage1} alt="PR Card" className="w-full h-auto shadow-lg object-cover" style={{ aspectRatio: "16/9", borderRadius: "0px" }} />
               </div>
             </div>
           </div>
@@ -154,7 +160,7 @@ export default function PRCard() {
           <div className="container">
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div>
-                <img src={prcardImage2} alt="Renewal Risks" className="w-full rounded-lg" />
+                <img src={prcardImage2} alt="Renewal Risks" className="w-full h-auto shadow-lg object-cover" style={{ aspectRatio: "16/9", borderRadius: "0px" }} />
               </div>
               <div>
                 <h2 className="text-foreground mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", sans-serif', fontWeight: 900, fontSize: '48px' }}>
@@ -213,43 +219,66 @@ export default function PRCard() {
                 </div>
               </div>
               <div className="order-1 md:order-2">
-                <img src={prcardImage3} alt="Solutions" className="w-full rounded-lg" />
+                <img src={prcardImage3} alt="Solutions" className="w-full h-auto shadow-lg object-cover" style={{ aspectRatio: "16/9", borderRadius: "0px" }} />
               </div>
             </div>
           </div>
         </section>
 
-        {/* Section 4: CTA Section with Background Image */}
-        <section className="py-20 bg-cover bg-center relative" style={{backgroundImage: `url(${ctaBackgroundImage})`}}>
+        {/* CTA Section with Background Image */}
+        <section
+          className="py-20 flex items-center justify-center relative overflow-hidden"
+          style={{
+            backgroundImage: `url('${ctaBackgroundImage}')`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundAttachment: "fixed",
+            minHeight: "400px",
+          }}
+        >
+          {/* Overlay */}
           <div className="absolute inset-0 bg-black/40"></div>
-          <div className="container relative z-10">
-            <div className="text-center">
-              <h2 className="text-white text-4xl font-bold mb-8" style={{ fontFamily: '"Alibaba PuHuiTi", sans-serif', fontWeight: 900 }}>
-                {isEnglish ? "Do you need PR card renewal services?" : "您是否需要办理枫叶卡续签？"}
-              </h2>
-              <Link href="/booking">
-                <Button size="lg" className="bg-white text-primary hover:bg-gray-100 rounded-none border-2 border-white">
-                  <span>{isEnglish ? "Book a Consultation Now" : "立即预约咨询"}</span>
-                </Button>
-              </Link>
-            </div>
+
+          {/* Content */}
+          <div className="container text-center relative z-10">
+            <h2 className="text-3xl lg:text-4xl font-bold text-white mb-8">
+              {isEnglish ? "Do you need PR card renewal services?" : "您是否需要办理枫叶卡续签？"}
+            </h2>
+            <a href="/booking">
+              <Button
+                size="lg"
+                className="font-bold text-lg px-8 py-6"
+                style={{
+                  borderRadius: '0px',
+                  borderWidth: '3px',
+                  borderColor: '#ffffff',
+                  color: '#ffffff',
+                  backgroundColor: '#388088'
+                }}
+              >
+                {isEnglish ? "Book a Consultation Now" : "立即预约咨询"}
+              </Button>
+            </a>
           </div>
         </section>
 
-        {/* Section 5: Trust OXEC */}
+        {/* Section 5: Trust OXEC - Left Image Right Text */}
         <section className="py-20 bg-white">
           <div className="container">
-            <div className="text-center mb-12">
-              <h2 className="text-foreground mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", sans-serif', fontWeight: 900, fontSize: '48px' }}>
-                {isEnglish ? "Trust OXEC, Professional Guidance" : "信任傲赛，专业护航"}
-              </h2>
-            </div>
-            <div className="max-w-3xl mx-auto">
-              <p className="text-lg text-muted-foreground leading-relaxed">
-                {isEnglish
-                  ? "PR card renewal may seem like a simple process, but once it involves residence time defects, it can easily trigger immigration background investigations and even result in loss of status. OXEC has accumulated deep practical experience in handling various difficult renewal cases and humanitarian exemption applications. We are committed to providing professional legal guidance and strategic case management to safeguard your permanent resident status."
-                  : "枫叶卡续签看似流程简单，但一旦涉及居留时间瑕疵，极易触发移民局的背景调查甚至导致身份丧失。傲赛（OXEC）在处理各类疑难续卡、人道豁免案件中积累了深厚的实战经验。我们致力于通过专业的法律指导和战略性的案件管理，为您的永久居民身份保驾护航。"}
-              </p>
+            <div className="grid md:grid-cols-2 gap-12 items-center">
+              <div>
+                <img src={trustImage} alt="Professional Team" className="w-full h-auto shadow-lg object-cover" style={{ aspectRatio: "16/9", borderRadius: "0px" }} />
+              </div>
+              <div>
+                <h2 className="text-foreground mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", sans-serif', fontWeight: 900, fontSize: '48px' }}>
+                  {isEnglish ? "Trust OXEC, Professional Guidance" : "信任傲赛，专业护航"}
+                </h2>
+                <p className="text-lg text-muted-foreground leading-relaxed">
+                  {isEnglish
+                    ? "PR card renewal may seem like a simple process, but once it involves residence time defects, it can easily trigger immigration background investigations and even result in loss of status. OXEC has accumulated deep practical experience in handling various difficult renewal cases and humanitarian exemption applications. We are committed to providing professional legal guidance and strategic case management to safeguard your permanent resident status."
+                    : "枫叶卡续签看似流程简单，但一旦涉及居留时间瑕疵，极易触发移民局的背景调查甚至导致身份丧失。傲赛（OXEC）在处理各类疑难续卡、人道豁免案件中积累了深厚的实战经验。我们致力于通过专业的法律指导和战略性的案件管理，为您的永久居民身份保驾护航。"}
+                </p>
+              </div>
             </div>
           </div>
         </section>
