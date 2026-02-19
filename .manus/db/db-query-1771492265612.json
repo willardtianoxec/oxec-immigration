@@ -1,0 +1,94 @@
+{
+  "query": "SELECT id, filename, relativePath, fileSize, createdAt FROM imageLibrary ORDER BY createdAt DESC;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2MHEakYmYxuSUJe.root --database ERSfzVi6JGQA5UonrK4h6y --execute SELECT id, filename, relativePath, fileSize, createdAt FROM imageLibrary ORDER BY createdAt DESC;",
+  "rows": [
+    {
+      "id": "11",
+      "filename": "team-member-4.jpg",
+      "relativePath": "/images/team-member-4.jpg",
+      "fileSize": "44300",
+      "createdAt": "2026-02-19 08:37:35"
+    },
+    {
+      "id": "12",
+      "filename": "world-map-dots.svg",
+      "relativePath": "/images/world-map-dots.svg",
+      "fileSize": "977913",
+      "createdAt": "2026-02-19 08:37:35"
+    },
+    {
+      "id": "1",
+      "filename": "cicc-logo.png",
+      "relativePath": "/images/cicc-logo.png",
+      "fileSize": "78397",
+      "createdAt": "2026-02-19 08:37:34"
+    },
+    {
+      "id": "2",
+      "filename": "hero-canadian.jpg",
+      "relativePath": "/images/hero-canadian.jpg",
+      "fileSize": "49740",
+      "createdAt": "2026-02-19 08:37:34"
+    },
+    {
+      "id": "3",
+      "filename": "hero-professional.jpg",
+      "relativePath": "/images/hero-professional.jpg",
+      "fileSize": "23555",
+      "createdAt": "2026-02-19 08:37:34"
+    },
+    {
+      "id": "4",
+      "filename": "oxec-logo.png",
+      "relativePath": "/images/oxec-logo.png",
+      "fileSize": "57211",
+      "createdAt": "2026-02-19 08:37:34"
+    },
+    {
+      "id": "5",
+      "filename": "service-1.jpg",
+      "relativePath": "/images/service-1.jpg",
+      "fileSize": "52244",
+      "createdAt": "2026-02-19 08:37:34"
+    },
+    {
+      "id": "6",
+      "filename": "service-2.jpg",
+      "relativePath": "/images/service-2.jpg",
+      "fileSize": "50129",
+      "createdAt": "2026-02-19 08:37:34"
+    },
+    {
+      "id": "7",
+      "filename": "service-3.jpg",
+      "relativePath": "/images/service-3.jpg",
+      "fileSize": "37784",
+      "createdAt": "2026-02-19 08:37:34"
+    },
+    {
+      "id": "8",
+      "filename": "team-member-1.jpg",
+      "relativePath": "/images/team-member-1.jpg",
+      "fileSize": "978092",
+      "createdAt": "2026-02-19 08:37:34"
+    },
+    {
+      "id": "9",
+      "filename": "team-member-2.jpg",
+      "relativePath": "/images/team-member-2.jpg",
+      "fileSize": "119821",
+      "createdAt": "2026-02-19 08:37:34"
+    },
+    {
+      "id": "10",
+      "filename": "team-member-3.jpg",
+      "relativePath": "/images/team-member-3.jpg",
+      "fileSize": "124522",
+      "createdAt": "2026-02-19 08:37:34"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tfilename\trelativePath\tfileSize\tcreatedAt\n11\tteam-member-4.jpg\t/images/team-member-4.jpg\t44300\t2026-02-19 08:37:35\n12\tworld-map-dots.svg\t/images/world-map-dots.svg\t977913\t2026-02-19 08:37:35\n1\tcicc-logo.png\t/images/cicc-logo.png\t78397\t2026-02-19 08:37:34\n2\thero-canadian.jpg\t/images/hero-canadian.jpg\t49740\t2026-02-19 08:37:34\n3\thero-professional.jpg\t/images/hero-professional.jpg\t23555\t2026-02-19 08:37:34\n4\toxec-logo.png\t/images/oxec-logo.png\t57211\t2026-02-19 08:37:34\n5\tservice-1.jpg\t/images/service-1.jpg\t52244\t2026-02-19 08:37:34\n6\tservice-2.jpg\t/images/service-2.jpg\t50129\t2026-02-19 08:37:34\n7\tservice-3.jpg\t/images/service-3.jpg\t37784\t2026-02-19 08:37:34\n8\tteam-member-1.jpg\t/images/team-member-1.jpg\t978092\t2026-02-19 08:37:34\n9\tteam-member-2.jpg\t/images/team-member-2.jpg\t119821\t2026-02-19 08:37:34\n10\tteam-member-3.jpg\t/images/team-member-3.jpg\t124522\t2026-02-19 08:37:34\n",
+  "stderr": "",
+  "execution_time_ms": 349
+}

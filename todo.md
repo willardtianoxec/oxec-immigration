@@ -625,3 +625,18 @@
 
 ## Bug Fixes (Current Sprint - Phase 54)
 - [x] 修复 successCases.list 路由错误 - Admin.tsx 中的 trpc.successCases.* 调用改为 trpc.posts.*
+
+
+## Image Manager Phase 1: Lightbox Feature (Current Sprint - Phase 55)
+- [ ] 修改ImageLibrary组件 - 添加灯箱模态框状态和处理函数
+- [ ] 实现点击缩略图打开原图 - 显示完整原图和图片信息
+- [ ] 添加灯箱关闭功能 - 支持点击背景或X按钮关闭
+- [ ] 测试灯箱功能 - 验证所有图片都能正常打开和关闭
+
+
+## Image Manager Phase 4: Verify CDN Images Import (Current Sprint - Phase 56)
+- [x] 检查CDN下载的图片是否都在本地 - 验证/client/public/images/目录中的所有文件 (19张)
+- [x] 检查数据库中的图片记录 - 查询imageLibrary表中的所有图片 (初始12张)
+- [x] 对比本地文件和数据库记录 - 找出遗漏的图片 (7张CDN图片)
+- [x] 同步遗漏的图片到数据库 - 运行同步脚本更新元数据 (成功同步7张)
+- [x] 验证GitHub中的图片 - 确保所有图片都已提交到仓库 (19张全部已提交)
