@@ -9,6 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { Loader2, X, RotateCcw, Upload, Bold, Italic, List, Link as LinkIcon, Image as ImageIcon, AlignLeft } from "lucide-react";
 import { generateSlug, isValidSlug } from "@/lib/slugGenerator";
+import { ImageSelectorModal } from "@/components/ImageSelectorModal";
 
 // 博客分类选项
 const BLOG_CATEGORY_OPTIONS = [
@@ -103,6 +104,7 @@ export function AdminPostForm() {
   const [coverImagePreview, setCoverImagePreview] = useState<string>("");
   const [isDragging, setIsDragging] = useState(false);
   const [isUploadingImage, setIsUploadingImage] = useState(false);
+  const [isImageSelectorOpen, setIsImageSelectorOpen] = useState(false);
 
   // 仅在初始加载时设置表单数据
   const [isInitialized, setIsInitialized] = useState(false);
@@ -711,8 +713,8 @@ export function AdminPostForm() {
                 type="button"
                 variant="outline"
                 size="sm"
-                onClick={() => insertMarkdown("![alt](", ")")}
-                title="图片"
+                onClick={() => setIsImageSelectorOpen(true)}
+                title="从图库选择图片"
               >
                 <ImageIcon className="w-4 h-4" />
               </Button>
@@ -772,6 +774,16 @@ export function AdminPostForm() {
           </div>
         </form>
       </div>
+
+      {/* Image Selector Modal */}
+      <ImageSelectorModal
+        open={isImageSelectorOpen}
+        onOpenChange={setIsImageSelectorOpen}
+        onSelect={(imagePath) => {
+          insertMarkdown(`![image](${imagePath})`, "");
+          setIsImageSelectorOpen(false);
+        }}
+      />
     </div>
   );
 }
