@@ -598,3 +598,11 @@
 
 ## Bug Fixes (Current Sprint - Phase 50)
 - [x] 修复 blog.list 路由错误 - Admin.tsx 中的 trpc.blog.* 调用改为 trpc.posts.*
+
+
+## Image Library Population (Current Sprint - Phase 51)
+- [x] 找到项目中的所有图片资源 - 共12张图片
+- [x] 将图片复制到client/public/images目录 - 所有图片已转移
+- [x] 创建同步脚本 - sync-images-to-db.mjs脚本
+- [x] 更新数据库记录 - 所有12张图片元数据已添加到imageLibrary表
+- [x] 验证图片库显示 - 图片管理器中显示所有图片及相对路径
