@@ -1,0 +1,28 @@
+{
+  "query": "SELECT id, filename, fileSize, createdAt FROM imageLibrary WHERE filename LIKE 'reconsideration%' ORDER BY createdAt DESC;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2MHEakYmYxuSUJe.root --database ERSfzVi6JGQA5UonrK4h6y --execute SELECT id, filename, fileSize, createdAt FROM imageLibrary WHERE filename LIKE 'reconsideration%' ORDER BY createdAt DESC;",
+  "rows": [
+    {
+      "id": "23",
+      "filename": "reconsideration-overview.jpg",
+      "fileSize": "116",
+      "createdAt": "2026-02-19 09:43:41"
+    },
+    {
+      "id": "24",
+      "filename": "reconsideration-solutions.jpg",
+      "fileSize": "110",
+      "createdAt": "2026-02-19 09:43:41"
+    },
+    {
+      "id": "25",
+      "filename": "reconsideration-team.jpg",
+      "fileSize": "124592",
+      "createdAt": "2026-02-19 09:43:41"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tfilename\tfileSize\tcreatedAt\n23\treconsideration-overview.jpg\t116\t2026-02-19 09:43:41\n24\treconsideration-solutions.jpg\t110\t2026-02-19 09:43:41\n25\treconsideration-team.jpg\t124592\t2026-02-19 09:43:41\n",
+  "stderr": "",
+  "execution_time_ms": 361
+}
