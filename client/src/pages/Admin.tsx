@@ -126,30 +126,30 @@ function BlogManagement() {
   });
 
   const utils = trpc.useUtils();
-  const { data: posts, isLoading } = trpc.blog.list.useQuery({ publishedOnly: false });
+  const { data: posts, isLoading } = trpc.posts.list.useQuery({ publishedOnly: false });
 
-  const createPost = trpc.blog.create.useMutation({
+  const createPost = trpc.posts.create.useMutation({
     onSuccess: () => {
       toast.success("Blog post created successfully");
-      utils.blog.list.invalidate();
+      utils.posts.list.invalidate();
       resetForm();
     },
     onError: (error) => toast.error(error.message),
   });
 
-  const updatePost = trpc.blog.update.useMutation({
+  const updatePost = trpc.posts.update.useMutation({
     onSuccess: () => {
       toast.success("Blog post updated successfully");
-      utils.blog.list.invalidate();
+      utils.posts.list.invalidate();
       resetForm();
     },
     onError: (error) => toast.error(error.message),
   });
 
-  const deletePost = trpc.blog.delete.useMutation({
+  const deletePost = trpc.posts.delete.useMutation({
     onSuccess: () => {
       toast.success("Blog post deleted successfully");
-      utils.blog.list.invalidate();
+      utils.posts.list.invalidate();
     },
     onError: (error) => toast.error(error.message),
   });

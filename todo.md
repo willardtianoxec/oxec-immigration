@@ -594,3 +594,7 @@
 - [x] 集成到可视化编辑器中 - 添加"插入图片"按钮
 - [x] 实现图片路径复制和插入 - 支持直接插入到编辑器
 - [x] 测试和验证功能 - 确保在各种场景下正常工作
+
+
+## Bug Fixes (Current Sprint - Phase 50)
+- [x] 修复 blog.list 路由错误 - Admin.tsx 中的 trpc.blog.* 调用改为 trpc.posts.*
