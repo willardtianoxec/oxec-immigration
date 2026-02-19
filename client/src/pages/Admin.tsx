@@ -350,30 +350,30 @@ function CasesManagement() {
   });
 
   const utils = trpc.useUtils();
-  const { data: cases, isLoading } = trpc.successCases.list.useQuery({ publishedOnly: false });
+  const { data: cases, isLoading } = trpc.posts.list.useQuery({ publishedOnly: false });
 
-  const createCase = trpc.successCases.create.useMutation({
+  const createCase = trpc.posts.create.useMutation({
     onSuccess: () => {
       toast.success("Success case created");
-      utils.successCases.list.invalidate();
+      utils.posts.list.invalidate();
       resetForm();
     },
     onError: (error) => toast.error(error.message),
   });
 
-  const updateCase = trpc.successCases.update.useMutation({
+  const updateCase = trpc.posts.update.useMutation({
     onSuccess: () => {
       toast.success("Success case updated");
-      utils.successCases.list.invalidate();
+      utils.posts.list.invalidate();
       resetForm();
     },
     onError: (error) => toast.error(error.message),
   });
 
-  const deleteCase = trpc.successCases.delete.useMutation({
+  const deleteCase = trpc.posts.delete.useMutation({
     onSuccess: () => {
       toast.success("Success case deleted");
-      utils.successCases.list.invalidate();
+      utils.posts.list.invalidate();
     },
     onError: (error) => toast.error(error.message),
   });

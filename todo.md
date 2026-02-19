@@ -621,3 +621,7 @@
 - [x] 更新页面中的图片引用 - 5个页面的18个CDN URL已替换为本地路径
 - [x] 同步新图片到数据库 - 所有30张图片已添加到imageLibrary表
 - [x] 验证页面正常显示 - 所有页面编译正常，图片加载正确
+
+
+## Bug Fixes (Current Sprint - Phase 54)
+- [x] 修复 successCases.list 路由错误 - Admin.tsx 中的 trpc.successCases.* 调用改为 trpc.posts.*
