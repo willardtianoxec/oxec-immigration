@@ -137,3 +137,22 @@ export const posts = mysqlTable("posts", {
 
 export type Post = typeof posts.$inferSelect;
 export type InsertPost = typeof posts.$inferInsert;
+
+/**
+ * Image library table for centralized image management
+ */
+export const imageLibrary = mysqlTable("imageLibrary", {
+  id: int("id").autoincrement().primaryKey(),
+  filename: varchar("filename", { length: 255 }).notNull(),
+  relativePath: varchar("relativePath", { length: 500 }).notNull().unique(),
+  fileSize: int("fileSize"),
+  mimeType: varchar("mimeType", { length: 50 }),
+  description: text("description"),
+  category: varchar("category", { length: 100 }),
+  uploadedBy: int("uploadedBy").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type ImageLibrary = typeof imageLibrary.$inferSelect;
+export type InsertImageLibrary = typeof imageLibrary.$inferInsert;
