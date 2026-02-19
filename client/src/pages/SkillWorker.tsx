@@ -72,7 +72,7 @@ export default function SkillWorker() {
         </div>
         <div className="flex justify-center">
           <img
-            src="https://private-us-east-1.manuscdn.com/sessionFile/i9ZSSj6IB1QFKBGCY6lMon/sandbox/mYAUFWWRtbJ4HuOs7U9vLk-img-1_1770335223000_na1fn_c2tpbGx3b3JrZXItb3ZlcnZpZXc.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvaTlaU1NqNklCMVFGS0JHQ1k2bE1vbi9zYW5kYm94L21ZQVVGV1dSdGJKNEh1T3M3VTl2TGstaW1nLTFfMTc3MDMzNTIyMzAwMF9uYTFmbl9jMnRwYkd4M2IzSnJaWEl0YjNabGNuWnBaWGMuanBnP3gtb3NzLXByb2Nlc3M9aW1hZ2UvcmVzaXplLHdfMTkyMCxoXzE5MjAvZm9ybWF0LHdlYnAvcXVhbGl0eSxxXzgwIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNzk4NzYxNjAwfX19XX0_&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=XbDe5MANcJwlcceGz6UCy6JsiR-iTo~SO5ukKexP5bZpSh67GtZuCn51rfxu9vSYppddvFaHkpdtRjsutWWUSAI9Fv3JlUtw54eFmYTYokhJmERYlScMggDj0UUJNTIhEKEgL2MBOO51p5axWMRV0C8gN-QxexQJmWhmY9gU63AB0qC~ImGBm-sQn2zMp~QSUQC05V4wHdXl02CThtdHYugux262JcHhcZ7P8vqt4eI4avwz-QJmTxKUlS864Xm0o7lG7daXyLCoDl4FlAaOLF5x5LYs05aBXGGUUm1qe3phI5mLhB7PcIKfX2NSYZTP4ghLMsrdYADDNpighl8NZw__"
+            src="/images/img-14.jpg"
             alt="Skilled Workers"
             className="w-full h-auto shadow-lg"
           />
@@ -83,7 +83,7 @@ export default function SkillWorker() {
       <section id="ee" className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center py-20 px-4 scroll-mt-20">
         <div className="flex justify-center lg:order-first">
           <img
-            src="https://private-us-east-1.manuscdn.com/sessionFile/i9ZSSj6IB1QFKBGCY6lMon/sandbox/mYAUFWWRtbJ4HuOs7U9vLk-img-2_1770335223000_na1fn_c2tpbGx3b3JrZXItZXhwcmVzcy1lbnRyeQ.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvaTlaU1NqNklCMVFGS0JHQ1k2bE1vbi9zYW5kYm94L21ZQVVGV1dSdGJKNEh1T3M3VTl2TGstaW1nLTJfMTc3MDMzNTIyMzAwMF9uYTFmbl9jMnRwYkd4M2IzSnJaWEl0Wlhod2NtVnpjeTFsYm5SeWVRLmpwZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzE5MjAsaF8xOTIwL2Zvcm1hdCx3ZWJwL3F1YWxpdHkscV84MCIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc5ODc2MTYwMH19fV19&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=dXKKwQsBn8PSM4x68Ow5ylJs3xMWzDHzx7bALsX~P-aK4vQ0vhQyij4Qy9xvDQMd0aJwNhIFTH2L03mSZeISTZWWauEmD-06K5wJ2Fqlp2l7fiKyCJsICO2rvukXYO~w6pYVYPyGUzihHqxPMgU~8WgtY9nCi55QaYyjUufiggoOmuMchQWg5EqMqH1Jcls6H6x~qWbODX~OSisffWpDImUdETHwj6RsN31PioyocnpLSBbM8CzJoMmIeOrg4KSqHZUcho9xL6eq4nKGCf7fSZ5e9kABYu65TwEKOebBm9zkloAubH8Hfcn3ROZ~dDUjWPgqjIyoIShPeQDlisfYMA__"
+            src="/images/img-15.jpg"
             alt="Express Entry"
             className="w-full h-auto shadow-lg"
           />
@@ -118,7 +118,7 @@ export default function SkillWorker() {
         </div>
         <div className="flex justify-center">
           <img
-            src="https://private-us-east-1.manuscdn.com/sessionFile/i9ZSSj6IB1QFKBGCY6lMon/sandbox/mYAUFWWRtbJ4HuOs7U9vLk-img-3_1770335235000_na1fn_c2tpbGx3b3JrZXItYmNwbnA.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvaTlaU1NqNklCMVFGS0JHQ1k2bE1vbi9zYW5kYm94L21ZQVVGV1dSdGJKNEh1T3M3VTl2TGstaW1nLTNfMTc3MDMzNTIzNTAwMF9uYTFmbl9jMnRwYkd4M2IzSnJaWEl0WW1Od2JuQS5qcGc~eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsd18xOTIwLGhfMTkyMC9mb3JtYXQsd2VicC9xdWFsaXR5LHFfODAiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3OTg3NjE2MDB9fX1dfQ__&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=BgH~nCQSQmhrIqbRphrwMFZUhL8iF2aZCOExkFCri0hV~c4UC-8aC6g-6hb7zFwLPjKzFg2EeIypog6P6j1PPHPkyW~BDgJs8xUtaYFEflYnnNqhwjw1YI7uknZuylQ64Wi7MO-VRa1zkwHloyJ-~t6v4-i7-R3Arw-YItk6lVk7TGa49xpmUVhbbHeKrY4l~ai4syXg6yFrikqmg7F4I8Wi39wf4z56exsmT5M4-D-J9LIpwuzqe1k6kYxS8fx4QrF8EZNkNvhOYYQ9d61G417nN~6ZW81meOK1IXB~vtaomuidK-bvl9RJSxh-4dswxANOmRuwXLJuYf7BrPuDKw__"
+            src="/images/img-16.jpg"
             alt="BC PNP"
             className="w-full h-auto shadow-lg"
           />
@@ -129,7 +129,7 @@ export default function SkillWorker() {
       <section id="lmia" className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center py-20 px-4 scroll-mt-20">
         <div className="flex justify-center lg:order-first">
           <img
-            src="https://private-us-east-1.manuscdn.com/sessionFile/i9ZSSj6IB1QFKBGCY6lMon/sandbox/g261sZcTQKlRTM2FQeJIER-img-1_1770335278000_na1fn_c2tpbGx3b3JrZXItbG1pYQ.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvaTlaU1NqNklCMVFGS0JHQ1k2bE1vbi9zYW5kYm94L2cyNjFzWmNUUUtsUlRNMkZRZUpJRVItaW1nLTFfMTc3MDMzNTI3ODAwMF9uYTFmbl9jMnRwYkd4M2IzSnJaWEl0YkcxcFlRLmpwZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzE5MjAsaF8xOTIwL2Zvcm1hdCx3ZWJwL3F1YWxpdHkscV84MCIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc5ODc2MTYwMH19fV19&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=a4l24rHbwOIE-JjMkE-Gl7LFlUGazk2AxTF8LHb5jqyXeDT24xW9uL6nchVbR4t6eTpLcGwBArKK4P6ZyBQBy3mvnBTOO3grCDVq-heM3K2o3ED0hA0-ObGi6wQ5mNB5WjUPoezJ~vU8yt8IaCOqYMzCDVt-B18gw4pyPCv-kiL0Bp10zWGZuthkklWXWRPwUVOxnFAsr1bpJgn~FcFBebgfHCAh8fobLzEn3vw1wkCS4zMzGHvpCd4kBLynqx1dpU6uxDV3mgKLI8ySZ0OKtQ17JOHPwnwwKvYQe8RUvqC8NDxvqpq2UXoHvRWa3Qde~ZqnUziTNQJUw5l9U8Uqgw__"
+            src="/images/img-6.jpg"
             alt="LMIA"
             className="w-full h-auto shadow-lg"
           />
@@ -164,7 +164,7 @@ export default function SkillWorker() {
         </div>
         <div className="flex justify-center">
           <img
-            src="https://private-us-east-1.manuscdn.com/sessionFile/i9ZSSj6IB1QFKBGCY6lMon/sandbox/g261sZcTQKlRTM2FQeJIER-img-2_1770335276000_na1fn_c2tpbGx3b3JrZXItaWN0.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvaTlaU1NqNklCMVFGS0JHQ1k2bE1vbi9zYW5kYm94L2cyNjFzWmNUUUtsUlRNMkZRZUpJRVItaW1nLTJfMTc3MDMzNTI3NjAwMF9uYTFmbl9jMnRwYkd4M2IzSnJaWEl0YVdOMC5qcGc~eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsd18xOTIwLGhfMTkyMC9mb3JtYXQsd2VicC9xdWFsaXR5LHFfODAiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3OTg3NjE2MDB9fX1dfQ__&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=RWkNZ5QjvmMoVLcmWEr-1oeVWf34MK7kFkkTXybN80XxJYtvaZ7sg04hyi~WVmE86h0DyR8Xbdjkh1uXC0BaSlQraaoimil8Q-bXeFzC368GnzVjtJyILurkPrHJIjirW5OPGhJldslP~v-Y70F8lUgfvodaZrDDge3C4A0yahpTBwlrZcghVeyWNGzYgPFncoC~AFetEdXGF-6zNiJxt1M2QSxVaj8AgkWygvtBatd9VyqsvVYCt1AW8ZTZzx446-4PAsUZTxYfAaXuyh79I8Vv98DRRtNFAwCI-fV~GcIt5WFFgSyWs5-eRJPNqRUYRJ4mpVaie68VejXA1ejR9w__"
+            src="/images/img-7.jpg"
             alt="ICT"
             className="w-full h-auto shadow-lg"
           />
@@ -175,7 +175,7 @@ export default function SkillWorker() {
       <section id="pgwp" className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center py-20 px-4 scroll-mt-20">
         <div className="flex justify-center lg:order-first">
           <img
-            src="https://private-us-east-1.manuscdn.com/sessionFile/i9ZSSj6IB1QFKBGCY6lMon/sandbox/g261sZcTQKlRTM2FQeJIER-img-3_1770335276000_na1fn_c2tpbGx3b3JrZXItcGd3cA.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvaTlaU1NqNklCMVFGS0JHQ1k2bE1vbi9zYW5kYm94L2cyNjFzWmNUUUtsUlRNMkZRZUpJRVItaW1nLTNfMTc3MDMzNTI3NjAwMF9uYTFmbl9jMnRwYkd4M2IzSnJaWEl0Y0dkM2NBLmpwZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzE5MjAsaF8xOTIwL2Zvcm1hdCx3ZWJwL3F1YWxpdHkscV84MCIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc5ODc2MTYwMH19fV19&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=u4A64E1Guo7RihJOE86nB269AF0Tq5e1YcGD~p56xaM0zPDoh-J4eOBOpopXOxIW~I2Eo5t0FXgNrgTZmUEbU0HWB358GBu16ZllCo4Z2iZPKqbm2mDeY11mEXhzYvLJBK6-i2Jsa3lxIrn-SdqT4ktuicFavjVqfGh2tHQSycCz4LAo1dE2cYWkLn~j-pJCmkPC3-Cz1uT04bLpENNNEITYaEifTxjVksTctaEKbkE4zhVH0oN9RUSRzv5FBOfN3uIRT3byc95cPb0CLxuTkynlGMeMNfpGpjAAy5UKS9P-BOBezPawQcHcj~XzQSxoana~o-sW628UGHjGMPYFfw__"
+            src="/images/img-8.jpg"
             alt="PGWP"
             className="w-full h-auto shadow-lg"
           />

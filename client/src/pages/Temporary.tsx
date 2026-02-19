@@ -78,7 +78,7 @@ export default function Temporary() {
           </div>
           <div className="flex justify-center">
             <img
-              src="https://private-us-east-1.manuscdn.com/sessionFile/i9ZSSj6IB1QFKBGCY6lMon/sandbox/gWqQoqrATfZKZpKyoTNMOK-img-1_1770333603000_na1fn_dGVtcG9yYXJ5LXN0dWR5LWFicm9hZA.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvaTlaU1NqNklCMVFGS0JHQ1k2bE1vbi9zYW5kYm94L2dXcVFvcXJBVGZaS1pwS3lvVE5NT0staW1nLTFfMTc3MDMzMzYwMzAwMF9uYTFmbl9kR1Z0Y0c5eVlYSjVMWE4wZFdSNUxXRmljbTloWkEuanBnP3gtb3NzLXByb2Nlc3M9aW1hZ2UvcmVzaXplLHdfMTkyMCxoXzE5MjAvZm9ybWF0LHdlYnAvcXVhbGl0eSxxXzgwIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNzk4NzYxNjAwfX19XX0_&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=tsQuBhiQPXqyY-w~3uP5JJb--2jho2p~goHOIwhMxSjRu23d4IQCZX9vTR-kDpHmufvJDOfDviLff2jJBwXC0nE~tmUrs6LoanbYxprwZ1a9xcL4SpFArmyPVTsYA9fyX0GBSQKea5dEGdLl5vVkGUJR6Ypzd-iJndOVe9njJ9VS9SZiA48BqJlwyTVyEbNmHNXzYSuY9-fZjqZOeL271~rrMX7kEwcqqF7QIMYpSu7PgwLduqpndpHVwbWJOiQLzI4-4LkFfoziSxcM22cQVhqED-XUKm5wu6RafEK5rLPgvug1tgGSeezaCkZEa5fKiD26DdtzyhrFPp03aQl11Q__"
+              src="/images/img-9.jpg"
               alt="Study Abroad"
               className="w-full h-auto shadow-lg" style={{ borderRadius: "0px" }}
             />
@@ -89,7 +89,7 @@ export default function Temporary() {
         <section className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center py-20">
           <div className="flex justify-center lg:order-first">
             <img
-              src="https://private-us-east-1.manuscdn.com/sessionFile/i9ZSSj6IB1QFKBGCY6lMon/sandbox/gWqQoqrATfZKZpKyoTNMOK-img-2_1770333611000_na1fn_dGVtcG9yYXJ5LXNwb3VzYWwtd29yaw.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvaTlaU1NqNklCMVFGS0JHQ1k2bE1vbi9zYW5kYm94L2dXcVFvcXJBVGZaS1pwS3lvVE5NT0staW1nLTJfMTc3MDMzMzYxMTAwMF9uYTFmbl9kR1Z0Y0c5eVlYSjVMWE53YjNWellXd3RkMjl5YXcuanBnP3gtb3NzLXByb2Nlc3M9aW1hZ2UvcmVzaXplLHdfMTkyMCxoXzE5MjAvZm9ybWF0LHdlYnAvcXVhbGl0eSxxXzgwIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNzk4NzYxNjAwfX19XX0_&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=rzxAqqHZFY-i3bwBK4cZady0kHqp1ZfPnwkcqr~j3P17tJtHOm4GUi8usjmocddrZ0xZghRdv0zJuu7RxVkqXO~GS6zCom-qwkv0NO03qZN8lV4Ebf1mvZl33m5PW0uzyGc6-RtrmFDcy1F3GDBsvimjShhYpJkE6jkq~F-O5T8HSYV6vkEA-9mvSGAOJisB0Vpni6JBlIFMVx1qOZLJAS-oRTBohgc9NxlEOQ9yT0bLhpWm65QY3QlMXgXda4y-nltoR7FEaT9uO-MfHEaivR0KtWM7PMN~yfEzJ2pOmMmHAFw1QIWN6LDTZLjAwidjdyz5O-kQh2LknFCP2v7Spw__"
+              src="/images/img-10.jpg"
               alt="Study Quota and PAL"
               className="w-full h-auto shadow-lg" style={{ borderRadius: "0px" }}
             />
@@ -124,7 +124,7 @@ export default function Temporary() {
           </div>
           <div className="flex justify-center">
             <img
-              src="https://private-us-east-1.manuscdn.com/sessionFile/i9ZSSj6IB1QFKBGCY6lMon/sandbox/gWqQoqrATfZKZpKyoTNMOK-img-3_1770333617000_na1fn_dGVtcG9yYXJ5LWZhbWlseS12aXNpdA.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvaTlaU1NqNklCMVFGS0JHQ1k2bE1vbi9zYW5kYm94L2dXcVFvcXJBVGZaS1pwS3lvVE5NT0staW1nLTNfMTc3MDMzMzYxNzAwMF9uYTFmbl9kR1Z0Y0c5eVlYSjVMV1poYldsc2VTMTJhWE5wZEEuanBnP3gtb3NzLXByb2Nlc3M9aW1hZ2UvcmVzaXplLHdfMTkyMCxoXzE5MjAvZm9ybWF0LHdlYnAvcXVhbGl0eSxxXzgwIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNzk4NzYxNjAwfX19XX0_&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=Ib-ospbEHNIuyWR~DDLQrG1ijZpwuYP9GS2AUJqRXuGcqz-1FfUAKoNYW-dbamBo7yi5w3pv13kvEQIQ4BELSAwhQyXeqo0CTM78bdaa9K2TjWcGNDCYW1Ee4VG4qFG68UPX-zyyHs~5WY-XDOlMWtXF9i-KXbjtoju5COEXyQNEtbFv84fqe~~hDUsZQJO-XBLDP53tkprTa466i11qfV8cvzZM3DU7tFiTN7Lf7q-oVJEJ5zD45wCtC12aIYURIcE79ImtLLXFedFjm7LskzBxtOm~i7O6S3zuBoP2bAuIO1CGKgaE4vDoEMKM6xo-GbqjGny2692EUnfi3ptR4w__"
+              src="/images/img-11.jpg"
               alt="Family Visit"
               className="w-full h-auto shadow-lg" style={{ borderRadius: "0px" }}
             />
@@ -135,7 +135,7 @@ export default function Temporary() {
         <section id="visitor" className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center py-20 scroll-mt-20">
           <div className="flex justify-center lg:order-first">
             <img
-              src="https://private-us-east-1.manuscdn.com/sessionFile/i9ZSSj6IB1QFKBGCY6lMon/sandbox/gWqQoqrATfZKZpKyoTNMOK-img-4_1770333616000_na1fn_dGVtcG9yYXJ5LXZpc2l0b3ItdmlzYQ.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvaTlaU1NqNklCMVFGS0JHQ1k2bE1vbi9zYW5kYm94L2dXcVFvcXJBVGZaS1pwS3lvVE5NT0staW1nLTRfMTc3MDMzMzYxNjAwMF9uYTFmbl9kR1Z0Y0c5eVlYSjVMWFpwYzJsMGIzSXRkbWx6WVEuanBnP3gtb3NzLXByb2Nlc3M9aW1hZ2UvcmVzaXplLHdfMTkyMCxoXzE5MjAvZm9ybWF0LHdlYnAvcXVhbGl0eSxxXzgwIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNzk4NzYxNjAwfX19XX0_&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=iSLfXgVI5-Jhr-Bf1D4pqDLdKTtmxEYI~dkRxk1WUvbBGgoLQGugwpy8BZqA2eIeKGBialMWCvRvSB8KNtuDLmdEbKzgeXzIAse7Me3DJgdHb25rmxGMhScFKPuj0eqhGcVxce9-O55NLFl4LgiOiQ7Y~ASmndiXJaPYE0-dSX6acqJ8PFOZ5ZzpLFGaek9rJI2k5~hDWS66uUROmMCRqEUsXE7-WM3M9mfVLODE~X-~nIC9nVNAZBTmZ2csgsfvwrudVi2rZegaSx7tWsL5Sul7HL9MwbryCqvMPDPx6JXchENMzMbpICasDvYe0~p-m8Y-gUV22w0vuTLl5qd9aQ__"
+              src="/images/img-12.jpg"
               alt="Visitor Visa"
               className="w-full h-auto shadow-lg" style={{ borderRadius: "0px" }}
             />
@@ -170,7 +170,7 @@ export default function Temporary() {
           </div>
           <div className="flex justify-center">
             <img
-              src="https://private-us-east-1.manuscdn.com/sessionFile/i9ZSSj6IB1QFKBGCY6lMon/sandbox/gWqQoqrATfZKZpKyoTNMOK-img-5_1770333609000_na1fn_dGVtcG9yYXJ5LXN1cGVyLXZpc2E.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvaTlaU1NqNklCMVFGS0JHQ1k2bE1vbi9zYW5kYm94L2dXcVFvcXJBVGZaS1pwS3lvVE5NT0staW1nLTVfMTc3MDMzMzYwOTAwMF9uYTFmbl9kR1Z0Y0c5eVlYSjVMWE4xY0dWeUxYWnBjMkUuanBnP3gtb3NzLXByb2Nlc3M9aW1hZ2UvcmVzaXplLHdfMTkyMCxoXzE5MjAvZm9ybWF0LHdlYnAvcXVhbGl0eSxxXzgwIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNzk4NzYxNjAwfX19XX0_&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=NwqdiVsBqe5xCa1h6VEE9gADI0aKIWxmwKbJaejR2cKIcgkCeOrMikf5~O1VKSP8oNGbu06nfH~Tv3KnAy2emdCCcvoAnKpcGRZL8mZjC8c1HTntCI35ep-IG2SyQawWfh9QjIpSxEYCI~k8dy16tyHAlKaijDXFUi-jQ4ubkb-i~fctX74ZbifIRfzgsU~Z-ZC5-DbwiEjrEt90Dzeakw~LNgCMih4Kd1SJZILaA88HLoxrxY4ieKGcmg7mLlPV62cQPQ2EzQZzCpMiExVPUJyBWDba8uiRXjKpzrUOxBJaPs6TumBDVlu1Y7WX2yheoZ95GxRYXlTlxUheipfgnw__"
+              src="/images/img-13.jpg"
               alt="Super Visa"
               className="w-full h-auto shadow-lg" style={{ borderRadius: "0px" }}
             />
