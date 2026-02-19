@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -65,13 +65,15 @@ export default function Admin() {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="container mx-auto py-8">
-        <Link href="/">
-          <Button variant="ghost" size="sm" className="mb-6">
-            <ArrowLeft className="h-4 w-4 mr-2" />
-            Back to Home
-          </Button>
-        </Link>
+      <div className="container mx-auto py-8 px-4">
+        <div className="mb-6">
+          <Link href="/">
+            <Button variant="outline" size="sm">
+              <ArrowLeft className="h-4 w-4 mr-2" />
+              Back to Home
+            </Button>
+          </Link>
+        </div>
 
         <div className="mb-8">
           <h1 className="text-3xl font-bold">Admin Dashboard</h1>
@@ -109,32 +111,7 @@ export default function Admin() {
 
 function BlogPostsManagement() {
   const { data: posts = [], isLoading } = trpc.posts.list.useQuery();
-  const createMutation = trpc.posts.create.useMutation();
-  const updateMutation = trpc.posts.update.useMutation();
   const deleteMutation = trpc.posts.delete.useMutation();
-  const [editingId, setEditingId] = useState<number | null>(null);
-  const [formData, setFormData] = useState({ title: "", content: "", category: "", published: false });
-
-  const handleSubmit = async () => {
-    if (!formData.title || !formData.content) {
-      toast.error("Title and content are required");
-      return;
-    }
-
-    try {
-      if (editingId) {
-        await updateMutation.mutateAsync({ id: editingId, ...formData });
-        toast.success("Post updated");
-      } else {
-        await createMutation.mutateAsync(formData);
-        toast.success("Post created");
-      }
-      setFormData({ title: "", content: "", category: "", published: false });
-      setEditingId(null);
-    } catch (error) {
-      toast.error("Failed to save post");
-    }
-  };
 
   const handleDelete = async (id: number) => {
     if (confirm("确定要删除这篇文章吗？")) {
@@ -148,121 +125,49 @@ function BlogPostsManagement() {
   };
 
   return (
-    <div className="space-y-6">
-      <Card>
-        <CardHeader>
-          <CardTitle>{editingId ? "Edit Post" : "New Post"}</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div>
-            <Label>Title</Label>
-            <Input
-              value={formData.title}
-              onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-              placeholder="Post title"
-            />
-          </div>
-          <div>
-            <Label>Content</Label>
-            <Textarea
-              value={formData.content}
-              onChange={(e) => setFormData({ ...formData, content: e.target.value })}
-              placeholder="Post content"
-              rows={6}
-            />
-          </div>
-          <div>
-            <Label>Category</Label>
-            <Input
-              value={formData.category}
-              onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-              placeholder="Category"
-            />
-          </div>
-          <div className="flex items-center gap-2">
-            <Switch
-              checked={formData.published}
-              onCheckedChange={(checked) => setFormData({ ...formData, published: checked })}
-            />
-            <Label>Published</Label>
-          </div>
-          <Button onClick={handleSubmit} disabled={createMutation.isPending || updateMutation.isPending}>
-            {editingId ? "Update" : "Create"}
-          </Button>
-          {editingId && (
-            <Button variant="outline" onClick={() => { setEditingId(null); setFormData({ title: "", content: "", category: "", published: false }); }}>
-              Cancel
-            </Button>
-          )}
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardHeader>
-          <CardTitle>Posts</CardTitle>
-        </CardHeader>
-        <CardContent>
-          {isLoading ? (
-            <Loader2 className="h-8 w-8 animate-spin" />
-          ) : posts.length > 0 ? (
-            <div className="space-y-4">
-              {posts.map((post: any) => (
-                <div key={post.id} className="border rounded p-4">
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <h3 className="font-semibold">{post.title}</h3>
-                      <p className="text-sm text-gray-500">{post.category}</p>
-                      <p className="text-xs text-gray-400">{format(new Date(post.createdAt), "MMM d, yyyy")}</p>
-                    </div>
-                    <div className="flex gap-2">
-                      <Button size="sm" variant="outline" onClick={() => { setEditingId(post.id); setFormData(post); }}>
+    <Card>
+      <CardHeader>
+        <CardTitle>Blog Posts</CardTitle>
+        <CardDescription>Manage published blog posts</CardDescription>
+      </CardHeader>
+      <CardContent>
+        {isLoading ? (
+          <Loader2 className="h-8 w-8 animate-spin" />
+        ) : posts.length > 0 ? (
+          <div className="space-y-4">
+            {posts.map((post: any) => (
+              <div key={post.id} className="border rounded p-4">
+                <div className="flex justify-between items-start">
+                  <div>
+                    <h3 className="font-semibold">{post.title}</h3>
+                    <p className="text-sm text-gray-500">{post.category}</p>
+                    <p className="text-xs text-gray-400">{format(new Date(post.createdAt), "MMM d, yyyy")}</p>
+                  </div>
+                  <div className="flex gap-2">
+                    <Link href={`/admin/posts/${post.id}/edit`}>
+                      <Button size="sm" variant="outline">
                         <Edit className="h-4 w-4" />
                       </Button>
-                      <Button size="sm" variant="destructive" onClick={() => handleDelete(post.id)}>
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
-                    </div>
+                    </Link>
+                    <Button size="sm" variant="destructive" onClick={() => handleDelete(post.id)}>
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
                   </div>
                 </div>
-              ))}
-            </div>
-          ) : (
-            <p className="text-gray-500">No posts yet</p>
-          )}
-        </CardContent>
-      </Card>
-    </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p className="text-gray-500">No posts yet</p>
+        )}
+      </CardContent>
+    </Card>
   );
 }
 
 function SuccessCasesManagement() {
   const { data: cases = [], isLoading } = trpc.posts.list.useQuery();
-  const createMutation = trpc.posts.create.useMutation();
-  const updateMutation = trpc.posts.update.useMutation();
   const deleteMutation = trpc.posts.delete.useMutation();
-  const [editingId, setEditingId] = useState<number | null>(null);
-  const [formData, setFormData] = useState({ title: "", content: "", category: "", published: false });
-
-  const handleSubmit = async () => {
-    if (!formData.title || !formData.content) {
-      toast.error("Title and content are required");
-      return;
-    }
-
-    try {
-      if (editingId) {
-        await updateMutation.mutateAsync({ id: editingId, ...formData });
-        toast.success("Case updated");
-      } else {
-        await createMutation.mutateAsync(formData);
-        toast.success("Case created");
-      }
-      setFormData({ title: "", content: "", category: "", published: false });
-      setEditingId(null);
-    } catch (error) {
-      toast.error("Failed to save case");
-    }
-  };
 
   const handleDelete = async (id: number) => {
     if (confirm("确定要删除这个案例吗？")) {
@@ -276,94 +181,43 @@ function SuccessCasesManagement() {
   };
 
   return (
-    <div className="space-y-6">
-      <Card>
-        <CardHeader>
-          <CardTitle>{editingId ? "Edit Case" : "New Case"}</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div>
-            <Label>Title</Label>
-            <Input
-              value={formData.title}
-              onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-              placeholder="Case title"
-            />
-          </div>
-          <div>
-            <Label>Content</Label>
-            <Textarea
-              value={formData.content}
-              onChange={(e) => setFormData({ ...formData, content: e.target.value })}
-              placeholder="Case content"
-              rows={6}
-            />
-          </div>
-          <div>
-            <Label>Category</Label>
-            <Input
-              value={formData.category}
-              onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-              placeholder="Category"
-            />
-          </div>
-          <div className="flex items-center gap-2">
-            <Switch
-              checked={formData.published}
-              onCheckedChange={(checked) => setFormData({ ...formData, published: checked })}
-            />
-            <Label>Published</Label>
-          </div>
-          <Button onClick={handleSubmit} disabled={createMutation.isPending || updateMutation.isPending}>
-            {editingId ? "Update" : "Create"}
-          </Button>
-          {editingId && (
-            <Button variant="outline" onClick={() => { setEditingId(null); setFormData({ title: "", content: "", category: "", published: false }); }}>
-              Cancel
-            </Button>
-          )}
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardHeader>
-          <CardTitle>Success Cases</CardTitle>
-        </CardHeader>
-        <CardContent>
-          {isLoading ? (
-            <Loader2 className="h-8 w-8 animate-spin" />
-          ) : cases.length > 0 ? (
-            <div className="space-y-4">
-              {cases.map((caseItem: any) => (
-                <div key={caseItem.id} className="border rounded p-4">
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <h3 className="font-semibold">{caseItem.title}</h3>
-                      <p className="text-sm text-gray-500">{caseItem.category}</p>
-                      <p className="text-xs text-gray-400">{format(new Date(caseItem.createdAt), "MMM d, yyyy")}</p>
-                    </div>
-                    <div className="flex gap-2">
-                      <Button size="sm" variant="outline" onClick={() => { setEditingId(caseItem.id); setFormData(caseItem); }}>
+    <Card>
+      <CardHeader>
+        <CardTitle>Success Cases</CardTitle>
+        <CardDescription>Manage published success cases</CardDescription>
+      </CardHeader>
+      <CardContent>
+        {isLoading ? (
+          <Loader2 className="h-8 w-8 animate-spin" />
+        ) : cases.length > 0 ? (
+          <div className="space-y-4">
+            {cases.map((caseItem: any) => (
+              <div key={caseItem.id} className="border rounded p-4">
+                <div className="flex justify-between items-start">
+                  <div>
+                    <h3 className="font-semibold">{caseItem.title}</h3>
+                    <p className="text-sm text-gray-500">{caseItem.category}</p>
+                    <p className="text-xs text-gray-400">{format(new Date(caseItem.createdAt), "MMM d, yyyy")}</p>
+                  </div>
+                  <div className="flex gap-2">
+                    <Link href={`/admin/posts/${caseItem.id}/edit`}>
+                      <Button size="sm" variant="outline">
                         <Edit className="h-4 w-4" />
                       </Button>
-                      <Button size="sm" variant="destructive" onClick={() => handleDelete(caseItem.id)}>
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
-                    </div>
+                    </Link>
+                    <Button size="sm" variant="destructive" onClick={() => handleDelete(caseItem.id)}>
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
                   </div>
                 </div>
-              ))}
-            </div>
-          ) : (
-            <Card>
-              <CardContent className="text-center py-8">
-                <p className="text-muted-foreground">No success cases yet.</p>
-              </CardContent>
-            </Card>
-          )}
-        </CardContent>
-      </Card>
-    </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p className="text-gray-500">No success cases yet</p>
+        )}
+      </CardContent>
+    </Card>
   );
 }
 
@@ -388,35 +242,33 @@ function ImageLibraryManagement() {
   };
 
   const handleUpload = async () => {
-    if (!selectedFile) return;
+    if (!selectedFile) {
+      toast.error("Please select a file");
+      return;
+    }
 
     try {
-      const reader = new FileReader();
-      reader.onload = async (e) => {
-        const base64 = (e.target?.result as string).split(",")[1];
-        await uploadMutation.mutateAsync({
-          filename: selectedFile.name,
-          base64Data: base64,
-          description,
-          category,
-        });
-        setSelectedFile(null);
-        setDescription("");
-        setCategory("");
-        toast.success("Image uploaded successfully");
-        refetch();
-      };
-      reader.readAsDataURL(selectedFile);
+      const formData = new FormData();
+      formData.append("file", selectedFile);
+      formData.append("description", description);
+      formData.append("category", category);
+
+      await uploadMutation.mutateAsync(formData as any);
+      toast.success("Image uploaded successfully");
+      setSelectedFile(null);
+      setDescription("");
+      setCategory("");
+      refetch();
     } catch (error) {
       toast.error("Failed to upload image");
     }
   };
 
-  const handleDelete = async (id: number) => {
+  const handleDelete = async (id: string) => {
     if (confirm("确定要删除这张图片吗？")) {
       try {
         await deleteMutation.mutateAsync({ id });
-        toast.success("Image deleted successfully");
+        toast.success("Image deleted");
         refetch();
       } catch (error) {
         toast.error("Failed to delete image");
@@ -481,12 +333,18 @@ function ImageLibraryManagement() {
         <Card>
           <CardHeader>
             <CardTitle>上传新图片</CardTitle>
-            <CardDescription>上传图片到图库，所有图片将保存在GitHub仓库中</CardDescription>
+            <CardDescription>上传图片到图库，所有图片将存储在GitHub仓库中</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div
-              className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center cursor-pointer hover:border-primary transition"
+              className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center cursor-pointer hover:border-gray-400 transition"
               onClick={() => fileInputRef.current?.click()}
+              onDragOver={(e) => e.preventDefault()}
+              onDrop={(e) => {
+                e.preventDefault();
+                const file = e.dataTransfer.files?.[0];
+                if (file) setSelectedFile(file);
+              }}
             >
               <input
                 ref={fileInputRef}
@@ -522,12 +380,15 @@ function ImageLibraryManagement() {
               </div>
             </div>
 
-            <Button
-              onClick={handleUpload}
-              disabled={!selectedFile || uploadMutation.isPending}
-              className="w-full"
-            >
-              {uploadMutation.isPending ? "上传中..." : "上传图片"}
+            <Button onClick={handleUpload} disabled={uploadMutation.isPending || !selectedFile}>
+              {uploadMutation.isPending ? (
+                <>
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                  上传中...
+                </>
+              ) : (
+                "上传图片"
+              )}
             </Button>
           </CardContent>
         </Card>
@@ -536,22 +397,18 @@ function ImageLibraryManagement() {
         <Card>
           <CardHeader>
             <CardTitle>图片库 ({images.length})</CardTitle>
-            <CardDescription>管理所有上传的图片，复制相对路径在页面中使用</CardDescription>
+            <CardDescription>管理所有上传的图片，点击图片可预览</CardDescription>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent>
             {isLoading ? (
-              <div className="text-center py-8">
-                <Loader2 className="h-8 w-8 animate-spin mx-auto text-primary" />
-              </div>
+              <Loader2 className="h-8 w-8 animate-spin" />
             ) : images.length > 0 ? (
               <>
-                {/* Pagination Info */}
-                <div className="text-sm text-gray-600">
+                <p className="text-sm text-gray-600 mb-4">
                   显示 {startIndex + 1}-{Math.min(endIndex, images.length)} / 共 {images.length} 张图片
-                </div>
+                </p>
 
-                {/* Image Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div className="grid grid-cols-4 gap-4 mb-6">
                   {paginatedImages.map((image: any) => (
                     <Card key={image.id} className="overflow-hidden hover:shadow-lg transition">
                       <div
@@ -562,6 +419,7 @@ function ImageLibraryManagement() {
                           src={image.publicUrl}
                           alt={image.filename}
                           className="w-full h-full object-contain"
+                          loading="lazy"
                         />
                       </div>
                       <div className="p-3 space-y-2">
@@ -650,16 +508,14 @@ function ImageLibraryManagement() {
                         const page = parseInt(e.target.value) || 1;
                         setCurrentPage(Math.min(Math.max(1, page), totalPages));
                       }}
-                      className="w-16 h-9"
-                      placeholder="页"
+                      className="w-16 text-sm"
+                      placeholder="页码"
                     />
                   </div>
                 )}
               </>
             ) : (
-              <div className="text-center py-8 text-gray-500">
-                <p>暂无图片，请上传第一张图片</p>
-              </div>
+              <p className="text-gray-500">No images yet</p>
             )}
           </CardContent>
         </Card>
@@ -668,37 +524,37 @@ function ImageLibraryManagement() {
   );
 }
 
-function AppointmentManagement(){
-  const { data: appointments, isLoading } = trpc.appointments.list.useQuery();
+function AppointmentManagement() {
+  const { data: appointments = [], isLoading } = trpc.appointments.list.useQuery();
 
   return (
-    <div className="space-y-4">
-      <Card>
-        <CardHeader>
-          <CardTitle>Appointments</CardTitle>
-        </CardHeader>
-        <CardContent>
-          {isLoading ? (
-            <Loader2 className="h-8 w-8 animate-spin" />
-          ) : appointments && appointments.length > 0 ? (
-            <div className="space-y-4">
-              {appointments.map((appointment: any) => (
-                <div key={appointment.id} className="border rounded p-4">
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <h3 className="font-semibold">{appointment.name}</h3>
-                      <p className="text-sm text-gray-500">{appointment.email}</p>
-                      <p className="text-xs text-gray-400">{format(new Date(appointment.appointmentDate), "MMM d, yyyy HH:mm")}</p>
-                    </div>
+    <Card>
+      <CardHeader>
+        <CardTitle>Appointments</CardTitle>
+        <CardDescription>View and manage appointment requests</CardDescription>
+      </CardHeader>
+      <CardContent>
+        {isLoading ? (
+          <Loader2 className="h-8 w-8 animate-spin" />
+        ) : appointments.length > 0 ? (
+          <div className="space-y-4">
+            {appointments.map((apt: any) => (
+              <div key={apt.id} className="border rounded p-4">
+                <div className="flex justify-between items-start">
+                  <div>
+                    <h3 className="font-semibold">{apt.name}</h3>
+                    <p className="text-sm text-gray-500">{apt.email}</p>
+                    <p className="text-sm text-gray-500">{apt.phone}</p>
+                    <p className="text-xs text-gray-400">{format(new Date(apt.createdAt), "MMM d, yyyy")}</p>
                   </div>
                 </div>
-              ))}
-            </div>
-          ) : (
-            <p className="text-gray-500">No appointments yet</p>
-          )}
-        </CardContent>
-      </Card>
-    </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p className="text-gray-500">No appointments yet</p>
+        )}
+      </CardContent>
+    </Card>
   );
 }
