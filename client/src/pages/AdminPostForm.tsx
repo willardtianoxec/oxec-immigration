@@ -354,7 +354,6 @@ export function AdminPostForm() {
         slug: formData.slug,
         content: formData.content,
         excerpt: formData.excerpt || undefined,
-        type: formData.type,
         blogCategory: formData.type === "blog" ? (formData.blogCategory as any || undefined) : undefined,
         contentCategory: formData.type === "success-case" ? (formData.contentCategory as any || undefined) : undefined,
         tags: formData.tags || undefined,

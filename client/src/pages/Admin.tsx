@@ -121,12 +121,13 @@ function BlogManagement() {
     slug: "",
     excerpt: "",
     content: "",
-    category: "",
+    type: "blog" as "blog" | "success-case",
+      blogCategory: undefined as any,
     published: false,
   });
 
   const utils = trpc.useUtils();
-  const { data: posts, isLoading } = trpc.posts.list.useQuery({ publishedOnly: false });
+  const { data: posts = [], isLoading } = trpc.posts.list.useQuery({ publishedOnly: false });
 
   const createPost = trpc.posts.create.useMutation({
     onSuccess: () => {
@@ -155,7 +156,7 @@ function BlogManagement() {
   });
 
   const resetForm = () => {
-    setFormData({ title: "", slug: "", excerpt: "", content: "", category: "", published: false });
+    setFormData({ title: "", slug: "", excerpt: "", content: "", type: "blog", blogCategory: undefined as any, published: false });
     setIsCreating(false);
     setEditingId(null);
   };
@@ -163,9 +164,11 @@ function BlogManagement() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (editingId) {
-      updatePost.mutate({ id: editingId, ...formData });
+      const { type, blogCategory, ...updateData } = formData;
+      updatePost.mutate({ id: editingId, ...updateData, blogCategory: blogCategory || undefined });
     } else {
-      createPost.mutate(formData);
+      const { blogCategory, ...createData } = formData;
+      createPost.mutate({ ...createData, type: "blog", blogCategory: blogCategory || undefined });
     }
   };
 
@@ -175,7 +178,8 @@ function BlogManagement() {
       slug: post.slug,
       excerpt: post.excerpt || "",
       content: post.content,
-      category: post.category || "",
+      type: post.type || "blog",
+      blogCategory: post.blogCategory,
       published: post.published,
     });
     setEditingId(post.id);
@@ -216,8 +220,8 @@ function BlogManagement() {
               <Label htmlFor="category">Category</Label>
               <Input
                 id="category"
-                value={formData.category}
-                onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+      value={formData.blogCategory || ""}
+      onChange={(e) => setFormData({ ...formData, blogCategory: (e.target.value || undefined) as any })}
               />
             </div>
 
@@ -339,18 +343,10 @@ function BlogManagement() {
 function CasesManagement() {
   const [isCreating, setIsCreating] = useState(false);
   const [editingId, setEditingId] = useState<number | null>(null);
-  const [formData, setFormData] = useState({
-    title: "",
-    caseType: "",
-    clientBackground: "",
-    challenge: "",
-    solution: "",
-    outcome: "",
-    published: false,
-  });
+  const [formData, setFormData] = useState({ title: "", slug: "", content: "", excerpt: "", published: false });
 
   const utils = trpc.useUtils();
-  const { data: cases, isLoading } = trpc.posts.list.useQuery({ publishedOnly: false });
+  const { data: cases = [], isLoading } = trpc.posts.list.useQuery({ publishedOnly: false });
 
   const createCase = trpc.posts.create.useMutation({
     onSuccess: () => {
@@ -379,7 +375,7 @@ function CasesManagement() {
   });
 
   const resetForm = () => {
-    setFormData({ title: "", caseType: "", clientBackground: "", challenge: "", solution: "", outcome: "", published: false });
+    setFormData({ title: "", slug: "", content: "", excerpt: "", published: false });
     setIsCreating(false);
     setEditingId(null);
   };
@@ -389,18 +385,16 @@ function CasesManagement() {
     if (editingId) {
       updateCase.mutate({ id: editingId, ...formData });
     } else {
-      createCase.mutate(formData);
+      createCase.mutate({ ...formData, type: "success-case" } as any);
     }
   };
 
   const handleEdit = (caseItem: any) => {
     setFormData({
       title: caseItem.title,
-      caseType: caseItem.caseType,
-      clientBackground: caseItem.clientBackground,
-      challenge: caseItem.challenge || "",
-      solution: caseItem.solution,
-      outcome: caseItem.outcome,
+      slug: caseItem.slug,
+      content: caseItem.content,
+      excerpt: caseItem.excerpt || "",
       published: caseItem.published,
     });
     setEditingId(caseItem.id);
@@ -429,54 +423,55 @@ function CasesManagement() {
                 <Label htmlFor="caseType">Case Type *</Label>
                 <Input
                   id="caseType"
-                  value={formData.caseType}
-                  onChange={(e) => setFormData({ ...formData, caseType: e.target.value })}
+      value={formData.title}
+      onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                   required
                 />
               </div>
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="clientBackground">Client Background *</Label>
-              <Textarea
-                id="clientBackground"
-                rows={3}
-                value={formData.clientBackground}
-                onChange={(e) => setFormData({ ...formData, clientBackground: e.target.value })}
+              <Label htmlFor="slug">Slug *</Label>
+              <Input
+                id="slug"
+      value={formData.slug}
+      onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
                 required
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="challenge">Challenge</Label>
+              <Label htmlFor="excerpt">Excerpt</Label>
               <Textarea
-                id="challenge"
-                rows={3}
-                value={formData.challenge}
-                onChange={(e) => setFormData({ ...formData, challenge: e.target.value })}
+                id="excerpt"
+                rows={2}
+      value={formData.excerpt}
+      onChange={(e) => setFormData({ ...formData, excerpt: e.target.value })}
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="solution">Solution *</Label>
+              <Label htmlFor="content">Content *</Label>
               <Textarea
-                id="solution"
-                rows={3}
-                value={formData.solution}
-                onChange={(e) => setFormData({ ...formData, solution: e.target.value })}
+                id="content"
+                rows={6}
+      value={formData.content}
+      onChange={(e) => setFormData({ ...formData, content: e.target.value })}
                 required
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="outcome">Outcome *</Label>
-              <Textarea
-                id="outcome"
-                rows={3}
-                value={formData.outcome}
-                onChange={(e) => setFormData({ ...formData, outcome: e.target.value })}
-                required
-              />
+              <Label htmlFor="published">Status</Label>
+              <select
+                id="published"
+      value={formData.published ? "published" : "draft"}
+      onChange={(e) => setFormData({ ...formData, published: e.target.value === "published" })}
+                className="w-full px-3 py-2 border border-border rounded-md"
+              >
+                <option value="draft">Draft</option>
+                <option value="published">Published</option>
+              </select>
             </div>
 
             <div className="flex items-center space-x-2">
@@ -524,7 +519,7 @@ function CasesManagement() {
                 <div className="flex justify-between items-start">
                   <div>
                     <CardTitle>{caseItem.title}</CardTitle>
-                    <CardDescription>{caseItem.caseType}</CardDescription>
+                    <CardDescription>{caseItem.contentCategory}</CardDescription>
                   </div>
                   <div className="flex gap-2">
                     <Button size="sm" variant="outline" onClick={() => handleEdit(caseItem)}>
@@ -546,7 +541,7 @@ function CasesManagement() {
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-muted-foreground line-clamp-2">
-                  {caseItem.clientBackground}
+                  {caseItem.excerpt || caseItem.content?.substring(0, 100)}
                 </p>
                 <div className="mt-2">
                   <span className={`text-xs px-2 py-1 rounded ${

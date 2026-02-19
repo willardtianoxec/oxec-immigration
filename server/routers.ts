@@ -175,6 +175,46 @@ export const appRouter = router({
     }),
   }),
 
+  calculator: router({
+    calculateCRS: publicProcedure
+      .input(z.object({
+        familyStatus: z.enum(["single", "married-no-spouse", "married-with-spouse"]),
+        age: z.number().min(17).max(100),
+        education: z.enum(["phd", "masters", "double", "bachelor", "two-year", "one-year", "highschool", "below"]),
+        canadianEducation: z.enum(["none", "1-2year", "3plus"]).optional(),
+        primaryLanguage: z.enum(["english", "french"]),
+        languageTest: z.enum(["ielts", "celpip", "pte", "tef", "tcf"]),
+        listening: z.number().min(0).max(600),
+        reading: z.number().min(0).max(600),
+        writing: z.number().min(0).max(600),
+        speaking: z.number().min(0).max(600),
+        secondaryLanguage: z.enum(["english", "french", "none"]).optional(),
+        secondLanguageTest: z.enum(["none", "ielts", "celpip", "pte", "tef", "tcf"]).optional(),
+        secondListening: z.number().min(0).max(600).optional(),
+        secondReading: z.number().min(0).max(600).optional(),
+        secondWriting: z.number().min(0).max(600).optional(),
+        secondSpeaking: z.number().min(0).max(600).optional(),
+        canadianWorkExperience: z.enum(["none", "1year", "2year", "3year", "4year", "5plus"]),
+        canadianTradeCertificate: z.boolean().optional(),
+        overseasWorkExperience: z.enum(["none", "1year", "2year", "3plus"]).optional(),
+        hasSiblingInCanada: z.boolean().optional(),
+        hasProvincialNomination: z.boolean().optional(),
+        spouseAge: z.number().min(17).max(100).optional(),
+        spouseEducation: z.enum(["phd", "masters", "double", "bachelor", "two-year", "one-year", "highschool", "below"]).optional(),
+        spouseLanguageTest: z.enum(["none", "ielts", "celpip", "pte", "tef", "tcf"]).optional(),
+        spouseListening: z.number().min(0).max(600).optional(),
+        spouseReading: z.number().min(0).max(600).optional(),
+        spouseWriting: z.number().min(0).max(600).optional(),
+        spouseSpeaking: z.number().min(0).max(600).optional(),
+        spouseCanadianWorkExperience: z.enum(["none", "1year", "2year", "3year", "4year", "5plus"]).optional(),
+        spouseTradeCertificate: z.boolean().optional(),
+        spouseOverseasWorkExperience: z.enum(["none", "1year", "2year", "3plus"]).optional(),
+      }))
+      .query(({ input }) => {
+        return calculateCRSLogic(input);
+      }),
+  }),
+
   posts: router({
     create: adminProcedure
       .input(z.object({
@@ -341,3 +381,5 @@ export const appRouter = router({
       }),
   }),
 });
+
+export type AppRouter = typeof appRouter;

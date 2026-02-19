@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
-export function TaggedArticles() {
+export default function TaggedArticles() {
   const params = useParams<{ tag: string }>();
   const tag = params?.tag ? decodeURIComponent(params.tag) : "";
   const search = useSearch();

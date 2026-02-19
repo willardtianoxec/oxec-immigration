@@ -30,7 +30,7 @@ import CLBTranslator from "./pages/CLBTranslator";
 import FSWCalculator from "./pages/FSWCalculator";
 import { BlogPost } from "./pages/BlogPost";
 import { SuccessCaseDetail } from "./pages/SuccessCaseDetail";
-import { TaggedArticles } from "./pages/TaggedArticles";
+import TaggedArticles from "./pages/TaggedArticles";
 
 function ScrollToTop() {
   const [location] = useLocation();
