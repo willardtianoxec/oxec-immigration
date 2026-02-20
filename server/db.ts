@@ -116,6 +116,13 @@ export async function getAppointments() {
   return await db.select().from(appointments).orderBy(desc(appointments.createdAt));
 }
 
+export async function deleteAppointment(id: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  return await db.delete(appointments).where(eq(appointments.id, id));
+}
+
 // Blog post queries
 export async function createBlogPost(data: InsertBlogPost) {
   const db = await getDb();

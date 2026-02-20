@@ -59,7 +59,9 @@ export function AdminPostForm() {
 
   const createMutation = trpc.posts.create.useMutation({
     onSuccess: () => {
-      setLocation("/admin/posts");
+      const returnTo = localStorage.getItem("postFormReturnTo") || "/admin";
+      localStorage.removeItem("postFormReturnTo");
+      setLocation(returnTo);
     },
     onError: (error) => {
       console.error("Create post error:", error);
@@ -69,7 +71,9 @@ export function AdminPostForm() {
 
   const updateMutation = trpc.posts.update.useMutation({
     onSuccess: () => {
-      setLocation("/admin/posts");
+      const returnTo = localStorage.getItem("postFormReturnTo") || "/admin";
+      localStorage.removeItem("postFormReturnTo");
+      setLocation(returnTo);
     },
     onError: (error) => {
       console.error("Update post error:", error);

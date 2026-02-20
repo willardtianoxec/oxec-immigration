@@ -7,6 +7,7 @@ import { z } from "zod";
 import {
   createAppointment,
   getAppointments,
+  deleteAppointment,
   createBlogPost,
   updateBlogPost,
   deleteBlogPost,
@@ -164,9 +165,15 @@ export const appRouter = router({
         return result;
       }),
 
-    list: publicProcedure.query(async () => {
+    list: protectedProcedure.query(async () => {
       return await getAppointments();
     }),
+
+    delete: protectedProcedure
+      .input(z.object({ id: z.number() }))
+      .mutation(async ({ input }) => {
+        return await deleteAppointment(input.id);
+      }),
   }),
 
   reviews: router({
