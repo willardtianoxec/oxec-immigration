@@ -536,6 +536,67 @@ function ImageLibraryManagement() {
           </Button>
 
           {/* Image Gallery */}
+          {/* Lightbox Modal */}
+          {selectedImageForLightbox && (
+            <div className="fixed inset-0 bg-black bg-opacity-75 z-50 flex items-center justify-center p-4" onClick={() => setSelectedImageForLightbox(null)}>
+              <div className="bg-white rounded-lg max-w-2xl w-full" onClick={(e) => e.stopPropagation()}>
+                <div className="relative">
+                  <img
+                    src={selectedImageForLightbox.publicUrl}
+                    alt={selectedImageForLightbox.description}
+                    className="w-full max-h-96 object-contain"
+                  />
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    className="absolute top-2 right-2"
+                    onClick={() => setSelectedImageForLightbox(null)}
+                  >
+                    ✕
+                  </Button>
+                </div>
+                <div className="p-4 space-y-3">
+                  {selectedImageForLightbox.description && (
+                    <div>
+                      <p className="text-sm font-medium">描述</p>
+                      <p className="text-sm text-gray-600">{selectedImageForLightbox.description}</p>
+                    </div>
+                  )}
+                  <div className="grid grid-cols-2 gap-4 text-sm">
+                    <div>
+                      <p className="font-medium">文件大小</p>
+                      <p className="text-gray-600">{(selectedImageForLightbox.fileSize / 1024).toFixed(1)} KB</p>
+                    </div>
+                    <div>
+                      <p className="font-medium">MIME类型</p>
+                      <p className="text-gray-600">{selectedImageForLightbox.mimeType}</p>
+                    </div>
+                  </div>
+                  <div>
+                    <p className="font-medium text-sm mb-2">URL</p>
+                    <div className="flex gap-2">
+                      <input
+                        type="text"
+                        value={selectedImageForLightbox.publicUrl}
+                        readOnly
+                        className="flex-1 px-3 py-2 border rounded text-sm"
+                      />
+                      <Button
+                        size="sm"
+                        onClick={() => {
+                          navigator.clipboard.writeText(selectedImageForLightbox.publicUrl);
+                          toast.success("URL copied to clipboard");
+                        }}
+                      >
+                        复制
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
           {isLoading ? (
             <div className="flex justify-center">
               <Loader2 className="h-8 w-8 animate-spin" />
@@ -544,21 +605,44 @@ function ImageLibraryManagement() {
             <>
               <div className="grid grid-cols-4 gap-4">
                 {paginatedImages.map((image: any) => (
-                  <div key={image.id} className="relative group">
-                    <img
-                      src={image.publicUrl}
-                      alt={image.description}
-                      className="w-full h-32 object-cover rounded cursor-pointer"
-                      onClick={() => setSelectedImageForLightbox(image)}
-                    />
-                    <Button
-                      size="sm"
-                      variant="destructive"
-                      className="absolute top-1 right-1 opacity-0 group-hover:opacity-100"
-                      onClick={() => handleDelete(image.id)}
-                    >
-                      <Trash2 className="h-3 w-3" />
-                    </Button>
+                  <div key={image.id} className="border rounded-lg overflow-hidden">
+                    <div className="relative group">
+                      <img
+                        src={image.publicUrl}
+                        alt={image.description}
+                        className="w-full h-32 object-cover cursor-pointer"
+                        onClick={() => setSelectedImageForLightbox(image)}
+                      />
+                      <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100">
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="text-white border-white hover:bg-white hover:text-black"
+                          onClick={() => {
+                            navigator.clipboard.writeText(image.publicUrl);
+                            toast.success("URL copied to clipboard");
+                          }}
+                        >
+                          复制URL
+                        </Button>
+                      </div>
+                      <Button
+                        size="sm"
+                        variant="destructive"
+                        className="absolute top-1 right-1"
+                        onClick={() => handleDelete(image.id)}
+                      >
+                        <Trash2 className="h-3 w-3" />
+                      </Button>
+                    </div>
+                    <div className="p-3 bg-gray-50">
+                      {image.description && (
+                        <p className="text-xs text-gray-600 truncate mb-1">{image.description}</p>
+                      )}
+                      <div className="text-xs text-gray-500 space-y-1">
+                        <p>大小: {(image.fileSize / 1024).toFixed(1)} KB</p>
+                      </div>
+                    </div>
                   </div>
                 ))}
               </div>
