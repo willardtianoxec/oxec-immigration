@@ -454,7 +454,11 @@ export function AdminPostForm() {
       <div className="container max-w-6xl mx-auto py-8">
         <div className="flex items-center justify-between mb-8">
           <h1 className="text-3xl font-bold">{isEditing ? "编辑文章" : "新建文章"}</h1>
-          <Button variant="outline" onClick={() => setLocation("/admin/posts")}>
+          <Button variant="outline" onClick={() => {
+            const returnTo = localStorage.getItem("postFormReturnTo") || "/admin";
+            localStorage.removeItem("postFormReturnTo");
+            setLocation(returnTo);
+          }}>
             返回
           </Button>
         </div>
@@ -770,7 +774,11 @@ export function AdminPostForm() {
             <Button
               type="button"
               variant="outline"
-              onClick={() => setLocation("/admin/posts")}
+              onClick={() => {
+                const returnTo = localStorage.getItem("postFormReturnTo") || "/admin";
+                localStorage.removeItem("postFormReturnTo");
+                setLocation(returnTo);
+              }}
               disabled={isSubmitting}
             >
               取消
