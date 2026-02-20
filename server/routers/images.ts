@@ -10,6 +10,7 @@ import {
   ensureImagesDirExists,
   getImageFilePath,
   getImageRelativePath,
+  optimizeAndSaveImage,
 } from "../imageManagement";
 import fs from "fs/promises";
 
@@ -73,8 +74,6 @@ export const imagesRouter = router({
     )
     .mutation(async ({ input, ctx }) => {
       try {
-        await ensureImagesDirExists();
-
         if (!input.filename.match(/^[a-zA-Z0-9._-]+$/)) {
           throw new TRPCError({
             code: 'BAD_REQUEST',
@@ -83,23 +82,23 @@ export const imagesRouter = router({
         }
 
         const buffer = Buffer.from(input.base64Data, 'base64');
-        const filePath = getImageFilePath(input.filename);
-        await fs.writeFile(filePath, buffer);
+        
+        // Optimize and save image (creates both optimized original and WebP)
+        const { filename, fileSize } = await optimizeAndSaveImage(buffer, input.filename);
 
-        const fileSize = buffer.length;
-        const mimeType = input.filename.endsWith('.png')
+        const mimeType = filename.endsWith('.png')
           ? 'image/png'
-          : input.filename.endsWith('.jpg') || input.filename.endsWith('.jpeg')
+          : filename.endsWith('.jpg') || filename.endsWith('.jpeg')
           ? 'image/jpeg'
-          : input.filename.endsWith('.gif')
+          : filename.endsWith('.gif')
           ? 'image/gif'
-          : input.filename.endsWith('.webp')
+          : filename.endsWith('.webp')
           ? 'image/webp'
           : 'image/unknown';
 
-        const relativePath = getImageRelativePath(input.filename);
+        const relativePath = getImageRelativePath(filename);
         await createImageRecord(
-          input.filename,
+          filename,
           relativePath,
           fileSize,
           mimeType,
@@ -110,7 +109,7 @@ export const imagesRouter = router({
 
         return {
           success: true,
-          filename: input.filename,
+          filename: filename,
           publicUrl: relativePath,
         };
       } catch (error) {

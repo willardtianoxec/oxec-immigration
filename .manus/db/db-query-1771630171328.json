@@ -1,0 +1,16 @@
+{
+  "query": "SELECT id, title, slug, coverImage FROM posts WHERE slug = 'p-reconsideration-skill' LIMIT 1;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2MHEakYmYxuSUJe.root --database ERSfzVi6JGQA5UonrK4h6y --execute SELECT id, title, slug, coverImage FROM posts WHERE slug = 'p-reconsideration-skill' LIMIT 1;",
+  "rows": [
+    {
+      "id": "150002",
+      "title": "低标条件逆袭：从美加双拒到“Director”职位获批，P女士的惊险移民路",
+      "slug": "p-reconsideration-skill",
+      "coverImage": "/images/Canada-fall.jpeg"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\tslug\tcoverImage\n150002\t低标条件逆袭：从美加双拒到“Director”职位获批，P女士的惊险移民路\tp-reconsideration-skill\t/images/Canada-fall.jpeg\n",
+  "stderr": "",
+  "execution_time_ms": 500
+}

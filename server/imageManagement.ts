@@ -3,6 +3,7 @@ import { imageLibrary, InsertImageLibrary } from "../drizzle/schema";
 import { eq } from "drizzle-orm";
 import fs from "fs/promises";
 import path from "path";
+import sharp from "sharp";
 
 const IMAGES_DIR = path.join(process.cwd(), "client", "public", "images");
 
@@ -168,4 +169,55 @@ export function getImageFilePath(filename: string): string {
  */
 export function getImageRelativePath(filename: string): string {
   return `/images/${filename}`;
+}
+
+
+/**
+ * Optimize image and save both original and WebP versions
+ */
+export async function optimizeAndSaveImage(
+  imageBuffer: Buffer,
+  originalFilename: string
+): Promise<{ filename: string; webpFilename: string; fileSize: number; webpSize: number }> {
+  try {
+    // Ensure directory exists
+    await ensureImagesDirExists();
+
+    // Get file extension
+    const ext = path.extname(originalFilename).toLowerCase();
+    const nameWithoutExt = path.basename(originalFilename, ext);
+
+    // Optimize original image
+    const optimizedBuffer = await sharp(imageBuffer)
+      .resize(1920, 1080, {
+        fit: 'inside',
+        withoutEnlargement: true,
+      })
+      .toBuffer();
+
+    // Save optimized original
+    const optimizedFilename = `${nameWithoutExt}-opt${ext}`;
+    const optimizedPath = getImageFilePath(optimizedFilename);
+    await fs.writeFile(optimizedPath, optimizedBuffer);
+
+    // Convert to WebP
+    const webpBuffer = await sharp(optimizedBuffer)
+      .webp({ quality: 80 })
+      .toBuffer();
+
+    // Save WebP version
+    const webpFilename = `${nameWithoutExt}-opt.webp`;
+    const webpPath = getImageFilePath(webpFilename);
+    await fs.writeFile(webpPath, webpBuffer);
+
+    return {
+      filename: optimizedFilename,
+      webpFilename,
+      fileSize: optimizedBuffer.length,
+      webpSize: webpBuffer.length,
+    };
+  } catch (error) {
+    console.error('[Image Management] Error optimizing image:', error);
+    throw error;
+  }
 }

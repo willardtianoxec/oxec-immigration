@@ -37,7 +37,7 @@ async function startServer() {
   // OAuth callback under /api/oauth/callback
   registerOAuthRoutes(app);
   // Serve static images
-  const imagesDir = process.cwd() + '/images';
+  const imagesDir = path.join(process.cwd(), 'client', 'public', 'images');
   app.use('/images', express.static(imagesDir));
   
   // tRPC API

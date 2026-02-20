@@ -72,12 +72,15 @@ export function BlogPost() {
   // Prepare article content with cover image if available
   let fullContent = post.content;
   if (post.coverImage) {
-    // Ensure image URL is absolute
-    const imageUrl = post.coverImage.startsWith('http') 
-      ? post.coverImage 
-      : post.coverImage.startsWith('/') 
-      ? post.coverImage 
-      : `/${post.coverImage}`;
+    // Ensure image URL is absolute with full domain
+    let imageUrl = post.coverImage;
+    if (!imageUrl.startsWith('http')) {
+      // Convert relative path to absolute URL with domain
+      if (!imageUrl.startsWith('/')) {
+        imageUrl = `/${imageUrl}`;
+      }
+      imageUrl = `${window.location.origin}${imageUrl}`;
+    }
     fullContent = `![${post.title}](${imageUrl})\n\n${post.content}`;
   }
 

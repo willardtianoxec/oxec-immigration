@@ -1,0 +1,25 @@
+{
+  "query": "SELECT id, title, coverImage FROM posts WHERE type='success-case' ORDER BY publishedAt DESC LIMIT 3;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2MHEakYmYxuSUJe.root --database ERSfzVi6JGQA5UonrK4h6y --execute SELECT id, title, coverImage FROM posts WHERE type='success-case' ORDER BY publishedAt DESC LIMIT 3;",
+  "rows": [
+    {
+      "id": "90001",
+      "title": "一场安全调查攻防战",
+      "coverImage": "https://d2xsxph8kpxj0f.cloudfront.net/310519663292376041/ERSfzVi6JGQA5UonrK4h6y/posts/1771033418449-aqz0vw.jpg"
+    },
+    {
+      "id": "150002",
+      "title": "低标条件逆袭：从美加双拒到“Director”职位获批，P女士的惊险移民路",
+      "coverImage": "/images/Canada-fall.jpeg"
+    },
+    {
+      "id": "150001",
+      "title": "跨界突围：从传统贸易到绿色科技，W先生的BC PNP企业家移民之路",
+      "coverImage": "https://d2xsxph8kpxj0f.cloudfront.net/310519663292376041/ERSfzVi6JGQA5UonrK4h6y/posts/1771627380818-lxemwh.jpg"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\tcoverImage\n90001\t一场安全调查攻防战\thttps://d2xsxph8kpxj0f.cloudfront.net/310519663292376041/ERSfzVi6JGQA5UonrK4h6y/posts/1771033418449-aqz0vw.jpg\n150002\t低标条件逆袭：从美加双拒到“Director”职位获批，P女士的惊险移民路\t/images/Canada-fall.jpeg\n150001\t跨界突围：从传统贸易到绿色科技，W先生的BC PNP企业家移民之路\thttps://d2xsxph8kpxj0f.cloudfront.net/310519663292376041/ERSfzVi6JGQA5UonrK4h6y/posts/1771627380818-lxemwh.jpg\n",
+  "stderr": "",
+  "execution_time_ms": 368
+}

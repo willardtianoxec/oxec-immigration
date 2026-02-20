@@ -72,7 +72,16 @@ export function SuccessCaseDetail() {
   // Prepare article content with cover image if available
   let fullContent = post.content;
   if (post.coverImage) {
-    fullContent = `![${post.title}](${post.coverImage})\n\n${post.content}`;
+    // Ensure image URL is absolute with full domain
+    let imageUrl = post.coverImage;
+    if (!imageUrl.startsWith('http')) {
+      // Convert relative path to absolute URL with domain
+      if (!imageUrl.startsWith('/')) {
+        imageUrl = `/${imageUrl}`;
+      }
+      imageUrl = `${window.location.origin}${imageUrl}`;
+    }
+    fullContent = `![${post.title}](${imageUrl})\n\n${post.content}`;
   }
 
   return (
