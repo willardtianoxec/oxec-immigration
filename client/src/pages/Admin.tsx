@@ -64,24 +64,27 @@ export default function Admin() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="container mx-auto py-8 px-4">
-        <div className="mb-6">
+    <div className="min-h-screen flex flex-col bg-background">
+      {/* Breadcrumb Navigation */}
+      <div className="bg-white border-b border-border shadow-sm">
+        <div className="container flex items-center py-4">
           <Link href="/">
-            <Button variant="outline" size="sm">
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to Home
-            </Button>
+            <div className="flex items-center gap-2 cursor-pointer hover:opacity-80">
+              <ArrowLeft className="h-5 w-5" />
+              <span className="font-medium">返回首页</span>
+            </div>
           </Link>
         </div>
+      </div>
 
+      <div className="container mx-auto py-8 px-4">
         <div className="mb-8">
           <h1 className="text-3xl font-bold">Admin Dashboard</h1>
           <p className="text-muted-foreground">Manage blog posts, success cases, and appointments</p>
         </div>
 
         <Tabs defaultValue="blog" className="w-full">
-          <TabsList className="grid w-full grid-cols-4">
+          <TabsList className="grid w-full grid-cols-4 bg-blue-950">
             <TabsTrigger value="blog">Blog Posts</TabsTrigger>
             <TabsTrigger value="cases">Success Cases</TabsTrigger>
             <TabsTrigger value="images">Images</TabsTrigger>
