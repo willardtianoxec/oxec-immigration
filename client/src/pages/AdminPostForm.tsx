@@ -81,7 +81,7 @@ export function AdminPostForm() {
     },
   });
 
-  const uploadMutation = trpc.posts.upload.useMutation({
+  const uploadMutation = trpc.images.upload.useMutation({
     onError: (error) => {
       console.error("Upload error:", error);
       alert(`图片上传失败: ${error.message}`);
@@ -193,20 +193,24 @@ export function AdminPostForm() {
       };
       reader.readAsDataURL(file);
 
-      // Upload to S3
+      // Upload to image library
       const fileReader = new FileReader();
       fileReader.onload = async (e) => {
         const base64String = e.target?.result as string;
         try {
+          // Extract base64 data without data URL prefix
+          const base64Data = base64String.split(',')[1] || base64String;
           const result = await uploadMutation.mutateAsync({
-            file: base64String,
             filename: file.name,
+            base64Data: base64Data,
+            description: `Article cover image - ${new Date().toISOString()}`,
           });
-          // Save S3 URL to formData
-          setFormData((prev) => ({ ...prev, coverImage: result.url }));
+          // Save image library URL to formData
+          setFormData((prev) => ({ ...prev, coverImage: result.publicUrl }));
         } catch (error) {
           alert("图片上传失败，请重试");
           setCoverImagePreview("");
+          setFormData((prev) => ({ ...prev, coverImage: ""}));
         } finally {
           setIsUploadingImage(false);
         }
@@ -215,6 +219,7 @@ export function AdminPostForm() {
     } catch (error) {
       alert("图片处理失败，请重试");
       setCoverImagePreview("");
+      setFormData((prev) => ({ ...prev, coverImage: ""}));
       setIsUploadingImage(false);
     }
   };
@@ -628,6 +633,16 @@ export function AdminPostForm() {
                 disabled={isUploadingImage}
               />
             </div>
+            <div className="mt-4 flex gap-2">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => setIsImageSelectorOpen(true)}
+                disabled={isUploadingImage}
+              >
+                从图库选择
+              </Button>
+            </div>
             {coverImagePreview && (
               <div className="mt-4 relative">
                 <img
@@ -651,6 +666,17 @@ export function AdminPostForm() {
               </div>
             )}
           </div>
+
+          {/* Image Selector Modal */}
+          <ImageSelectorModal
+            isOpen={isImageSelectorOpen}
+            onClose={() => setIsImageSelectorOpen(false)}
+            onSelect={(image) => {
+              setCoverImagePreview(image.publicUrl);
+              setFormData((prev) => ({ ...prev, coverImage: image.publicUrl }));
+              setIsImageSelectorOpen(false);
+            }}
+          />
 
           {/* 摘要 */}
           <div>
