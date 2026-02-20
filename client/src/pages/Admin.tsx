@@ -79,12 +79,12 @@ export default function Admin() {
 
       <div className="container mx-auto py-8 px-4">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold">Admin Dashboard</h1>
+          <h1 className="text-3xl font-bold" style={{color: '#000080'}}>Admin Dashboard</h1>
           <p className="text-muted-foreground">Manage blog posts, success cases, and appointments</p>
         </div>
 
         <Tabs defaultValue="blog" className="w-full">
-          <TabsList className="grid w-full grid-cols-4 bg-blue-950">
+          <TabsList className="grid w-full grid-cols-4" style={{backgroundColor: '#e8e8e8'}}>
             <TabsTrigger value="blog">Blog Posts</TabsTrigger>
             <TabsTrigger value="cases">Success Cases</TabsTrigger>
             <TabsTrigger value="images">Images</TabsTrigger>
