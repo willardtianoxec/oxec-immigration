@@ -64,28 +64,28 @@ export default function Admin() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
       <div className="container mx-auto py-8 px-4">
         <div className="mb-6">
           <Link href="/">
-            <Button variant="outline" size="sm">
+            <Button variant="outline" size="sm" className="hover:bg-blue-50 hover:text-blue-600 transition-colors">
               <ArrowLeft className="h-4 w-4 mr-2" />
               Back to Home
             </Button>
           </Link>
         </div>
 
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold">Admin Dashboard</h1>
-          <p className="text-muted-foreground">Manage blog posts, success cases, and appointments</p>
+        <div className="mb-8 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-lg p-8 text-white shadow-lg">
+          <h1 className="text-4xl font-bold mb-2">Admin Dashboard</h1>
+          <p className="text-blue-100">Manage blog posts, success cases, and appointments</p>
         </div>
 
         <Tabs defaultValue="blog" className="w-full">
-          <TabsList className="grid w-full grid-cols-4">
-            <TabsTrigger value="blog">Blog Posts</TabsTrigger>
-            <TabsTrigger value="cases">Success Cases</TabsTrigger>
-            <TabsTrigger value="images">Images</TabsTrigger>
-            <TabsTrigger value="appointments">Appointments</TabsTrigger>
+          <TabsList className="grid w-full grid-cols-4 bg-white shadow-md rounded-lg p-1">
+            <TabsTrigger value="blog" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500 data-[state=active]:to-blue-600 data-[state=active]:text-white rounded transition-all">📝 Blog Posts</TabsTrigger>
+            <TabsTrigger value="cases" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-green-500 data-[state=active]:to-green-600 data-[state=active]:text-white rounded transition-all">🏆 Success Cases</TabsTrigger>
+            <TabsTrigger value="images" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-purple-600 data-[state=active]:text-white rounded transition-all">🖼️ Images</TabsTrigger>
+            <TabsTrigger value="appointments" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-orange-500 data-[state=active]:to-orange-600 data-[state=active]:text-white rounded transition-all">📅 Appointments</TabsTrigger>
           </TabsList>
 
           <TabsContent value="blog" className="mt-6">
@@ -125,31 +125,35 @@ function BlogPostsManagement() {
   };
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Blog Posts</CardTitle>
-        <CardDescription>Manage published blog posts</CardDescription>
+    <Card className="border-0 shadow-lg bg-white hover:shadow-xl transition-shadow">
+      <CardHeader className="bg-gradient-to-r from-blue-50 to-blue-100 border-b border-blue-200">
+        <CardTitle className="text-blue-900">📝 Blog Posts</CardTitle>
+        <CardDescription className="text-blue-700">Manage published blog posts</CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="pt-6">
         {isLoading ? (
-          <Loader2 className="h-8 w-8 animate-spin" />
+          <div className="flex justify-center py-8">
+            <Loader2 className="h-8 w-8 animate-spin text-blue-500" />
+          </div>
         ) : posts.length > 0 ? (
-          <div className="space-y-4">
+          <div className="space-y-3">
             {posts.map((post: any) => (
-              <div key={post.id} className="border rounded p-4">
+              <div key={post.id} className="border border-blue-200 rounded-lg p-4 hover:border-blue-400 hover:bg-blue-50 transition-all group">
                 <div className="flex justify-between items-start">
-                  <div>
-                    <h3 className="font-semibold">{post.title}</h3>
-                    <p className="text-sm text-gray-500">{post.category}</p>
-                    <p className="text-xs text-gray-400">{format(new Date(post.createdAt), "MMM d, yyyy")}</p>
+                  <div className="flex-1">
+                    <h3 className="font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">{post.title}</h3>
+                    <div className="flex gap-3 mt-2">
+                      <span className="inline-block px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded-full">{post.category}</span>
+                      <p className="text-xs text-gray-500">{format(new Date(post.createdAt), "MMM d, yyyy")}</p>
+                    </div>
                   </div>
-                  <div className="flex gap-2">
+                  <div className="flex gap-2 ml-4">
                     <Link href={`/admin/posts/${post.id}/edit`}>
-                      <Button size="sm" variant="outline">
+                      <Button size="sm" variant="outline" className="hover:bg-blue-500 hover:text-white hover:border-blue-500 transition-colors">
                         <Edit className="h-4 w-4" />
                       </Button>
                     </Link>
-                    <Button size="sm" variant="destructive" onClick={() => handleDelete(post.id)}>
+                    <Button size="sm" variant="destructive" onClick={() => handleDelete(post.id)} className="hover:bg-red-600 transition-colors">
                       <Trash2 className="h-4 w-4" />
                     </Button>
                   </div>
@@ -158,7 +162,9 @@ function BlogPostsManagement() {
             ))}
           </div>
         ) : (
-          <p className="text-gray-500">No posts yet</p>
+          <div className="text-center py-8">
+            <p className="text-gray-500">No posts yet</p>
+          </div>
         )}
       </CardContent>
     </Card>
@@ -181,31 +187,35 @@ function SuccessCasesManagement() {
   };
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Success Cases</CardTitle>
-        <CardDescription>Manage published success cases</CardDescription>
+    <Card className="border-0 shadow-lg bg-white hover:shadow-xl transition-shadow">
+      <CardHeader className="bg-gradient-to-r from-green-50 to-green-100 border-b border-green-200">
+        <CardTitle className="text-green-900">🏆 Success Cases</CardTitle>
+        <CardDescription className="text-green-700">Manage published success cases</CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="pt-6">
         {isLoading ? (
-          <Loader2 className="h-8 w-8 animate-spin" />
+          <div className="flex justify-center py-8">
+            <Loader2 className="h-8 w-8 animate-spin text-green-500" />
+          </div>
         ) : cases.length > 0 ? (
-          <div className="space-y-4">
+          <div className="space-y-3">
             {cases.map((caseItem: any) => (
-              <div key={caseItem.id} className="border rounded p-4">
+              <div key={caseItem.id} className="border border-green-200 rounded-lg p-4 hover:border-green-400 hover:bg-green-50 transition-all group">
                 <div className="flex justify-between items-start">
-                  <div>
-                    <h3 className="font-semibold">{caseItem.title}</h3>
-                    <p className="text-sm text-gray-500">{caseItem.category}</p>
-                    <p className="text-xs text-gray-400">{format(new Date(caseItem.createdAt), "MMM d, yyyy")}</p>
+                  <div className="flex-1">
+                    <h3 className="font-semibold text-gray-900 group-hover:text-green-600 transition-colors">{caseItem.title}</h3>
+                    <div className="flex gap-3 mt-2">
+                      <span className="inline-block px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full">{caseItem.category}</span>
+                      <p className="text-xs text-gray-500">{format(new Date(caseItem.createdAt), "MMM d, yyyy")}</p>
+                    </div>
                   </div>
-                  <div className="flex gap-2">
+                  <div className="flex gap-2 ml-4">
                     <Link href={`/admin/posts/${caseItem.id}/edit`}>
-                      <Button size="sm" variant="outline">
+                      <Button size="sm" variant="outline" className="hover:bg-green-500 hover:text-white hover:border-green-500 transition-colors">
                         <Edit className="h-4 w-4" />
                       </Button>
                     </Link>
-                    <Button size="sm" variant="destructive" onClick={() => handleDelete(caseItem.id)}>
+                    <Button size="sm" variant="destructive" onClick={() => handleDelete(caseItem.id)} className="hover:bg-red-600 transition-colors">
                       <Trash2 className="h-4 w-4" />
                     </Button>
                   </div>
@@ -214,7 +224,9 @@ function SuccessCasesManagement() {
             ))}
           </div>
         ) : (
-          <p className="text-gray-500">No success cases yet</p>
+          <div className="text-center py-8">
+            <p className="text-gray-500">No cases yet</p>
+          </div>
         )}
       </CardContent>
     </Card>
@@ -320,8 +332,8 @@ function ImageLibraryManagement() {
             />
             <div className="mt-4 text-white text-center">
               <p className="font-medium">{selectedImageForLightbox.filename}</p>
-              {selectedImageForLightbox.size && (
-                <p className="text-sm text-gray-300">大小: {formatFileSize(selectedImageForLightbox.size)}</p>
+                            {selectedImageForLightbox.fileSize && (
+                <p className="text-sm text-gray-300">大小: {formatFileSize(selectedImageForLightbox.fileSize)}</p>
               )}
             </div>
           </div>
@@ -330,10 +342,10 @@ function ImageLibraryManagement() {
 
       <div className="space-y-6">
         {/* Upload Section */}
-        <Card>
-          <CardHeader>
-            <CardTitle>上传新图片</CardTitle>
-            <CardDescription>上传图片到图库，所有图片将存储在GitHub仓库中</CardDescription>
+        <Card className="border-0 shadow-lg bg-white hover:shadow-xl transition-shadow">
+          <CardHeader className="bg-gradient-to-r from-purple-50 to-purple-100 border-b border-purple-200">
+            <CardTitle className="text-purple-900">📤 上传新图片</CardTitle>
+            <CardDescription className="text-purple-700">上传图片到图库，所有图片将存储在GitHub仓库中</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div
@@ -394,10 +406,10 @@ function ImageLibraryManagement() {
         </Card>
 
         {/* Image Gallery */}
-        <Card>
-          <CardHeader>
-            <CardTitle>图片库 ({images.length})</CardTitle>
-            <CardDescription>管理所有上传的图片，点击图片可预览</CardDescription>
+        <Card className="border-0 shadow-lg bg-white hover:shadow-xl transition-shadow">
+          <CardHeader className="bg-gradient-to-r from-purple-50 to-purple-100 border-b border-purple-200">
+            <CardTitle className="text-purple-900">🖼️ 图片库 ({images.length})</CardTitle>
+            <CardDescription className="text-purple-700">管理所有上传的图片，点击图片可预览</CardDescription>
           </CardHeader>
           <CardContent>
             {isLoading ? (
@@ -427,8 +439,8 @@ function ImageLibraryManagement() {
                         <p className="text-xs text-gray-500 break-all font-mono bg-gray-50 p-2 rounded">
                           {image.relativePath}
                         </p>
-                        {image.size && (
-                          <p className="text-xs text-gray-600">大小: {formatFileSize(image.size)}</p>
+                        {image.fileSize && (
+                          <p className="text-xs text-gray-600">大小: {formatFileSize(image.fileSize)}</p>
                         )}
                         {image.description && (
                           <p className="text-xs text-gray-600">{image.description}</p>
@@ -528,10 +540,10 @@ function AppointmentManagement() {
   const { data: appointments = [], isLoading } = trpc.appointments.list.useQuery();
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Appointments</CardTitle>
-        <CardDescription>View and manage appointment requests</CardDescription>
+    <Card className="border-0 shadow-lg bg-white hover:shadow-xl transition-shadow">
+      <CardHeader className="bg-gradient-to-r from-orange-50 to-orange-100 border-b border-orange-200">
+        <CardTitle className="text-orange-900">📅 Appointments</CardTitle>
+        <CardDescription className="text-orange-700">View and manage appointment requests</CardDescription>
       </CardHeader>
       <CardContent>
         {isLoading ? (
