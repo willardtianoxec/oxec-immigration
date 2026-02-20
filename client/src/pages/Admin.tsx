@@ -641,7 +641,7 @@ function ImageLibraryManagement() {
                         className="w-full h-32 object-cover cursor-pointer"
                         onClick={() => setSelectedImageForLightbox(image)}
                       />
-                      <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100">
+                      <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100">
                         <Button
                           size="sm"
                           variant="outline"
@@ -652,6 +652,33 @@ function ImageLibraryManagement() {
                           }}
                         >
                           复制URL
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="text-white border-white hover:bg-white hover:text-black"
+                          onClick={() => {
+                            const newWindow = window.open();
+                            if (newWindow) {
+                              newWindow.document.write(`
+                                <html>
+                                  <head>
+                                    <title>图片预览</title>
+                                    <style>
+                                      body { margin: 0; padding: 0; display: flex; align-items: center; justify-content: center; height: 100vh; background: #000; }
+                                      img { max-width: 100%; max-height: 100%; cursor: pointer; }
+                                    </style>
+                                  </head>
+                                  <body>
+                                    <img src="${image.publicUrl}" alt="${image.description}" onclick="window.close()" />
+                                  </body>
+                                </html>
+                              `);
+                              newWindow.document.close();
+                            }
+                          }}
+                        >
+                          看大图
                         </Button>
                       </div>
                       <Button
