@@ -2,8 +2,8 @@ import { useState } from "react";
 import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { useLocation, Link } from "wouter";
-import { Loader2, Trash2, Edit2, Plus, ArrowLeft } from "lucide-react";
+import { useLocation } from "wouter";
+import { Loader2, Trash2, Edit2, Plus } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -67,19 +67,7 @@ export default function AdminPosts() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-background">
-      {/* Breadcrumb Navigation */}
-      <div className="bg-white border-b border-border shadow-sm">
-        <div className="container flex items-center py-4">
-          <Link href="/">
-            <div className="flex items-center gap-2 cursor-pointer hover:opacity-80">
-              <ArrowLeft className="h-5 w-5" />
-              <span className="font-medium">返回首页</span>
-            </div>
-          </Link>
-        </div>
-      </div>
-
+    <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-8">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-bold">文章管理</h1>

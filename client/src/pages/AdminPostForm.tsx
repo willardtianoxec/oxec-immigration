@@ -47,19 +47,9 @@ export function AdminPostForm() {
   const params = useParams<{ id?: string }>();
   const postId = params?.id ? parseInt(params.id) : undefined;
   const isEditing = !!postId;
-  const [currentLocation, setLocation] = useLocation();
-  const [returnTo, setReturnTo] = useState<string>("/admin/posts");
+  const [, setLocation] = useLocation();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-
-  // 从localStorage读取返回目标，如果没有则使用默认值
-  useEffect(() => {
-    const saved = localStorage.getItem("postFormReturnTo");
-    if (saved) {
-      setReturnTo(saved);
-      localStorage.removeItem("postFormReturnTo");
-    }
-  }, []);
 
   const { data: authData } = trpc.auth.me.useQuery();
   const { data: post } = trpc.posts.getById.useQuery(
@@ -69,7 +59,7 @@ export function AdminPostForm() {
 
   const createMutation = trpc.posts.create.useMutation({
     onSuccess: () => {
-      setLocation(returnTo);
+      setLocation("/admin/posts");
     },
     onError: (error) => {
       console.error("Create post error:", error);
@@ -79,7 +69,7 @@ export function AdminPostForm() {
 
   const updateMutation = trpc.posts.update.useMutation({
     onSuccess: () => {
-      setLocation(returnTo);
+      setLocation("/admin/posts");
     },
     onError: (error) => {
       console.error("Update post error:", error);
