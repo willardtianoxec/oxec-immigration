@@ -113,7 +113,11 @@ export default function Admin() {
 }
 
 function BlogPostsManagement() {
-  const { data: posts = [], isLoading } = trpc.posts.list.useQuery();
+  const { data: posts = [], isLoading } = trpc.posts.list.useQuery({
+    type: "blog",
+    publishedOnly: false,
+    limit: 100,
+  });
   const deleteMutation = trpc.posts.delete.useMutation();
 
   const handleDelete = async (id: number) => {
@@ -147,7 +151,7 @@ function BlogPostsManagement() {
                     <p className="text-xs text-gray-400">{format(new Date(post.createdAt), "MMM d, yyyy")}</p>
                   </div>
                   <div className="flex gap-2">
-                    <Link href={`/admin/posts/${post.id}/edit`}>
+                    <Link href={`/admin/posts/${post.id}`}>
                       <Button size="sm" variant="outline">
                         <Edit className="h-4 w-4" />
                       </Button>
@@ -169,7 +173,11 @@ function BlogPostsManagement() {
 }
 
 function SuccessCasesManagement() {
-  const { data: cases = [], isLoading } = trpc.posts.list.useQuery();
+  const { data: cases = [], isLoading } = trpc.posts.list.useQuery({
+    type: "success-case",
+    publishedOnly: false,
+    limit: 100,
+  });
   const deleteMutation = trpc.posts.delete.useMutation();
 
   const handleDelete = async (id: number) => {
@@ -203,7 +211,7 @@ function SuccessCasesManagement() {
                     <p className="text-xs text-gray-400">{format(new Date(caseItem.createdAt), "MMM d, yyyy")}</p>
                   </div>
                   <div className="flex gap-2">
-                    <Link href={`/admin/posts/${caseItem.id}/edit`}>
+                    <Link href={`/admin/posts/${caseItem.id}`}>
                       <Button size="sm" variant="outline">
                         <Edit className="h-4 w-4" />
                       </Button>
