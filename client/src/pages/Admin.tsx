@@ -19,8 +19,16 @@ import {
   Edit,
   ArrowLeft,
   Loader2,
-  Image
+  Image,
+  Edit2
 } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { format } from "date-fns";
 import { getLoginUrl } from "@/const";
 
@@ -112,13 +120,31 @@ export default function Admin() {
   );
 }
 
+// 内容分类的中英文映射
+const CONTENT_CATEGORIES = {
+  "investment-immigration": "投资移民",
+  "family-reunion": "家庭团聚",
+  "maple-leaf-renewal": "枫叶卡续签",
+  "reconsideration": "拒签重审",
+  "temporary-resident": "临时居民申请",
+  "skilled-worker": "技术移民",
+  "citizenship": "公民入籍",
+  "other": "其他",
+} as const;
+
 function BlogPostsManagement() {
-  const { data: posts = [], isLoading } = trpc.posts.list.useQuery({
+  const [, setLocation] = useLocation();
+  const [contentCategory, setContentCategory] = useState<string | null>(null);
+  const [showDrafts, setShowDrafts] = useState(true);
+  const { data: posts = [], isLoading, refetch } = trpc.posts.list.useQuery({
     type: "blog",
-    publishedOnly: false,
+    contentCategory: contentCategory || undefined,
+    publishedOnly: !showDrafts,
     limit: 100,
   });
-  const deleteMutation = trpc.posts.delete.useMutation();
+  const deleteMutation = trpc.posts.delete.useMutation({
+    onSuccess: () => refetch(),
+  });
 
   const handleDelete = async (id: number) => {
     if (confirm("确定要删除这篇文章吗？")) {
@@ -131,13 +157,59 @@ function BlogPostsManagement() {
     }
   };
 
+  const handleNewPost = () => {
+    localStorage.setItem("postFormReturnTo", "/admin");
+    setLocation("/admin/posts/new");
+  };
+
   return (
     <Card>
-      <CardHeader>
-        <CardTitle>Blog Posts</CardTitle>
-        <CardDescription>Manage published blog posts</CardDescription>
+      <CardHeader className="flex flex-row items-center justify-between">
+        <div>
+          <CardTitle>Blog Posts</CardTitle>
+          <CardDescription>Manage blog posts</CardDescription>
+        </div>
+        <Button onClick={handleNewPost} size="sm">
+          <Plus className="h-4 w-4 mr-2" />
+          新建
+        </Button>
       </CardHeader>
       <CardContent>
+        {/* 内容分类筛选和显示草稿选项 */}
+        <div className="flex gap-4 mb-6 flex-wrap items-center">
+          <div className="flex items-center gap-2">
+            <label className="text-sm font-medium">按分类筛选:</label>
+            <Select
+              value={contentCategory || "all"}
+              onValueChange={(value) =>
+                setContentCategory(value === "all" ? null : value)
+              }
+            >
+              <SelectTrigger className="w-40">
+                <SelectValue placeholder="选择分类" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">全部分类</SelectItem>
+                {Object.entries(CONTENT_CATEGORIES).map(([key, label]) => (
+                  <SelectItem key={key} value={key}>
+                    {label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className="flex items-center gap-2 ml-auto">
+            <Button
+              variant={showDrafts ? "default" : "outline"}
+              size="sm"
+              onClick={() => setShowDrafts(!showDrafts)}
+            >
+              {showDrafts ? "显示所有" : "仅显示已发布"}
+            </Button>
+          </div>
+        </div>
+
         {isLoading ? (
           <Loader2 className="h-8 w-8 animate-spin" />
         ) : posts.length > 0 ? (
@@ -145,15 +217,38 @@ function BlogPostsManagement() {
             {posts.map((post: any) => (
               <div key={post.id} className="border rounded p-4">
                 <div className="flex justify-between items-start">
-                  <div>
+                  <div className="flex-1">
                     <h3 className="font-semibold">{post.title}</h3>
-                    <p className="text-sm text-gray-500">{post.category}</p>
-                    <p className="text-xs text-gray-400">{format(new Date(post.createdAt), "MMM d, yyyy")}</p>
+                    {post.subtitle && <p className="text-sm text-gray-600 mb-2">{post.subtitle}</p>}
+                    <div className="flex gap-2 items-center text-xs text-gray-500 flex-wrap mt-2">
+                      {post.published ? (
+                        <span className="text-green-600 font-semibold">✓ 已发布</span>
+                      ) : (
+                        <span className="text-yellow-600 font-semibold">◉ 草稿</span>
+                      )}
+                      {post.publishedAt && (
+                        <span>{new Date(post.publishedAt).toLocaleDateString("zh-CN")}</span>
+                      )}
+                      {post.tags && <span>标签: {post.tags}</span>}
+                    </div>
                   </div>
                   <div className="flex gap-2">
+                    {post.published && (
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => {
+                          window.open(`/blog/${post.slug}`, "_blank");
+                        }}
+                      >
+                        查看
+                      </Button>
+                    )}
                     <Link href={`/admin/posts/${post.id}`}>
-                      <Button size="sm" variant="outline">
-                        <Edit className="h-4 w-4" />
+                      <Button size="sm" variant="outline" onClick={() => {
+                        localStorage.setItem("postFormReturnTo", "/admin");
+                      }}>
+                        <Edit2 className="h-4 w-4" />
                       </Button>
                     </Link>
                     <Button size="sm" variant="destructive" onClick={() => handleDelete(post.id)}>
@@ -165,7 +260,13 @@ function BlogPostsManagement() {
             ))}
           </div>
         ) : (
-          <p className="text-gray-500">No posts yet</p>
+          <div className="text-center py-8">
+            <p className="text-gray-500 mb-4">暂无文章</p>
+            <Button onClick={handleNewPost} size="sm">
+              <Plus className="h-4 w-4 mr-2" />
+              创建第一篇
+            </Button>
+          </div>
         )}
       </CardContent>
     </Card>
@@ -173,12 +274,18 @@ function BlogPostsManagement() {
 }
 
 function SuccessCasesManagement() {
-  const { data: cases = [], isLoading } = trpc.posts.list.useQuery({
+  const [, setLocation] = useLocation();
+  const [contentCategory, setContentCategory] = useState<string | null>(null);
+  const [showDrafts, setShowDrafts] = useState(true);
+  const { data: cases = [], isLoading, refetch } = trpc.posts.list.useQuery({
     type: "success-case",
-    publishedOnly: false,
+    contentCategory: contentCategory || undefined,
+    publishedOnly: !showDrafts,
     limit: 100,
   });
-  const deleteMutation = trpc.posts.delete.useMutation();
+  const deleteMutation = trpc.posts.delete.useMutation({
+    onSuccess: () => refetch(),
+  });
 
   const handleDelete = async (id: number) => {
     if (confirm("确定要删除这个案例吗？")) {
@@ -191,13 +298,59 @@ function SuccessCasesManagement() {
     }
   };
 
+  const handleNewPost = () => {
+    localStorage.setItem("postFormReturnTo", "/admin");
+    setLocation("/admin/posts/new");
+  };
+
   return (
     <Card>
-      <CardHeader>
-        <CardTitle>Success Cases</CardTitle>
-        <CardDescription>Manage published success cases</CardDescription>
+      <CardHeader className="flex flex-row items-center justify-between">
+        <div>
+          <CardTitle>Success Cases</CardTitle>
+          <CardDescription>Manage success cases</CardDescription>
+        </div>
+        <Button onClick={handleNewPost} size="sm">
+          <Plus className="h-4 w-4 mr-2" />
+          新建
+        </Button>
       </CardHeader>
       <CardContent>
+        {/* 内容分类筛选和显示草稿选项 */}
+        <div className="flex gap-4 mb-6 flex-wrap items-center">
+          <div className="flex items-center gap-2">
+            <label className="text-sm font-medium">按分类筛选:</label>
+            <Select
+              value={contentCategory || "all"}
+              onValueChange={(value) =>
+                setContentCategory(value === "all" ? null : value)
+              }
+            >
+              <SelectTrigger className="w-40">
+                <SelectValue placeholder="选择分类" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">全部分类</SelectItem>
+                {Object.entries(CONTENT_CATEGORIES).map(([key, label]) => (
+                  <SelectItem key={key} value={key}>
+                    {label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className="flex items-center gap-2 ml-auto">
+            <Button
+              variant={showDrafts ? "default" : "outline"}
+              size="sm"
+              onClick={() => setShowDrafts(!showDrafts)}
+            >
+              {showDrafts ? "显示所有" : "仅显示已发布"}
+            </Button>
+          </div>
+        </div>
+
         {isLoading ? (
           <Loader2 className="h-8 w-8 animate-spin" />
         ) : cases.length > 0 ? (
@@ -205,15 +358,38 @@ function SuccessCasesManagement() {
             {cases.map((caseItem: any) => (
               <div key={caseItem.id} className="border rounded p-4">
                 <div className="flex justify-between items-start">
-                  <div>
+                  <div className="flex-1">
                     <h3 className="font-semibold">{caseItem.title}</h3>
-                    <p className="text-sm text-gray-500">{caseItem.category}</p>
-                    <p className="text-xs text-gray-400">{format(new Date(caseItem.createdAt), "MMM d, yyyy")}</p>
+                    {caseItem.subtitle && <p className="text-sm text-gray-600 mb-2">{caseItem.subtitle}</p>}
+                    <div className="flex gap-2 items-center text-xs text-gray-500 flex-wrap mt-2">
+                      {caseItem.published ? (
+                        <span className="text-green-600 font-semibold">✓ 已发布</span>
+                      ) : (
+                        <span className="text-yellow-600 font-semibold">◉ 草稿</span>
+                      )}
+                      {caseItem.publishedAt && (
+                        <span>{new Date(caseItem.publishedAt).toLocaleDateString("zh-CN")}</span>
+                      )}
+                      {caseItem.tags && <span>标签: {caseItem.tags}</span>}
+                    </div>
                   </div>
                   <div className="flex gap-2">
+                    {caseItem.published && (
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => {
+                          window.open(`/success-cases/${caseItem.slug}`, "_blank");
+                        }}
+                      >
+                        查看
+                      </Button>
+                    )}
                     <Link href={`/admin/posts/${caseItem.id}`}>
-                      <Button size="sm" variant="outline">
-                        <Edit className="h-4 w-4" />
+                      <Button size="sm" variant="outline" onClick={() => {
+                        localStorage.setItem("postFormReturnTo", "/admin");
+                      }}>
+                        <Edit2 className="h-4 w-4" />
                       </Button>
                     </Link>
                     <Button size="sm" variant="destructive" onClick={() => handleDelete(caseItem.id)}>
@@ -225,7 +401,13 @@ function SuccessCasesManagement() {
             ))}
           </div>
         ) : (
-          <p className="text-gray-500">No success cases yet</p>
+          <div className="text-center py-8">
+            <p className="text-gray-500 mb-4">暂无案例</p>
+            <Button onClick={handleNewPost} size="sm">
+              <Plus className="h-4 w-4 mr-2" />
+              创建第一个
+            </Button>
+          </div>
         )}
       </CardContent>
     </Card>
@@ -287,76 +469,28 @@ function ImageLibraryManagement() {
     }
   };
 
-  const handleCopyPath = (path: string) => {
-    navigator.clipboard.writeText(path);
-    toast.success("Path copied to clipboard");
-  };
-
-  const formatFileSize = (bytes: number): string => {
-    if (bytes === 0) return '0 B';
-    const k = 1024;
-    const sizes = ['B', 'KB', 'MB', 'GB'];
-    const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return Math.round((bytes / Math.pow(k, i)) * 100) / 100 + ' ' + sizes[i];
-  };
-
-  // Calculate pagination
+  const paginatedImages = images.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE
+  );
   const totalPages = Math.ceil(images.length / ITEMS_PER_PAGE);
-  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const endIndex = startIndex + ITEMS_PER_PAGE;
-  const paginatedImages = images.slice(startIndex, endIndex);
 
   return (
-    <>
-      {/* Lightbox Modal */}
-      {selectedImageForLightbox && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4"
-          onClick={() => setSelectedImageForLightbox(null)}
-        >
-          <div
-            className="max-w-4xl max-h-[90vh] relative"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button
-              onClick={() => setSelectedImageForLightbox(null)}
-              className="absolute -top-10 right-0 text-white hover:text-gray-300 text-2xl"
-            >
-              ✕
-            </button>
-            <img
-              src={selectedImageForLightbox.publicUrl}
-              alt={selectedImageForLightbox.filename}
-              className="max-w-full max-h-[90vh] object-contain"
-            />
-            <div className="mt-4 text-white text-center">
-              <p className="font-medium">{selectedImageForLightbox.filename}</p>
-              {selectedImageForLightbox.size && (
-                <p className="text-sm text-gray-300">大小: {formatFileSize(selectedImageForLightbox.size)}</p>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
-
-      <div className="space-y-6">
-        {/* Upload Section */}
-        <Card>
-          <CardHeader>
-            <CardTitle>上传新图片</CardTitle>
-            <CardDescription>上传图片到图库，所有图片将存储在GitHub仓库中</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div
-              className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center cursor-pointer hover:border-gray-400 transition"
-              onClick={() => fileInputRef.current?.click()}
-              onDragOver={(e) => e.preventDefault()}
-              onDrop={(e) => {
-                e.preventDefault();
-                const file = e.dataTransfer.files?.[0];
-                if (file) setSelectedFile(file);
-              }}
-            >
+    <Card>
+      <CardHeader>
+        <CardTitle>Image Library</CardTitle>
+        <CardDescription>Manage your image collection</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <div className="space-y-6">
+          {/* Upload Section */}
+          <div className="border-2 border-dashed rounded-lg p-6">
+            <div className="flex flex-col items-center justify-center gap-4">
+              <Image className="h-12 w-12 text-gray-400" />
+              <div className="text-center">
+                <p className="font-semibold">Upload Image</p>
+                <p className="text-sm text-gray-500">Click to select or drag and drop</p>
+              </div>
               <input
                 ref={fileInputRef}
                 type="file"
@@ -364,200 +498,141 @@ function ImageLibraryManagement() {
                 onChange={handleFileSelect}
                 className="hidden"
               />
-              <Plus className="mx-auto h-8 w-8 text-gray-400 mb-2" />
-              <p className="text-sm text-gray-600">
-                {selectedFile ? selectedFile.name : "点击或拖拽图片到此处"}
-              </p>
+              <Button onClick={() => fileInputRef.current?.click()} variant="outline">
+                Select Image
+              </Button>
+              {selectedFile && <p className="text-sm">{selectedFile.name}</p>}
             </div>
+          </div>
 
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="description">图片描述（可选）</Label>
-                <Input
-                  id="description"
-                  placeholder="例如：PR Card Section 1"
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="category">分类（可选）</Label>
-                <Input
-                  id="category"
-                  placeholder="例如：service-images"
-                  value={category}
-                  onChange={(e) => setCategory(e.target.value)}
-                />
-              </div>
+          {/* Metadata */}
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <Label>Description</Label>
+              <Input
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                placeholder="Image description"
+              />
             </div>
+            <div>
+              <Label>Category</Label>
+              <Input
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+                placeholder="Image category"
+              />
+            </div>
+          </div>
 
-            <Button onClick={handleUpload} disabled={uploadMutation.isPending || !selectedFile}>
-              {uploadMutation.isPending ? (
-                <>
-                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                  上传中...
-                </>
-              ) : (
-                "上传图片"
-              )}
-            </Button>
-          </CardContent>
-        </Card>
+          <Button onClick={handleUpload} disabled={!selectedFile || uploadMutation.isPending} className="w-full">
+            {uploadMutation.isPending ? "Uploading..." : "Upload Image"}
+          </Button>
 
-        {/* Image Gallery */}
-        <Card>
-          <CardHeader>
-            <CardTitle>图片库 ({images.length})</CardTitle>
-            <CardDescription>管理所有上传的图片，点击图片可预览</CardDescription>
-          </CardHeader>
-          <CardContent>
-            {isLoading ? (
+          {/* Image Gallery */}
+          {isLoading ? (
+            <div className="flex justify-center">
               <Loader2 className="h-8 w-8 animate-spin" />
-            ) : images.length > 0 ? (
-              <>
-                <p className="text-sm text-gray-600 mb-4">
-                  显示 {startIndex + 1}-{Math.min(endIndex, images.length)} / 共 {images.length} 张图片
-                </p>
-
-                <div className="grid grid-cols-4 gap-4 mb-6">
-                  {paginatedImages.map((image: any) => (
-                    <Card key={image.id} className="overflow-hidden hover:shadow-lg transition">
-                      <div
-                        className="w-full h-48 bg-gray-200 cursor-pointer overflow-hidden"
-                        onClick={() => setSelectedImageForLightbox(image)}
-                      >
-                        <img
-                          src={image.publicUrl}
-                          alt={image.filename}
-                          className="w-full h-full object-contain"
-                          loading="lazy"
-                        />
-                      </div>
-                      <div className="p-3 space-y-2">
-                        <p className="text-sm font-medium truncate">{image.filename}</p>
-                        <p className="text-xs text-gray-500 break-all font-mono bg-gray-50 p-2 rounded">
-                          {image.relativePath}
-                        </p>
-                        {image.size && (
-                          <p className="text-xs text-gray-600">大小: {formatFileSize(image.size)}</p>
-                        )}
-                        {image.description && (
-                          <p className="text-xs text-gray-600">{image.description}</p>
-                        )}
-                        {image.category && (
-                          <span className="inline-block text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">
-                            {image.category}
-                          </span>
-                        )}
-                        <div className="flex gap-2 pt-2">
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            onClick={() => handleCopyPath(image.relativePath)}
-                            className="flex-1 text-xs"
-                          >
-                            <Plus className="h-3 w-3 mr-1" />
-                            复制路径
-                          </Button>
-                          <Button
-                            size="sm"
-                            variant="destructive"
-                            onClick={() => handleDelete(image.id)}
-                          >
-                            <Trash2 className="h-3 w-3" />
-                          </Button>
-                        </div>
-                      </div>
-                    </Card>
-                  ))}
-                </div>
-
-                {/* Pagination Controls */}
-                {totalPages > 1 && (
-                  <div className="flex items-center justify-center gap-2 pt-4">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => setCurrentPage(1)}
-                      disabled={currentPage === 1}
-                    >
-                      首页
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
-                      disabled={currentPage === 1}
-                    >
-                      上一页
-                    </Button>
-                    <span className="text-sm text-gray-600">
-                      第 {currentPage} / {totalPages} 页
-                    </span>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
-                      disabled={currentPage === totalPages}
-                    >
-                      下一页
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => setCurrentPage(totalPages)}
-                      disabled={currentPage === totalPages}
-                    >
-                      末页
-                    </Button>
-                    <Input
-                      type="number"
-                      min="1"
-                      max={totalPages}
-                      value={currentPage}
-                      onChange={(e) => {
-                        const page = parseInt(e.target.value) || 1;
-                        setCurrentPage(Math.min(Math.max(1, page), totalPages));
-                      }}
-                      className="w-16 text-sm"
-                      placeholder="页码"
+            </div>
+          ) : (
+            <>
+              <div className="grid grid-cols-4 gap-4">
+                {paginatedImages.map((image: any) => (
+                  <div key={image.id} className="relative group">
+                    <img
+                      src={image.url}
+                      alt={image.description}
+                      className="w-full h-32 object-cover rounded cursor-pointer"
+                      onClick={() => setSelectedImageForLightbox(image)}
                     />
+                    <Button
+                      size="sm"
+                      variant="destructive"
+                      className="absolute top-1 right-1 opacity-0 group-hover:opacity-100"
+                      onClick={() => handleDelete(image.id)}
+                    >
+                      <Trash2 className="h-3 w-3" />
+                    </Button>
                   </div>
-                )}
-              </>
-            ) : (
-              <p className="text-gray-500">No images yet</p>
-            )}
-          </CardContent>
-        </Card>
-      </div>
-    </>
+                ))}
+              </div>
+
+              {/* Pagination */}
+              {totalPages > 1 && (
+                <div className="flex justify-center gap-2">
+                  <Button
+                    variant="outline"
+                    onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+                    disabled={currentPage === 1}
+                  >
+                    Previous
+                  </Button>
+                  <span className="flex items-center px-4">
+                    Page {currentPage} of {totalPages}
+                  </span>
+                  <Button
+                    variant="outline"
+                    onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+                    disabled={currentPage === totalPages}
+                  >
+                    Next
+                  </Button>
+                </div>
+              )}
+            </>
+          )}
+        </div>
+      </CardContent>
+    </Card>
   );
 }
 
 function AppointmentManagement() {
-  const { data: appointments = [], isLoading } = trpc.appointments.list.useQuery();
+  const { data: appointments = [], isLoading, refetch } = trpc.appointments.list.useQuery();
+  const deleteMutation = trpc.appointments.delete.useMutation({
+    onSuccess: () => refetch(),
+  });
+
+  const handleDelete = async (id: number) => {
+    if (confirm("确定要删除这个预约吗？")) {
+      try {
+        await deleteMutation.mutateAsync({ id });
+        toast.success("Appointment deleted");
+      } catch (error) {
+        toast.error("Failed to delete appointment");
+      }
+    }
+  };
 
   return (
     <Card>
       <CardHeader>
         <CardTitle>Appointments</CardTitle>
-        <CardDescription>View and manage appointment requests</CardDescription>
+        <CardDescription>Manage consultation appointments</CardDescription>
       </CardHeader>
       <CardContent>
         {isLoading ? (
           <Loader2 className="h-8 w-8 animate-spin" />
         ) : appointments.length > 0 ? (
           <div className="space-y-4">
-            {appointments.map((apt: any) => (
-              <div key={apt.id} className="border rounded p-4">
+            {appointments.map((appointment: any) => (
+              <div key={appointment.id} className="border rounded p-4">
                 <div className="flex justify-between items-start">
                   <div>
-                    <h3 className="font-semibold">{apt.name}</h3>
-                    <p className="text-sm text-gray-500">{apt.email}</p>
-                    <p className="text-sm text-gray-500">{apt.phone}</p>
-                    <p className="text-xs text-gray-400">{format(new Date(apt.createdAt), "MMM d, yyyy")}</p>
+                    <h3 className="font-semibold">{appointment.name}</h3>
+                    <p className="text-sm text-gray-500">{appointment.email}</p>
+                    <p className="text-sm text-gray-500">{appointment.phone}</p>
+                    <p className="text-xs text-gray-400">
+                      {format(new Date(appointment.appointmentDate), "MMM d, yyyy HH:mm")}
+                    </p>
                   </div>
+                  <Button
+                    size="sm"
+                    variant="destructive"
+                    onClick={() => handleDelete(appointment.id)}
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
                 </div>
               </div>
             ))}
