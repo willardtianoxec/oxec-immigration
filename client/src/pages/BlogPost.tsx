@@ -72,7 +72,13 @@ export function BlogPost() {
   // Prepare article content with cover image if available
   let fullContent = post.content;
   if (post.coverImage) {
-    fullContent = `![${post.title}](${post.coverImage})\n\n${post.content}`;
+    // Ensure image URL is absolute
+    const imageUrl = post.coverImage.startsWith('http') 
+      ? post.coverImage 
+      : post.coverImage.startsWith('/') 
+      ? post.coverImage 
+      : `/${post.coverImage}`;
+    fullContent = `![${post.title}](${imageUrl})\n\n${post.content}`;
   }
 
   return (
