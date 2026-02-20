@@ -72,7 +72,7 @@ export default function SkillWorker() {
         </div>
         <div className="flex justify-center">
           <img
-            src="/images/img-14.jpg"
+            src="/images/img-1-opt.jpg"
             alt="Skilled Workers"
             className="w-full h-auto shadow-lg"
           />
@@ -83,7 +83,7 @@ export default function SkillWorker() {
       <section id="ee" className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center py-20 px-4 scroll-mt-20">
         <div className="flex justify-center lg:order-first">
           <img
-            src="/images/img-15.jpg"
+            src="/images/img-2-opt.jpg"
             alt="Express Entry"
             className="w-full h-auto shadow-lg"
           />
@@ -118,7 +118,7 @@ export default function SkillWorker() {
         </div>
         <div className="flex justify-center">
           <img
-            src="/images/img-16.jpg"
+            src="/images/img-3-opt.jpg"
             alt="BC PNP"
             className="w-full h-auto shadow-lg"
           />
@@ -129,7 +129,7 @@ export default function SkillWorker() {
       <section id="lmia" className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center py-20 px-4 scroll-mt-20">
         <div className="flex justify-center lg:order-first">
           <img
-            src="/images/img-6.jpg"
+            src="/images/img-4-opt.jpg"
             alt="LMIA"
             className="w-full h-auto shadow-lg"
           />
@@ -164,7 +164,7 @@ export default function SkillWorker() {
         </div>
         <div className="flex justify-center">
           <img
-            src="/images/img-7.jpg"
+            src="/images/img-5-opt.jpg"
             alt="ICT"
             className="w-full h-auto shadow-lg"
           />
@@ -175,7 +175,7 @@ export default function SkillWorker() {
       <section id="pgwp" className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center py-20 px-4 scroll-mt-20">
         <div className="flex justify-center lg:order-first">
           <img
-            src="/images/img-8.jpg"
+            src="/images/img-1-opt.jpg"
             alt="PGWP"
             className="w-full h-auto shadow-lg"
           />

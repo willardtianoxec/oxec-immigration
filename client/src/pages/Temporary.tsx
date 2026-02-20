@@ -78,7 +78,7 @@ export default function Temporary() {
           </div>
           <div className="flex justify-center">
             <img
-              src="/images/img-9.jpg"
+              src="/images/img-1-opt.jpg"
               alt="Study Abroad"
               className="w-full h-auto shadow-lg" style={{ borderRadius: "0px" }}
             />
@@ -89,7 +89,7 @@ export default function Temporary() {
         <section className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center py-20">
           <div className="flex justify-center lg:order-first">
             <img
-              src="/images/img-10.jpg"
+              src="/images/img-2-opt.jpg"
               alt="Study Quota and PAL"
               className="w-full h-auto shadow-lg" style={{ borderRadius: "0px" }}
             />
@@ -124,7 +124,7 @@ export default function Temporary() {
           </div>
           <div className="flex justify-center">
             <img
-              src="/images/img-11.jpg"
+              src="/images/img-3-opt.jpg"
               alt="Family Visit"
               className="w-full h-auto shadow-lg" style={{ borderRadius: "0px" }}
             />
@@ -135,7 +135,7 @@ export default function Temporary() {
         <section id="visitor" className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center py-20 scroll-mt-20">
           <div className="flex justify-center lg:order-first">
             <img
-              src="/images/img-12.jpg"
+              src="/images/img-4-opt.jpg"
               alt="Visitor Visa"
               className="w-full h-auto shadow-lg" style={{ borderRadius: "0px" }}
             />
@@ -170,7 +170,7 @@ export default function Temporary() {
           </div>
           <div className="flex justify-center">
             <img
-              src="/images/img-13.jpg"
+              src="/images/img-5-opt.jpg"
               alt="Super Visa"
               className="w-full h-auto shadow-lg" style={{ borderRadius: "0px" }}
             />

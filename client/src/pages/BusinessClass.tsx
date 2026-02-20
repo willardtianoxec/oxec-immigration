@@ -7,6 +7,7 @@ import { ArrowLeft, ArrowRight, ChevronDown } from "lucide-react";
 import { trpc } from "@/lib/trpc";
 import { Footer } from "@/components/Footer";
 import { Link } from "wouter";
+import { OptimizedImage } from "@/components/OptimizedImage";
 
 export default function BusinessClass() {
   const [isEnglish, setIsEnglish] = useState(false);
@@ -222,8 +223,8 @@ export default function BusinessClass() {
               <p className="text-lg text-muted-foreground leading-relaxed">{t.overview.text}</p>
             </div>
             <div className="order-1 md:order-2">
-              <img
-                src="/images/img-4.jpg"
+              <OptimizedImage
+                src="/images/img-4-opt.jpg"
                 alt="Vancouver BC Skyline"
                 className="w-full h-auto shadow-lg object-cover"
                 style={{ aspectRatio: "16/9", borderRadius: "0px" }}
@@ -239,7 +240,7 @@ export default function BusinessClass() {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <img
-                src="/images/img-5.jpg"
+                src="/images/img-5-opt.jpg"
                 alt="Business Meeting"
                 className="w-full h-auto shadow-lg object-cover"
                 style={{ aspectRatio: "16/9", borderRadius: "0px" }}
@@ -270,7 +271,7 @@ export default function BusinessClass() {
             </div>
             <div className="order-1 md:order-2">
               <img
-                src="/images/img-1.jpg"
+                src="/images/img-1-opt.jpg"
                 alt="BC Regions"
                 className="w-full h-auto shadow-lg object-cover"
                 style={{ aspectRatio: "16/9", borderRadius: "0px" }}
@@ -286,7 +287,7 @@ export default function BusinessClass() {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <img
-                src="/images/img-2.jpg"
+                src="/images/img-2-opt.jpg"
                 alt="Document Submission Office"
                 className="w-full h-auto shadow-lg object-cover"
                 style={{ aspectRatio: "16/9", borderRadius: "0px" }}
