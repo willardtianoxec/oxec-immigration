@@ -441,17 +441,23 @@ function ImageLibraryManagement() {
     }
 
     try {
-      const formData = new FormData();
-      formData.append("file", selectedFile);
-      formData.append("description", description);
-      formData.append("category", category);
-
-      await uploadMutation.mutateAsync(formData as any);
-      toast.success("Image uploaded successfully");
-      setSelectedFile(null);
-      setDescription("");
-      setCategory("");
-      refetch();
+      // Convert file to base64
+      const reader = new FileReader();
+      reader.onload = async () => {
+        const base64String = (reader.result as string).split(',')[1];
+        await uploadMutation.mutateAsync({
+          filename: selectedFile.name,
+          base64Data: base64String,
+          description: description || undefined,
+          category: category || undefined,
+        });
+        toast.success("Image uploaded successfully");
+        setSelectedFile(null);
+        setDescription("");
+        setCategory("");
+        refetch();
+      };
+      reader.readAsDataURL(selectedFile);
     } catch (error) {
       toast.error("Failed to upload image");
     }
@@ -540,7 +546,7 @@ function ImageLibraryManagement() {
                 {paginatedImages.map((image: any) => (
                   <div key={image.id} className="relative group">
                     <img
-                      src={image.url}
+                      src={image.publicUrl}
                       alt={image.description}
                       className="w-full h-32 object-cover rounded cursor-pointer"
                       onClick={() => setSelectedImageForLightbox(image)}
