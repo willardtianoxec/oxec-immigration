@@ -574,48 +574,50 @@ function ImageLibraryManagement() {
                   </div>
                   <div>
                     <p className="font-medium text-sm mb-2">URL</p>
-                    <div className="flex gap-2">
+                    <div className="flex gap-2 flex-wrap">
                       <input
                         type="text"
                         value={selectedImageForLightbox.publicUrl}
                         readOnly
-                        className="flex-1 px-3 py-2 border rounded text-sm"
+                        className="flex-1 min-w-0 px-3 py-2 border rounded text-sm"
                       />
-                      <Button
-                        size="sm"
-                        onClick={() => {
-                          navigator.clipboard.writeText(selectedImageForLightbox.publicUrl);
-                          toast.success("URL copied to clipboard");
-                        }}
-                      >
-                        复制
-                      </Button>
-                      <Button
-                        size="sm"
-                        onClick={() => {
-                          // 创建一个新窗口显示大图
-                          const newWindow = window.open();
-                          if (newWindow) {
-                            newWindow.document.write(`
-                              <html>
-                                <head>
-                                  <title>图片预览</title>
-                                  <style>
-                                    body { margin: 0; padding: 0; display: flex; align-items: center; justify-content: center; height: 100vh; background: #000; }
-                                    img { max-width: 100%; max-height: 100%; cursor: pointer; }
-                                  </style>
-                                </head>
-                                <body>
-                                  <img src="${selectedImageForLightbox.publicUrl}" alt="${selectedImageForLightbox.description}" onclick="window.close()" />
-                                </body>
-                              </html>
-                            `);
-                            newWindow.document.close();
-                          }
-                        }}
-                      >
-                        看大图
-                      </Button>
+                      <div className="flex gap-2">
+                        <Button
+                          size="sm"
+                          onClick={() => {
+                            navigator.clipboard.writeText(selectedImageForLightbox.publicUrl);
+                            toast.success("URL copied to clipboard");
+                          }}
+                        >
+                          复制
+                        </Button>
+                        <Button
+                          size="sm"
+                          onClick={() => {
+                            // 创建一个新窗口显示大图
+                            const newWindow = window.open();
+                            if (newWindow) {
+                              newWindow.document.write(`
+                                <html>
+                                  <head>
+                                    <title>图片预览</title>
+                                    <style>
+                                      body { margin: 0; padding: 0; display: flex; align-items: center; justify-content: center; height: 100vh; background: #000; }
+                                      img { max-width: 100%; max-height: 100%; cursor: pointer; }
+                                    </style>
+                                  </head>
+                                  <body>
+                                    <img src="${selectedImageForLightbox.publicUrl}" alt="${selectedImageForLightbox.description}" onclick="window.close()" />
+                                  </body>
+                                </html>
+                              `);
+                              newWindow.document.close();
+                            }
+                          }}
+                        >
+                          看大图
+                        </Button>
+                      </div>
                     </div>
                   </div>
                 </div>
