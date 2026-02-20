@@ -271,8 +271,8 @@ export default function Home() {
             </div>
             <div className="order-1 md:order-2">
               <img
-                src="https://private-us-east-1.manuscdn.com/sessionFile/i9ZSSj6IB1QFKBGCY6lMon/sandbox/47gQF6xde6U06ma8TIrb81-img-1_1771557406000_na1fn_bW10cm8tdG93ZXItMS1lbnRyYW5jZQ.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvaTlaU1NqNklCMVFGS0JHQ1k2bE1vbi9zYW5kYm94LzQ3Z1FGNnhkZTZVMDZtYThUSXJiODEtaW1nLTFfMTc3MTU1NzQwNjAwMF9uYTFmbl9iV1YwY204dGRHOTNaWEl0TVMxbGJuUnlZVzVqWlEuanBnP3gtb3NzLXByb2Nlc3M9aW1hZ2UvcmVzaXplLHdfMTkyMCxoXzE5MjAvZm9ybWF0LHdlYnAvcXVhbGl0eSxxXzgwIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNzk4NzYxNjAwfX19XX0_&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=vT6bEWIwujIoa0ljVlR3n8R27HZAm1jNwr69Zm9vq7nMXAM82O~R1gRSSLho79bxmb2GF9NGLnRm~hZ20j0rEeuyZ4H4gcqy~qSlctdMu-K-zSK9TVvK9s1msMB8az4tzDIWdTmUwC2S6jTRn~S2tNkEkWaQigdm9RTUoHGNYI1KfxAtXexT-eQPa~lS7l4IXLHm6IWRJexqJYjq~DUGBnaHpFyna39DfRDNqigB3jmjFLYNlP-3FDYYc68zSekevaEqLhX4jxfANo20h1L-KaFPHG4ZrDRy1OH-0WlQI10n7aWU9E8zLj76J6JOFRF4~u-w93lwGuSKgHxlVvenoQ__"
-                alt="Metro Tower 1 Entrance"
+                src="/images/img-17.jpg"
+                alt="OXEC Burnaby Office"
                 className="w-full h-auto shadow-lg object-cover"
                 style={{ aspectRatio: '16/9', borderRadius: '0px' }}
               />
@@ -283,7 +283,7 @@ export default function Home() {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <img
-                src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663292376041/AgBJaagVXspMWkEV.jpg"
+                src="/images/img-18.jpg"
                 alt="Professional Consultation"
                 className="w-full h-auto shadow-lg object-cover"
                 style={{ aspectRatio: '16/9', borderRadius: '0px' }}
