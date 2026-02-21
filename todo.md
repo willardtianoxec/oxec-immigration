@@ -702,3 +702,10 @@
 - [x] Modify backend sorting rules - Changed getPosts to sort by publishedAt with fallback to createdAt
 - [x] Verify frontend sorting effect - All article lists now sort by publishedAt (newest first)
 - [x] Write tests and save checkpoint - Created 3 unit tests for sorting logic, all passed
+
+
+## Bug Fix: Image Upload Failed Error (Current Sprint - Phase 41)
+- [x] Check backend upload endpoint error - Found Duplicate entry error for imageLibrary.relativePath_unique
+- [x] Check file validation logic - Issue was duplicate relativePath when uploading same filename
+- [x] Fix upload error - Added timestamp to filename to ensure uniqueness (nameWithoutExt-timestamp-opt.ext)
+- [x] Test upload functionality - Dev server running, ready for testing

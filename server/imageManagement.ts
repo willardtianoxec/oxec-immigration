@@ -187,6 +187,10 @@ export async function optimizeAndSaveImage(
     const ext = path.extname(originalFilename).toLowerCase();
     const nameWithoutExt = path.basename(originalFilename, ext);
 
+    // Add timestamp to ensure uniqueness
+    const timestamp = Date.now();
+    const uniqueName = `${nameWithoutExt}-${timestamp}`;
+
     // Optimize original image
     const optimizedBuffer = await sharp(imageBuffer)
       .resize(1920, 1080, {
@@ -196,7 +200,7 @@ export async function optimizeAndSaveImage(
       .toBuffer();
 
     // Save optimized original
-    const optimizedFilename = `${nameWithoutExt}-opt${ext}`;
+    const optimizedFilename = `${uniqueName}-opt${ext}`;
     const optimizedPath = getImageFilePath(optimizedFilename);
     await fs.writeFile(optimizedPath, optimizedBuffer);
 
@@ -206,7 +210,7 @@ export async function optimizeAndSaveImage(
       .toBuffer();
 
     // Save WebP version
-    const webpFilename = `${nameWithoutExt}-opt.webp`;
+    const webpFilename = `${uniqueName}-opt.webp`;
     const webpPath = getImageFilePath(webpFilename);
     await fs.writeFile(webpPath, webpBuffer);
 
