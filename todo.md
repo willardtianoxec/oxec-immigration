@@ -695,3 +695,10 @@
 - [x] Upload image to image library - consultant-meeting-formal.jpg saved
 - [x] Update Home.tsx image references - Lines 273 and 285 updated to optimized versions
 - [x] Verify image display effect - Homepage successfully loaded new office consultation scene image
+
+
+## Bug Fix: Article Sorting by Published Date (Current Sprint - Phase 40)
+- [x] Check current sorting logic - Verified getPosts sorts by createdAt, others by publishedAt
+- [x] Modify backend sorting rules - Changed getPosts to sort by publishedAt with fallback to createdAt
+- [x] Verify frontend sorting effect - All article lists now sort by publishedAt (newest first)
+- [x] Write tests and save checkpoint - Created 3 unit tests for sorting logic, all passed

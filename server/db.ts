@@ -338,7 +338,7 @@ export async function getPosts(filters?: { type?: string; category?: string; blo
   
   const baseQuery = db.select().from(posts)
     .where(whereClause)
-    .orderBy(desc(posts.createdAt));
+    .orderBy(desc(posts.publishedAt || posts.createdAt));
 
   if (filters?.limit) {
     return await baseQuery.limit(filters.limit);
