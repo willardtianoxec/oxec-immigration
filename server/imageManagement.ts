@@ -1,23 +1,22 @@
-import { getDb } from "./db";
-import { imageLibrary, InsertImageLibrary } from "../drizzle/schema";
-import { eq } from "drizzle-orm";
-import fs from "fs/promises";
-import path from "path";
-import sharp from "sharp";
+import path from 'path';
+import fs from 'fs/promises';
+import sharp from 'sharp';
+import { getDb } from './db';
+import { imageLibrary } from '../drizzle/schema';
+import { eq } from 'drizzle-orm';
 
-const IMAGES_DIR = path.join(process.cwd(), "client", "public", "images");
+const IMAGES_DIR = path.join(process.cwd(), 'client', 'public', 'images');
+const MAX_IMAGE_SIZE = 1024 * 1024; // 1MB target
 
 /**
- * Get all images from the library
+ * Get all images from database
  */
 export async function getAllImages() {
-  const db = await getDb();
-  if (!db) {
-    throw new Error("Database not available");
-  }
-
   try {
-    const images = await db.select().from(imageLibrary).orderBy(imageLibrary.createdAt);
+    const db = getDb();
+    if (!db) throw new Error("Database not available");
+    
+    const images = await db.select().from(imageLibrary);
     return images;
   } catch (error) {
     console.error("[Image Management] Error fetching images:", error);
@@ -29,18 +28,12 @@ export async function getAllImages() {
  * Get image by ID
  */
 export async function getImageById(id: number) {
-  const db = await getDb();
-  if (!db) {
-    throw new Error("Database not available");
-  }
-
   try {
-    const image = await db
-      .select()
-      .from(imageLibrary)
-      .where(eq(imageLibrary.id, id))
-      .limit(1);
-    return image[0] || null;
+    const db = getDb();
+    if (!db) throw new Error("Database not available");
+    
+    const image = await db.select().from(imageLibrary).where(eq(imageLibrary.id, id));
+    return image[0];
   } catch (error) {
     console.error("[Image Management] Error fetching image:", error);
     throw error;
@@ -55,27 +48,23 @@ export async function createImageRecord(
   relativePath: string,
   fileSize: number,
   mimeType: string,
+  category: string,
   uploadedBy: number,
-  description?: string,
-  category?: string
+  description?: string
 ) {
-  const db = await getDb();
-  if (!db) {
-    throw new Error("Database not available");
-  }
-
   try {
-    const newImage: InsertImageLibrary = {
+    const db = getDb();
+    if (!db) throw new Error("Database not available");
+    
+    const result = await db.insert(imageLibrary).values({
       filename,
       relativePath,
       fileSize,
       mimeType,
-      description,
+      description: description || '',
       category,
       uploadedBy,
-    };
-
-    const result = await db.insert(imageLibrary).values(newImage);
+    });
     return result;
   } catch (error) {
     console.error("[Image Management] Error creating image record:", error);
@@ -84,31 +73,14 @@ export async function createImageRecord(
 }
 
 /**
- * Delete image record and file
+ * Delete image by ID
  */
-export async function deleteImage(id: number) {
-  const db = await getDb();
-  if (!db) {
-    throw new Error("Database not available");
-  }
-
+export async function deleteImageById(id: number) {
   try {
-    const image = await getImageById(id);
-    if (!image) {
-      throw new Error("Image not found");
-    }
-
-    // Delete file from filesystem
-    const filePath = path.join(IMAGES_DIR, image.filename);
-    try {
-      await fs.unlink(filePath);
-    } catch (err) {
-      console.warn("[Image Management] File not found or already deleted:", filePath);
-    }
-
-    // Delete record from database
+    const db = getDb();
+    if (!db) throw new Error("Database not available");
+    
     await db.delete(imageLibrary).where(eq(imageLibrary.id, id));
-    return true;
   } catch (error) {
     console.error("[Image Management] Error deleting image:", error);
     throw error;
@@ -116,29 +88,17 @@ export async function deleteImage(id: number) {
 }
 
 /**
- * Update image description or category
+ * Update image metadata
  */
 export async function updateImageMetadata(
   id: number,
-  description?: string,
-  category?: string
+  updates: { description?: string; category?: string }
 ) {
-  const db = await getDb();
-  if (!db) {
-    throw new Error("Database not available");
-  }
-
   try {
-    const updateData: Record<string, any> = {};
-    if (description !== undefined) updateData.description = description;
-    if (category !== undefined) updateData.category = category;
-
-    if (Object.keys(updateData).length === 0) {
-      return null;
-    }
-
-    await db.update(imageLibrary).set(updateData).where(eq(imageLibrary.id, id));
-    return await getImageById(id);
+    const db = getDb();
+    if (!db) throw new Error("Database not available");
+    
+    await db.update(imageLibrary).set(updates).where(eq(imageLibrary.id, id));
   } catch (error) {
     console.error("[Image Management] Error updating image metadata:", error);
     throw error;
@@ -148,7 +108,7 @@ export async function updateImageMetadata(
 /**
  * Ensure images directory exists
  */
-export async function ensureImagesDirExists() {
+async function ensureImagesDirExists() {
   try {
     await fs.mkdir(IMAGES_DIR, { recursive: true });
   } catch (error) {
@@ -158,22 +118,14 @@ export async function ensureImagesDirExists() {
 }
 
 /**
- * Get image file path
+ * Get file path for image
  */
 export function getImageFilePath(filename: string): string {
   return path.join(IMAGES_DIR, filename);
 }
 
 /**
- * Get relative path for image (for use in HTML/CSS)
- */
-export function getImageRelativePath(filename: string): string {
-  return `/images/${filename}`;
-}
-
-
-/**
- * Optimize image and save both original and WebP versions
+ * Optimize image and save as WebP with adaptive quality
  */
 export async function optimizeAndSaveImage(
   imageBuffer: Buffer,
@@ -191,23 +143,30 @@ export async function optimizeAndSaveImage(
     const timestamp = Date.now();
     const uniqueName = `${nameWithoutExt}-${timestamp}`;
 
-    // Optimize original image
-    const optimizedBuffer = await sharp(imageBuffer)
+    // Resize image first
+    const resizedImage = sharp(imageBuffer)
       .resize(1920, 1080, {
         fit: 'inside',
         withoutEnlargement: true,
-      })
+      });
+
+    // Save optimized original (as WebP with adaptive quality)
+    let webpBuffer = await resizedImage
+      .webp({ quality: 75 })
       .toBuffer();
 
-    // Save optimized original
-    const optimizedFilename = `${uniqueName}-opt${ext}`;
-    const optimizedPath = getImageFilePath(optimizedFilename);
-    await fs.writeFile(optimizedPath, optimizedBuffer);
-
-    // Convert to WebP
-    const webpBuffer = await sharp(optimizedBuffer)
-      .webp({ quality: 80 })
-      .toBuffer();
+    // If file is still too large, reduce quality further
+    let quality = 75;
+    while (webpBuffer.length > MAX_IMAGE_SIZE && quality > 40) {
+      quality -= 5;
+      webpBuffer = await sharp(imageBuffer)
+        .resize(1920, 1080, {
+          fit: 'inside',
+          withoutEnlargement: true,
+        })
+        .webp({ quality })
+        .toBuffer();
+    }
 
     // Save WebP version
     const webpFilename = `${uniqueName}-opt.webp`;
@@ -215,13 +174,20 @@ export async function optimizeAndSaveImage(
     await fs.writeFile(webpPath, webpBuffer);
 
     return {
-      filename: optimizedFilename,
+      filename: webpFilename,
       webpFilename,
-      fileSize: optimizedBuffer.length,
+      fileSize: webpBuffer.length,
       webpSize: webpBuffer.length,
     };
   } catch (error) {
     console.error('[Image Management] Error optimizing image:', error);
     throw error;
   }
+}
+
+/**
+ * Get relative path for image
+ */
+export function getImageRelativePath(filename: string): string {
+  return `/images/${filename}`;
 }

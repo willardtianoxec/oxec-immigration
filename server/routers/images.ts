@@ -5,9 +5,8 @@ import {
   getAllImages,
   getImageById,
   createImageRecord,
-  deleteImage,
+  deleteImageById,
   updateImageMetadata,
-  ensureImagesDirExists,
   getImageFilePath,
   getImageRelativePath,
   optimizeAndSaveImage,
@@ -125,7 +124,7 @@ export const imagesRouter = router({
     .input(z.object({ id: z.number() }))
     .mutation(async ({ input }) => {
       try {
-        await deleteImage(input.id);
+        await deleteImageById(input.id);
         return { success: true };
       } catch (error) {
         console.error('[Images Router] Error deleting image:', error);
