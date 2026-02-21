@@ -141,11 +141,6 @@ export default function AdminPosts() {
                 <div className="flex justify-between items-start">
                   <div className="flex-1">
                     <h3 className="text-lg font-semibold mb-2">{post.title}</h3>
-                    {post.subtitle && (
-                      <p className="text-sm text-muted-foreground mb-2">
-                        {post.subtitle}
-                      </p>
-                    )}
                     <div className="flex gap-2 items-center text-sm text-muted-foreground flex-wrap">
                       {post.contentCategory && (
                         <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs font-medium">

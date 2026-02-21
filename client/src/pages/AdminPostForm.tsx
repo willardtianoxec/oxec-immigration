@@ -90,7 +90,6 @@ export function AdminPostForm() {
 
   const [formData, setFormData] = useState({
     title: "",
-    subtitle: "",
     slug: "",
     content: "",
     excerpt: "",
@@ -117,7 +116,6 @@ export function AdminPostForm() {
     if (post && !isInitialized) {
       setFormData({
         title: post.title,
-        subtitle: post.subtitle || "",
         slug: post.slug,
         content: post.content,
         excerpt: post.excerpt || "",
@@ -359,7 +357,6 @@ export function AdminPostForm() {
       updateMutation.mutate({
         id: postId,
         title: formData.title,
-        subtitle: formData.subtitle || undefined,
         slug: formData.slug,
         content: formData.content,
         excerpt: formData.excerpt || undefined,
@@ -373,7 +370,6 @@ export function AdminPostForm() {
     } else {
       createMutation.mutate({
         title: formData.title,
-        subtitle: formData.subtitle || undefined,
         slug: formData.slug,
         content: formData.content,
         excerpt: formData.excerpt || undefined,
@@ -414,7 +410,6 @@ export function AdminPostForm() {
       updateMutation.mutate({
         id: postId,
         title: formData.title,
-        subtitle: formData.subtitle || undefined,
         slug: formData.slug,
         content: formData.content,
         excerpt: formData.excerpt || undefined,
@@ -429,7 +424,6 @@ export function AdminPostForm() {
     } else {
       createMutation.mutate({
         title: formData.title,
-        subtitle: formData.subtitle || undefined,
         slug: formData.slug,
         content: formData.content,
         excerpt: formData.excerpt || undefined,
@@ -480,17 +474,6 @@ export function AdminPostForm() {
               value={formData.title}
               onChange={(e) => handleTitleChange(e.target.value)}
               required
-            />
-          </div>
-
-          {/* 副标题 */}
-          <div>
-            <label className="block text-sm font-medium mb-2">副标题</label>
-            <Input
-              type="text"
-              placeholder="输入副标题（可选）"
-              value={formData.subtitle}
-              onChange={(e) => setFormData((prev) => ({ ...prev, subtitle: e.target.value }))}
             />
           </div>
 

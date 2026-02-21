@@ -186,7 +186,6 @@ export const appRouter = router({
     create: adminProcedure
       .input(z.object({
         title: z.string().min(1),
-        subtitle: z.string().optional(),
         slug: z.string().min(1),
         content: z.string().min(1),
         excerpt: z.string().optional(),
@@ -211,7 +210,6 @@ export const appRouter = router({
       .input(z.object({
         id: z.number(),
         title: z.string().min(1).optional(),
-        subtitle: z.string().optional(),
         slug: z.string().min(1).optional(),
         content: z.string().min(1).optional(),
         excerpt: z.string().optional(),
