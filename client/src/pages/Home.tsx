@@ -249,31 +249,31 @@ export default function Home() {
                 </div>
               </div>
             </Link>
-            {/* Calculator Buttons */}
-            <div className="mt-12 flex justify-center" style={{ width: '100%' }}>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px', width: '100%', maxWidth: '800px' }}>
-                <Link href="/clbtranslator">
-                  <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none w-full">
-                    <span>CLB换算工具</span>
-                  </Button>
-                </Link>
-                <Link href="/calculator">
-                  <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none w-full">
-                    <span>CRS计算器</span>
-                  </Button>
-                </Link>
-                <Link href="/bccalculator">
-                  <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none w-full">
-                    <span>BC PNP计算器</span>
-                  </Button>
-                </Link>
-                <Link href="/fswcalculator">
-                  <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none w-full">
-                    <span>FSW算分工具</span>
-                  </Button>
-                </Link>
-              </div>
-            </div>
+          </div>
+        </div>
+        {/* Calculator Buttons */}
+        <div className="mt-12 flex justify-center" style={{ width: '100%' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px', width: '100%', maxWidth: '800px', paddingLeft: 'clamp(20px, 5vw, 40px)', paddingRight: 'clamp(20px, 5vw, 40px)' }}>
+            <Link href="/clbtranslator">
+              <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none w-full">
+                <span>CLB换算工具</span>
+              </Button>
+            </Link>
+            <Link href="/calculator">
+              <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none w-full">
+                <span>CRS计算器</span>
+              </Button>
+            </Link>
+            <Link href="/bccalculator">
+              <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none w-full">
+                <span>BC PNP计算器</span>
+              </Button>
+            </Link>
+            <Link href="/fswcalculator">
+              <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none w-full">
+                <span>FSW算分工具</span>
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
