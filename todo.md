@@ -740,3 +740,6 @@
 - [ ] 检查首页多语言实现 - 点击ENG按钮后某些中文内容未被翻译
 - [ ] 修复硬编码中文文本 - 确保所有中文文本都使用i18n翻译变量
 - [ ] 验证翻译文件 - 检查translations.json中是否包含所有必要的翻译
+
+## Calculator Buttons Spacing Fix (Current Sprint - Phase 29)
+- [x] 调整计算器按钮section的padding - 从clamp(20px, 4vw, 40px)改为clamp(40px, 6vw, 60px)，使上下间距均衡

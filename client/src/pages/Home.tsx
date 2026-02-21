@@ -262,7 +262,7 @@ export default function Home() {
       </section>
 
       {/* Calculator Buttons Section */}
-      <section className="relative z-20 w-full bg-background" style={{ padding: 'clamp(20px, 4vw, 40px) 0' }}>
+      <section className="relative z-20 w-full bg-background" style={{ padding: 'clamp(40px, 6vw, 60px) 0' }}>
         <div className="flex justify-center">
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '12px', maxWidth: '800px', width: '100%', paddingLeft: '16px', paddingRight: '16px' }}>
             <Link href="/calculator">
