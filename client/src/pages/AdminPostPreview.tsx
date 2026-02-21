@@ -13,7 +13,6 @@ export default function AdminPostPreview() {
   
   const [formData, setFormData] = useState({
     title: "",
-    subtitle: "",
     slug: "",
     content: "",
     excerpt: "",
@@ -35,7 +34,6 @@ export default function AdminPostPreview() {
     if (post) {
       setFormData({
         title: post.title,
-        subtitle: post.subtitle || "",
         slug: post.slug,
         content: post.content,
         excerpt: post.excerpt || "",

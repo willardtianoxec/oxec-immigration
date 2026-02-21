@@ -669,6 +669,6 @@
 - [x] 检查数据库和API层 - 验证更新接口是否正确处理空值
 - [x] 从前端编辑表单中移除副标题字段 - AdminPostForm.tsx中移除了副标题输入框
 - [x] 从后端API接口中移除副标题处理 - routers.ts中从接口input中移除了subtitle字段
-- [x] 从列表昺示中移除副标题 - AdminPosts.tsx中移除了副标题渲染
+- [x] 从所有列表昺示中移除副标题 - AdminPosts.tsx、Admin.tsx、PostPreview.tsx、AdminPostPreview.tsx中移除了副标题渲染
 - [x] 编写测试验证修复 - 所有4个测试全部通过
 - [x] 保存检查点并交付 - 完成bug修复

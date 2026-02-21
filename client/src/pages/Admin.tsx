@@ -219,7 +219,6 @@ function BlogPostsManagement() {
                 <div className="flex justify-between items-start">
                   <div className="flex-1">
                     <h3 className="font-semibold">{post.title}</h3>
-                    {post.subtitle && <p className="text-sm text-gray-600 mb-2">{post.subtitle}</p>}
                     <div className="flex gap-2 items-center text-xs text-gray-500 flex-wrap mt-2">
                       {post.published ? (
                         <span className="text-green-600 font-semibold">✓ 已发布</span>
@@ -360,7 +359,6 @@ function SuccessCasesManagement() {
                 <div className="flex justify-between items-start">
                   <div className="flex-1">
                     <h3 className="font-semibold">{caseItem.title}</h3>
-                    {caseItem.subtitle && <p className="text-sm text-gray-600 mb-2">{caseItem.subtitle}</p>}
                     <div className="flex gap-2 items-center text-xs text-gray-500 flex-wrap mt-2">
                       {caseItem.published ? (
                         <span className="text-green-600 font-semibold">✓ 已发布</span>
