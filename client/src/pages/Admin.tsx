@@ -418,17 +418,65 @@ function ImageLibraryManagement() {
   const [category, setCategory] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedImageForLightbox, setSelectedImageForLightbox] = useState<any>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const dragCountRef = useRef(0);
   const ITEMS_PER_PAGE = 20;
 
   const { data: images = [], isLoading, refetch } = trpc.images.list.useQuery();
   const uploadMutation = trpc.images.upload.useMutation();
   const deleteMutation = trpc.images.delete.useMutation();
 
+  const validateAndSetFile = (file: File) => {
+    setUploadError(null);
+    if (!file.type.startsWith('image/')) {
+      setUploadError('Please select an image file');
+      return;
+    }
+    if (file.size > 10 * 1024 * 1024) {
+      setUploadError('File size cannot exceed 10MB');
+      return;
+    }
+    setSelectedFile(file);
+  };
+
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      setSelectedFile(file);
+      validateAndSetFile(file);
+    }
+  };
+
+  const handleDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    dragCountRef.current++;
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    dragCountRef.current--;
+    if (dragCountRef.current === 0) {
+      setIsDragging(false);
+    }
+  };
+
+  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    dragCountRef.current = 0;
+    setIsDragging(false);
+    const files = e.dataTransfer.files;
+    if (files && files.length > 0) {
+      validateAndSetFile(files[0]);
     }
   };
 
@@ -488,9 +536,22 @@ function ImageLibraryManagement() {
       <CardContent>
         <div className="space-y-6">
           {/* Upload Section */}
-          <div className="border-2 border-dashed rounded-lg p-6">
+          <div
+            className={`border-2 border-dashed rounded-lg p-6 transition-colors cursor-pointer ${
+              isDragging
+                ? 'border-primary bg-primary/5'
+                : 'border-border hover:border-primary/50'
+            }`}
+            onClick={() => fileInputRef.current?.click()}
+            onDragEnter={handleDragEnter}
+            onDragLeave={handleDragLeave}
+            onDragOver={handleDragOver}
+            onDrop={handleDrop}
+          >
             <div className="flex flex-col items-center justify-center gap-4">
-              <Image className="h-12 w-12 text-gray-400" />
+              <Image className={`h-12 w-12 ${
+                isDragging ? 'text-primary' : 'text-gray-400'
+              }`} />
               <div className="text-center">
                 <p className="font-semibold">Upload Image</p>
                 <p className="text-sm text-gray-500">Click to select or drag and drop</p>
@@ -502,12 +563,15 @@ function ImageLibraryManagement() {
                 onChange={handleFileSelect}
                 className="hidden"
               />
-              <Button onClick={() => fileInputRef.current?.click()} variant="outline">
-                Select Image
-              </Button>
               {selectedFile && <p className="text-sm">{selectedFile.name}</p>}
             </div>
           </div>
+
+          {uploadError && (
+            <div className="p-3 bg-red-50 border border-red-200 rounded-md">
+              <p className="text-sm text-red-700">{uploadError}</p>
+            </div>
+          )}
 
           {/* Metadata */}
           <div className="grid grid-cols-2 gap-4">

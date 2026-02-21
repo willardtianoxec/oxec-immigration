@@ -681,3 +681,10 @@
 - [x] 添加文件验证 - 检查文件类型和大小
 - [x] 编写测试验证 - 测试拖拽上传功能，所有6个测试通过
 - [x] 保存检查点 - 完成拖拽上传功能
+
+
+## Bug Fix: Image Library拖拽上传不工作 (Current Sprint - Phase 38)
+- [x] 诊断拖拽上传不工作的原因 - Admin.tsx中的ImageLibraryManagement组件不有拖拽事件处理
+- [x] 比输文章编辑器和Image Library的实现 - ImageUploader中没有onDragEnter，ImageLibrary有
+- [x] 修复Image Library中的拖拽事件处理 - 为Admin.tsx中的上传区域添加拖拽事件处理
+- [x] 验证修复并测试 - 开发服务器正常运行，拖拽上传正常工作
