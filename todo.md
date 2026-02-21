@@ -672,3 +672,12 @@
 - [x] 从所有列表昺示中移除副标题 - AdminPosts.tsx、Admin.tsx、PostPreview.tsx、AdminPostPreview.tsx中移除了副标题渲染
 - [x] 编写测试验证修复 - 所有4个测试全部通过
 - [x] 保存检查点并交付 - 完成bug修复
+
+
+## Feature: Image Library拖拽上传功能 (Current Sprint - Phase 37)
+- [x] 实现拖拽事件处理 - 添加dragover、dragenter、dragleave、drop事件
+- [x] 实现拖拽视觉反馈 - 显示拖拽状态的UI变化
+- [x] 支持多文件拖拽 - 允许一次拖拽多个文件
+- [x] 添加文件验证 - 检查文件类型和大小
+- [x] 编写测试验证 - 测试拖拽上传功能，所有6个测试通过
+- [x] 保存检查点 - 完成拖拽上传功能

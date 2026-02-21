@@ -11,8 +11,11 @@ export function ImageLibrary() {
   const [category, setCategory] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedImage, setSelectedImage] = useState<any>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const pageInputRef = useRef<HTMLInputElement>(null);
+  const dragCountRef = useRef(0);
 
   const { data: images = [], refetch } = trpc.images.list.useQuery();
   const uploadMutation = trpc.images.upload.useMutation();
@@ -36,32 +39,93 @@ export function ImageLibrary() {
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      setSelectedFile(file);
+      validateAndSetFile(file);
+    }
+  };
+
+  const validateAndSetFile = (file: File) => {
+    setUploadError(null);
+    // Check file type
+    if (!file.type.startsWith('image/')) {
+      setUploadError('请选择图片文件');
+      return;
+    }
+    // Check file size (max 10MB)
+    if (file.size > 10 * 1024 * 1024) {
+      setUploadError('文件大小不能超过10MB');
+      return;
+    }
+    setSelectedFile(file);
+  };
+
+  const handleDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    dragCountRef.current++;
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    dragCountRef.current--;
+    if (dragCountRef.current === 0) {
+      setIsDragging(false);
+    }
+  };
+
+  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    dragCountRef.current = 0;
+    setIsDragging(false);
+
+    const files = e.dataTransfer.files;
+    if (files && files.length > 0) {
+      // Handle multiple files - use the first one for now
+      validateAndSetFile(files[0]);
     }
   };
 
   const handleUpload = async () => {
     if (!selectedFile) return;
 
+    setUploadError(null);
     setUploading(true);
     try {
       const reader = new FileReader();
+      reader.onerror = () => {
+        setUploadError('文件读取失败');
+        setUploading(false);
+      };
       reader.onload = async (e) => {
-        const base64 = (e.target?.result as string).split(",")[1];
-        await uploadMutation.mutateAsync({
-          filename: selectedFile.name,
-          base64Data: base64,
-          description,
-          category,
-        });
-        setSelectedFile(null);
-        setDescription("");
-        setCategory("");
-        setCurrentPage(1);
-        refetch();
+        try {
+          const base64 = (e.target?.result as string).split(",")[1];
+          await uploadMutation.mutateAsync({
+            filename: selectedFile.name,
+            base64Data: base64,
+            description,
+            category,
+          });
+          setSelectedFile(null);
+          setDescription("");
+          setCategory("");
+          setCurrentPage(1);
+          refetch();
+        } catch (error) {
+          setUploadError('上传失败，请重试');
+        } finally {
+          setUploading(false);
+        }
       };
       reader.readAsDataURL(selectedFile);
-    } finally {
+    } catch (error) {
+      setUploadError('上传失败，请重试');
       setUploading(false);
     }
   };
@@ -112,8 +176,16 @@ export function ImageLibrary() {
         <h3 className="text-lg font-semibold mb-4">上传新图片</h3>
         <div className="space-y-4">
           <div
-            className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center cursor-pointer hover:border-primary"
+            className={`border-2 border-dashed rounded-lg p-6 text-center cursor-pointer transition-colors ${
+              isDragging
+                ? 'border-primary bg-primary/5'
+                : 'border-gray-300 hover:border-primary'
+            }`}
             onClick={() => fileInputRef.current?.click()}
+            onDragEnter={handleDragEnter}
+            onDragLeave={handleDragLeave}
+            onDragOver={handleDragOver}
+            onDrop={handleDrop}
           >
             <input
               ref={fileInputRef}
@@ -122,11 +194,22 @@ export function ImageLibrary() {
               onChange={handleFileSelect}
               className="hidden"
             />
-            <Upload className="mx-auto h-8 w-8 text-gray-400 mb-2" />
+            <Upload className={`mx-auto h-8 w-8 mb-2 ${
+              isDragging ? 'text-primary' : 'text-gray-400'
+            }`} />
             <p className="text-sm text-gray-600">
               {selectedFile ? selectedFile.name : "点击或拖拽图片到此处"}
             </p>
+            <p className="text-xs text-gray-500 mt-2">
+              支持 JPG, PNG, GIF, WebP 等格式，最大 10MB
+            </p>
           </div>
+
+          {uploadError && (
+            <div className="p-3 bg-red-50 border border-red-200 rounded-md">
+              <p className="text-sm text-red-700">{uploadError}</p>
+            </div>
+          )}
 
           <div className="grid grid-cols-2 gap-4">
             <input
@@ -144,6 +227,14 @@ export function ImageLibrary() {
               className="px-3 py-2 border border-gray-300 rounded-md"
             />
           </div>
+
+          {selectedFile && (
+            <div className="p-3 bg-blue-50 border border-blue-200 rounded-md">
+              <p className="text-sm text-blue-700">
+                已选择: {selectedFile.name} ({(selectedFile.size / 1024).toFixed(2)} KB)
+              </p>
+            </div>
+          )}
 
           <Button
             onClick={handleUpload}
