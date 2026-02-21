@@ -729,3 +729,14 @@
 
 ## BCCalculator UI Localization (Current Sprint - Phase 27)
 - [x] 修改返回按钮文本 - "Back to Home" 改为 "返回首页"
+
+## i18n System Migration (Current Sprint - Phase 28)
+- [x] 简化LanguageContext - 移除i18n依赖，保留语言切换功能
+- [x] 重构Home.tsx - 使用条件渲染替代i18n翻译变量
+- [x] 修复Team.tsx - 移除i18n依赖
+- [x] 测试多语言切换 - 验证ENG和中文按钮功能正常
+
+## Homepage i18n Translation Fix (Current Sprint - Phase 28)
+- [ ] 检查首页多语言实现 - 点击ENG按钮后某些中文内容未被翻译
+- [ ] 修复硬编码中文文本 - 确保所有中文文本都使用i18n翻译变量
+- [ ] 验证翻译文件 - 检查translations.json中是否包含所有必要的翻译

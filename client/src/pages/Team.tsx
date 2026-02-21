@@ -70,7 +70,7 @@ const teamMembers: TeamMemberWithTranslation[] = [
 ];
 
 export default function Team() {
-  const { language, setLanguage, t } = useLanguage();
+  const { language, setLanguage } = useLanguage();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false);
   const detailRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
