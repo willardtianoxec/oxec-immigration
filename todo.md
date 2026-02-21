@@ -488,6 +488,12 @@
 ## Post Detail Page Redesign (Current Sprint - Phase 44)
 - [x] 上传两张背景图到S3 - 博客文章和成功案例各一张
 - [x] 创建PostDetailLayout组件 - 实现固定背景图、毛玻璃效果和侧边栏
+
+## Missing Calculator Entrances & TypeScript Fixes (Current Sprint - Phase 45)
+- [ ] 恢复首页计算器入口 - 在首页添加四个计算器的导航链接
+- [ ] 修复TypeScript类型错误 - 解决imageManagement导出和publicUrl属性错误
+- [ ] 修复BCCalculator路由调用 - 确保calculator路由正确注册
+- [ ] 测试所有计算器功能 - 验证CRS、BC PNP、CLB、FSW计算器可访问
 - [x] 更新BlogPost.tsx - 使用新的PostDetailLayout模板
 - [x] 更新SuccessCaseDetail.tsx - 使用新的PostDetailLayout模板
 - [x] 实现响应式调整 - 移动端改为上下堆厠，background-attachment改为scroll
@@ -716,3 +722,7 @@
 - [x] Improve optimizeAndSaveImage function - Changed to WebP format with adaptive quality (75-40) to ensure <1MB
 - [x] Test optimization effect - Created 5 unit tests, all passed
 - [x] Save checkpoint - Complete image optimization improvement
+
+## Homepage Calculator Buttons (Current Sprint - Phase 26)
+- [x] 修复计算器按钮布局 - 使用CSS Grid确保四个按钮整体居中且宽度相等
+- [x] 更新按钮名称 - CLB换算工具、CRS计算器、BC PNP计算器、FSW算分工具

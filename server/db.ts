@@ -385,7 +385,7 @@ export async function getPostsByContentCategory(contentCategory: string, limit?:
   return await query;
 }
 
-export async function searchPosts(query: string, filters?: { type?: string; category?: string; blogCategory?: string; successCaseCategory?: string; contentCategory?: string }) {
+export async function searchPosts(query: string, filters?: { type?: string; category?: string; blogCategory?: string; successCaseCategory?: string; contentCategory?: string }): Promise<Post[]> {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
   

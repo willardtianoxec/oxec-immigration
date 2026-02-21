@@ -49,7 +49,7 @@ export default function BCCalculator() {
       if (!data.education) data.education = "highschool";
       if (!data.languageTest) data.languageTest = "ielts";
       if (!data.region) data.region = "tier1";
-      const result = await utils.posts.calculateBCPNP.fetch(data);
+      const result = await (utils as any).calculator.calculateBCPNP.fetch(data);
       setResult(result);
     } catch (error: any) {
       toast.error("Calculation failed: " + (error.message || 'Unknown error'));

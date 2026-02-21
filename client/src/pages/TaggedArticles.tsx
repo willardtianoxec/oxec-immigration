@@ -15,10 +15,11 @@ export function TaggedArticles() {
   const searchParams = new URLSearchParams(search);
   const type = (searchParams.get("type") as "blog" | "success-case") || "blog";
 
-  const { data: posts, isLoading, error } = trpc.posts.search.useQuery(
+  const query = trpc.posts.search.useQuery(
     { query: tag, type },
     { enabled: !!tag }
-  );
+  ) as any;
+  const { data: posts = [], isLoading, error } = query;
 
   if (isLoading) {
     return (

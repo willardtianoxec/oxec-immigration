@@ -176,6 +176,95 @@ export const appRouter = router({
       }),
   }),
 
+  calculator: router({
+    calculateCRS: publicProcedure
+      .input(z.any())
+      .query(async ({ input }) => {
+        return await calculateCRSLogic(input as any);
+      }),
+
+    calculateBCPNP: publicProcedure
+      .input(z.object({
+        workExperience: z.enum(["5plus", "4to5", "3to4", "2to3", "1to2", "below1", "none"]),
+        canadianExperience: z.boolean(),
+        currentlyWorking: z.boolean(),
+        education: z.enum(["phd", "masters", "postgrad", "bachelor", "associate", "diploma", "highschool"]),
+        bcEducation: z.boolean(),
+        canadaEducation: z.boolean(),
+        designatedOccupation: z.boolean(),
+        languageTest: z.enum(["ielts", "celpip", "pte"]),
+        listening: z.number().min(0).max(100),
+        reading: z.number().min(0).max(100),
+        writing: z.number().min(0).max(100),
+        speaking: z.number().min(0).max(100),
+        frenchLanguage: z.boolean(),
+        hourlyWage: z.number().min(0),
+        region: z.enum(["tier1", "tier2", "tier3"]),
+        regionWorkExperience: z.boolean(),
+        regionEducation: z.boolean(),
+      }))
+      .query(({ input }) => {
+        const breakdown: Record<string, any> = {
+          相关工作经验: 0,
+          学历背景: 0,
+          语言能力: 0,
+          经济因素: 0,
+        };
+
+        // 工作经验评分
+        const expScores: Record<string, number> = {
+          "5plus": 80,
+          "4to5": 70,
+          "3to4": 60,
+          "2to3": 50,
+          "1to2": 40,
+          "below1": 20,
+          "none": 0,
+        };
+        breakdown.相关工作经验 = expScores[input.workExperience];
+        if (input.canadianExperience) breakdown.相关工作经验 += 15;
+
+        // 教育背景评分
+        const eduScores: Record<string, number> = {
+          "phd": 100,
+          "masters": 90,
+          "postgrad": 80,
+          "bachelor": 75,
+          "associate": 60,
+          "diploma": 50,
+          "highschool": 30,
+        };
+        breakdown.学历背景 = eduScores[input.education];
+        if (input.bcEducation || input.canadaEducation) breakdown.学历背景 += 15;
+
+        // 语言能力评分
+        const langScores: Record<string, number> = {
+          "ielts": 0,
+          "celpip": 0,
+          "pte": 0,
+        };
+        const avgScore = (input.listening + input.reading + input.writing + input.speaking) / 4;
+        breakdown.语言能力 = Math.min(100, avgScore * 10);
+        if (input.frenchLanguage) breakdown.语言能力 += 15;
+
+        // 经济因素评分
+        const wageScore = Math.min(100, (input.hourlyWage / 50) * 100);
+        breakdown.经济因素 = wageScore;
+
+        const total = Object.values(breakdown).reduce((a: number, b: number) => a + b, 0) / 4;
+        return {
+          breakdown,
+          totalScore: Math.round(total),
+          recommendation:
+            total >= 75
+              ? "有竞争力，建议申请"
+              : total >= 50
+              ? "中等竞争力，可以尝试"
+              : "竞争力较弱，建议提升",
+        };
+      }),
+  }),
+
   reviews: router({
     list: publicProcedure.query(async () => {
       return await getRealGoogleReviews();
@@ -346,3 +435,5 @@ export const appRouter = router({
       }),
   }),
 });
+
+export type AppRouter = typeof appRouter;
