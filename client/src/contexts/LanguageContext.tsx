@@ -1,10 +1,10 @@
 import { createContext, useContext, useState, useEffect, ReactNode, FC } from 'react';
-
-export type Language = 'en' | 'zh';
+import { Language, getTranslation } from '@/lib/i18n';
 
 interface LanguageContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
+  t: (key: string) => string;
 }
 
 export const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
@@ -34,13 +34,17 @@ export const LanguageProvider: FC<{ children: ReactNode }> = ({ children }) => {
     }
   };
 
+  const t = (key: string): string => {
+    return getTranslation(language, key);
+  };
+
   // Don't render until hydration is complete
   if (!isLoaded) {
     return null;
   }
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage }}>
+    <LanguageContext.Provider value={{ language, setLanguage, t }}>
       {children}
     </LanguageContext.Provider>
   );
