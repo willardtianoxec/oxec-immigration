@@ -726,3 +726,6 @@
 ## Homepage Calculator Buttons (Current Sprint - Phase 26)
 - [x] 修复计算器按钮布局 - 使用CSS Grid确保四个按钮整体居中且宽度相等
 - [x] 更新按钮名称 - CLB换算工具、CRS计算器、BC PNP计算器、FSW算分工具
+
+## BCCalculator UI Localization (Current Sprint - Phase 27)
+- [x] 修改返回按钮文本 - "Back to Home" 改为 "返回首页"

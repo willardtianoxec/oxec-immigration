@@ -66,7 +66,7 @@ export default function BCCalculator() {
           <Link href="/">
             <Button variant="ghost" className="mb-4 text-primary-foreground hover:bg-primary-foreground/10">
               <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to Home
+              返回首页
             </Button>
           </Link>
           <h1 className="text-4xl font-bold mb-4 flex items-center" style={{ fontFamily: "'Alibaba PuHuiTi', sans-serif", fontWeight: 900, fontSize: '48px' }}>
