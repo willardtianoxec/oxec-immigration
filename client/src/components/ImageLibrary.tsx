@@ -149,7 +149,7 @@ export function ImageLibrary() {
     link.click();
   };
 
-  const formatFileSize = (bytes: number | undefined) => {
+  const formatFileSize = (bytes: number | undefined | null) => {
     if (!bytes) return "未知";
     if (bytes < 1024) return bytes + " B";
     if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(2) + " KB";

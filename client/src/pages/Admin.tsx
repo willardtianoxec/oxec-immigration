@@ -510,10 +510,10 @@ function ImageLibraryManagement() {
     }
   };
 
-  const handleDelete = async (id: string) => {
+  const handleDelete = async (id: string | number) => {
     if (confirm("确定要删除这张图片吗？")) {
       try {
-        await deleteMutation.mutateAsync({ id });
+        await deleteMutation.mutateAsync({ id: typeof id === 'string' ? parseInt(id, 10) : id });
         toast.success("Image deleted");
         refetch();
       } catch (error) {
