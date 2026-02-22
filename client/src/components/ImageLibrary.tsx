@@ -293,10 +293,6 @@ export function ImageLibrary() {
                 <p className="text-sm font-medium truncate">{image.filename}</p>
                 <p className="text-xs text-gray-500 break-all">{image.relativePath}</p>
                 <p className="text-xs text-gray-500">
-                  {image.uploadMethod === 'manual' ? 'Manually uploaded: ' : 'Migrated from local: '}
-                  {image.filename}
-                </p>
-                <p className="text-xs text-gray-500">
                   大小: {formatFileSize(image.fileSize)}
                 </p>
                 {image.description && (
