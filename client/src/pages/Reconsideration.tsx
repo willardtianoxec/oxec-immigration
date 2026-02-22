@@ -67,9 +67,9 @@ export default function Reconsideration() {
         },
       ],
     },
-    cta: "Rescue Your Application - Schedule Urgent Consultation",
+    cta: "Schedule Urgent Consultation",
     successCases: "Visa Refusal Reconsideration Success Cases",
-    readyText: "Ready to Turn Crisis into Opportunity?",
+    readyText: "Need to Address Visa Refusal or Procedural Fairness Letter?",
   } : {
     nav: {
       language: "ENG",
@@ -108,9 +108,9 @@ export default function Reconsideration() {
         },
       ],
     },
-    cta: "抢救您的申请 - 预约紧急咨询",
+    cta: "预约紧急咨询",
     successCases: "拒签应对成功案例",
-    readyText: "准备转危为安了吗？",
+    readyText: "需要应对拒签或程序公正信吗？",
   };
 
   return (
@@ -232,7 +232,7 @@ export default function Reconsideration() {
             </div>
             <div className="order-1 md:order-2">
               <img
-                src="https://private-us-east-1.manuscdn.com/sessionFile/i9ZSSj6IB1QFKBGCY6lMon/sandbox/Pr85pqLQqcOiAMnVImD3eV-img-1_1771753292000_na1fn_cmVjb25zaWRlcmF0aW9uLXBmLWxldHRlci13b21hbg.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvaTlaU1NqNklCMVFGS0JHQ1k2bE1vbi9zYW5kYm94L1ByODVwcUxRcWNPaUFNblZJbUQzZVYtaW1nLTFfMTc3MTc1MzI5MjAwMF9uYTFmbl9jbVZqYjI1emFXUmxjbUYwYVc5dUxYQm1MV3hsZEhSbGNpMTNiMjFoYmcuanBnP3gtb3NzLXByb2Nlc3M9aW1hZ2UvcmVzaXplLHdfMTkyMCxoXzE5MjAvZm9ybWF0LHdlYnAvcXVhbGl0eSxxXzgwIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNzk4NzYxNjAwfX19XX0_&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=YSkF8bPbDtO6Z4Wm9AW8FKPUbnaUUYQ7IB3YRgsoV1g-x95HXNXiiqF~KPEeN7ZjaYb~xXVv~TGdb5B4FxIEFOd3~JNlR-VG0H-duUfIDPegQPMqt5QDblIzVhS6GKMuh-grASNDybGCpOkQMTXamYXr7Qh2o-y5wMG~IHPNuU5efdPHdemScDTmqxBtSNy0yp3gCpn8gRIvHhPJZEMHE1dHAbuEyjrQ9ni~NgG6dU-kEtZzZO9w5mhonC3VRPIHF7h3Ojk3ov10g8iL4zH4uiR3KFMM7NLmDz2x2Y-uBBS-0llx0ebQdTjt6tZVyYp5EL9CMLDqrwy0D0OK~CJVSg__"
+                src="/images/reconsideration-pf-letter-woman-1771754216913-opt.webp"
                 alt="Procedural Fairness Letter"
                 className="w-full h-auto shadow-lg object-cover"
                 style={{ aspectRatio: "16/9", borderRadius: "0px" }}
@@ -285,11 +285,12 @@ export default function Reconsideration() {
 
         {/* Content */}
         <div className="container text-center relative z-10">
-          <h2 className="text-3xl lg:text-4xl font-bold text-white mb-8">{t.readyText}</h2>
+          <h2 className="text-3xl lg:text-4xl font-bold text-white mb-8">需要应对拒签或程序公正信吗？</h2>
           <a href="/booking">
             <Button
               size="lg"
               className="font-bold text-lg px-8 py-6"
+              title="预约紧急咨询"
               style={{
                 borderRadius: '0px',
                 borderWidth: '3px',
