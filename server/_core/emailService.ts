@@ -31,7 +31,7 @@ export async function sendAppointmentEmail(data: AppointmentEmailData): Promise<
         'Authorization': `Bearer ${ENV.forgeApiKey}`,
       },
       body: JSON.stringify({
-        to: 'Business@oxecimm.com',
+        to: 'business@oxecimm.com',
         subject: `[新预约申请] ${data.name} - ${data.consultationSubject}`,
         html: htmlContent,
       }),

@@ -871,9 +871,16 @@ function AppointmentManagement() {
                       </div>
                     </div>
 
-                    {appointment.preferredDate && (
+                    {appointment.preferredTimeSlots && (
                       <div>
                         <p className="text-xs text-gray-500 font-medium">预计咨询时间</p>
+                        <p className="text-sm text-gray-700">{appointment.preferredTimeSlots}</p>
+                      </div>
+                    )}
+
+                    {appointment.preferredDate && (
+                      <div>
+                        <p className="text-xs text-gray-500 font-medium">预约日期</p>
                         <p className="text-sm text-gray-700">
                           {format(new Date(appointment.preferredDate), "yyyy年MM月dd日 HH:mm")}
                         </p>

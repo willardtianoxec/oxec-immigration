@@ -744,3 +744,8 @@
 - [x] 查看预约数据结构 - 包含咨询主题、咨询类型、预计时间字段
 - [x] 实现可展开的卡片设计 - 默认显示姓名、需求类型、咨询类型，点击展开显示邮箱、电话、预计时间
 - [x] 添加展开/收起动画 - ChevronDown图标旋转动画，平滑展开收起效果
+
+## Appointment Time Display and Email Notification (Current Sprint - Phase 34)
+- [x] 检查预约表单中的时间选择字段 - 确认时间信息保存为preferredTimeSlots字段
+- [x] 修复预约时间显示问题 - Admin页面Appointments卡片中正确显示预计咨询时间
+- [x] 修复预约提醒邮件功能 - 修复邮箱地址大写问题，确保邮件正常发送
