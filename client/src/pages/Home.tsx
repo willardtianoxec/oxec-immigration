@@ -126,10 +126,10 @@ export default function Home() {
         )}
       </nav>
 
-      {/* Split Hero Section - Fixed Height 560px */}
-      <section className="relative w-full overflow-hidden bg-background flex flex-col lg:flex-row" style={{height: '560px'}}>
-        {/* Left: Image - Full Height, No Padding */}
-        <div className="w-full lg:w-1/2 order-2 lg:order-1 flex items-center justify-center" style={{height: '100%'}}>
+      {/* Split Hero Section - Responsive Layout */}
+      <section className="flex flex-col lg:flex-row w-full min-h-screen lg:min-h-screen" style={{minHeight: '100vh'}}>
+        {/* Left: Image - Full Height on Desktop, Auto on Mobile */}
+        <div className="w-full lg:w-1/2 order-2 lg:order-1 flex items-center justify-center min-h-64 lg:min-h-screen" style={{}}>
           <img
             src="/hero-canadian.jpg"
             alt="Canadian Immigration - Flag and Parliament"
@@ -138,31 +138,31 @@ export default function Home() {
         </div>
 
         {/* Right: Content - Deep Blue Background */}
-        <div className="w-full lg:w-1/2 order-1 lg:order-2 flex items-center justify-center p-8 lg:p-16 relative z-10" style={{ backgroundColor: "#335577", height: '100%' }}>
+        <div className="w-full lg:w-1/2 order-1 lg:order-2 flex items-center justify-center p-6 sm:p-8 lg:p-16 relative z-10" style={{ backgroundColor: "#335577", minHeight: 'auto' }}>
           <div className="space-y-6 w-full max-w-lg">
             <div className="inline-block px-4 py-2 rounded-full text-sm font-semibold" style={{ color: "#ffffff", backgroundColor: "rgba(255, 255, 255, 0.1)" }}>
               {t('hero.subtitle')}
             </div>
-            <h1 className="text-4xl lg:text-5xl font-black leading-tight" style={{ fontFamily: '"Alibaba PuHuiTi", sans-serif', fontWeight: 900, color: "#ffffff" }}>
+            <h1 className="text-2xl sm:text-3xl lg:text-5xl font-black leading-tight" style={{ fontFamily: '"Alibaba PuHuiTi", sans-serif', fontWeight: 900, color: "#ffffff" }}>
               <span style={{ display: 'inline-block', whiteSpace: 'nowrap' }}>{t("hero.title_part1")}</span>
               <span className="block mt-2" style={{ color: "#ffffff" }}>
                 {t("hero.title_part2")}
               </span>
             </h1>
-            <p className="text-lg leading-relaxed" style={{ color: "#ffffff" }}>
+            <p className="text-sm sm:text-base lg:text-lg leading-relaxed" style={{ color: "#ffffff" }}>
               {t("hero.description")}
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 pt-4">
-              <Link href="/booking">
-                <Button asChild size="lg" className="text-lg px-8 rounded-none" style={{ backgroundColor: "#ffffff", color: "#335577" }}>
+            <div className="flex flex-col gap-3 pt-4 w-full">
+              <Link href="/booking" className="w-full">
+                <Button asChild size="lg" className="text-base sm:text-lg px-6 sm:px-8 rounded-none w-full" style={{ backgroundColor: "#ffffff", color: "#335577" }}>
                   <span>
                     {t("hero.book_consultation")}
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </span>
                 </Button>
               </Link>
-              <Link href="/success-cases">
-                <Button asChild size="lg" className="text-lg px-8 rounded-none" style={{ backgroundColor: "transparent", color: "#ffffff", border: "2px solid #ffffff" }}>
+              <Link href="/success-cases" className="w-full">
+                <Button asChild size="lg" className="text-base sm:text-lg px-6 sm:px-8 rounded-none w-full" style={{ backgroundColor: "transparent", color: "#ffffff", border: "2px solid #ffffff" }}>
                   <span>查看案例</span>
                 </Button>
               </Link>
@@ -179,7 +179,7 @@ export default function Home() {
             <p className="text-lg text-muted-foreground">{t("services.subtitle")}</p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-6">
             {/* Service 1: Investment Immigration */}
             <Link href="/businessclass">
               <div className="group relative overflow-hidden bg-white border border-border cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-2" style={{borderRadius: '0px'}}>
