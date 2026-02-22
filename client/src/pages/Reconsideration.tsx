@@ -49,10 +49,22 @@ export default function Reconsideration() {
     solutions: {
       title: "OXEC's Professional Solutions",
       items: [
-        "Resubmission and Explanation: Supplement core evidence addressing the refusal reasons with logically rigorous legal defense.",
-        "Administrative Appeal: On behalf of clients, file appeals to the Immigration Appeal Division when conditions permit.",
-        "PF Letter Deep Response: Professional evidence organization and factual statements to seek withdrawal of doubts.",
-        "Criminal Rehabilitation: Assist applicants with foreign criminal records to apply for Rehabilitation, permanently eliminating inadmissibility status.",
+        {
+          title: "Resubmission and Explanation",
+          description: "Supplement core evidence addressing the refusal reasons with logically rigorous legal defense."
+        },
+        {
+          title: "Administrative Appeal",
+          description: "On behalf of clients, file appeals to the Immigration Appeal Division when conditions permit."
+        },
+        {
+          title: "PF Letter Deep Response",
+          description: "Professional evidence organization and factual statements to seek withdrawal of doubts."
+        },
+        {
+          title: "Criminal Rehabilitation",
+          description: "Assist applicants with foreign criminal records to apply for Rehabilitation, permanently eliminating inadmissibility status."
+        },
       ],
     },
     cta: "Rescue Your Application - Schedule Urgent Consultation",
@@ -78,10 +90,22 @@ export default function Reconsideration() {
     solutions: {
       title: "傲赛的专业解决方案",
       items: [
-        "重新递交与解释：针对拒签理由补充核心证据，进行逻辑严密的法律辩护。",
-        "行政申诉 (Appeal)：在符合条件的情况下，代表客户向移民上诉委员会提出上诉。",
-        "PF Letter 深度回复：针对程序公正信进行专业的证据梳理与事实陈述，力求撤销质疑。",
-        "刑事洗白 (Criminal Rehabilitation)：协助有境外记录的申请人申请康复（Rehabilitation），永久消除不可入境状态。",
+        {
+          title: "重新递交与解释",
+          description: "针对拒签理由补充核心证据，进行逻辑严密的法律辩护。"
+        },
+        {
+          title: "行政申诉 (Appeal)",
+          description: "在符合条件的情况下，代表客户向移民上诉委员会提出上诉。"
+        },
+        {
+          title: "PF Letter 深度回复",
+          description: "针对程序公正信进行专业的证据梳理与事实陈述，力求撤销质疑。"
+        },
+        {
+          title: "刑事洗白 (Criminal Rehabilitation)",
+          description: "协助有境外记录的申请人申请康复（Rehabilitation），永久消除不可入境状态。"
+        },
       ],
     },
     cta: "抢救您的申请 - 预约紧急咨询",
@@ -227,14 +251,15 @@ export default function Reconsideration() {
               <div className="space-y-8">
                 {t.solutions.items.map((item, index) => (
                   <div key={index} className="border-l-4 border-accent pl-6">
-                    <p className="text-muted-foreground leading-relaxed">{item}</p>
+                    <h3 className="text-xl font-bold text-foreground mb-3">{item.title}</h3>
+                    <p className="text-muted-foreground leading-relaxed">{item.description}</p>
                   </div>
                 ))}
               </div>
             </div>
             <div className="order-1 md:order-2">
               <img
-                src="https://private-us-east-1.manuscdn.com/sessionFile/i9ZSSj6IB1QFKBGCY6lMon/sandbox/Et35ZRYRa73QJkrxcQLmL5-img-3_1770162536000_na1fn_cmVjb25zaWRlcmF0aW9uLXNvbHV0aW9ucw.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80"
+                src="/images/img-3-opt.jpg"
                 alt="Professional solutions"
                 className="w-full h-auto shadow-lg object-cover"
                 style={{ aspectRatio: "16/9", borderRadius: "0px" }}

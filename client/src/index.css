@@ -184,3 +184,11 @@
 .select-trigger [role="presentation"] {
   @apply text-foreground;
 }
+
+/* Section title styling - Alibaba PuHuiTi Black 48px */
+.section-title {
+  font-family: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif';
+  font-size: 48px;
+  font-weight: 900;
+  line-height: 1.2;
+}
