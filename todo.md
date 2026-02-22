@@ -773,4 +773,5 @@
 
 ## 首页Hero Section优化 (Current Sprint - Phase 38)
 - [x] 修复预约咨询和查看案例按钮在电脑端的布局 - 电脑端改为sm:flex-row横向排列，手机端改为flex-col纵列
-- [x] 减小Hero section的高度 - 从100vh减小为60vh，确保第一屏至少露出下一个section的一小部分，提示用户滚动
+- [x] 减小Hero section的高度 - 从100vh改为60vh固定高度，第一屏露出下一个section提示用户滚动
+- [x] 修复计算器按钮布局 - 改为repeat(auto-fit, minmax(150px, 1fr))，电脑端4个横排，手机端自动为2行2列

@@ -127,9 +127,9 @@ export default function Home() {
       </nav>
 
       {/* Split Hero Section - Responsive Layout */}
-      <section className="flex flex-col lg:flex-row w-full" style={{minHeight: '60vh'}}>
+      <section className="flex flex-col lg:flex-row w-full" style={{height: '60vh'}}>
         {/* Left: Image - Full Height on Desktop, Auto on Mobile */}
-        <div className="w-full lg:w-1/2 order-2 lg:order-1 flex items-center justify-center min-h-64 lg:min-h-screen" style={{}}>
+        <div className="w-full lg:w-1/2 order-2 lg:order-1 flex items-center justify-center h-full" style={{}}>
           <img
             src="/hero-canadian.jpg"
             alt="Canadian Immigration - Flag and Parliament"
@@ -138,7 +138,7 @@ export default function Home() {
         </div>
 
         {/* Right: Content - Deep Blue Background */}
-        <div className="w-full lg:w-1/2 order-1 lg:order-2 flex items-center justify-center p-6 sm:p-8 lg:p-16 relative z-10" style={{ backgroundColor: "#335577", minHeight: 'auto' }}>
+        <div className="w-full lg:w-1/2 order-1 lg:order-2 flex items-center justify-center p-6 sm:p-8 lg:p-16 relative z-10" style={{ backgroundColor: "#335577", height: '100%' }}>
           <div className="space-y-6 w-full max-w-lg">
             <div className="inline-block px-4 py-2 rounded-full text-sm font-semibold" style={{ color: "#ffffff", backgroundColor: "rgba(255, 255, 255, 0.1)" }}>
               {t('hero.subtitle')}
@@ -253,7 +253,7 @@ export default function Home() {
         </div>
         {/* Calculator Buttons */}
         <div className="mt-12 flex justify-center" style={{ width: '100%' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px', width: '100%', maxWidth: '800px', paddingLeft: 'clamp(20px, 5vw, 40px)', paddingRight: 'clamp(20px, 5vw, 40px)' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '16px', width: '100%', maxWidth: '800px', paddingLeft: 'clamp(20px, 5vw, 40px)', paddingRight: 'clamp(20px, 5vw, 40px)' }}>
             <Link href="/clbtranslator">
               <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none w-full">
                 <span>CLB换算工具</span>
