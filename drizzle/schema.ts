@@ -149,6 +149,7 @@ export const imageLibrary = mysqlTable("imageLibrary", {
   mimeType: varchar("mimeType", { length: 50 }),
   description: text("description"),
   category: varchar("category", { length: 100 }),
+  uploadMethod: mysqlEnum("uploadMethod", ["manual", "migrated"]).default("manual").notNull(),
   uploadedBy: int("uploadedBy").notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
