@@ -96,13 +96,15 @@ export const imagesRouter = router({
           : 'image/unknown';
 
         const relativePath = getImageRelativePath(filename);
+        // Auto-set description if not provided
+        const description = input.description || `Manually uploaded: ${filename}`;
         await createImageRecord(
           filename,
           relativePath,
           fileSize,
           mimeType,
           ctx.user.id,
-          input.description,
+          description,
           input.category
         );
 
