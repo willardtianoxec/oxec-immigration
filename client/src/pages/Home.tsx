@@ -127,7 +127,7 @@ export default function Home() {
       </nav>
 
       {/* Split Hero Section - Responsive Layout */}
-      <section className="flex flex-col lg:flex-row w-full min-h-screen lg:min-h-screen" style={{minHeight: '100vh'}}>
+      <section className="flex flex-col lg:flex-row w-full" style={{minHeight: '60vh'}}>
         {/* Left: Image - Full Height on Desktop, Auto on Mobile */}
         <div className="w-full lg:w-1/2 order-2 lg:order-1 flex items-center justify-center min-h-64 lg:min-h-screen" style={{}}>
           <img
@@ -152,8 +152,8 @@ export default function Home() {
             <p className="text-sm sm:text-base lg:text-lg leading-relaxed" style={{ color: "#ffffff" }}>
               {t("hero.description")}
             </p>
-            <div className="flex flex-col gap-3 pt-4 w-full">
-              <Link href="/booking" className="w-full">
+            <div className="flex flex-col sm:flex-row gap-3 pt-4 w-full">
+              <Link href="/booking" className="w-full sm:flex-1">
                 <Button asChild size="lg" className="text-base sm:text-lg px-6 sm:px-8 rounded-none w-full" style={{ backgroundColor: "#ffffff", color: "#335577" }}>
                   <span>
                     {t("hero.book_consultation")}
@@ -161,7 +161,7 @@ export default function Home() {
                   </span>
                 </Button>
               </Link>
-              <Link href="/success-cases" className="w-full">
+              <Link href="/success-cases" className="w-full sm:flex-1">
                 <Button asChild size="lg" className="text-base sm:text-lg px-6 sm:px-8 rounded-none w-full" style={{ backgroundColor: "transparent", color: "#ffffff", border: "2px solid #ffffff" }}>
                   <span>查看案例</span>
                 </Button>
