@@ -40,7 +40,7 @@ export default function Reconsideration() {
     },
     challenges: {
       title: "Why Was Your Application Refused?",
-      text: "Visa refusals can occur for various reasons. Understanding the root cause is the first step toward resolution. Common reasons include misrepresentation of information, incomplete documentation, criminal inadmissibility, or concerns about the authenticity of documents. Each case is unique and requires careful analysis.",
+      text: "Visa refusals can occur for various reasons. Understanding the root cause is the first step toward resolution. Common reasons include:\n• Misrepresentation (Misrepresentation): Often due to memory errors or oversights, providing inaccurate information on visa refusal history, immigration history, or marital status.\n• Incomplete Documentation (Incomplete): Omitting key supporting documents due to operational errors, or submitting incorrect formats.\n• Criminal Inadmissibility (Inadmissible): Being deemed inadmissible due to criminal records outside Canada.",
     },
     pfLetter: {
       title: "Understanding the Procedural Fairness Letter",
@@ -50,7 +50,7 @@ export default function Reconsideration() {
       title: "OXEC's Professional Solutions",
       items: [
         {
-          title: "Resubmission and Explanation",
+          title: "Request for Reconsideration (Reconsideration)",
           description: "Supplement core evidence addressing the refusal reasons with logically rigorous legal defense."
         },
         {
@@ -81,7 +81,7 @@ export default function Reconsideration() {
     },
     challenges: {
       title: "为什么您的申请会被拒绝？",
-      text: "拒签可能出于多种原因。了解根本原因是解决问题的第一步。常见原因包括信息虚假陈述、材料不完整、刑事不可入境或对文件真实性的质疑。每个案件都是独特的，需要仔细分析。",
+      text: "拒签可能出于多种原因，了解根本原因是解决问题的第一步。常见原因包括：\n• 虚假陈述 (Misrepresentation)：常因记忆错误或疏忽，在拒签史、移民史或婚史等关键信息上提供不实说明。\n• 材料不完整 (Incomplete)：因操作失误遗漏关键证明文件，或提交了错误的格式。\n• 刑事不可入境 (Inadmissible)：因在加拿大境外留有犯罪记录，被判定为不可入境。",
     },
     pfLetter: {
       title: "程序公正信（Procedural Fairness Letter）",
@@ -91,7 +91,7 @@ export default function Reconsideration() {
       title: "傲赛的专业解决方案",
       items: [
         {
-          title: "重新递交与解释",
+          title: "要求重新考虑（Reconsideration）",
           description: "针对拒签理由补充核心证据，进行逻辑严密的法律辩护。"
         },
         {
@@ -104,7 +104,7 @@ export default function Reconsideration() {
         },
         {
           title: "刑事洗白 (Criminal Rehabilitation)",
-          description: "协助有境外记录的申请人申请康复（Rehabilitation），永久消除不可入境状态。"
+          description: "协助有境外犯罪记录的申请人申请康复（Rehabilitation），永久消除不可入境状态。"
         },
       ],
     },
@@ -187,7 +187,7 @@ export default function Reconsideration() {
         <div className="container">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="order-2 md:order-1">
-              <h2 className="section-title text-foreground mb-6">{t.overview.title}</h2>
+              <h2 className="section-title text-foreground mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontWeight: 900, fontSize: 'clamp(28px, 6vw, 48px)' }}>{t.overview.title}</h2>
               <p className="text-lg text-muted-foreground leading-relaxed">{t.overview.text}</p>
             </div>
             <div className="order-1 md:order-2">
@@ -215,8 +215,8 @@ export default function Reconsideration() {
               />
             </div>
             <div>
-              <h2 className="section-title text-foreground mb-6">{t.challenges.title}</h2>
-              <p className="text-lg text-muted-foreground leading-relaxed">{t.challenges.text}</p>
+              <h2 className="section-title text-foreground mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontWeight: 900, fontSize: 'clamp(28px, 6vw, 48px)' }}>{t.challenges.title}</h2>
+              <p className="text-lg text-muted-foreground leading-relaxed whitespace-pre-line">{t.challenges.text}</p>
             </div>
           </div>
         </div>
@@ -247,7 +247,7 @@ export default function Reconsideration() {
         <div className="container">
           <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
             <div className="order-2 md:order-1">
-              <h2 className="section-title text-foreground mb-8">{t.solutions.title}</h2>
+              <h2 className="section-title text-foreground mb-8" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontWeight: 900, fontSize: 'clamp(28px, 6vw, 48px)' }}>{t.solutions.title}</h2>
               <div className="space-y-8">
                 {t.solutions.items.map((item, index) => (
                   <div key={index} className="border-l-4 border-accent pl-6">
@@ -285,7 +285,7 @@ export default function Reconsideration() {
 
         {/* Content */}
         <div className="container text-center relative z-10">
-          <h2 className="text-3xl lg:text-4xl font-bold text-white mb-8">需要应对拒签或程序公正信吗？</h2>
+          <h2 className="text-3xl lg:text-4xl font-bold text-white mb-8" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontWeight: 900 }}>需要应对拒签或程序公正信吗？</h2>
           <a href="/booking">
             <Button
               size="lg"
@@ -310,7 +310,7 @@ export default function Reconsideration() {
       <section className="py-20 bg-white">
         <div className="container">
           <div className="text-center mb-16">
-            <h2 className="section-title text-foreground mb-4">{t.successCases}</h2>
+            <h2 className="section-title text-foreground mb-4" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontWeight: 900, fontSize: 'clamp(28px, 6vw, 48px)' }}>{t.successCases}</h2>
             <p className="text-lg text-muted-foreground">
               {isEnglish ? "Real success stories from our clients" : "来自我们客户的真实成功故事"}
             </p>
