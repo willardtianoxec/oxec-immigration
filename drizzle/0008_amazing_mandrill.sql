@@ -1,0 +1,1 @@
+ALTER TABLE `imageLibrary` ADD `uploadMethod` enum('manual','migrated') DEFAULT 'manual' NOT NULL;

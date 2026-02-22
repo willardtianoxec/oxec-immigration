@@ -57,6 +57,27 @@
       "when": 1771488365461,
       "tag": "0007_empty_cyclops",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "5",
+      "when": 1771754781533,
+      "tag": "0008_amazing_mandrill",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "5",
+      "when": 1771754892524,
+      "tag": "0009_ambiguous_human_torch",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "5",
+      "when": 1771754952908,
+      "tag": "0010_curvy_meteorite",
+      "breakpoints": true
     }
   ]
 }

@@ -50,7 +50,8 @@ export async function createImageRecord(
   mimeType: string,
   uploadedBy: number,
   description?: string,
-  category?: string
+  category?: string,
+  uploadMethod: 'manual' | 'migrated' = 'manual'
 ) {
   try {
     const db = await getDb();
@@ -63,6 +64,7 @@ export async function createImageRecord(
       mimeType,
       description: description || '',
       category,
+      uploadMethod,
       uploadedBy,
     });
     return result;

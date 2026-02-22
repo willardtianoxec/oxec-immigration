@@ -1,0 +1,1 @@
+ALTER TABLE `imageLibrary` DROP COLUMN `uploadMethod`;
