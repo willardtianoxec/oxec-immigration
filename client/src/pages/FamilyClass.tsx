@@ -35,7 +35,7 @@ export default function FamilyClass() {
   const familyImage2 = 'https://files.manuscdn.com/user_upload_by_module/session_file/310519663292376041/sxLiylhjEbzOSvBQ.jpg';
   const familyImage3 = 'https://files.manuscdn.com/user_upload_by_module/session_file/310519663292376041/yQpDINPnXnfonPlF.jpg';
   // Use the same image as /businessclass for project application process
-  const processImage = '/images/img-2-opt.jpg';
+  const processImage = '/images/document-submission-office-1771755684424-opt.webp';
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
