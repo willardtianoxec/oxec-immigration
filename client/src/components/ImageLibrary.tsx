@@ -293,15 +293,11 @@ export function ImageLibrary() {
                 <p className="text-sm font-medium truncate">{image.filename}</p>
                 <p className="text-xs text-gray-500 break-all">{image.relativePath}</p>
                 <p className="text-xs text-gray-500">
-                  {image.uploadMethod === 'manual' ? 'Manually uploaded: ' : 'Migrated from local: '}
-                  {image.filename}
+                  {image.description ? image.description : (image.uploadMethod === 'manual' ? 'Manually uploaded: ' : 'Migrated from local: ') + image.filename}
                 </p>
                 <p className="text-xs text-gray-500">
                   大小: {formatFileSize(image.fileSize)}
                 </p>
-                {image.description && (
-                  <p className="text-xs text-gray-600">{image.description}</p>
-                )}
                 {image.category && (
                   <span className="inline-block text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">
                     {image.category}

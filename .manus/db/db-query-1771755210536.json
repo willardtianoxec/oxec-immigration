@@ -1,0 +1,45 @@
+{
+  "query": "SELECT id, filename, description, category, uploadMethod FROM imageLibrary WHERE filename LIKE '%service%' OR filename LIKE '%world-map%' OR description LIKE '%Article%' LIMIT 5;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2MHEakYmYxuSUJe.root --database ERSfzVi6JGQA5UonrK4h6y --execute SELECT id, filename, description, category, uploadMethod FROM imageLibrary WHERE filename LIKE '%service%' OR filename LIKE '%world-map%' OR description LIKE '%Article%' LIMIT 5;",
+  "rows": [
+    {
+      "id": "12",
+      "filename": "world-map-dots.svg",
+      "description": "Auto-imported: world-map-dots.svg",
+      "category": "general",
+      "uploadMethod": "manual"
+    },
+    {
+      "id": "30001",
+      "filename": "Canada-fall.jpeg",
+      "description": "Article cover image - 2026-02-20T23:13:05.164Z",
+      "category": "NULL",
+      "uploadMethod": "manual"
+    },
+    {
+      "id": "30022",
+      "filename": "service-1-opt.jpg",
+      "description": "Migrated from local: service-1.jpg",
+      "category": "local-migration",
+      "uploadMethod": "manual"
+    },
+    {
+      "id": "30023",
+      "filename": "service-2-opt.jpg",
+      "description": "Migrated from local: service-2.jpg",
+      "category": "local-migration",
+      "uploadMethod": "manual"
+    },
+    {
+      "id": "30024",
+      "filename": "service-3-opt.jpg",
+      "description": "Migrated from local: service-3.jpg",
+      "category": "local-migration",
+      "uploadMethod": "manual"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tfilename\tdescription\tcategory\tuploadMethod\n12\tworld-map-dots.svg\tAuto-imported: world-map-dots.svg\tgeneral\tmanual\n30001\tCanada-fall.jpeg\tArticle cover image - 2026-02-20T23:13:05.164Z\tNULL\tmanual\n30022\tservice-1-opt.jpg\tMigrated from local: service-1.jpg\tlocal-migration\tmanual\n30023\tservice-2-opt.jpg\tMigrated from local: service-2.jpg\tlocal-migration\tmanual\n30024\tservice-3-opt.jpg\tMigrated from local: service-3.jpg\tlocal-migration\tmanual\n",
+  "stderr": "",
+  "execution_time_ms": 362
+}

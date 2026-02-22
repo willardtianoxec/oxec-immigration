@@ -1,0 +1,80 @@
+{
+  "query": "SELECT id, filename, description, category, uploadMethod FROM imageLibrary LIMIT 10;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2MHEakYmYxuSUJe.root --database ERSfzVi6JGQA5UonrK4h6y --execute SELECT id, filename, description, category, uploadMethod FROM imageLibrary LIMIT 10;",
+  "rows": [
+    {
+      "id": "12",
+      "filename": "world-map-dots.svg",
+      "description": "Auto-imported: world-map-dots.svg",
+      "category": "general",
+      "uploadMethod": "manual"
+    },
+    {
+      "id": "30001",
+      "filename": "Canada-fall.jpeg",
+      "description": "Article cover image - 2026-02-20T23:13:05.164Z",
+      "category": "NULL",
+      "uploadMethod": "manual"
+    },
+    {
+      "id": "30004",
+      "filename": "cicc-logo-opt.png",
+      "description": "Migrated from local: cicc-logo.png",
+      "category": "local-migration",
+      "uploadMethod": "manual"
+    },
+    {
+      "id": "30005",
+      "filename": "citizenship-legal-documents-opt.jpg",
+      "description": "Migrated from local: citizenship-legal-documents.jpg",
+      "category": "local-migration",
+      "uploadMethod": "manual"
+    },
+    {
+      "id": "30006",
+      "filename": "citizenship-oath-ceremony-opt.jpg",
+      "description": "Migrated from local: citizenship-oath-ceremony.jpg",
+      "category": "local-migration",
+      "uploadMethod": "manual"
+    },
+    {
+      "id": "30008",
+      "filename": "hero-canadian-opt.jpg",
+      "description": "Migrated from local: hero-canadian.jpg",
+      "category": "local-migration",
+      "uploadMethod": "manual"
+    },
+    {
+      "id": "30010",
+      "filename": "img-1-opt.jpg",
+      "description": "Migrated from local: img-1.jpg",
+      "category": "local-migration",
+      "uploadMethod": "manual"
+    },
+    {
+      "id": "30011",
+      "filename": "img-1-opt.png",
+      "description": "Migrated from local: img-1.png",
+      "category": "local-migration",
+      "uploadMethod": "manual"
+    },
+    {
+      "id": "30012",
+      "filename": "img-2-opt.jpg",
+      "description": "Migrated from local: img-2.jpg",
+      "category": "local-migration",
+      "uploadMethod": "manual"
+    },
+    {
+      "id": "30013",
+      "filename": "img-2-opt.png",
+      "description": "Migrated from local: img-2.png",
+      "category": "local-migration",
+      "uploadMethod": "manual"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tfilename\tdescription\tcategory\tuploadMethod\n12\tworld-map-dots.svg\tAuto-imported: world-map-dots.svg\tgeneral\tmanual\n30001\tCanada-fall.jpeg\tArticle cover image - 2026-02-20T23:13:05.164Z\tNULL\tmanual\n30004\tcicc-logo-opt.png\tMigrated from local: cicc-logo.png\tlocal-migration\tmanual\n30005\tcitizenship-legal-documents-opt.jpg\tMigrated from local: citizenship-legal-documents.jpg\tlocal-migration\tmanual\n30006\tcitizenship-oath-ceremony-opt.jpg\tMigrated from local: citizenship-oath-ceremony.jpg\tlocal-migration\tmanual\n30008\thero-canadian-opt.jpg\tMigrated from local: hero-canadian.jpg\tlocal-migration\tmanual\n30010\timg-1-opt.jpg\tMigrated from local: img-1.jpg\tlocal-migration\tmanual\n30011\timg-1-opt.png\tMigrated from local: img-1.png\tlocal-migration\tmanual\n30012\timg-2-opt.jpg\tMigrated from local: img-2.jpg\tlocal-migration\tmanual\n30013\timg-2-opt.png\tMigrated from local: img-2.png\tlocal-migration\tmanual\n",
+  "stderr": "",
+  "execution_time_ms": 394
+}
