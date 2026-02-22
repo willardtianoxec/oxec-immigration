@@ -422,7 +422,7 @@ function ImageLibraryManagement() {
   const [isDragging, setIsDragging] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const dragCountRef = useRef(0);
+  const dragCountRef = useRef<number>(0);
   const ITEMS_PER_PAGE = 20;
 
   const { data: images = [], isLoading, refetch } = trpc.images.list.useQuery();

@@ -754,3 +754,13 @@
 - [x] 为预约列表添加翻页功能 - 一页最多显示20条预约
 - [x] 添加翻页控件 - 显示当前页码、总页数，支持上一页/下一页导航
 - [x] 验证翻页效果 - 翻页功能正常工作，预约数超过20条时自动显示翻页控件
+
+## Booking Success Notification and Redirect (Current Sprint - Phase 36)
+- [ ] 为/booking页面添加预约成功提示 - 显示居中的预约成功对话框
+- [ ] 实现自动跳转到首页 - 3秒后自动跳转或点击按钮立即跳转
+- [ ] 验证预约成功流程 - 确保提示和跳转功能正常工作
+
+## Booking Success Notification and Redirect (Completed - Phase 36)
+- [x] 为/booking页面添加预约成功提示 - 添加Dialog组件显示成功提示
+- [x] 实现自动跳转到首页 - 3秒后自动跳转到首页
+- [x] 验证预约成功流程 - 预约成功后自动显示提示并跳转正常

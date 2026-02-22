@@ -1,6 +1,7 @@
 'use client';
 
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -8,8 +9,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
-import { Link } from "wouter";
-import { ArrowLeft, Globe } from "lucide-react";
+import { Link, useRouter, useLocation } from "wouter";
+import { ArrowLeft, Globe, CheckCircle } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import { MapView } from "@/components/Map";
 
@@ -87,6 +88,11 @@ export default function Booking() {
   const [lastSubmitTime, setLastSubmitTime] = useState(0);
   const [submitCountdown, setSubmitCountdown] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  
+  // 预约成功对话框相关状态
+  const [showSuccessDialog, setShowSuccessDialog] = useState(false);
+  const [redirectCountdown, setRedirectCountdown] = useState(3);
+  const [location, navigate] = useLocation();
 
   // 倒计时效果
   useEffect(() => {
@@ -104,10 +110,26 @@ export default function Booking() {
     
     return () => clearInterval(timer);
   }, [submitCountdown]);
+  
+  useEffect(() => {
+    if (!showSuccessDialog) return;
+    if (redirectCountdown <= 0) {
+      navigate("/");
+      setShowSuccessDialog(false);
+      return;
+    }
+    
+    const timer = setInterval(() => {
+      setRedirectCountdown(prev => prev - 1);
+    }, 1000);
+    
+    return () => clearInterval(timer);
+  }, [showSuccessDialog, redirectCountdown, navigate]);
 
   const createAppointment = trpc.appointments.create.useMutation({
     onSuccess: () => {
-      toast.success("您的预约申请已收到，我们的专业顾问将在24小时内与您联系。");
+      setShowSuccessDialog(true);
+      setRedirectCountdown(3);
       setFormData({
         name: "",
         email: "",
@@ -229,6 +251,7 @@ export default function Booking() {
   };
 
   return (
+    <>
     <div className="min-h-screen flex flex-col bg-background">
       {/* Header */}
       <div className="bg-white border-b border-border shadow-sm">
@@ -479,5 +502,33 @@ export default function Booking() {
         </div>
       </div>
     </div>
+    
+    <Dialog open={showSuccessDialog} onOpenChange={setShowSuccessDialog}>
+      <DialogContent className="sm:max-w-md">
+        <div className="flex flex-col items-center justify-center space-y-4 py-6">
+          <CheckCircle className="h-16 w-16 text-green-500" />
+          <DialogHeader className="text-center">
+            <DialogTitle className="text-2xl">预约成功！</DialogTitle>
+            <DialogDescription className="text-base mt-2">
+              您的预约申请已收到，我们的专业顾问将在24小时内与您联系。
+            </DialogDescription>
+          </DialogHeader>
+          <div className="text-center text-sm text-gray-500">
+            {redirectCountdown > 0 ? (
+              <p>{redirectCountdown} 秒后自动跳转到首页...</p>
+            ) : (
+              <p>正在跳转...</p>
+            )}
+          </div>
+          <Button 
+            onClick={() => navigate("/")}
+            className="w-full"
+          >
+            立即返回首页
+          </Button>
+        </div>
+      </DialogContent>
+    </Dialog>
+    </>
   );
 }
