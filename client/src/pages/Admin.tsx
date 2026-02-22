@@ -796,8 +796,16 @@ function ImageLibraryManagement() {
 }
 
 function AppointmentManagement() {
+  const ITEMS_PER_PAGE = 20;
   const [expandedId, setExpandedId] = useState<number | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
   const { data: appointments = [], isLoading, refetch } = trpc.appointments.list.useQuery();
+  
+  // 计算分页数据
+  const totalPages = Math.ceil(appointments.length / ITEMS_PER_PAGE);
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const endIndex = startIndex + ITEMS_PER_PAGE;
+  const paginatedAppointments = appointments.slice(startIndex, endIndex);
   const deleteMutation = trpc.appointments.delete.useMutation({
     onSuccess: () => refetch(),
   });
@@ -832,7 +840,7 @@ function AppointmentManagement() {
           <Loader2 className="h-8 w-8 animate-spin" />
         ) : appointments.length > 0 ? (
           <div className="space-y-3">
-            {appointments.map((appointment: any) => (
+            {paginatedAppointments.map((appointment: any) => (
               <div key={appointment.id} className="border rounded-lg overflow-hidden hover:shadow-md transition-shadow">
                 {/* 默认显示的卡片头部 */}
                 <div
@@ -908,6 +916,33 @@ function AppointmentManagement() {
                 )}
               </div>
             ))}
+            
+            {/* 翻页控件 */}
+            {totalPages > 1 && (
+              <div className="flex items-center justify-between mt-6 pt-4 border-t">
+                <div className="text-sm text-gray-600">
+                  第 {currentPage} 页，共 {totalPages} 页 ({appointments.length} 条记录)
+                </div>
+                <div className="flex gap-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                    disabled={currentPage === 1}
+                  >
+                    上一页
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+                    disabled={currentPage === totalPages}
+                  >
+                    下一页
+                  </Button>
+                </div>
+              </div>
+            )}
           </div>
         ) : (
           <p className="text-gray-500">No appointments yet</p>
