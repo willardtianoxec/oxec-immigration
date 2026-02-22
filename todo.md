@@ -726,3 +726,9 @@
 ## Homepage Calculator Buttons (Current Sprint - Phase 26)
 - [x] 修复计算器按钮布局 - 使用CSS Grid确保四个按钮整体居中且宽度相等
 - [x] 更新按钮名称 - CLB换算工具、CRS计算器、BC PNP计算器、FSW算分工具
+
+## Image Library Fix (Current Sprint - Phase 30)
+- [x] 修复imageManagement.ts中的getDb()调用 - 添加await关键字
+- [x] 修复imageManagement.ts中的updateImageMetadata函数 - 调整参数顺序和返回值
+- [x] 修复AdminPostForm.tsx中ImageSelectorModal的使用 - 更正props名称和回调参数类型
+- [x] 验证images library加载正常 - Admin页面images标签页现已正常显示图库

@@ -10,7 +10,7 @@ import {
   getImageFilePath,
   getImageRelativePath,
   optimizeAndSaveImage,
-} from "../imageManagement";
+} from "../imageManagement.ts";
 import fs from "fs/promises";
 
 // Admin-only procedure

@@ -13,7 +13,7 @@ const MAX_IMAGE_SIZE = 1024 * 1024; // 1MB target
  */
 export async function getAllImages() {
   try {
-    const db = getDb();
+    const db = await getDb();
     if (!db) throw new Error("Database not available");
     
     const images = await db.select().from(imageLibrary);
@@ -29,7 +29,7 @@ export async function getAllImages() {
  */
 export async function getImageById(id: number) {
   try {
-    const db = getDb();
+    const db = await getDb();
     if (!db) throw new Error("Database not available");
     
     const image = await db.select().from(imageLibrary).where(eq(imageLibrary.id, id));
@@ -48,12 +48,12 @@ export async function createImageRecord(
   relativePath: string,
   fileSize: number,
   mimeType: string,
-  category: string,
   uploadedBy: number,
-  description?: string
+  description?: string,
+  category?: string
 ) {
   try {
-    const db = getDb();
+    const db = await getDb();
     if (!db) throw new Error("Database not available");
     
     const result = await db.insert(imageLibrary).values({
@@ -77,7 +77,7 @@ export async function createImageRecord(
  */
 export async function deleteImageById(id: number) {
   try {
-    const db = getDb();
+    const db = await getDb();
     if (!db) throw new Error("Database not available");
     
     await db.delete(imageLibrary).where(eq(imageLibrary.id, id));
@@ -92,13 +92,22 @@ export async function deleteImageById(id: number) {
  */
 export async function updateImageMetadata(
   id: number,
-  updates: { description?: string; category?: string }
+  description?: string,
+  category?: string
 ) {
   try {
-    const db = getDb();
+    const db = await getDb();
     if (!db) throw new Error("Database not available");
     
+    const updates: { description?: string; category?: string } = {};
+    if (description !== undefined) updates.description = description;
+    if (category !== undefined) updates.category = category;
+    
     await db.update(imageLibrary).set(updates).where(eq(imageLibrary.id, id));
+    
+    // Return updated record
+    const updated = await db.select().from(imageLibrary).where(eq(imageLibrary.id, id));
+    return updated[0];
   } catch (error) {
     console.error("[Image Management] Error updating image metadata:", error);
     throw error;

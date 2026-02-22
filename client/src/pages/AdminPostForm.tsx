@@ -652,11 +652,11 @@ export function AdminPostForm() {
 
           {/* Image Selector Modal */}
           <ImageSelectorModal
-            isOpen={isImageSelectorOpen}
-            onClose={() => setIsImageSelectorOpen(false)}
-            onSelect={(image) => {
-              setCoverImagePreview(image.publicUrl);
-              setFormData((prev) => ({ ...prev, coverImage: image.publicUrl }));
+            open={isImageSelectorOpen}
+            onOpenChange={setIsImageSelectorOpen}
+            onSelect={(imagePath) => {
+              setCoverImagePreview(imagePath);
+              setFormData((prev) => ({ ...prev, coverImage: imagePath }));
               setIsImageSelectorOpen(false);
             }}
           />
