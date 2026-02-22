@@ -10,7 +10,7 @@ import { Switch } from "@/components/ui/switch";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
 import { Link, useLocation } from "wouter";
-import { 
+import {
   FileText, 
   Award, 
   Calendar, 
@@ -20,7 +20,8 @@ import {
   ArrowLeft,
   Loader2,
   Image,
-  Edit2
+  Edit2,
+  ChevronDown
 } from "lucide-react";
 import {
   Select,
@@ -795,6 +796,7 @@ function ImageLibraryManagement() {
 }
 
 function AppointmentManagement() {
+  const [expandedId, setExpandedId] = useState<number | null>(null);
   const { data: appointments = [], isLoading, refetch } = trpc.appointments.list.useQuery();
   const deleteMutation = trpc.appointments.delete.useMutation({
     onSuccess: () => refetch(),
@@ -811,6 +813,14 @@ function AppointmentManagement() {
     }
   };
 
+  const getConsultationTypeLabel = (type: string) => {
+    const typeMap: { [key: string]: string } = {
+      "phone": "电话咨询",
+      "in-person": "面对面咨询"
+    };
+    return typeMap[type] || type;
+  };
+
   return (
     <Card>
       <CardHeader>
@@ -821,28 +831,74 @@ function AppointmentManagement() {
         {isLoading ? (
           <Loader2 className="h-8 w-8 animate-spin" />
         ) : appointments.length > 0 ? (
-          <div className="space-y-4">
+          <div className="space-y-3">
             {appointments.map((appointment: any) => (
-              <div key={appointment.id} className="border rounded p-4">
-                <div className="flex justify-between items-start">
-                  <div>
-                    <h3 className="font-semibold">{appointment.name}</h3>
-                    <p className="text-sm text-gray-500">{appointment.email}</p>
-                    <p className="text-sm text-gray-500">{appointment.phone}</p>
-                    {appointment.appointmentDate && (
-                      <p className="text-xs text-gray-400">
-                        {format(new Date(appointment.appointmentDate), "MMM d, yyyy HH:mm")}
-                      </p>
-                    )}
+              <div key={appointment.id} className="border rounded-lg overflow-hidden hover:shadow-md transition-shadow">
+                {/* 默认显示的卡片头部 */}
+                <div
+                  className="p-4 bg-gray-50 cursor-pointer hover:bg-gray-100 transition-colors flex justify-between items-center"
+                  onClick={() => setExpandedId(expandedId === appointment.id ? null : appointment.id)}
+                >
+                  <div className="flex-1">
+                    <h3 className="font-semibold text-base">{appointment.name}</h3>
+                    <p className="text-sm text-gray-600 mt-1">
+                      {appointment.consultationSubject || "未指定咨询主题"}
+                    </p>
                   </div>
-                  <Button
-                    size="sm"
-                    variant="destructive"
-                    onClick={() => handleDelete(appointment.id)}
-                  >
-                    <Trash2 className="h-4 w-4" />
-                  </Button>
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">
+                      {getConsultationTypeLabel(appointment.consultationType)}
+                    </span>
+                    <ChevronDown
+                      className={`h-5 w-5 text-gray-600 transition-transform ${
+                        expandedId === appointment.id ? "transform rotate-180" : ""
+                      }`}
+                    />
+                  </div>
                 </div>
+
+                {/* 展开后显示的详细信息 */}
+                {expandedId === appointment.id && (
+                  <div className="p-4 border-t bg-white space-y-3">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <p className="text-xs text-gray-500 font-medium">邮箱</p>
+                        <p className="text-sm text-gray-700">{appointment.email}</p>
+                      </div>
+                      <div>
+                        <p className="text-xs text-gray-500 font-medium">电话</p>
+                        <p className="text-sm text-gray-700">{appointment.phone}</p>
+                      </div>
+                    </div>
+
+                    {appointment.preferredDate && (
+                      <div>
+                        <p className="text-xs text-gray-500 font-medium">预计咨询时间</p>
+                        <p className="text-sm text-gray-700">
+                          {format(new Date(appointment.preferredDate), "yyyy年MM月dd日 HH:mm")}
+                        </p>
+                      </div>
+                    )}
+
+                    {appointment.message && (
+                      <div>
+                        <p className="text-xs text-gray-500 font-medium">备注</p>
+                        <p className="text-sm text-gray-700">{appointment.message}</p>
+                      </div>
+                    )}
+
+                    <div className="pt-3 border-t flex justify-end">
+                      <Button
+                        size="sm"
+                        variant="destructive"
+                        onClick={() => handleDelete(appointment.id)}
+                      >
+                        <Trash2 className="h-4 w-4 mr-2" />
+                        删除预约
+                      </Button>
+                    </div>
+                  </div>
+                )}
               </div>
             ))}
           </div>

@@ -739,3 +739,8 @@
 
 ## AppointmentManagement Date Error Fix (Current Sprint - Phase 32)
 - [x] 修复AppointmentManagement组件中的"Invalid time value"错误 - 添加null检查防止无效Date对象创建
+
+## Appointments UI Optimization (Current Sprint - Phase 33)
+- [x] 查看预约数据结构 - 包含咨询主题、咨询类型、预计时间字段
+- [x] 实现可展开的卡片设计 - 默认显示姓名、需求类型、咨询类型，点击展开显示邮箱、电话、预计时间
+- [x] 添加展开/收起动画 - ChevronDown图标旋转动画，平滑展开收起效果
