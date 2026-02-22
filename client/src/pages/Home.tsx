@@ -127,7 +127,7 @@ export default function Home() {
       </nav>
 
       {/* Split Hero Section - Responsive Layout */}
-      <section className="flex flex-col lg:flex-row w-full" style={{minHeight: '75vh'}}>
+      <section className="flex flex-col lg:flex-row w-full" style={{minHeight: '65vh'}}>
         {/* Left: Image - Full Height on Desktop, Auto on Mobile */}
         <div className="w-full lg:w-1/2 order-2 lg:order-1 flex items-center justify-center min-h-64 lg:min-h-full" style={{}}>
           <img
@@ -138,7 +138,7 @@ export default function Home() {
         </div>
 
         {/* Right: Content - Deep Blue Background */}
-        <div className="w-full lg:w-1/2 order-1 lg:order-2 flex items-center justify-center p-4 sm:p-6 lg:p-16 relative z-10" style={{ backgroundColor: "#335577", minHeight: '75vh' }}>
+        <div className="w-full lg:w-1/2 order-1 lg:order-2 flex items-center justify-center p-4 sm:p-6 lg:p-16 relative z-10" style={{ backgroundColor: "#335577", minHeight: '65vh' }}>
           <div className="space-y-6 w-full max-w-lg">
             <div className="inline-block px-4 py-2 rounded-full text-sm font-semibold" style={{ color: "#ffffff", backgroundColor: "rgba(255, 255, 255, 0.1)" }}>
               {t('hero.subtitle')}
