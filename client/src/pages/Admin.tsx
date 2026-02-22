@@ -829,9 +829,11 @@ function AppointmentManagement() {
                     <h3 className="font-semibold">{appointment.name}</h3>
                     <p className="text-sm text-gray-500">{appointment.email}</p>
                     <p className="text-sm text-gray-500">{appointment.phone}</p>
-                    <p className="text-xs text-gray-400">
-                      {format(new Date(appointment.appointmentDate), "MMM d, yyyy HH:mm")}
-                    </p>
+                    {appointment.appointmentDate && (
+                      <p className="text-xs text-gray-400">
+                        {format(new Date(appointment.appointmentDate), "MMM d, yyyy HH:mm")}
+                      </p>
+                    )}
                   </div>
                   <Button
                     size="sm"
