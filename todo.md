@@ -811,3 +811,7 @@
 ## Admin页面图片上传错误修复 (Current Sprint - Phase 44)
 - [x] 修复Admin页面的图片上传错误 - 修复imageManagement.ts缺失的path导入
 - [x] 解决TypeScript编译错误 - 修复ImageLibrary.tsx和Admin.tsx的类型错误
+
+
+## FamilyClass页面标题自适应优化 (Current Sprint - Phase 45)
+- [x] 修复FamilyClass页面的标题自适应 - 所有标题使用clamp(28px, 6vw, 48px)实现自动缩放

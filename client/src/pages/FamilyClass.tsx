@@ -142,7 +142,7 @@ export default function FamilyClass() {
         <div className="container">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="order-2 md:order-1">
-              <h2 className="text-foreground mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", sans-serif', fontWeight: 900, fontSize: '48px' }}>
+              <h2 className="text-foreground mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", sans-serif', fontWeight: 900, fontSize: 'clamp(28px, 6vw, 48px)' }}>
                 {isEnglish ? "Family Reunion Immigration: Bringing Love Together in Canada" : "与家人在加拿大团聚"}
               </h2>
               <p className="text-lg text-muted-foreground leading-relaxed">
@@ -177,7 +177,7 @@ export default function FamilyClass() {
               />
             </div>
             <div>
-              <h2 className="text-foreground mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", sans-serif', fontWeight: 900, fontSize: '48px' }}>
+              <h2 className="text-foreground mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", sans-serif', fontWeight: 900, fontSize: 'clamp(28px, 6vw, 48px)' }}>
                 {isEnglish ? "Who Can Sponsor Family Members?" : "谁可以担保家庭成员？"}
               </h2>
               <div className="text-lg text-muted-foreground leading-relaxed space-y-3">
@@ -207,7 +207,7 @@ export default function FamilyClass() {
         <div className="container">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="order-2 md:order-1">
-              <h2 className="text-foreground mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", sans-serif', fontWeight: 900, fontSize: '48px' }}>
+              <h2 className="text-foreground mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", sans-serif', fontWeight: 900, fontSize: 'clamp(28px, 6vw, 48px)' }}>
                 {isEnglish ? "Which Relatives Can Be Sponsored?" : "哪些亲属可以被担保？"}
               </h2>
               <div className="text-lg text-muted-foreground leading-relaxed space-y-3">
@@ -291,7 +291,7 @@ export default function FamilyClass() {
               />
             </div>
             <div>
-              <h2 className="text-foreground mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", sans-serif', fontWeight: 900, fontSize: '48px' }}>
+              <h2 className="text-foreground mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", sans-serif', fontWeight: 900, fontSize: 'clamp(28px, 6vw, 48px)' }}>
                 {isEnglish ? "Project Application Process" : "项目申请流程"}
               </h2>
               <p className="text-lg text-muted-foreground leading-relaxed mb-8">
