@@ -127,9 +127,9 @@ export default function Home() {
       </nav>
 
       {/* Split Hero Section - Responsive Layout */}
-      <section className="flex flex-col lg:flex-row w-full" style={{height: '60vh'}}>
+      <section className="flex flex-col lg:flex-row w-full" style={{minHeight: '75vh'}}>
         {/* Left: Image - Full Height on Desktop, Auto on Mobile */}
-        <div className="w-full lg:w-1/2 order-2 lg:order-1 flex items-center justify-center h-full" style={{}}>
+        <div className="w-full lg:w-1/2 order-2 lg:order-1 flex items-center justify-center min-h-64 lg:min-h-full" style={{}}>
           <img
             src="/hero-canadian.jpg"
             alt="Canadian Immigration - Flag and Parliament"
@@ -138,12 +138,12 @@ export default function Home() {
         </div>
 
         {/* Right: Content - Deep Blue Background */}
-        <div className="w-full lg:w-1/2 order-1 lg:order-2 flex items-center justify-center p-6 sm:p-8 lg:p-16 relative z-10" style={{ backgroundColor: "#335577", height: '100%' }}>
+        <div className="w-full lg:w-1/2 order-1 lg:order-2 flex items-center justify-center p-4 sm:p-6 lg:p-16 relative z-10" style={{ backgroundColor: "#335577", minHeight: '75vh' }}>
           <div className="space-y-6 w-full max-w-lg">
             <div className="inline-block px-4 py-2 rounded-full text-sm font-semibold" style={{ color: "#ffffff", backgroundColor: "rgba(255, 255, 255, 0.1)" }}>
               {t('hero.subtitle')}
             </div>
-            <h1 className="text-2xl sm:text-3xl lg:text-5xl font-black leading-tight" style={{ fontFamily: '"Alibaba PuHuiTi", sans-serif', fontWeight: 900, color: "#ffffff" }}>
+            <h1 className="font-black leading-tight" style={{ fontFamily: '"Alibaba PuHuiTi", sans-serif', fontWeight: 900, color: "#ffffff", fontSize: 'clamp(24px, 5vw, 48px)' }}>
               <span style={{ display: 'inline-block', whiteSpace: 'nowrap' }}>{t("hero.title_part1")}</span>
               <span className="block mt-2" style={{ color: "#ffffff" }}>
                 {t("hero.title_part2")}
@@ -175,7 +175,7 @@ export default function Home() {
       <section className="relative z-20 w-full bg-background" style={{ padding: 'clamp(40px, 8vw, 80px) 0' }}>
         <div className="container">
           <div className="text-center mb-16">
-            <h2 className="font-bold text-foreground mb-4" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: '48px', fontWeight: 900 }}>我们的移民服务</h2>
+            <h2 className="font-bold text-foreground mb-4" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: 'clamp(32px, 8vw, 48px)', fontWeight: 900 }}>我们的移民服务</h2>
             <p className="text-lg text-muted-foreground">{t("services.subtitle")}</p>
           </div>
 
@@ -282,7 +282,7 @@ export default function Home() {
       <section className="relative z-20 w-full bg-gray-50" style={{ padding: 'clamp(40px, 8vw, 80px) 0' }}>
         <div className="container">
           <div className="text-center mb-20">
-            <h2 className="font-bold text-foreground mb-4" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: '48px', fontWeight: 900 }}>关于傲赛（OXEC）</h2>
+            <h2 className="font-bold text-foreground mb-4" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: 'clamp(32px, 8vw, 48px)', fontWeight: 900 }}>关于傲赛（OXEC）</h2>
             <p className="text-lg text-muted-foreground">一家领先的专业型加拿大移民与行政法事务所，设于加拿大卑诗省，为加拿大及全球客户提供服务</p>
           </div>
 
@@ -330,8 +330,8 @@ export default function Home() {
       {/* Global Services Section - Standardized Spacing */}
       <section className="relative z-20 w-full bg-gray-50" style={{ padding: 'clamp(40px, 8vw, 80px) 0' }}>
         <div className="container">
-          <div className="grid md:grid-cols-2 gap-12 items-center" style={{ display: 'flex', alignItems: 'center', minHeight: 'auto', overflow: 'visible' }}>
-            <div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+            <div className="order-2 lg:order-1">
               <img
                 src="/world-map-dots.svg"
                 alt="Global Services Map"
@@ -339,8 +339,8 @@ export default function Home() {
                 style={{ height: 'auto', objectFit: 'contain' }}
               />
             </div>
-            <div>
-              <h2 className="font-bold text-foreground mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: '48px', fontWeight: 900 }}>欢迎帮助我们"点亮地图"</h2>
+            <div className="order-1 lg:order-2">
+              <h2 className="font-bold text-foreground mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: 'clamp(32px, 8vw, 48px)', fontWeight: 900 }}>欢迎帮助我们"点亮地图"</h2>
               <p className="text-lg text-muted-foreground leading-relaxed mb-6">
                 我们为来自加拿大各地及世界各国的客户提供移民咨询服务。您来自我们尚未服务过的国家，我们诚挚期待与您建立联系。每一位客户都是一段全新的旅程——在为您提供专业支持的同时，我们也渴望汲取您深厚的文化底蕴与移民故事，并分享我们的专业经验。
               </p>

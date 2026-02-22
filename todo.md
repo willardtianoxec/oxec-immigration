@@ -775,3 +775,11 @@
 - [x] 修复预约咨询和查看案例按钮在电脑端的布局 - 电脑端改为sm:flex-row横向排列，手机端改为flex-col纵列
 - [x] 减小Hero section的高度 - 从100vh改为60vh固定高度，第一屏露出下一个section提示用户滚动
 - [x] 修复计算器按钮布局 - 改为repeat(auto-fit, minmax(150px, 1fr))，电脑端4个横排，手机端自动为2行2列
+
+
+## 首页响应式布局优化 (Current Sprint - Phase 39)
+- [x] 调整Hero section高度为75vh - 改为min-height确保文字和按钮不会突破边界
+- [x] 修复Hero section在手机端的布局 - 确保文字和按钮在手机端不会侵入导航栏或图片
+- [x] 实现标题自適应字体缩放 - 所有标题使用clamp()函数实现响应式字体大小
+- [x] 修复Google评价部分响应式 - 星数和review us按钮自动缩小適应屏幕宽度
+- [x] 修复地图部分响应式布局 - 手机端上下显示，电脑端左右显示，与Hero section一致

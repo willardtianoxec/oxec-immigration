@@ -40,35 +40,35 @@ export function GoogleReviewsPreview() {
     <section className="bg-white py-16 px-4">
       <div className="container mx-auto max-w-7xl">
         {/* 标题 */}
-        <h2 className="text-4xl md:text-5xl font-black mb-12 text-gray-900" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: '48px', fontWeight: 900, textAlign: 'center' }}>
+        <h2 className="font-black mb-12 text-gray-900" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: 'clamp(32px, 8vw, 48px)', fontWeight: 900, textAlign: 'center' }}>
           客户评价
         </h2>
 
-        {/* Google评分展示区 - 居中布局 */}
-        <div className="flex flex-col items-center justify-center gap-8 mb-12">
-          <div className="flex items-center justify-center gap-12">
+        {/* Google评分展示区 - 响应式布局 */}
+        <div className="flex flex-col items-center justify-center gap-6 sm:gap-8 mb-12">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 w-full px-4">
             {/* 左侧：评分信息 */}
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-3 sm:gap-6 flex-shrink-0">
               {/* 大号评分 */}
-              <div className="text-6xl font-black text-gray-900 leading-none">
+              <div className="text-4xl sm:text-6xl font-black text-gray-900 leading-none">
                 {data.rating.toFixed(1)}
               </div>
 
               {/* 中间：标题和星级 */}
               <div>
                 <div className="flex items-center gap-2 mb-2">
-                  <h3 className="text-2xl font-bold text-gray-900">Google Reviews</h3>
+                  <h3 className="text-lg sm:text-2xl font-bold text-gray-900">Google Reviews</h3>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="flex gap-1">
                     {[...Array(5)].map((_, i) => (
                       <Star
                         key={i}
-                        className="w-5 h-5 fill-yellow-400 text-yellow-400"
+                        className="w-4 sm:w-5 h-4 sm:h-5 fill-yellow-400 text-yellow-400"
                       />
                     ))}
                   </div>
-                  <span className="text-gray-600 font-semibold">({data.reviewCount})</span>
+                  <span className="text-xs sm:text-sm text-gray-600 font-semibold">({data.reviewCount})</span>
                 </div>
               </div>
             </div>
@@ -78,11 +78,11 @@ export function GoogleReviewsPreview() {
               href="https://www.google.com/maps/search/OXEC+Immigration"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-shrink-0"
+              className="flex-shrink-0 w-full sm:w-auto"
             >
               <Button
                 size="lg"
-                className="bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-full px-8 py-6 text-lg whitespace-nowrap"
+                className="bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-full px-4 sm:px-8 py-4 sm:py-6 text-sm sm:text-lg w-full sm:w-auto"
               >
                 Review us on Google
               </Button>
