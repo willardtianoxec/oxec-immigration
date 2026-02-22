@@ -192,7 +192,7 @@ export default function Reconsideration() {
             </div>
             <div className="order-1 md:order-2">
               <OptimizedImage
-                src="https://private-us-east-1.manuscdn.com/sessionFile/i9ZSSj6IB1QFKBGCY6lMon/sandbox/Et35ZRYRa73QJkrxcQLmL5-img-1_1770162528000_na1fn_cmVjb25zaWRlcmF0aW9uLW92ZXJ2aWV3.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80"
+                src="/images/reconsideration-overview-1771752561140-opt.webp"
                 alt="Calmly face visa refusal"
                 className="w-full h-auto shadow-lg object-cover"
                 style={{ aspectRatio: "16/9", borderRadius: "0px" }}
@@ -208,7 +208,7 @@ export default function Reconsideration() {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <img
-                src="https://private-us-east-1.manuscdn.com/sessionFile/i9ZSSj6IB1QFKBGCY6lMon/sandbox/Et35ZRYRa73QJkrxcQLmL5-img-2_1770162530000_na1fn_cmVjb25zaWRlcmF0aW9uLXJlZnVzYWw.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80"
+                src="/images/reconsideration-refusal-1771752587583-opt.webp"
                 alt="Why was your application refused"
                 className="w-full h-auto shadow-lg object-cover"
                 style={{ aspectRatio: "16/9", borderRadius: "0px" }}
@@ -232,7 +232,7 @@ export default function Reconsideration() {
             </div>
             <div className="order-1 md:order-2">
               <img
-                src="https://private-us-east-1.manuscdn.com/sessionFile/i9ZSSj6IB1QFKBGCY6lMon/sandbox/Et35ZRYRa73QJkrxcQLmL5-img-3_1770162536000_na1fn_cmVjb25zaWRlcmF0aW9uLXNvbHV0aW9ucw.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80"
+                src="/images/reconsideration-pf-letter-1771752634892-opt.webp"
                 alt="Procedural Fairness Letter"
                 className="w-full h-auto shadow-lg object-cover"
                 style={{ aspectRatio: "16/9", borderRadius: "0px" }}
@@ -259,7 +259,7 @@ export default function Reconsideration() {
             </div>
             <div className="order-1 md:order-2">
               <img
-                src="/images/img-3-opt.jpg"
+                src="/images/reconsideration-solutions-1771752651340-opt.webp"
                 alt="Professional solutions"
                 className="w-full h-auto shadow-lg object-cover"
                 style={{ aspectRatio: "16/9", borderRadius: "0px" }}
