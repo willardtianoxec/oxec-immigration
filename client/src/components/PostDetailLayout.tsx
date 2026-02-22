@@ -58,12 +58,13 @@ export function PostDetailLayout({
                 {/* Article Header */}
                 <div className="mb-8 border-b border-gray-200 pb-8">
                   <h1
-                    className="text-4xl md:text-5xl font-black mb-4"
+                    className="font-black mb-4"
                     style={{
                       fontFamily: '"Alibaba PuHuiTi", sans-serif',
                       fontWeight: 900,
                       color: '#1a1a1a',
                       lineHeight: 1.3,
+                      fontSize: 'clamp(28px, 8vw, 48px)'
                     }}
                   >
                     {title}

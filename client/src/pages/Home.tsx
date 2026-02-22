@@ -101,6 +101,26 @@ export default function Home() {
               <Link href="/">
                 <span className="block text-foreground hover:text-primary transition-colors font-medium cursor-pointer py-2">{t("nav.home")}</span>
               </Link>
+              <div className="relative">
+                <button
+                  onClick={() => setServicesDropdownOpen(!servicesDropdownOpen)}
+                  className="block w-full text-left text-foreground hover:text-primary transition-colors font-medium cursor-pointer py-2 flex items-center justify-between"
+                >
+                  {t("nav.services")}
+                  <ChevronDown className={`w-4 h-4 transition-transform ${servicesDropdownOpen ? 'rotate-180' : ''}`} />
+                </button>
+                {servicesDropdownOpen && (
+                  <div className="bg-gray-50 rounded-md mt-2 py-2 pl-4">
+                    {serviceItems.map((item) => (
+                      <Link key={item.href} href={item.href}>
+                        <span className="block px-2 py-2 text-foreground hover:text-primary transition-colors cursor-pointer text-sm">
+                          {item.label}
+                        </span>
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
               <Link href="/success-cases">
                 <span className="block text-foreground hover:text-primary transition-colors font-medium cursor-pointer py-2">{t("nav.success_cases")}</span>
               </Link>
