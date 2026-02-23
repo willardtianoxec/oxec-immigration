@@ -274,13 +274,13 @@ export default function Temporary() {
                     </h2>
                     <p className="text-lg text-muted-foreground leading-relaxed whitespace-pre-line">
                       {isEnglish
-                        ? 'Canada is renowned globally for its high-quality public education system and safe, inclusive social environment.\n\n• Youth Education: Beautiful natural surroundings and multicultural atmosphere are ideal for adolescent physical and mental health development and comprehensive quality cultivation.\n\n• Adult International Students: Studying abroad is not just about acquiring knowledge—it\'s a \'royal pathway\' to Canadian immigration. By obtaining local credentials and work experience, you can significantly enhance your success rate in Provincial Nomination Programs (PNP) and Federal Express Entry (EE).'
-                        : '加拿大以其高质量的公立教育体系和安全包容的社会环境享誉全球。\n\n• 青少年教育：优美的自然环境与多元文化氛围，极利于青少年的身心健康成长与综合素质培养。\n\n• 成年留学生：留学不仅是获取知识，更是通往加拿大移民的\'王道路径\'，通过获取本地学历与工作经验，可大幅提升省提名（PNP）及联邦快速通道（EE）的成功率。'}
+                        ? 'Canada is renowned globally for its high-quality public education system and safe, inclusive social environment.\n\nCanada offers adolescents a beautiful natural environment and multicultural atmosphere, conducive to healthy physical and mental development and comprehensive quality cultivation.\n\nCanada also offers ambitious adult international students an opportunity to transform their life trajectory. Studying abroad is not just about acquiring knowledge—it\'s a \'royal pathway\' to Canadian immigration. By obtaining local credentials and work experience, you can significantly enhance your success rate in Provincial Nomination Programs (PNP) and Federal Express Entry (EE).\n\nWe will assist and guide you in handling complex study permits, avoiding refusal risks, and planning your entire study phase for immigration compliance.'
+                        : '加拿大以其高质量的公立教育体系和安全包容的社会环境享誉全球。\n\n在优美的自然环境与多元文化氛围中，加拿大不仅有利于青少年的身心健康成长与综合素质培养，更帮助孩子们发现自我、找到未来的人生目标。\n\n对于有志于转换人生赛道的成年留学生，留学不仅是更新知识体系的机会，更是一条移民加拿大的"王道路径"。通过获取本地学历与工作经验，可大幅提升省提名（PNP）及联邦快速通道（EE）的成功率。\n\n我们将协助您处理复杂的学签申请，并帮助您规避拒签风险、详细规划整个学习阶段的身份合规。'}
                     </p>
                   </div>
                   <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'center' }}>
                     <img
-                      src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663292376041/CeepOLbixyTTUyft.jpg"
+                      src="/images/oxecimm-temporary-study-abroad-1771884109783-opt.webp"
                       alt="Study Abroad"
                       className="w-full h-auto"
                       style={{ maxWidth: '100%' }}
@@ -306,16 +306,16 @@ export default function Temporary() {
                         ? 'Study Quotas and Provincial Attestation Letters (PAL)'
                         : '留学配额与省证明信 (PAL)'}
                     </h2>
-                    <p className="text-lg text-muted-foreground leading-relaxed">
+                    <p className="text-lg text-muted-foreground leading-relaxed whitespace-pre-line">
                       {isEnglish
-                        ? 'Affected by policy adjustments in recent years, Canada has introduced a total quota system for study permit applications. Most college and undergraduate applicants must now obtain a Provincial Attestation Letter (PAL) or, in Quebec, a TA (Attestation d\'acceptation québécoise) to submit their applications. The OXEC team stays abreast of the latest policy developments and helps students seize opportunities in the competitive application landscape.'
-                        : '受近两年政策调整影响，加拿大对学签申请引入了总量配额制。大多数大专及本科申请人现在必须获得省证明信 (Provincial Attestation Letter, PAL) 或在魁北克省获得 TA 才能递交申请。傲赛（OXEC）团队紧跟最新政策动态，协助学生在名额竞争中抢占先机。'}
+                        ? 'Affected by policy adjustments in recent years, Canada has introduced a total quota system for study permit applications.\n\nMost college and undergraduate applicants must now obtain a Provincial Attestation Letter (PAL) or, in Quebec, a TA (Tableau d\'Attestation) to submit their applications.\n\nThe OXEC team stays abreast of the latest policy developments and will assist you in obtaining relevant certifications from your school to ensure smooth study permit approval.'
+                        : '受政策调整影响，加拿大对学签申请引入了总量配额制。\n\n大多数大专及本科申请人现在必须获得省证明信 (Provincial Attestation Letter, PAL) 或在魁北克省获得 TA（Tableau d\'Attestation）才能递交申请。\n\n傲赛团队紧跟最新政策动态，会协助您向学校申请相关证明以保证学签的顺利审批通过。'}
                     </p>
                   </div>
                   <div className="md:order-1" style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'center' }}>
                     <img
-                      src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663292376041/CeepOLbixyTTUyft.jpg"
-                      alt="Spousal & Family"
+                      src="/images/bbp-ubco-teaching-and-learning-centre-1771884876305-opt.webp"
+                      alt="Study Quotas & PAL"
                       className="w-full h-auto"
                       style={{ maxWidth: '100%' }}
                     />
@@ -342,13 +342,13 @@ export default function Temporary() {
                     </h2>
                     <p className="text-lg text-muted-foreground leading-relaxed whitespace-pre-line">
                       {isEnglish
-                        ? 'Visitor visas (TRV) may seem straightforward, but the document logic is extremely critical.\n\n• Key Documents: Include detailed travel plans, proof of funds, and proof of ties to your home country.\n\n• Professional Reminder: Never entrust a \'tourist visa\' to unqualified intermediaries due to its seemingly low threshold. If material logic conflicts or false information leads to misrepresentation, you face a 5-year entry ban.'
-                        : '访问签证（TRV）看似简单，实则材料逻辑极其重要。\n\n• 核心材料：包括详细的旅行计划、资金证明、国内束缚力证明等。\n\n• 专业提醒：切勿因\'旅游签\'看似门槛低而交由不合资质的中介代办。一旦因材料逻辑冲突或信息不实导致虚假陈述 (Misrepresentation)，将面临 5 年入境禁令。'}
+                        ? 'Family visits and tourism in the Canadian immigration context both require applying for a Temporary Resident Visa (TRV). Although it\'s only a short-term visit, this type of visa application is not simple and must strictly comply with immigration review requirements. Core materials must demonstrate travel plans, proof of funds, and domestic ties.\n\nNever entrust a \'tourist visa\' to unqualified intermediaries due to its seemingly low threshold. Once submitted, your application materials are permanently retained in your immigration record. If material logic conflicts or false information leads to misrepresentation, you face a 5-year entry ban.\n\nThe OXEC team upholds professional service standards and carefully handles each application case to help you maintain a good immigration application record.'
+                        : '探亲和旅游在加拿大移民语境中申请的都是临时访问签证（Temporary Resident Visa， TRV）。尽管只是短期访问，该类签证申请也并不简单，需要严格符合移民审查的要求。核心材料需要举证旅行计划、资金证明、国内束缚力等。\n\n切勿因"旅游签"看似门槛低而交由不合资质的中介代办。申请材料一经递交将永久保留在您的申请记录中，一旦因材料逻辑冲突或信息不实导致虚假陈述 (Misrepresentation)，将面临 5 年入境禁令。\n\n傲赛团队秉承专业的服务精神，会谨慎处理每一个申请案件，帮助您维护良好的移民申请记录。'}
                     </p>
                   </div>
                   <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'center' }}>
                     <img
-                      src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663292376041/CeepOLbixyTTUyft.jpg"
+                      src="/images/oxecimm-temporary-visitor-visa-1771884096038-opt.webp"
                       alt="Visitor Visa"
                       className="w-full h-auto"
                       style={{ maxWidth: '100%' }}
@@ -376,13 +376,13 @@ export default function Temporary() {
                     </h2>
                     <p className="text-lg text-muted-foreground leading-relaxed whitespace-pre-line">
                       {isEnglish
-                        ? '• Spousal Open Work Permit (SOWP): Eligible spouses of qualified international students can apply for an open work permit. This policy allows spouses to work legally in Canada, easing financial pressure while accumulating valuable local work experience.\n\n• Parental Accompaniment and Visitor Record: For parents accompanying minor children studying in Canada, a Visitor Record (VR) is essential for maintaining legal residency status and ensuring continuous companionship. Applications must demonstrate sufficient financial support and genuine intent to accompany.'
-                        : '• 配偶开放工签 (SOWP)：介绍符合资质的留学生配偶如何申请开放式工签。这一政策允许配偶在加拿大合法工作，分担家庭经济压力的同时积累本地工作经验。\n\n• 父母陪读与 Visitor Record：对于长期陪伴未成年子女在加读书的父母，VR 是维持合法居留身份、确保持续陪伴的关键文件。申请时需证明充足的资金支持及真实的陪读意图。'}
+                        ? 'Spousal Open Work Permit (SOWP): This visa allows certain study permit and work permit holders\' spouses to work legally in Canada, effectively easing family financial pressure while accumulating key local work experience for potential future immigration planning.\n\nParental Accompaniment and Visitor Record: For parents accompanying minor children studying in Canada, a Visitor Record (VR) is essential for maintaining legal residency status and ensuring continuous companionship. The focus of VR applications is to demonstrate to immigration officers sufficient financial reserves and clear, genuine intent to accompany.'
+                        : '配偶开放工签 (SOWP)：该签证允许部分学签和工签持有人的配偶在加拿大境内合法受雇，在有效分担家庭经济压力的同时，更是为未来可能的身份规划积累关键的本地工作经验。\n\n父母陪读与 Visitor Record：对于长期陪伴未成年子女在加读书的父母，VR 是维持合法居留身份、确保持续陪伴的关键文件。VR 的申请重心在于向移民官举证充足的资金储备及明确、真实的陪读意图。'}
                     </p>
                   </div>
                   <div className="md:order-1" style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'center' }}>
                     <img
-                      src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663292376041/CeepOLbixyTTUyft.jpg"
+                      src="/images/oxecimm-temporary-spousal-work-1771884118306-opt.webp"
                       alt="Spousal & Family"
                       className="w-full h-auto"
                       style={{ maxWidth: '100%' }}
@@ -408,15 +408,15 @@ export default function Temporary() {
                         ? 'Parent & Grandparent Super Visa'
                         : '父母超级签证'}
                     </h2>
-                    <p className="text-lg text-muted-foreground leading-relaxed">
+                    <p className="text-lg text-muted-foreground leading-relaxed whitespace-pre-line">
                       {isEnglish
-                        ? 'The Super Visa is designed specifically for parents and grandparents of Canadian citizens or permanent residents. Its advantages include: Extended Stay—single entry allows stays of up to 5 years. No Frequent Renewals—eliminates the need for frequent visa renewals. Ideal for Family Reunion—the perfect choice for long-term family reunification and multigenerational bonding.'
-                        : '超级签证是专为加拿大公民或永久居民的父母及祖父母设计的。其优势在于单次入境停留时间最长可达 5 年，且无需频繁办理续签，是家庭长久团聚的理想选择。'}
+                        ? 'The Super Visa is a long-term residency solution tailored specifically for parents and grandparents of Canadian citizens or permanent residents. Compared to regular visitor visas, its core advantages include: single entry allows stays of up to 5 years, and no need for frequent status renewals (Visitor Record) during the validity period—the ideal choice for long-term family reunification.\n\nHowever, the Super Visa application threshold is significantly higher than regular tourist visas. Beyond routine "domestic ties" review, immigration authorities have strict minimum income requirements for sponsors (LICO), and applicants must hold recognized Canadian health insurance.\n\nSince the Super Visa involves longer-term residency arrangements, immigration officers conduct in-depth scrutiny of applicants\' health status and financial sustainability. We will help you precisely calculate sponsorship funds, interpret insurance terms, and optimize application logic to ensure this "family bond" is robustly approved within the legal framework, avoiding refusal records due to material defects.'
+                        : '超级签证是为加拿大公民或永久居民的父母及祖父母量身定制的长期居住方案。相较于普通访问签证，其核心优势在于单次入境停留时间最长可达 5 年，且在有效期内无需频繁办理身份续签（Visitor Record），是实现家庭长久团聚的理想选择。\n\n然而，超级签证的申请门槛远高于普通旅游签。除了常规的"国内束缚力"审查外，移民局对邀请人的家庭年收入有严格的最低标准限制（LICO），且要求申请人必须持有受认可的加拿大医疗保险。\n\n由于超级签证涉及更长周期的居留安排，移民官会对申请人的健康状况及财务可持续性进行深度穿透式审查。我们会协助您精准核算担保金、解读保险条款并优化申请逻辑，确保这份"亲情纽带"在法律框架下稳健获批，避免因材料瑕疵留下拒签记录。'}
                     </p>
                   </div>
                   <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'center' }}>
                     <img
-                      src="/images/consultant-meeting-formal-opt.jpg"
+                      src="/images/oxecimm-temporary-super-visa-1771884173248-opt.webp"
                       alt="Super Visa"
                       className="w-full h-auto"
                       style={{ maxWidth: '100%' }}
@@ -443,7 +443,7 @@ export default function Temporary() {
                 <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
                   {isEnglish
                     ? 'Let us help you avoid risks and smoothly obtain Canadian entry eligibility'
-                    : '让为您规避风险，顺利取得加拿大入境资格'}
+                    : '让我们为您规避风险，顺利取得加拿大入境资格'}
                 </p>
                 <Link href="/contact">
                   <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none">
