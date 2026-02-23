@@ -24,8 +24,9 @@ export default function Temporary() {
 
   const sidebarMenuItems = [
     { id: 'study', label: isEnglish ? 'Study Abroad' : '留学申请' },
-    { id: 'family-stay', label: isEnglish ? 'Spousal & Family' : '陪读与家庭' },
-    { id: 'visitor', label: isEnglish ? 'Visitor Visa' : '探亲旅游' },
+    { id: 'pal', label: isEnglish ? 'Study Quotas & PAL' : '留学配额与省证明信' },
+    { id: 'visitor', label: isEnglish ? 'Visitor Visa' : '探亲与旅游' },
+    { id: 'spousal', label: isEnglish ? 'Spousal & Family' : '配偶工签与家长陪读' },
     { id: 'super-visa', label: isEnglish ? 'Super Visa' : '父母超级签证' },
     { id: 'consultation', label: isEnglish ? 'Book Consultation' : '预约咨询' },
   ];
@@ -61,28 +62,7 @@ export default function Temporary() {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  // Scroll spy: detect which section is in view
-  useEffect(() => {
-    const handleScroll = () => {
-      const sections = sidebarMenuItems.map(item => item.id);
-      
-      for (const sectionId of sections) {
-        const element = document.getElementById(sectionId);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          if (rect.top <= 200 && rect.bottom >= 200) {
-            setActiveSection(sectionId);
-            break;
-          }
-        }
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [sidebarMenuItems]);
 
   return (
     <div 
@@ -309,8 +289,8 @@ export default function Temporary() {
                 </div>
               </section>
 
-              {/* Section 2: Spousal & Family */}
-              <section id="family-stay" className="mb-12 pb-12 border-b border-gray-200">
+              {/* Section 2: Study Quotas & PAL */}
+              <section id="pal" className="mb-12 pb-12 border-b border-gray-200">
                 <div className="grid md:grid-cols-2 gap-8 items-start">
                   <div className="md:order-2">
                     <h2 
@@ -377,8 +357,8 @@ export default function Temporary() {
                 </div>
               </section>
 
-              {/* Section 4: Super Visa - CTA Section */}
-              <section id="super-visa" className="mb-12 pb-12 border-b border-gray-200">
+              {/* Section 4: Spousal Work Permits and Family Accompaniment */}
+              <section id="spousal" className="mb-12 pb-12 border-b border-gray-200">
                 <div className="grid md:grid-cols-2 gap-8 items-start">
                   <div className="md:order-2">
                     <h2 
@@ -446,7 +426,7 @@ export default function Temporary() {
               </section>
 
               {/* Section 6: Consultation CTA - Separate Section */}
-              <section className="text-center">
+              <section id="consultation" className="text-center">
                 <h2 
                   className="text-foreground mb-6"
                   style={{
