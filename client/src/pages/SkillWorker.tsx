@@ -503,6 +503,9 @@ export default function SkillWorker() {
               background: 'rgba(15, 23, 42, 0.9)',
               backdropFilter: 'blur(20px)',
               borderTop: '1px solid rgba(255, 255, 255, 0.2)',
+              borderRight: 'none',
+              borderBottom: 'none',
+              borderLeft: 'none',
               padding: '40px 0 0 0',
             }}
           >
