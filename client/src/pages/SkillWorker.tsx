@@ -1,15 +1,13 @@
 import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'wouter';
+import { Link } from 'wouter';
 import { Button } from '@/components/ui/button';
 import { ChevronDown } from 'lucide-react';
 import { Footer } from '@/components/Footer';
 
 export default function SkillWorker() {
   const [isEnglish, setIsEnglish] = useState(false);
-  const [, navigate] = useLocation();
   const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('overview');
-  const [sidebarOpen, setSidebarOpen] = useState(true);
 
   const serviceItems = [
     { label: "投资移民", href: "/businessclass" },
@@ -28,6 +26,7 @@ export default function SkillWorker() {
     { id: 'lmia', label: isEnglish ? 'LMIA Work Permit' : 'LMIA工签' },
     { id: 'ict', label: isEnglish ? 'ICT Work Permit' : 'ICT工签' },
     { id: 'pgwp', label: isEnglish ? 'PGWP' : '毕业后工签' },
+    { id: 'assessment', label: isEnglish ? 'Assessment' : '评估加分' },
   ];
 
   const scrollToSection = (id: string) => {
@@ -60,7 +59,16 @@ export default function SkillWorker() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div 
+      className="min-h-screen"
+      style={{
+        backgroundImage: `url('https://files.manuscdn.com/user_upload_by_module/session_file/310519663292376041/CeepOLbixyTTUyft.jpg')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundAttachment: 'fixed',
+        filter: 'brightness(0.7) contrast(1.1)',
+      }}
+    >
       {/* Navigation Bar */}
       <nav className="sticky top-0 z-50 bg-white border-b border-border shadow-sm" style={{ height: '55px' }}>
         <div className="container flex items-center py-4" style={{ justifyContent: 'space-between', height: '55px' }}>
@@ -122,7 +130,7 @@ export default function SkillWorker() {
           </div>
 
           {/* Mobile Menu Button */}
-          <button className="md:hidden" onClick={() => setSidebarOpen(!sidebarOpen)}>
+          <button className="md:hidden" onClick={() => {}}>
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
             </svg>
@@ -132,32 +140,21 @@ export default function SkillWorker() {
 
       {/* Main Layout: Sidebar + Content */}
       <div className="flex min-h-screen" style={{ marginTop: '-55px', paddingTop: '55px' }}>
-        {/* Sidebar with Frosted Glass Effect */}
+        {/* Left Sidebar Navigation - Dark Slate */}
         <aside 
-          className="hidden md:flex flex-col sticky top-14 h-[calc(100vh-55px)] overflow-y-auto"
+          className="hidden md:flex flex-col sticky"
           style={{
-            width: '280px',
-            backgroundColor: 'rgba(255, 255, 255, 0.7)',
-            backdropFilter: 'blur(12px)',
-            borderRight: '1px solid rgba(0, 0, 0, 0.1)',
-            backgroundImage: `url('https://files.manuscdn.com/user_upload_by_module/session_file/310519663292376041/CeepOLbixyTTUyft.jpg')`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundAttachment: 'fixed',
+            width: '240px',
+            top: '100px',
+            backgroundColor: '#1E293B',
+            boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.3)',
+            height: 'fit-content',
+            zIndex: 40,
           }}
         >
-          {/* Frosted Glass Overlay */}
-          <div 
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              backgroundColor: 'rgba(255, 255, 255, 0.6)',
-              backdropFilter: 'blur(12px)',
-            }}
-          />
-
           {/* Sidebar Content */}
-          <nav className="relative z-10 p-6 space-y-2">
-            <h3 className="text-sm font-bold text-foreground mb-6 uppercase tracking-wider">
+          <nav className="p-6 space-y-2">
+            <h3 className="text-xs font-bold text-white mb-6 uppercase tracking-wider opacity-70">
               {isEnglish ? 'Navigation' : '导航菜单'}
             </h3>
             
@@ -165,17 +162,16 @@ export default function SkillWorker() {
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className="w-full text-left px-4 py-3 rounded-md transition-all duration-200 relative group"
+                className="w-full text-left px-4 py-3 transition-all duration-200 relative group text-white text-sm font-medium"
                 style={{
-                  color: activeSection === item.id ? '#0061FF' : '#666',
-                  fontWeight: activeSection === item.id ? 600 : 500,
-                  backgroundColor: activeSection === item.id ? 'rgba(0, 97, 255, 0.08)' : 'transparent',
+                  backgroundColor: activeSection === item.id ? '#334155' : 'transparent',
+                  color: activeSection === item.id ? '#FFFFFF' : '#CBD5E1',
                 }}
               >
                 {/* Blue indicator bar for active item */}
                 {activeSection === item.id && (
                   <div 
-                    className="absolute left-0 top-0 bottom-0 w-1 bg-blue-600 rounded-r"
+                    className="absolute left-0 top-0 bottom-0 w-1"
                     style={{ backgroundColor: '#0061FF' }}
                   />
                 )}
@@ -185,12 +181,21 @@ export default function SkillWorker() {
           </nav>
         </aside>
 
-        {/* Main Content Area */}
-        <main className="flex-1 overflow-y-auto">
+        {/* Right Content Area - Glass Cards */}
+        <main className="flex-1 overflow-y-auto" style={{ backgroundColor: 'transparent' }}>
           {/* Section 0: Overview */}
-          <section id="overview" className="py-20 px-4 md:px-8 bg-white scroll-mt-20">
-            <div className="max-w-4xl mx-auto">
-              <div className="grid md:grid-cols-2 gap-12 items-center">
+          <section id="overview" className="scroll-mt-20" style={{ padding: '40px 40px 0 40px' }}>
+            <div
+              style={{
+                background: 'rgba(255, 255, 255, 0.85)',
+                backdropFilter: 'blur(20px)',
+                border: '1px solid rgba(255, 255, 255, 0.5)',
+                boxShadow: '0 20px 50px rgba(0, 0, 0, 0.1)',
+                padding: '48px',
+                margin: '0 0 40px 0',
+              }}
+            >
+              <div className="grid md:grid-cols-2 gap-8 items-start">
                 <div>
                   <h2 
                     className="text-foreground mb-6"
@@ -211,11 +216,12 @@ export default function SkillWorker() {
                       : '加拿大始终向全球技术人才敞开大门。在主要英语移民国家中，加拿大拥有最具吸引力的政策，是通过工作获得永居身份（PR）最稳妥的国家。得益于联邦与各省共管移民事务的体制，申请人可以通过联邦快速通道 (Express Entry) 或各省的省提名计划 (PNP) 灵活规划移民方案。'}
                   </p>
                 </div>
-                <div>
+                <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'center' }}>
                   <img
                     src="/images/img-1-opt.jpg"
                     alt="Skilled Workers"
-                    className="w-full h-auto shadow-lg"
+                    className="w-full h-auto"
+                    style={{ maxWidth: '100%' }}
                   />
                 </div>
               </div>
@@ -223,9 +229,19 @@ export default function SkillWorker() {
           </section>
 
           {/* Section 1: Express Entry */}
-          <section id="ee" className="py-20 px-4 md:px-8 bg-gray-50 scroll-mt-20">
-            <div className="max-w-4xl mx-auto">
-              <div className="grid md:grid-cols-2 gap-12 items-center">
+          <section id="ee" className="scroll-mt-20" style={{ padding: '0 40px 0 40px' }}>
+            <div
+              style={{
+                background: 'rgba(255, 255, 255, 0.85)',
+                backdropFilter: 'blur(20px)',
+                border: '1px solid rgba(255, 255, 255, 0.5)',
+                boxShadow: '0 20px 50px rgba(0, 0, 0, 0.1)',
+                padding: '48px',
+                margin: '0 0 40px 0',
+                borderTop: '1px solid rgba(200, 200, 200, 0.2)',
+              }}
+            >
+              <div className="grid md:grid-cols-2 gap-8 items-start">
                 <div className="md:order-2">
                   <h2 
                     className="text-foreground mb-6"
@@ -246,11 +262,12 @@ export default function SkillWorker() {
                       : '• 入池 (Profile Creation)：根据年龄、学历、语言及工作经验计算 CRS 分数。\n\n• 抽签 (ITA)：等待联邦移民部根据各类别分数线发放邀请。\n\n• 正式申请：获得邀请后递交完整材料，通常在 6 个月内完成审理。'}
                   </p>
                 </div>
-                <div className="md:order-1">
+                <div className="md:order-1" style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'center' }}>
                   <img
                     src="/images/img-2-opt.jpg"
                     alt="Express Entry"
-                    className="w-full h-auto shadow-lg"
+                    className="w-full h-auto"
+                    style={{ maxWidth: '100%' }}
                   />
                 </div>
               </div>
@@ -258,9 +275,19 @@ export default function SkillWorker() {
           </section>
 
           {/* Section 2: BC PNP */}
-          <section id="bcpnp" className="py-20 px-4 md:px-8 bg-white scroll-mt-20">
-            <div className="max-w-4xl mx-auto">
-              <div className="grid md:grid-cols-2 gap-12 items-center">
+          <section id="bcpnp" className="scroll-mt-20" style={{ padding: '0 40px 0 40px' }}>
+            <div
+              style={{
+                background: 'rgba(255, 255, 255, 0.85)',
+                backdropFilter: 'blur(20px)',
+                border: '1px solid rgba(255, 255, 255, 0.5)',
+                boxShadow: '0 20px 50px rgba(0, 0, 0, 0.1)',
+                padding: '48px',
+                margin: '0 0 40px 0',
+                borderTop: '1px solid rgba(200, 200, 200, 0.2)',
+              }}
+            >
+              <div className="grid md:grid-cols-2 gap-8 items-start">
                 <div>
                   <h2 
                     className="text-foreground mb-6"
@@ -281,11 +308,12 @@ export default function SkillWorker() {
                       : 'BC PNP 尤其适合在相关行业有成熟工作经验、但可能在年龄方面不再具备 EE 分数优势的申请人。通过获得 BC 省雇主的长期聘书，申请人可以锁定省提名加分，确保移民成功率。'}
                   </p>
                 </div>
-                <div>
+                <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'center' }}>
                   <img
                     src="/images/img-3-opt.jpg"
                     alt="BC PNP"
-                    className="w-full h-auto shadow-lg"
+                    className="w-full h-auto"
+                    style={{ maxWidth: '100%' }}
                   />
                 </div>
               </div>
@@ -293,9 +321,19 @@ export default function SkillWorker() {
           </section>
 
           {/* Section 3: LMIA */}
-          <section id="lmia" className="py-20 px-4 md:px-8 bg-gray-50 scroll-mt-20">
-            <div className="max-w-4xl mx-auto">
-              <div className="grid md:grid-cols-2 gap-12 items-center">
+          <section id="lmia" className="scroll-mt-20" style={{ padding: '0 40px 0 40px' }}>
+            <div
+              style={{
+                background: 'rgba(255, 255, 255, 0.85)',
+                backdropFilter: 'blur(20px)',
+                border: '1px solid rgba(255, 255, 255, 0.5)',
+                boxShadow: '0 20px 50px rgba(0, 0, 0, 0.1)',
+                padding: '48px',
+                margin: '0 0 40px 0',
+                borderTop: '1px solid rgba(200, 200, 200, 0.2)',
+              }}
+            >
+              <div className="grid md:grid-cols-2 gap-8 items-start">
                 <div className="md:order-2">
                   <h2 
                     className="text-foreground mb-6"
@@ -316,11 +354,12 @@ export default function SkillWorker() {
                       : '• 定义：LMIA 是加拿大雇主向劳工部申请，证明无法在本地招到合适员工而需聘请外劳的文件。\n\n• 高低工资定义：介绍以省中位数工资为准的分类标准。高工资岗位通常获批更长的工签有效期（通常为 3 年），而低工资岗位则有更严格的比例限制和较短的有效期。'}
                   </p>
                 </div>
-                <div className="md:order-1">
+                <div className="md:order-1" style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'center' }}>
                   <img
                     src="/images/img-4-opt.jpg"
                     alt="LMIA"
-                    className="w-full h-auto shadow-lg"
+                    className="w-full h-auto"
+                    style={{ maxWidth: '100%' }}
                   />
                 </div>
               </div>
@@ -328,9 +367,19 @@ export default function SkillWorker() {
           </section>
 
           {/* Section 4: ICT */}
-          <section id="ict" className="py-20 px-4 md:px-8 bg-white scroll-mt-20">
-            <div className="max-w-4xl mx-auto">
-              <div className="grid md:grid-cols-2 gap-12 items-center">
+          <section id="ict" className="scroll-mt-20" style={{ padding: '0 40px 0 40px' }}>
+            <div
+              style={{
+                background: 'rgba(255, 255, 255, 0.85)',
+                backdropFilter: 'blur(20px)',
+                border: '1px solid rgba(255, 255, 255, 0.5)',
+                boxShadow: '0 20px 50px rgba(0, 0, 0, 0.1)',
+                padding: '48px',
+                margin: '0 0 40px 0',
+                borderTop: '1px solid rgba(200, 200, 200, 0.2)',
+              }}
+            >
+              <div className="grid md:grid-cols-2 gap-8 items-start">
                 <div>
                   <h2 
                     className="text-foreground mb-6"
@@ -351,11 +400,12 @@ export default function SkillWorker() {
                       : '• 优势：ICT 类别可豁免 LMIA，无需复杂的劳工市场测试。\n\n• 适用人群：适用于在全球性公司中担任高级管理人员或核心技术人员，且计划被派往加拿大分公司工作的申请人。'}
                   </p>
                 </div>
-                <div>
+                <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'center' }}>
                   <img
                     src="/images/img-5-opt.jpg"
                     alt="ICT"
-                    className="w-full h-auto shadow-lg"
+                    className="w-full h-auto"
+                    style={{ maxWidth: '100%' }}
                   />
                 </div>
               </div>
@@ -363,9 +413,19 @@ export default function SkillWorker() {
           </section>
 
           {/* Section 5: PGWP */}
-          <section id="pgwp" className="py-20 px-4 md:px-8 bg-gray-50 scroll-mt-20">
-            <div className="max-w-4xl mx-auto">
-              <div className="grid md:grid-cols-2 gap-12 items-center">
+          <section id="pgwp" className="scroll-mt-20" style={{ padding: '0 40px 0 40px' }}>
+            <div
+              style={{
+                background: 'rgba(255, 255, 255, 0.85)',
+                backdropFilter: 'blur(20px)',
+                border: '1px solid rgba(255, 255, 255, 0.5)',
+                boxShadow: '0 20px 50px rgba(0, 0, 0, 0.1)',
+                padding: '48px',
+                margin: '0 0 40px 0',
+                borderTop: '1px solid rgba(200, 200, 200, 0.2)',
+              }}
+            >
+              <div className="grid md:grid-cols-2 gap-8 items-start">
                 <div className="md:order-2">
                   <h2 
                     className="text-foreground mb-6"
@@ -386,22 +446,34 @@ export default function SkillWorker() {
                       : '• 申请资格：从加拿大指定院校（DLI）毕业并符合课程时长要求的学生。\n\n• 特殊情况：若毕业前学签已到期，但尚未申请 PGWP，需立即申请身份恢复（Restoration）或在特定条件下于境外递交。傲赛提供专业的过期补救方案。'}
                   </p>
                 </div>
-                <div className="md:order-1">
+                <div className="md:order-1" style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'center' }}>
                   <img
                     src="/images/img-1-opt.jpg"
                     alt="PGWP"
-                    className="w-full h-auto shadow-lg"
+                    className="w-full h-auto"
+                    style={{ maxWidth: '100%' }}
                   />
                 </div>
               </div>
             </div>
           </section>
 
-          {/* CTA Section - Assessment */}
-          <section className="py-20 px-4 md:px-8 bg-gradient-to-r from-blue-600 to-blue-800">
-            <div className="max-w-4xl mx-auto text-center">
+          {/* Section 6: CTA Section - Assessment (Inside Glass Card) */}
+          <section id="assessment" className="scroll-mt-20" style={{ padding: '0 40px 40px 40px' }}>
+            <div
+              style={{
+                background: 'rgba(255, 255, 255, 0.85)',
+                backdropFilter: 'blur(20px)',
+                border: '1px solid rgba(255, 255, 255, 0.5)',
+                boxShadow: '0 20px 50px rgba(0, 0, 0, 0.1)',
+                padding: '48px',
+                margin: '0 0 0 0',
+                borderTop: '1px solid rgba(200, 200, 200, 0.2)',
+                textAlign: 'center',
+              }}
+            >
               <h2 
-                className="text-white mb-6"
+                className="text-foreground mb-6"
                 style={{
                   fontFamily: '"Alibaba PuHuiTi", sans-serif',
                   fontSize: 'clamp(32px, 8vw, 48px)',
@@ -413,13 +485,13 @@ export default function SkillWorker() {
                   ? 'Assess Your Immigration Points'
                   : '评估您的移民加分'}
               </h2>
-              <p className="text-lg text-white/90 mb-8">
+              <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
                 {isEnglish
                   ? 'Let our expert team help you plan your skilled immigration pathway and maximize your success rate.'
                   : '让我们的专家团队帮助您规划技术移民路径，最大化您的成功率。'}
               </p>
               <Link href="/booking">
-                <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100 rounded-none">
+                <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none">
                   {isEnglish ? 'Book Consultation Now' : '立即预约咨询'}
                 </Button>
               </Link>
@@ -427,7 +499,9 @@ export default function SkillWorker() {
           </section>
 
           {/* Footer */}
-          <Footer />
+          <div style={{ padding: '40px 40px 0 40px' }}>
+            <Footer />
+          </div>
         </main>
       </div>
     </div>
