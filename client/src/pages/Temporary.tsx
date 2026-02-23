@@ -20,7 +20,10 @@ export default function Temporary() {
     setActiveMenu(id);
     const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+      window.scrollTo({
+        top: element.offsetTop - 75,
+        behavior: "smooth",
+      });
     }
   };
 
@@ -57,6 +60,26 @@ export default function Temporary() {
 
   const content = sectionContent[activeMenu as keyof typeof sectionContent];
 
+  // Scroll Spy effect
+  useState(() => {
+    const handleScroll = () => {
+      const offset = 100;
+      for (const item of menuItems) {
+        const element = document.getElementById(item.id);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          if (rect.top <= offset && rect.bottom > offset) {
+            setActiveMenu(item.id);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  });
+
   return (
     <div 
       className="w-full min-h-screen relative"
@@ -68,14 +91,27 @@ export default function Temporary() {
         backgroundRepeat: 'no-repeat',
       }}
     >
+      {/* Background Layer with Filter */}
+      <div
+        className="fixed inset-0 -z-10"
+        style={{
+          backgroundImage: `url('https://files.manuscdn.com/user_upload_by_module/session_file/310519663292376041/CeepOLbixyTTUyft.jpg')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundAttachment: 'fixed',
+          backgroundRepeat: 'no-repeat',
+          zIndex: 10,
+        }}
+      />
+
       {/* Navigation Bar - Sticky */}
       <nav className="sticky top-0 z-40 bg-white border-b border-border shadow-sm" style={{ height: '55px' }}>
-        <div className="container flex items-center py-4" style={{ justifyContent: 'space-between', height: '55px' }}>
+        <div className="container flex items-center justify-between" style={{ height: '55px', paddingLeft: '16px', paddingRight: '16px' }}>
           <Link href="/">
             <img src="/oxec-logo.png" alt="OXEC Immigration Services Ltd." className="cursor-pointer flex-shrink-0" style={{ height: '40px', width: '160px' }} />
           </Link>
 
-          <div className="hidden md:flex items-center" style={{ flex: 1, justifyContent: 'space-around', marginLeft: '32px' }}>
+          <div className="hidden md:flex items-center" style={{ flex: 1, gap: '32px', marginLeft: '32px' }}>
             <Link href="/">
               <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">首页</span>
             </Link>
@@ -95,7 +131,7 @@ export default function Temporary() {
 
           <button
             onClick={() => setIsEnglish(!isEnglish)}
-            className="ml-4 px-4 py-2 text-foreground hover:text-primary transition-colors font-medium cursor-pointer"
+            className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer"
           >
             {isEnglish ? "中文" : "ENG"}
           </button>
@@ -112,7 +148,7 @@ export default function Temporary() {
       <div className="flex relative z-10">
         {/* Sidebar Navigation - Sticky */}
         <aside 
-          className="sticky top-[55px] h-fit w-60 bg-slate-800 text-white p-0 shadow-lg"
+          className="sticky top-[55px] h-fit w-60 bg-[#1E293B] text-white p-0 shadow-lg"
           style={{ zIndex: 30 }}
         >
           <div className="p-4 space-y-2">
@@ -122,8 +158,8 @@ export default function Temporary() {
                 onClick={() => scrollToSection(item.id)}
                 className="w-full text-left px-4 py-3 transition-all relative"
                 style={{
-                  backgroundColor: activeMenu === item.id ? '#475569' : 'transparent',
-                  color: activeMenu === item.id ? '#0061FF' : '#ffffff',
+                  backgroundColor: activeMenu === item.id ? '#334155' : 'transparent',
+                  color: activeMenu === item.id ? '#ffffff' : '#ffffff',
                 }}
               >
                 {activeMenu === item.id && (
@@ -145,17 +181,17 @@ export default function Temporary() {
             className="mx-12 my-8 p-8"
             style={{
               backgroundColor: 'rgba(255, 255, 255, 0.9)',
-              backdropFilter: 'blur(20px)',
+              backdropFilter: 'blur(20px) saturate(150%)',
               border: '1px solid rgba(255, 255, 255, 0.6)',
               boxShadow: 'inset 0 0 20px rgba(255, 255, 255, 0.2), 0 20px 50px rgba(0, 0, 0, 0.1)',
             }}
           >
-            {/* Section Content */}
+            {/* All Sections - Always Visible */}
             {menuItems.map((item) => (
               <div
                 key={item.id}
                 id={item.id}
-                className={activeMenu === item.id ? 'block' : 'hidden'}
+                className="mb-12"
               >
                 <h2 
                   className="text-4xl font-black mb-6"
@@ -165,27 +201,30 @@ export default function Temporary() {
                     fontWeight: 900,
                   }}
                 >
-                  {isEnglish ? content.titleEN : content.titleCN}
+                  {isEnglish ? sectionContent[item.id as keyof typeof sectionContent].titleEN : sectionContent[item.id as keyof typeof sectionContent].titleCN}
                 </h2>
                 
                 <div className="flex gap-8 items-start mb-8">
                   <img 
-                    src={content.image} 
-                    alt={isEnglish ? content.titleEN : content.titleCN}
+                    src={sectionContent[item.id as keyof typeof sectionContent].image} 
+                    alt={isEnglish ? sectionContent[item.id as keyof typeof sectionContent].titleEN : sectionContent[item.id as keyof typeof sectionContent].titleCN}
                     className="w-2/5 h-auto rounded-lg object-cover"
                   />
                   <div className="w-3/5">
                     <p className="text-base leading-relaxed text-gray-700 mb-6">
-                      {isEnglish ? content.descEN : content.descCN}
+                      {isEnglish ? sectionContent[item.id as keyof typeof sectionContent].descEN : sectionContent[item.id as keyof typeof sectionContent].descCN}
                     </p>
-                    <Button 
-                      onClick={() => navigate("/contact")}
-                      className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded"
-                    >
-                      立即预约咨询
-                    </Button>
+                    <Link href="/contact">
+                      <button className="bg-white text-primary border border-primary rounded-none hover:bg-gray-50 transition font-medium px-6 py-2">
+                        立即预约咨询
+                      </button>
+                    </Link>
                   </div>
                 </div>
+
+                {item.id !== menuItems[menuItems.length - 1].id && (
+                  <div className="border-t border-gray-200 pt-12" />
+                )}
               </div>
             ))}
 
@@ -206,12 +245,11 @@ export default function Temporary() {
                   ? "Let our expert team help you navigate the temporary residence process and achieve your goals in Canada." 
                   : "让我们的专家团队帮助您顺利完成临时居民申请，实现您在加拿大的梦想。"}
               </p>
-              <Button 
-                onClick={() => navigate("/contact")}
-                className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded text-lg"
-              >
-                立即预约咨询
-              </Button>
+              <Link href="/contact">
+                <button className="bg-white text-primary border border-primary rounded-none hover:bg-gray-50 transition font-medium px-6 py-2">
+                  立即预约咨询
+                </button>
+              </Link>
             </div>
           </div>
 
