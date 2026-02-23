@@ -33,7 +33,10 @@ export default function SkillWorker() {
     setActiveSection(id);
     const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      window.scrollTo({
+        top: element.offsetTop - 75,
+        behavior: 'smooth',
+      });
     }
   };
 
