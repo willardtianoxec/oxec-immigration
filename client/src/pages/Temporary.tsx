@@ -1,13 +1,16 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'wouter';
 import { Button } from '@/components/ui/button';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, Menu, X } from 'lucide-react';
 import { Footer } from '@/components/Footer';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function Temporary() {
-  const [isEnglish, setIsEnglish] = useState(false);
+  const { language, setLanguage, t } = useLanguage();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('study');
+  const isEnglish = language === 'en';
 
   const serviceItems = [
     { label: "投资移民", href: "/businessclass" },
@@ -24,7 +27,10 @@ export default function Temporary() {
     { id: 'family-stay', label: isEnglish ? 'Spousal & Family' : '陪读与家庭' },
     { id: 'visitor', label: isEnglish ? 'Visitor Visa' : '探亲旅游' },
     { id: 'super-visa', label: isEnglish ? 'Super Visa' : '父母超级签证' },
+    { id: 'consultation', label: isEnglish ? 'Book Consultation' : '预约咨询' },
   ];
+
+
 
   const scrollToSection = (id: string) => {
     setActiveSection(id);
@@ -36,6 +42,26 @@ export default function Temporary() {
       });
     }
   };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = sidebarMenuItems.map(item => item.id);
+      
+      for (const sectionId of sections) {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          if (rect.top <= 200 && rect.bottom >= 200) {
+            setActiveSection(sectionId);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Scroll spy: detect which section is in view
   useEffect(() => {
@@ -70,18 +96,18 @@ export default function Temporary() {
       }}
     >
 
-      {/* Navigation Bar - Sticky */}
-      <nav className="sticky top-0 z-40 bg-white border-b border-border shadow-sm" style={{ height: '55px' }}>
+      {/* Navigation Bar - Sticky (Complete Copy from Home) */}
+      <nav className="sticky top-0 z-40 bg-white border-b border-border shadow-sm" style={{height: '55px'}}>
         <div className="container flex items-center py-4" style={{ justifyContent: 'space-between', height: '55px' }}>
           {/* Logo */}
           <Link href="/">
             <img src="/oxec-logo.png" alt="OXEC Immigration Services Ltd." className="cursor-pointer flex-shrink-0" style={{ height: '40px', width: '160px' }} />
           </Link>
 
-          {/* Desktop Menu */}
+          {/* Desktop Menu - Single Unified Navigation Group */}
           <div className="hidden md:flex items-center" style={{ flex: 1, justifyContent: 'space-around', marginLeft: '32px' }}>
             <Link href="/">
-              <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">{isEnglish ? 'Home' : '首页'}</span>
+              <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">{t("nav.home")}</span>
             </Link>
             <div className="relative group">
               <button
@@ -89,7 +115,7 @@ export default function Temporary() {
                 onMouseLeave={() => setServicesDropdownOpen(false)}
                 className="flex items-center text-foreground hover:text-primary transition-colors font-medium cursor-pointer"
               >
-                {isEnglish ? 'Services' : '服务'}
+                {t("nav.services")}
                 <ChevronDown className="ml-1 h-4 w-4" />
               </button>
               {servicesDropdownOpen && (
@@ -99,39 +125,93 @@ export default function Temporary() {
                   className="absolute left-0 mt-0 w-56 bg-white border border-border rounded-md shadow-lg z-50"
                 >
                   {serviceItems.map((item) => (
-                    <Link key={item.label} href={item.href}>
-                      <div className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-foreground">
+                    <Link key={item.href} href={item.href}>
+                      <span className="block px-4 py-3 text-foreground hover:bg-primary/10 hover:text-primary transition-colors cursor-pointer first:rounded-t-md last:rounded-b-md">
                         {item.label}
-                      </div>
+                      </span>
                     </Link>
                   ))}
                 </div>
               )}
             </div>
             <Link href="/success-cases">
-              <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">{isEnglish ? 'Success Cases' : '成功案例'}</span>
+              <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">{t("nav.success_cases")}</span>
             </Link>
             <Link href="/blog">
-              <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">{isEnglish ? 'Blog' : '博客'}</span>
+              <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">{t("nav.blog")}</span>
             </Link>
             <Link href="/team">
-              <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">{isEnglish ? 'About Us' : '关于我们'}</span>
+              <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">{t("nav.about")}</span>
+            </Link>
+            <button
+              onClick={() => setLanguage(language === "en" ? "zh" : "en")}
+              className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer"
+            >
+              {language === "en" ? "中文" : "ENG"}
+            </button>
+            <Link href="/contact">
+              <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none">
+                <span>{t("nav.contact")}</span>
+              </Button>
             </Link>
           </div>
 
-          <button
-            onClick={() => setIsEnglish(!isEnglish)}
-            className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer"
-          >
-            {isEnglish ? '中文' : 'ENG'}
+          {/* Mobile Menu Button */}
+          <button className="md:hidden" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+            {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
-
-          <Link href="/contact">
-            <button className="ml-4 px-4 py-2 bg-white text-primary border border-primary rounded-none hover:bg-gray-50 transition font-medium">
-              {isEnglish ? 'Book Now' : '预约咨询'}
-            </button>
-          </Link>
         </div>
+
+        {/* Mobile Menu */}
+        {mobileMenuOpen && (
+          <div className="md:hidden border-t border-border bg-white">
+            <div className="container py-4 space-y-3">
+              <Link href="/">
+                <span className="block text-foreground hover:text-primary transition-colors font-medium cursor-pointer py-2">{t("nav.home")}</span>
+              </Link>
+              <div className="relative">
+                <button
+                  onClick={() => setServicesDropdownOpen(!servicesDropdownOpen)}
+                  className="block w-full text-left text-foreground hover:text-primary transition-colors font-medium cursor-pointer py-2 flex items-center justify-between"
+                >
+                  {t("nav.services")}
+                  <ChevronDown className={`w-4 h-4 transition-transform ${servicesDropdownOpen ? 'rotate-180' : ''}`} />
+                </button>
+                {servicesDropdownOpen && (
+                  <div className="bg-gray-50 rounded-md mt-2 py-2 pl-4">
+                    {serviceItems.map((item) => (
+                      <Link key={item.href} href={item.href}>
+                        <span className="block px-2 py-2 text-foreground hover:text-primary transition-colors cursor-pointer text-sm">
+                          {item.label}
+                        </span>
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+              <Link href="/success-cases">
+                <span className="block text-foreground hover:text-primary transition-colors font-medium cursor-pointer py-2">{t("nav.success_cases")}</span>
+              </Link>
+              <Link href="/blog">
+                <span className="block text-foreground hover:text-primary transition-colors font-medium cursor-pointer py-2">{t("nav.blog")}</span>
+              </Link>
+              <Link href="/team">
+                <span className="block text-foreground hover:text-primary transition-colors font-medium cursor-pointer py-2">{t("nav.about")}</span>
+              </Link>
+              <button
+                onClick={() => setLanguage(language === "en" ? "zh" : "en")}
+                className="block w-full text-left text-foreground hover:text-primary transition-colors font-medium cursor-pointer py-2"
+              >
+                {language === "en" ? "中文" : "ENG"}
+              </button>
+              <Link href="/contact">
+                <Button asChild size="lg" className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-none">
+                  <span>{t("nav.contact")}</span>
+                </Button>
+              </Link>
+            </div>
+          </div>
+        )}
       </nav>
 
       {/* Main Layout: Sidebar + Content */}
@@ -331,8 +411,42 @@ export default function Temporary() {
                 </div>
               </section>
 
-              {/* Section 5: Super Visa - CTA Section */}
-              <section id="super-visa" className="text-center">
+              {/* Section 5: Super Visa */}
+              <section id="super-visa" className="mb-12 pb-12 border-b border-gray-200">
+                <div className="grid md:grid-cols-2 gap-8 items-start">
+                  <div>
+                    <h2 
+                      className="text-foreground mb-6"
+                      style={{
+                        fontFamily: '"Alibaba PuHuiTi", sans-serif',
+                        fontSize: 'clamp(32px, 8vw, 48px)',
+                        fontWeight: 900,
+                        lineHeight: 1.2,
+                      }}
+                    >
+                      {isEnglish
+                        ? 'Parent & Grandparent Super Visa'
+                        : '父母超级签证'}
+                    </h2>
+                    <p className="text-lg text-muted-foreground leading-relaxed">
+                      {isEnglish
+                        ? 'The Super Visa is designed specifically for parents and grandparents of Canadian citizens or permanent residents. Its advantages include: Extended Stay—single entry allows stays of up to 5 years. No Frequent Renewals—eliminates the need for frequent visa renewals. Ideal for Family Reunion—the perfect choice for long-term family reunification and multigenerational bonding.'
+                        : '超级签证是专为加拿大公民或永久居民的父母及祖父母设计的。其优势在于单次入境停留时间最长可达 5 年，且无需频繁办理续签，是家庭长久团聚的理想选择。'}
+                    </p>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'center' }}>
+                    <img
+                      src="/images/consultant-meeting-formal-opt.jpg"
+                      alt="Super Visa"
+                      className="w-full h-auto"
+                      style={{ maxWidth: '100%' }}
+                    />
+                  </div>
+                </div>
+              </section>
+
+              {/* Section 6: Consultation CTA - Separate Section */}
+              <section className="text-center">
                 <h2 
                   className="text-foreground mb-6"
                   style={{
@@ -343,22 +457,14 @@ export default function Temporary() {
                   }}
                 >
                   {isEnglish
-                    ? 'Parent & Grandparent Super Visa'
-                    : '父母超级签证'}
+                    ? 'Start Your Canadian Visa Application'
+                    : '开始您的加拿大签证申请'}
                 </h2>
                 <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
                   {isEnglish
-                    ? 'The Super Visa is designed specifically for parents and grandparents of Canadian citizens or permanent residents. Its advantages include: Extended Stay—single entry allows stays of up to 5 years. No Frequent Renewals—eliminates the need for frequent visa renewals. Ideal for Family Reunion—the perfect choice for long-term family reunification and multigenerational bonding.'
-                    : '超级签证是专为加拿大公民或永久居民的父母及祖父母设计的。其优势在于单次入境停留时间最长可达 5 年，且无需频繁办理续签，是家庭长久团聚的理想选择。'}
+                    ? 'Let us help you avoid risks and smoothly obtain Canadian entry eligibility'
+                    : '让为您规避风险，顺利取得加拿大入境资格'}
                 </p>
-                <div className="mb-8">
-                  <h3 className="text-xl font-bold text-foreground mb-4">
-                    {isEnglish ? 'Start Your Canadian Visa Application' : '开始您的加拿大签证申请'}
-                  </h3>
-                  <p className="text-lg text-muted-foreground mb-6">
-                    {isEnglish ? 'Let us help you avoid risks and smoothly obtain Canadian entry eligibility' : '让为您规避风险，顺利取得加拿大入境资格'}
-                  </p>
-                </div>
                 <Link href="/contact">
                   <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none">
                     {isEnglish ? 'Book Consultation Now' : '立即预约咨询'}
