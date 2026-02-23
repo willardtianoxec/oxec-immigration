@@ -1,195 +1,233 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft } from "lucide-react";
+import { Footer } from "@/components/Footer";
+import { Link } from "wouter";
 
 export default function Temporary() {
   const [isEnglish, setIsEnglish] = useState(false);
   const [, navigate] = useLocation();
+  const [activeMenu, setActiveMenu] = useState("study");
+  const [activeSection, setActiveSection] = useState("study");
+
+  const menuItems = [
+    { id: "study", label: isEnglish ? "Study Abroad" : "留学申请" },
+    { id: "family-stay", label: isEnglish ? "Spousal & Family" : "陪读与家庭" },
+    { id: "visitor", label: isEnglish ? "Visitor Visa" : "探亲旅游" },
+    { id: "super-visa", label: isEnglish ? "Super Visa" : "父母超级签证" },
+  ];
 
   const scrollToSection = (id: string) => {
+    setActiveSection(id);
     const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+      const offset = 75;
+      const elementPosition = element.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({
+        top: elementPosition,
+        behavior: "smooth"
+      });
     }
   };
 
+  const sectionContent = {
+    study: {
+      titleCN: "留学申请：开启加拿大教育之门",
+      titleEN: "Study Abroad: Open the Door to Canadian Education",
+      descCN: "加拿大拥有世界一流的教育体系和多元化的学习环境。通过我们的专业指导，您可以顺利申请加拿大的高中、大专、大学和研究生项目。我们帮助您规划最适合的学习路径，并在签证申请过程中提供全面支持。",
+      descEN: "Canada offers world-class education and diverse learning environments. With our professional guidance, you can successfully apply to Canadian high schools, colleges, universities, and graduate programs. We help you plan the best learning path and provide comprehensive support throughout the visa application process.",
+      image: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663292376041/CeepOLbixyTTUyft.jpg",
+    },
+    "family-stay": {
+      titleCN: "陪读与家庭：与亲人一起成长",
+      titleEN: "Spousal & Family: Grow Together with Loved Ones",
+      descCN: "家庭团聚是移民的重要部分。无论您是学生、工作者还是永久居民，我们都可以帮助您的配偶和家庭成员获得相应的签证。我们提供专业的咨询和申请支持，确保您的家庭能够在加拿大团聚。",
+      descEN: "Family reunification is an important part of immigration. Whether you are a student, worker, or permanent resident, we can help your spouse and family members obtain appropriate visas. We provide professional consultation and application support to ensure your family can reunite in Canada.",
+      image: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663292376041/CeepOLbixyTTUyft.jpg",
+    },
+    visitor: {
+      titleCN: "探亲旅游：畅游加拿大",
+      titleEN: "Visitor Visa: Explore Canada",
+      descCN: "访问加拿大是体验这个美丽国家的最好方式。我们提供专业的访问签证申请服务，帮助您的亲友顺利获得访问签证。无论是探亲还是旅游，我们都能确保申请过程顺利进行。",
+      descEN: "Visiting Canada is the best way to experience this beautiful country. We provide professional visitor visa application services to help your family and friends obtain visitor visas smoothly. Whether it's visiting relatives or tourism, we ensure a smooth application process.",
+      image: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663292376041/CeepOLbixyTTUyft.jpg",
+    },
+    "super-visa": {
+      titleCN: "父母超级签证：让父母安心来访",
+      titleEN: "Super Visa: Bring Your Parents to Visit",
+      descCN: "超级签证是为加拿大公民和永久居民的父母和祖父母设计的长期访问签证。这个签证允许您的父母在加拿大停留长达2年。我们提供完整的申请指导，确保您的父母能够获得这个特殊的签证。",
+      descEN: "The Super Visa is a long-term visitor visa designed for parents and grandparents of Canadian citizens and permanent residents. This visa allows your parents to stay in Canada for up to 2 years. We provide complete application guidance to ensure your parents obtain this special visa.",
+      image: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663292376041/CeepOLbixyTTUyft.jpg",
+    },
+  };
+
+  const content = sectionContent[activeMenu as keyof typeof sectionContent];
+
   return (
-    <div className="min-h-screen flex flex-col bg-background">
-      {/* Navigation Bar */}
-      <nav className="sticky top-0 z-50 bg-white border-b border-border shadow-sm py-4">
-        <div className="container flex items-center justify-between">
-          <button
-            onClick={() => navigate("/")}
-            className="flex items-center gap-2 hover:opacity-80 transition"
-          >
-            <ArrowLeft className="w-5 h-5" />
-            <span>{isEnglish ? "Back to Home" : "返回主页"}</span>
-          </button>
-          <h1 className="text-xl font-bold">
-            {isEnglish ? "Temporary Residents" : "临时居民"}
-          </h1>
+    <div 
+      className="w-full min-h-screen relative"
+      style={{
+        backgroundImage: `url('https://files.manuscdn.com/user_upload_by_module/session_file/310519663292376041/CeepOLbixyTTUyft.jpg')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundAttachment: 'fixed',
+        backgroundRepeat: 'no-repeat',
+      }}
+    >
+      {/* Navigation Bar - Sticky */}
+      <nav className="sticky top-0 z-40 bg-white border-b border-border shadow-sm" style={{ height: '55px' }}>
+        <div className="container flex items-center py-4" style={{ justifyContent: 'space-between', height: '55px' }}>
+          <Link href="/">
+            <img src="/oxec-logo.png" alt="OXEC Immigration Services Ltd." className="cursor-pointer flex-shrink-0" style={{ height: '40px', width: '160px' }} />
+          </Link>
+
+          <div className="hidden md:flex items-center" style={{ flex: 1, justifyContent: 'space-around', marginLeft: '32px' }}>
+            <Link href="/">
+              <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">首页</span>
+            </Link>
+            <Link href="/skillworker">
+              <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">服务</span>
+            </Link>
+            <Link href="/success-cases">
+              <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">成功案例</span>
+            </Link>
+            <Link href="/blog">
+              <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">博客</span>
+            </Link>
+            <Link href="/team">
+              <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">关于我们</span>
+            </Link>
+          </div>
+
           <button
             onClick={() => setIsEnglish(!isEnglish)}
             className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
           >
-            {isEnglish ? "中文" : "ENG"}
+            {isEnglish ? '中文' : 'ENG'}
           </button>
+
+          <Link href="/contact">
+            <button className="ml-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">
+              预约咨询
+            </button>
+          </Link>
         </div>
       </nav>
 
-      {/* Quick Navigation Cards */}
-      <section className="bg-gradient-to-r from-blue-50 to-indigo-50 py-12">
-        <div className="container mx-auto px-4 max-w-6xl">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {[
-              { id: "study", label: isEnglish ? "Study Abroad" : "留学申请" },
-              { id: "family-stay", label: isEnglish ? "Spousal & Family" : "陪读与家庭" },
-              { id: "visitor", label: isEnglish ? "Visitor Visa" : "探亲旅游" },
-              { id: "super-visa", label: isEnglish ? "Super Visa" : "父母超级签证" },
-            ].map((item) => (
+      {/* Main Content Area with Sidebar */}
+      <div className="flex relative z-10">
+        {/* Sidebar Navigation - Sticky */}
+        <aside 
+          className="sticky top-[55px] h-fit w-60 bg-slate-800 text-white p-0 shadow-lg"
+          style={{ zIndex: 30 }}
+        >
+          <div className="p-4 space-y-2">
+            {menuItems.map((item) => (
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className="p-4 bg-white rounded-lg shadow hover:shadow-lg transition text-center font-semibold text-blue-600 hover:text-blue-700"
+                className="w-full text-left px-4 py-3 rounded transition-all relative"
+                style={{
+                  backgroundColor: activeMenu === item.id ? '#475569' : 'transparent',
+                  color: activeMenu === item.id ? '#0061FF' : '#ffffff',
+                }}
               >
-                {item.label}
+                {activeMenu === item.id && (
+                  <div
+                    className="absolute left-0 top-0 bottom-0 w-1"
+                    style={{ backgroundColor: '#0061FF' }}
+                  />
+                )}
+                <span className="text-sm font-medium">{item.label}</span>
               </button>
             ))}
           </div>
-        </div>
-      </section>
+        </aside>
 
-      {/* Main Content */}
-      <main className="flex-1 container mx-auto px-4 py-12 max-w-6xl">
-        {/* Section 1: Study Abroad Overview - Left Text, Right Image */}
-        <section id="study" className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center py-20 scroll-mt-20">
-          <div className="flex flex-col justify-center">
-            <h2 className="text-3xl lg:text-4xl font-black mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", sans-serif', fontSize: "48px" }}>
-              {isEnglish
-                ? "Study in Canada"
-                : "留学加拿大"}
-            </h2>
-            <p className="text-lg text-foreground/80 leading-relaxed mb-6 whitespace-pre-line">
-              {isEnglish
-                ? "Canada is renowned globally for its high-quality public education system and safe, inclusive social environment.\n\n• Youth Education: Beautiful natural surroundings and multicultural atmosphere are ideal for adolescent physical and mental health development and comprehensive quality cultivation.\n\n• Adult International Students: Studying abroad is not just about acquiring knowledge—it's a 'royal pathway' to Canadian immigration. By obtaining local credentials and work experience, you can significantly enhance your success rate in Provincial Nomination Programs (PNP) and Federal Express Entry (EE)."
-                : "加拿大以其高质量的公立教育体系和安全包容的社会环境享誉全球。\n\n• 青少年教育：优美的自然环境与多元文化氛围，极利于青少年的身心健康成长与综合素质培养。\n\n• 成年留学生：留学不仅是获取知识，更是通往加拿大移民的'王道路径'，通过获取本地学历与工作经验，可大幅提升省提名（PNP）及联邦快速通道（EE）的成功率。"}
-            </p>
-          </div>
-          <div className="flex justify-center">
-            <img
-              src="/images/img-1-opt.jpg"
-              alt="Study Abroad"
-              className="w-full h-auto shadow-lg" style={{ borderRadius: "0px" }}
-            />
-          </div>
-        </section>
-
-        {/* Section 2: Study Quota & PAL/TA - Left Image, Right Text */}
-        <section className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center py-20">
-          <div className="flex justify-center lg:order-first">
-            <img
-              src="/images/img-2-opt.jpg"
-              alt="Study Quota and PAL"
-              className="w-full h-auto shadow-lg" style={{ borderRadius: "0px" }}
-            />
-          </div>
-          <div className="flex flex-col justify-center lg:order-last">
-            <h2 className="text-3xl lg:text-4xl font-black mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", sans-serif', fontSize: "48px" }}>
-              {isEnglish
-                ? "Study Quotas and Provincial Attestation Letters (PAL)"
-                : "留学配额与省证明信 (PAL)"}
-            </h2>
-            <p className="text-lg text-foreground/80 leading-relaxed mb-6 whitespace-pre-line">
-              {isEnglish
-                ? "Affected by policy adjustments in recent years, Canada has introduced a total quota system for study permit applications. Most college and undergraduate applicants must now obtain a Provincial Attestation Letter (PAL) or, in Quebec, a TA (Attestation d'acceptation québécoise) to submit their applications. The OXEC team stays abreast of the latest policy developments and helps students seize opportunities in the competitive application landscape."
-                : "受近两年政策调整影响，加拿大对学签申请引入了总量配额制。大多数大专及本科申请人现在必须获得省证明信 (Provincial Attestation Letter, PAL) 或在魁北克省获得 TA 才能递交申请。傲赛（OXEC）团队紧跟最新政策动态，协助学生在名额竞争中抢占先机。"}
-            </p>
-          </div>
-        </section>
-
-        {/* Section 3: Spousal & Family Support - Left Text, Right Image */}
-        <section id="family-stay" className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center py-20 scroll-mt-20">
-          <div className="flex flex-col justify-center">
-            <h2 className="text-3xl lg:text-4xl font-black mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", sans-serif', fontSize: "48px" }}>
-              {isEnglish
-                ? "Spousal Work Permits and Family Accompaniment"
-                : "配偶工签与家长陪读"}
-            </h2>
-            <p className="text-lg text-foreground/80 leading-relaxed mb-6 whitespace-pre-line">
-              {isEnglish
-                ? "• Spousal Open Work Permit (SOWP): Eligible spouses of qualified international students can apply for an open work permit. This policy allows spouses to work legally in Canada, easing financial pressure while accumulating valuable local work experience.\n\n• Parental Accompaniment and Visitor Record: For parents accompanying minor children studying in Canada, a Visitor Record (VR) is essential for maintaining legal residency status and ensuring continuous companionship. Applications must demonstrate sufficient financial support and genuine intent to accompany."
-                : "• 配偶开放工签 (SOWP)：介绍符合资质的留学生配偶如何申请开放式工签。这一政策允许配偶在加拿大合法工作，分担家庭经济压力的同时积累本地工作经验。\n\n• 父母陪读与 Visitor Record：详细介绍 Visitor Record (VR) 的定义。对于长期陪伴未成年子女在加读书的父母，VR 是维持合法居留身份、确保持续陪伴的关键文件。申请时需证明充足的资金支持及真实的陪读意图。"}
-            </p>
-          </div>
-          <div className="flex justify-center">
-            <img
-              src="/images/img-3-opt.jpg"
-              alt="Family Visit"
-              className="w-full h-auto shadow-lg" style={{ borderRadius: "0px" }}
-            />
-          </div>
-        </section>
-
-        {/* Section 4: Visitor Visa - Left Image, Right Text */}
-        <section id="visitor" className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center py-20 scroll-mt-20">
-          <div className="flex justify-center lg:order-first">
-            <img
-              src="/images/img-4-opt.jpg"
-              alt="Visitor Visa"
-              className="w-full h-auto shadow-lg" style={{ borderRadius: "0px" }}
-            />
-          </div>
-          <div className="flex flex-col justify-center lg:order-last">
-            <h2 className="text-3xl lg:text-4xl font-black mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", sans-serif', fontSize: "48px" }}>
-              {isEnglish
-                ? "Visitor Visas for Family Visits"
-                : "探亲与旅游"}
-            </h2>
-            <p className="text-lg text-foreground/80 leading-relaxed mb-6 whitespace-pre-line">
-              {isEnglish
-                ? "Visitor visas (TRV) may seem straightforward, but the document logic is extremely critical.\n\n• Key Documents: Include detailed travel plans, proof of funds, and proof of ties to your home country.\n\n• Professional Reminder: Never entrust a 'tourist visa' to unqualified intermediaries due to its seemingly low threshold. If material logic conflicts or false information leads to misrepresentation, you face a 5-year entry ban."
-                : "访问签证（TRV）看似简单，实则材料逻辑极其重要。\n\n• 核心材料：包括详细的旅行计划、资金证明、国内束缚力证明等。\n\n• 专业提醒：切勿因'旅游签'看似门槛低而交由不合资质的中介代办。一旦因材料逻辑冲突或信息不实导致虚假陈述 (Misrepresentation)，将面临 5 年入境禁令。"}
-            </p>
-          </div>
-        </section>
-
-        {/* Section 5: Super Visa - Left Text, Right Image */}
-        <section id="super-visa" className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center py-20 scroll-mt-20">
-          <div className="flex flex-col justify-center">
-            <h2 className="text-3xl lg:text-4xl font-black mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", sans-serif', fontSize: "48px" }}>
-              {isEnglish
-                ? "Parent & Grandparent Super Visa"
-                : "父母超级签证"}
-            </h2>
-            <p className="text-lg text-foreground/80 leading-relaxed mb-6 whitespace-pre-line">
-              {isEnglish
-                ? "The Super Visa is designed specifically for parents and grandparents of Canadian citizens or permanent residents. Its advantages include:\n\n• Extended Stay: Single entry allows stays of up to 5 years.\n\n• No Frequent Renewals: Eliminates the need for frequent visa renewals.\n\n• Ideal for Family Reunion: The perfect choice for long-term family reunification and multigenerational bonding."
-                : "超级签证是专为加拿大公民或永久居民的父母及祖父母设计的。其优势在于单次入境停留时间最长可达 5 年，且无需频繁办理续签，是家庭长久团聚的理想选择。"}
-            </p>
-          </div>
-          <div className="flex justify-center">
-            <img
-              src="/images/img-5-opt.jpg"
-              alt="Super Visa"
-              className="w-full h-auto shadow-lg" style={{ borderRadius: "0px" }}
-            />
-          </div>
-        </section>
-
-        {/* CTA Button */}
-        <section className="py-12 text-center">
-          <Button
-            onClick={() => navigate("/booking")}
-            size="lg"
-            className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-6 text-lg"
+        {/* Main Content */}
+        <main className="flex-1 relative z-20">
+          {/* Content Container with Glassmorphism */}
+          <div 
+            className="mx-12 my-8 rounded-lg p-8"
+            style={{
+              backgroundColor: 'rgba(255, 255, 255, 0.9)',
+              backdropFilter: 'blur(20px)',
+              border: '1px solid rgba(255, 255, 255, 0.6)',
+              boxShadow: 'inset 0 0 20px rgba(255, 255, 255, 0.2), 0 20px 50px rgba(0, 0, 0, 0.1)',
+            }}
           >
-            {isEnglish
-              ? "Customize Your Plan - Consult Now"
-              : "定制您的规划方案 - 立即咨询"}
-          </Button>
-        </section>
-      </main>
+            {/* Section Content */}
+            {menuItems.map((item) => (
+              <div
+                key={item.id}
+                id={item.id}
+                className={activeMenu === item.id ? 'block' : 'hidden'}
+              >
+                <h2 
+                  className="text-4xl font-black mb-6"
+                  style={{
+                    fontFamily: "'Alibaba PuHuiTi Black', sans-serif",
+                    fontSize: 'clamp(32px, 5vw, 48px)',
+                    fontWeight: 900,
+                  }}
+                >
+                  {isEnglish ? content.titleEN : content.titleCN}
+                </h2>
+                
+                <div className="flex gap-8 items-start mb-8">
+                  <img 
+                    src={content.image} 
+                    alt={isEnglish ? content.titleEN : content.titleCN}
+                    className="w-2/5 h-auto rounded-lg object-cover"
+                  />
+                  <div className="w-3/5">
+                    <p className="text-base leading-relaxed text-gray-700 mb-6">
+                      {isEnglish ? content.descEN : content.descCN}
+                    </p>
+                    <Button 
+                      onClick={() => navigate("/contact")}
+                      className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded"
+                    >
+                      立即预约咨询
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            ))}
+
+            {/* CTA Section */}
+            <div className="mt-12 pt-8 border-t border-gray-200">
+              <h3 
+                className="text-2xl font-bold mb-4"
+                style={{
+                  fontFamily: "'Alibaba PuHuiTi Black', sans-serif",
+                  fontSize: 'clamp(24px, 4vw, 32px)',
+                  fontWeight: 900,
+                }}
+              >
+                {isEnglish ? "Ready to Start Your Journey?" : "准备开始您的移民之旅？"}
+              </h3>
+              <p className="text-gray-700 mb-6">
+                {isEnglish 
+                  ? "Let our expert team help you navigate the temporary residence process and achieve your goals in Canada." 
+                  : "让我们的专家团队帮助您顺利完成临时居民申请，实现您在加拿大的梦想。"}
+              </p>
+              <Button 
+                onClick={() => navigate("/contact")}
+                className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded text-lg"
+              >
+                立即预约咨询
+              </Button>
+            </div>
+          </div>
+
+          {/* Bottom Spacing for Footer */}
+          <div className="h-12" />
+        </main>
+      </div>
+
+      {/* Footer - Full Width */}
+      <Footer />
     </div>
   );
 }
