@@ -209,13 +209,13 @@ export default function Temporary() {
                       }}
                     >
                       {isEnglish
-                        ? 'Study Abroad: Open the Door to Canadian Education'
-                        : '留学申请：开启加拿大教育之门'}
+                        ? 'Study in Canada'
+                        : '留学加拿大'}
                     </h2>
-                    <p className="text-lg text-muted-foreground leading-relaxed">
+                    <p className="text-lg text-muted-foreground leading-relaxed whitespace-pre-line">
                       {isEnglish
-                        ? 'Canada offers world-class education and diverse learning environments. With our professional guidance, you can successfully apply to Canadian high schools, colleges, universities, and graduate programs. We help you plan the best learning path and provide comprehensive support throughout the visa application process.'
-                        : '加拿大拥有世界一流的教育体系和多元化的学习环境。通过我们的专业指导，您可以顺利申请加拿大的高中、大专、大学和研究生项目。我们帮助您规划最适合的学习路径，并在签证申请过程中提供全面支持。'}
+                        ? 'Canada is renowned globally for its high-quality public education system and safe, inclusive social environment.\n\n• Youth Education: Beautiful natural surroundings and multicultural atmosphere are ideal for adolescent physical and mental health development and comprehensive quality cultivation.\n\n• Adult International Students: Studying abroad is not just about acquiring knowledge—it\'s a \'royal pathway\' to Canadian immigration. By obtaining local credentials and work experience, you can significantly enhance your success rate in Provincial Nomination Programs (PNP) and Federal Express Entry (EE).'
+                        : '加拿大以其高质量的公立教育体系和安全包容的社会环境享誉全球。\n\n• 青少年教育：优美的自然环境与多元文化氛围，极利于青少年的身心健康成长与综合素质培养。\n\n• 成年留学生：留学不仅是获取知识，更是通往加拿大移民的\'王道路径\'，通过获取本地学历与工作经验，可大幅提升省提名（PNP）及联邦快速通道（EE）的成功率。'}
                     </p>
                   </div>
                   <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'center' }}>
@@ -243,13 +243,13 @@ export default function Temporary() {
                       }}
                     >
                       {isEnglish
-                        ? 'Spousal & Family: Grow Together with Loved Ones'
-                        : '陪读与家庭：与亲人一起成长'}
+                        ? 'Study Quotas and Provincial Attestation Letters (PAL)'
+                        : '留学配额与省证明信 (PAL)'}
                     </h2>
                     <p className="text-lg text-muted-foreground leading-relaxed">
                       {isEnglish
-                        ? 'Family reunification is an important part of immigration. Whether you are a student, worker, or permanent resident, we can help your spouse and family members obtain appropriate visas. We provide professional consultation and application support to ensure your family can reunite in Canada.'
-                        : '家庭团聚是移民的重要部分。无论您是学生、工作者还是永久居民，我们都可以帮助您的配偶和家庭成员获得相应的签证。我们提供专业的咨询和申请支持，确保您的家庭能够在加拿大团聚。'}
+                        ? 'Affected by policy adjustments in recent years, Canada has introduced a total quota system for study permit applications. Most college and undergraduate applicants must now obtain a Provincial Attestation Letter (PAL) or, in Quebec, a TA (Attestation d\'acceptation québécoise) to submit their applications. The OXEC team stays abreast of the latest policy developments and helps students seize opportunities in the competitive application landscape.'
+                        : '受近两年政策调整影响，加拿大对学签申请引入了总量配额制。大多数大专及本科申请人现在必须获得省证明信 (Provincial Attestation Letter, PAL) 或在魁北克省获得 TA 才能递交申请。傲赛（OXEC）团队紧跟最新政策动态，协助学生在名额竞争中抢占先机。'}
                     </p>
                   </div>
                   <div className="md:order-1" style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'center' }}>
@@ -277,13 +277,13 @@ export default function Temporary() {
                       }}
                     >
                       {isEnglish
-                        ? 'Visitor Visa: Explore Canada'
-                        : '探亲旅游：畅游加拿大'}
+                        ? 'Visitor Visa'
+                        : '探亲与旅游'}
                     </h2>
-                    <p className="text-lg text-muted-foreground leading-relaxed">
+                    <p className="text-lg text-muted-foreground leading-relaxed whitespace-pre-line">
                       {isEnglish
-                        ? 'Visiting Canada is the best way to experience this beautiful country. We provide professional visitor visa application services to help your family and friends obtain visitor visas smoothly. Whether it\'s visiting relatives or tourism, we ensure a smooth application process.'
-                        : '访问加拿大是体验这个美丽国家的最好方式。我们提供专业的访问签证申请服务，帮助您的亲友顺利获得访问签证。无论是探亲还是旅游，我们都能确保申请过程顺利进行。'}
+                        ? 'Visitor visas (TRV) may seem straightforward, but the document logic is extremely critical.\n\n• Key Documents: Include detailed travel plans, proof of funds, and proof of ties to your home country.\n\n• Professional Reminder: Never entrust a \'tourist visa\' to unqualified intermediaries due to its seemingly low threshold. If material logic conflicts or false information leads to misrepresentation, you face a 5-year entry ban.'
+                        : '访问签证（TRV）看似简单，实则材料逻辑极其重要。\n\n• 核心材料：包括详细的旅行计划、资金证明、国内束缚力证明等。\n\n• 专业提醒：切勿因\'旅游签\'看似门槛低而交由不合资质的中介代办。一旦因材料逻辑冲突或信息不实导致虚假陈述 (Misrepresentation)，将面临 5 年入境禁令。'}
                     </p>
                   </div>
                   <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'center' }}>
@@ -298,6 +298,40 @@ export default function Temporary() {
               </section>
 
               {/* Section 4: Super Visa - CTA Section */}
+              <section id="super-visa" className="mb-12 pb-12 border-b border-gray-200">
+                <div className="grid md:grid-cols-2 gap-8 items-start">
+                  <div className="md:order-2">
+                    <h2 
+                      className="text-foreground mb-6"
+                      style={{
+                        fontFamily: '"Alibaba PuHuiTi", sans-serif',
+                        fontSize: 'clamp(32px, 8vw, 48px)',
+                        fontWeight: 900,
+                        lineHeight: 1.2,
+                      }}
+                    >
+                      {isEnglish
+                        ? 'Spousal Work Permits and Family Accompaniment'
+                        : '配偶工签与家长陪读'}
+                    </h2>
+                    <p className="text-lg text-muted-foreground leading-relaxed whitespace-pre-line">
+                      {isEnglish
+                        ? '• Spousal Open Work Permit (SOWP): Eligible spouses of qualified international students can apply for an open work permit. This policy allows spouses to work legally in Canada, easing financial pressure while accumulating valuable local work experience.\n\n• Parental Accompaniment and Visitor Record: For parents accompanying minor children studying in Canada, a Visitor Record (VR) is essential for maintaining legal residency status and ensuring continuous companionship. Applications must demonstrate sufficient financial support and genuine intent to accompany.'
+                        : '• 配偶开放工签 (SOWP)：介绍符合资质的留学生配偶如何申请开放式工签。这一政策允许配偶在加拿大合法工作，分担家庭经济压力的同时积累本地工作经验。\n\n• 父母陪读与 Visitor Record：对于长期陪伴未成年子女在加读书的父母，VR 是维持合法居留身份、确保持续陪伴的关键文件。申请时需证明充足的资金支持及真实的陪读意图。'}
+                    </p>
+                  </div>
+                  <div className="md:order-1" style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'center' }}>
+                    <img
+                      src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663292376041/CeepOLbixyTTUyft.jpg"
+                      alt="Spousal & Family"
+                      className="w-full h-auto"
+                      style={{ maxWidth: '100%' }}
+                    />
+                  </div>
+                </div>
+              </section>
+
+              {/* Section 5: Super Visa - CTA Section */}
               <section id="super-visa" className="text-center">
                 <h2 
                   className="text-foreground mb-6"
@@ -309,14 +343,22 @@ export default function Temporary() {
                   }}
                 >
                   {isEnglish
-                    ? 'Super Visa: Bring Your Parents to Visit'
-                    : '父母超级签证：让父母安心来访'}
+                    ? 'Parent & Grandparent Super Visa'
+                    : '父母超级签证'}
                 </h2>
                 <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
                   {isEnglish
-                    ? 'The Super Visa is a long-term visitor visa designed for parents and grandparents of Canadian citizens and permanent residents. This visa allows your parents to stay in Canada for up to 2 years. We provide complete application guidance to ensure your parents obtain this special visa.'
-                    : '超级签证是为加拿大公民和永久居民的父母和祖父母设计的长期访问签证。这个签证允许您的父母在加拿大停留长达2年。我们提供完整的申请指导，确保您的父母能够获得这个特殊的签证。'}
+                    ? 'The Super Visa is designed specifically for parents and grandparents of Canadian citizens or permanent residents. Its advantages include: Extended Stay—single entry allows stays of up to 5 years. No Frequent Renewals—eliminates the need for frequent visa renewals. Ideal for Family Reunion—the perfect choice for long-term family reunification and multigenerational bonding.'
+                    : '超级签证是专为加拿大公民或永久居民的父母及祖父母设计的。其优势在于单次入境停留时间最长可达 5 年，且无需频繁办理续签，是家庭长久团聚的理想选择。'}
                 </p>
+                <div className="mb-8">
+                  <h3 className="text-xl font-bold text-foreground mb-4">
+                    {isEnglish ? 'Start Your Canadian Visa Application' : '开始您的加拿大签证申请'}
+                  </h3>
+                  <p className="text-lg text-muted-foreground mb-6">
+                    {isEnglish ? 'Let us help you avoid risks and smoothly obtain Canadian entry eligibility' : '让为您规避风险，顺利取得加拿大入境资格'}
+                  </p>
+                </div>
                 <Link href="/contact">
                   <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none">
                     {isEnglish ? 'Book Consultation Now' : '立即预约咨询'}
