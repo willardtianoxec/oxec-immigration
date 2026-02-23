@@ -62,22 +62,14 @@ export default function SkillWorker() {
     <div 
       className="w-full min-h-screen relative"
       style={{
-        backgroundColor: '#ffffff',
+        backgroundImage: `url('https://files.manuscdn.com/user_upload_by_module/session_file/310519663292376041/CeepOLbixyTTUyft.jpg')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundAttachment: 'fixed',
+        backgroundRepeat: 'no-repeat',
+        filter: 'brightness(0.7) contrast(1.1)',
       }}
     >
-      {/* Background Layer with Filter - Using ::before pseudo-element approach */}
-      <div 
-        className="fixed inset-0 -z-10"
-        style={{
-          backgroundImage: `url('https://files.manuscdn.com/user_upload_by_module/session_file/310519663292376041/CeepOLbixyTTUyft.jpg')`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundAttachment: 'fixed',
-          backgroundRepeat: 'no-repeat',
-          filter: 'brightness(0.7) contrast(1.1)',
-          zIndex: -10,
-        }}
-      />
 
       {/* Navigation Bar - Sticky */}
       <nav className="sticky top-0 z-40 bg-white border-b border-border shadow-sm" style={{ height: '55px' }}>
