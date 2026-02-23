@@ -95,13 +95,13 @@ export default function Temporary() {
 
           <button
             onClick={() => setIsEnglish(!isEnglish)}
-            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+            className="ml-4 px-4 py-2 text-foreground hover:text-primary transition-colors font-medium cursor-pointer"
           >
-            {isEnglish ? '中文' : 'ENG'}
+            {isEnglish ? "中文" : "ENG"}
           </button>
 
           <Link href="/contact">
-            <button className="ml-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">
+            <button className="ml-4 px-4 py-2 bg-white text-primary border border-primary rounded-none hover:bg-gray-50 transition font-medium">
               预约咨询
             </button>
           </Link>
@@ -120,7 +120,7 @@ export default function Temporary() {
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className="w-full text-left px-4 py-3 rounded transition-all relative"
+                className="w-full text-left px-4 py-3 transition-all relative"
                 style={{
                   backgroundColor: activeMenu === item.id ? '#475569' : 'transparent',
                   color: activeMenu === item.id ? '#0061FF' : '#ffffff',
@@ -142,7 +142,7 @@ export default function Temporary() {
         <main className="flex-1 relative z-20">
           {/* Content Container with Glassmorphism */}
           <div 
-            className="mx-12 my-8 rounded-lg p-8"
+            className="mx-12 my-8 p-8"
             style={{
               backgroundColor: 'rgba(255, 255, 255, 0.9)',
               backdropFilter: 'blur(20px)',
