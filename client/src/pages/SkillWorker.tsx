@@ -60,13 +60,14 @@ export default function SkillWorker() {
 
   return (
     <div 
-      className="min-h-screen w-full"
+      className="w-full min-h-screen"
       style={{
         backgroundImage: `url('https://files.manuscdn.com/user_upload_by_module/session_file/310519663292376041/CeepOLbixyTTUyft.jpg')`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundAttachment: 'fixed',
         backgroundRepeat: 'no-repeat',
+        filter: 'brightness(0.7) contrast(1.1)',
       }}
     >
       {/* Navigation Bar - Sticky */}
@@ -139,8 +140,8 @@ export default function SkillWorker() {
       </nav>
 
       {/* Main Layout: Sidebar + Content */}
-      <div className="flex min-h-[calc(100vh-55px)]">
-        {/* Left Sidebar Navigation - Dark Slate */}
+      <div className="flex relative" style={{ minHeight: 'calc(100vh - 55px)' }}>
+        {/* Left Sidebar Navigation - Dark Slate, Sticky */}
         <aside 
           className="hidden md:flex flex-col sticky"
           style={{
@@ -150,6 +151,8 @@ export default function SkillWorker() {
             boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.3)',
             height: 'fit-content',
             zIndex: 30,
+            maxHeight: 'calc(100vh - 55px)',
+            overflowY: 'auto',
           }}
         >
           {/* Sidebar Content */}
@@ -181,17 +184,20 @@ export default function SkillWorker() {
           </nav>
         </aside>
 
-        {/* Right Content Area */}
-        <main className="flex-1 flex flex-col">
-          {/* Content Wrapper */}
+        {/* Right Content Area - Flex 1 to expand */}
+        <main className="flex-1 flex flex-col" style={{ marginRight: '20px' }}>
+          {/* Content Wrapper with padding */}
           <div className="flex-1 py-12 px-4 md:px-8">
             {/* Single Frosted Glass Container - All Content Inside */}
             <div
-              className="w-full max-w-4xl mx-auto p-8 md:p-12 shadow-lg"
+              className="w-full mx-auto p-8 md:p-12 shadow-lg"
               style={{
+                maxWidth: '1400px',
                 background: 'rgba(255, 255, 255, 0.9)',
-                backdropFilter: 'blur(10px)',
-                WebkitBackdropFilter: 'blur(10px)',
+                backdropFilter: 'blur(20px) saturate(150%)',
+                WebkitBackdropFilter: 'blur(20px) saturate(150%)',
+                border: '1px solid rgba(255, 255, 255, 0.6)',
+                boxShadow: 'inset 0 0 20px rgba(255, 255, 255, 0.2), 0 20px 50px rgba(0, 0, 0, 0.1)',
               }}
             >
               {/* Section 0: Overview */}
@@ -425,16 +431,33 @@ export default function SkillWorker() {
                 </Link>
               </section>
             </div>
-          </div>
 
-          {/* Footer - Full Width */}
-          <footer className="w-screen relative left-1/2 right-1/2 -mx-[50vw] bg-background border-t border-border">
-            <div className="container max-w-7xl mx-auto px-4 py-12">
-              <Footer />
-            </div>
-          </footer>
+            {/* Bottom spacing to prevent Footer overlap */}
+            <div style={{ height: '60px' }} />
+          </div>
         </main>
       </div>
+
+      {/* Footer - Full Width, Direct Child of Body */}
+      <footer 
+        className="w-screen"
+        style={{
+          position: 'relative',
+          left: '50%',
+          right: '50%',
+          marginLeft: '-50vw',
+          marginRight: '-50vw',
+          backgroundColor: '#0F172A',
+          opacity: 0.9,
+          backdropFilter: 'blur(10px)',
+          WebkitBackdropFilter: 'blur(10px)',
+          zIndex: 20,
+        }}
+      >
+        <div className="container max-w-7xl mx-auto px-4 py-12">
+          <Footer />
+        </div>
+      </footer>
     </div>
   );
 }
