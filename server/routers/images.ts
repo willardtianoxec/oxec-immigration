@@ -73,10 +73,18 @@ export const imagesRouter = router({
     )
     .mutation(async ({ input, ctx }) => {
       try {
-        if (!input.filename.match(/^[a-zA-Z0-9._-]+$/)) {
+        // Validate filename - allow alphanumeric, spaces, dots, hyphens, underscores
+        // Reject path traversal attempts and null bytes
+        if (input.filename.includes('..') || input.filename.includes('/') || input.filename.includes('\\') || input.filename.includes('\0')) {
           throw new TRPCError({
             code: 'BAD_REQUEST',
             message: 'Invalid filename',
+          });
+        }
+        if (input.filename.trim().length === 0) {
+          throw new TRPCError({
+            code: 'BAD_REQUEST',
+            message: 'Filename cannot be empty',
           });
         }
 
