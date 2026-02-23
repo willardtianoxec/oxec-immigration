@@ -266,11 +266,11 @@ export default function Citizenship() {
               >
                 {t.trustOXEC}
               </h2>
-              <p className="text-lg text-muted-foreground leading-relaxed">
+              <div className="text-lg text-muted-foreground leading-relaxed whitespace-pre-line">
                 {isEnglish
                   ? "During the citizenship process, you may be concerned about 'defects in residency time calculation' or 'citizenship exam preparation.' Any omissions or calculation errors in residency records could trigger a deep investigation by immigration authorities (RQ), leading to significantly extended processing times or even rejection.\n\nThe OXEC team, with its rigorous service processes, can provide you with precise Physical Presence Calculations and multi-dimensional verification combined with your tax and entry/exit records to ensure your application materials form a complete logical chain. We also provide targeted citizenship exam guidance to help you transition smoothly and efficiently from permanent resident status to Canadian citizenship, achieving a truly comprehensive and flawless application."
                   : "入籍过程中您可能担心的通常是\"居住时间计算中的瑕疵\"或\"入籍考试的准备\"。任何居留记录记录的疏漏或计算瑕疵，都可能引发移民局对申请人居住真实性的深度调查（RQ），从而导致审理周期大幅延长甚至拒签。\n\n傲赛团队凭借严谨的服务流程，可为您提供精准的物理居住时间核算（Physical Presence Calculation），并结合您的税务与出入境记录进行多维度校验，确保申请材料逻辑闭环。同时，我们提供针对性的入籍考试指导，助力您从永居身份平稳、高效地过渡至加拿大公民，实现身份规划的\"万无一失\"。"}
-              </p>
+              </div>
             </div>
             <div className="order-1 md:order-2">
               <OptimizedImage
