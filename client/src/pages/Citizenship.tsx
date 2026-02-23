@@ -1,111 +1,344 @@
 import { useState } from "react";
 import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ArrowRight, ChevronDown } from "lucide-react";
+import { trpc } from "@/lib/trpc";
+import { Footer } from "@/components/Footer";
+import { Link } from "wouter";
+import { OptimizedImage } from "@/components/OptimizedImage";
 
 export default function Citizenship() {
   const [isEnglish, setIsEnglish] = useState(false);
   const [, navigate] = useLocation();
+  const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false);
+
+  const serviceItems = [
+    { label: "投资移民", href: "/businessclass" },
+    { label: "家庭团聚移民", href: "/familyclass" },
+    { label: "枫叶卡续签与加急", href: "/prcard" },
+    { label: "拒签与程序公正信", href: "/reconsideration" },
+    { label: "留学与访问", href: "/temporary" },
+    { label: "技术移民", href: "/skillworker" },
+    { label: "公民入籍", href: "/citizenship" },
+  ];
+
+  // Fetch success cases - only citizenship category
+  const { data: successCases = [] } = trpc.posts.list.useQuery({
+    type: "success-case",
+    contentCategory: "citizenship",
+    publishedOnly: true,
+  });
+
+  // Fetch all images for the "信任傲赛" section
+  const { data: allImages = [] } = trpc.images.list.useQuery();
+
+  const content = {
+    zh: {
+      nav: {
+        back: "返回首页",
+        language: "ENG",
+      },
+      title: "公民入籍",
+      overview: {
+        title: "成为加拿大公民：开启身份的新篇章",
+        text: "获得加拿大公民身份是每一位移民旅程中的重要里程碑。作为加拿大公民，您将享有更广泛的权利与保障，包括政治参与权、身份稳定性、护照便利和职业机会等多方面优势。",
+      },
+      requirements: {
+        title: "入籍的核心条件与路径",
+        text: "加拿大公民身份主要通过归化入籍（Naturalization）获得。申请人通常需满足以下法定要求：居留要求（5年内实际居住1,095天）、税务合规（5年内3年申报所得税）、语言能力（CLB 4级及以上）、入籍考试（加拿大历史、地理、政府架构）、亲属身份（首代子女可直接确认）。",
+      },
+      cta: "立即预约咨询",
+      trustOXEC: "信任傲赛，专业护航",
+      successCases: "公民入籍成功案例",
+      readyText: "准备开启您的公民入籍之旅了吗？",
+    },
+    en: {
+      nav: {
+        back: "Back to Home",
+        language: "中文",
+      },
+      title: "Canadian Citizenship",
+      overview: {
+        title: "Become a Canadian Citizen: Opening a New Chapter of Identity",
+        text: "Obtaining Canadian citizenship is an important milestone in every immigrant's journey. As a Canadian citizen, you will enjoy broader rights and protections, including political participation, identity stability, passport benefits, and career opportunities.",
+      },
+      requirements: {
+        title: "Core Requirements for Citizenship Application",
+        text: "Canadian citizenship is primarily obtained through Naturalization. Applicants typically need to meet the following statutory requirements: Residency requirement (1,095 days within 5 years), Tax compliance (3 years of tax returns within 5 years), Language proficiency (CLB 4 or higher), Citizenship test (Canadian history, geography, government), Lineage status (first-generation children can directly confirm citizenship).",
+      },
+      cta: "Book a Consultation Now",
+      trustOXEC: "Trust OXEC, Professional Guidance",
+      successCases: "Canadian Citizenship Success Cases",
+      readyText: "Ready to start your Canadian citizenship journey?",
+    },
+  };
+
+  const t = isEnglish ? content.en : content.zh;
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
-      {/* Navigation Bar */}
-      <nav className="sticky top-0 z-50 bg-white border-b border-border shadow-sm py-4">
-        <div className="container flex items-center justify-between">
-          <button
-            onClick={() => navigate("/")}
-            className="flex items-center gap-2 hover:opacity-80 transition"
-          >
-            <ArrowLeft className="w-5 h-5" />
-            <span>{isEnglish ? "Back to Home" : "返回主页"}</span>
-          </button>
-          <h1 className="text-xl font-bold">
-            {isEnglish ? "Canadian Citizenship" : "加拿大公民身份"}
-          </h1>
-          <button
-            onClick={() => setIsEnglish(!isEnglish)}
-            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
-          >
-            {isEnglish ? "中文" : "ENG"}
+      {/* Navigation Bar - Same as BusinessClass */}
+      <nav className="sticky top-0 z-50 bg-white border-b border-border shadow-sm" style={{height: '55px'}}>
+        <div className="container flex items-center py-4" style={{ justifyContent: 'space-between', height: '55px' }}>
+          {/* Logo */}
+          <Link href="/">
+            <img src="/oxec-logo.png" alt="OXEC Immigration Services Ltd." className="cursor-pointer flex-shrink-0" style={{ height: '40px', width: '160px' }} />
+          </Link>
+
+          {/* Desktop Menu */}
+          <div className="hidden md:flex items-center" style={{ flex: 1, justifyContent: 'space-around', marginLeft: '32px' }}>
+            <Link href="/">
+              <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">{isEnglish ? 'Home' : '首页'}</span>
+            </Link>
+            <div className="relative group">
+              <button
+                onMouseEnter={() => setServicesDropdownOpen(true)}
+                onMouseLeave={() => setServicesDropdownOpen(false)}
+                className="flex items-center text-foreground hover:text-primary transition-colors font-medium cursor-pointer"
+              >
+                {isEnglish ? 'Services' : '服务'}
+                <ChevronDown className="ml-1 h-4 w-4" />
+              </button>
+              {servicesDropdownOpen && (
+                <div
+                  onMouseEnter={() => setServicesDropdownOpen(true)}
+                  onMouseLeave={() => setServicesDropdownOpen(false)}
+                  className="absolute left-0 mt-0 w-56 bg-white border border-border rounded-md shadow-lg z-50"
+                >
+                  {serviceItems.map((item) => (
+                    <Link key={item.href} href={item.href}>
+                      <span className="block px-4 py-3 text-foreground hover:bg-primary/10 hover:text-primary transition-colors cursor-pointer first:rounded-t-md last:rounded-b-md">
+                        {item.label}
+                      </span>
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+            <Link href="/success-cases">
+              <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">{isEnglish ? 'Success Cases' : '成功案例'}</span>
+            </Link>
+            <Link href="/blog">
+              <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">{isEnglish ? 'Blog' : '博客'}</span>
+            </Link>
+            <Link href="/team">
+              <span className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer">{isEnglish ? 'About' : '关于我们'}</span>
+            </Link>
+            <button
+              onClick={() => setIsEnglish(!isEnglish)}
+              className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer"
+            >
+              {isEnglish ? '中文' : 'ENG'}
+            </button>
+            <Link href="/booking">
+              <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none">
+                <span>{isEnglish ? 'Book Now' : '预约咨询'}</span>
+              </Button>
+            </Link>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button className="md:hidden" onClick={() => navigate("/")}>
+            <ArrowLeft className="h-6 w-6" />
           </button>
         </div>
       </nav>
 
-      {/* Main Content */}
-      <main className="flex-1 container mx-auto px-4 py-12 max-w-6xl">
-        {/* Section 1: Overview - Left Text, Right Image */}
-        <section className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center py-20">
-          <div className="flex flex-col justify-center">
-            <h2 className="text-3xl lg:text-4xl font-black mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", sans-serif', fontSize: "64px" }}>
-              {isEnglish
-                ? "Become a Canadian Citizen: Opening a New Chapter of Identity"
-                : "成为加拿大公民：开启身份的新篇章"}
+      {/* Section 1: Overview */}
+      <section className="py-20 bg-white">
+        <div className="container">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div className="order-2 md:order-1">
+              <h2 
+                className="text-foreground mb-6"
+                style={{
+                  fontFamily: '"Alibaba PuHuiTi", sans-serif',
+                  fontSize: 'clamp(32px, 8vw, 48px)',
+                  fontWeight: 900,
+                  lineHeight: 1.2,
+                }}
+              >
+                {t.overview.title}
+              </h2>
+              <p className="text-lg text-muted-foreground leading-relaxed">{t.overview.text}</p>
+            </div>
+            <div className="order-1 md:order-2">
+              <OptimizedImage
+                src="/images/citizenship-oath-ceremony-opt.webp"
+                alt="Citizenship Oath Ceremony"
+                className="w-full h-auto shadow-lg object-cover"
+                style={{ aspectRatio: "16/9", borderRadius: "0px" }}
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Section 2: Requirements */}
+      <section className="py-20 bg-gray-50">
+        <div className="container">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+              <OptimizedImage
+                src="/images/citizenship-legal-documents-opt.webp"
+                alt="Citizenship Legal Documents"
+                className="w-full h-auto shadow-lg object-cover"
+                style={{ aspectRatio: "16/9", borderRadius: "0px" }}
+              />
+            </div>
+            <div>
+              <h2 
+                className="text-foreground mb-6"
+                style={{
+                  fontFamily: '"Alibaba PuHuiTi", sans-serif',
+                  fontSize: 'clamp(32px, 8vw, 48px)',
+                  fontWeight: 900,
+                  lineHeight: 1.2,
+                }}
+              >
+                {t.requirements.title}
+              </h2>
+              <p className="text-lg text-muted-foreground leading-relaxed">{t.requirements.text}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section with Background Image */}
+      <section
+        className="py-20 flex items-center justify-center relative overflow-hidden"
+        style={{
+          backgroundImage: `url('https://files.manuscdn.com/user_upload_by_module/session_file/310519663292376041/WZnaCRpbTuyKXGGm.jpg')`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundAttachment: "fixed",
+          minHeight: "400px",
+        }}
+      >
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-black/40"></div>
+
+        {/* Content */}
+        <div className="container text-center relative z-10">
+          <h2 className="text-3xl lg:text-4xl font-bold text-white mb-8">{t.readyText}</h2>
+          <a href="/booking">
+            <Button
+              size="lg"
+              className="font-bold text-lg px-8 py-6"
+              style={{
+                borderRadius: '0px',
+                borderWidth: '3px',
+                borderColor: '#ffffff',
+                color: '#ffffff',
+                backgroundColor: '#388088'
+              }}
+            >
+              {t.cta}
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
+          </a>
+        </div>
+      </section>
+
+      {/* Section 4: Trust OXEC - with random image from library */}
+      <section className="py-20 bg-white">
+        <div className="container">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div className="order-2 md:order-1">
+              <h2 
+                className="text-foreground mb-6"
+                style={{
+                  fontFamily: '"Alibaba PuHuiTi", sans-serif',
+                  fontSize: 'clamp(32px, 8vw, 48px)',
+                  fontWeight: 900,
+                  lineHeight: 1.2,
+                }}
+              >
+                {t.trustOXEC}
+              </h2>
+              <p className="text-lg text-muted-foreground leading-relaxed">
+                {isEnglish
+                  ? "During the citizenship process, you may be concerned about 'defects in residency time calculation' or 'citizenship exam preparation.' The OXEC team can provide you with precise residency day calculations and citizenship exam guidance, ensuring your citizenship application is flawless."
+                  : "入籍过程中您可能担心的通常是'居住时间计算中的瑕疵'或'入籍考试的准备'。傲赛（OXEC）团队可为您提供精准的居住天数核算及入籍考试指导，确保您的入籍申请万无一失。"}
+              </p>
+            </div>
+            <div className="order-1 md:order-2">
+              {allImages.length > 0 && (
+                <OptimizedImage
+                  src={allImages[Math.floor(Math.random() * allImages.length)].publicUrl}
+                  alt="OXEC Professional Team"
+                  className="w-full h-auto shadow-lg object-cover"
+                  style={{ aspectRatio: "16/9", borderRadius: "0px" }}
+                />
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Success Cases Section */}
+      <section className="py-20 bg-gray-50">
+        <div className="container">
+          <div className="text-center mb-16">
+            <h2 
+              className="text-foreground mb-4"
+              style={{
+                fontFamily: '"Alibaba PuHuiTi", sans-serif',
+                fontSize: 'clamp(32px, 8vw, 48px)',
+                fontWeight: 900,
+                lineHeight: 1.2,
+              }}
+            >
+              {t.successCases}
             </h2>
-            <p className="text-lg text-foreground/80 leading-relaxed mb-6 whitespace-pre-line">
-              {isEnglish
-                ? "Obtaining Canadian citizenship is an important milestone in every immigrant's journey. As a Canadian citizen, you will enjoy broader rights and protections, including:\n\n• Political Participation: Gain the right to vote and be elected in federal, provincial, and municipal elections.\n\n• Identity Stability: Citizenship is permanent and not subject to residency obligations, and cannot be easily revoked.\n\n• Passport Benefits: Hold one of the world's most powerful passports, enjoying visa-free entry to most countries globally.\n\n• Career Opportunities: Eligible to apply for certain government positions or security-sensitive roles reserved for citizens."
-                : "获得加拿大公民身份是每一位移民旅程中的重要里程碑。作为加拿大公民，您将享有更广泛的权利与保障，包括：\n\n• 政治参与权：获得在联邦、省及市政选举中的投票权与被选举权。\n\n• 身份稳定性：公民身份永久有效，不受居住义务（Residency Obligation）的限制，且无法被轻易剥夺。\n\n• 护照便利：持有世界上最强大的护照之一，享受全球多数国家的免签入境待遇。\n\n• 职业机会：有资格申请某些仅限公民担任的政府敏感职位或安全敏感岗位。"}
+            <p className="text-lg text-muted-foreground">
+              {isEnglish ? "Real success stories from our clients" : "来自我们客户的真实成功故事"}
             </p>
           </div>
-          <div className="flex justify-center">
-            <img
-              src="https://private-us-east-1.manuscdn.com/sessionFile/i9ZSSj6IB1QFKBGCY6lMon/sandbox/u6aTSFsI93UUCpbJ3kinYK-img-1_1770249464000_na1fn_Y2l0aXplbnNoaXAtb2F0aC1jZXJlbW9ueQ.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvaTlaU1NqNklCMVFGS0JHQ1k2bE1vbi9zYW5kYm94L3U2YVRTRnNJOTNVVUNwYkoza2luWUstaW1nLTFfMTc3MDI0OTQ2NDAwMF9uYTFmbl9ZMmwwYVhwbGJuTm9hWEF0YjJGMGFDMWpaWEpsYlc5dWVRLmpwZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzE5MjAsaF8xOTIwL2Zvcm1hdCx3ZWJwL3F1YWxpdHkscV84MCIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc5ODc2MTYwMH19fV19&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=BgYB88TwuZVdf7zdlHJRa8cge~kcCgmm6oHkq8Oe36y-p-5drnJNr-uZtesfY8cJR1rqiOaLrMzixaCbBY-d3a6xRlmaK8dziZjLjeAoFORt24Ww5ykYoQLjZw5lsVm2LXXQV5D8vVOy5H6iEEaRHxS2iwIFa1kuvXVMTfkqKkmHuxkiQqCSir5PKxa49Co5wa8bh~u94MBFvc3YVNFLxXSkmfQV6mcx49uMswAoZ~utIldkRRTEjXXGDcAusUO~OS7jZPlxThU64GSAvCxQkcKNMywXAs1vYFTTBAuiqvG4KPqpjt-lue7HZn6rVx7DWC~vX7fqVbyEPZbeuH-ozg__"
-              alt="Citizenship Oath Ceremony"
-              className="w-full h-auto rounded-lg shadow-lg"
-            />
-          </div>
-        </section>
 
-        {/* Section 2: Requirements - Left Image, Right Text */}
-        <section className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center py-20">
-          <div className="flex justify-center lg:order-first">
-            <img
-              src="https://private-us-east-1.manuscdn.com/sessionFile/i9ZSSj6IB1QFKBGCY6lMon/sandbox/u6aTSFsI93UUCpbJ3kinYK-img-2_1770249466000_na1fn_Y2l0aXplbnNoaXAtbGVnYWwtZG9jdW1lbnRz.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvaTlaU1NqNklCMVFGS0JHQ1k2bE1vbi9zYW5kYm94L3U2YVRTRnNJOTNVVUNwYkoza2luWUstaW1nLTJfMTc3MDI0OTQ2NjAwMF9uYTFmbl9ZMmwwYVhwbGJuTm9hWEF0YkdWbllXd3RaRzlqZFcxbGJuUnouanBnP3gtb3NzLXByb2Nlc3M9aW1hZ2UvcmVzaXplLHdfMTkyMCxoXzE5MjAvZm9ybWF0LHdlYnAvcXVhbGl0eSxxXzgwIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNzk4NzYxNjAwfX19XX0_&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=cABEHdxI0alrNfY85ZKeAafRL2apWiA9w39NXf9qaogEmj69b4TKO-vEyHTQCMQwmJb8MaqfLmwF4HYyhPV4DufRcG2sLwLQhZ~KMstjjaWbPEjC7onNGAObzvPsmFF~5~oUowjzlBuoAEmFbO-vpADDKdSd4-Htld4MCRqaBRad4QyHKE3w7DMSbWrMlZbcbAM2m5-3~Q7pr~9-5UPUxJ3~T4co~9AyL1P2pnhJz2nZQG5RU4vFOJ-bnnj0XhSQvnY0Pv04a2vvnzIErKfeVKNwvz7HWWwk2jpYudNbbrvhCR4rDpNSeU3tvjWGh62hGjWWdzmqrXLoBIC-aw~rBw__"
-              alt="Citizenship Legal Documents"
-              className="w-full h-auto rounded-lg shadow-lg"
-            />
+          {/* Success Cases Grid - Show max 3 cases or fewer if available */}
+          {successCases.length > 0 ? (
+          <div className="flex flex-wrap justify-center gap-8">
+            {successCases.slice(0, 3).map((post) => (
+              <a
+                key={post.id}
+                href={`/success-cases/${post.slug}`}
+                className="bg-white overflow-hidden shadow-md hover:shadow-lg transition-shadow cursor-pointer group flex flex-col"
+                style={{ width: '450px', height: '360px' }}
+              >
+                <div className="bg-gradient-to-br from-blue-400 to-blue-600 overflow-hidden flex-shrink-0" style={{ height: '220px' }}>
+                  {post.coverImage && (
+                    <img
+                      src={post.coverImage}
+                      alt={post.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      style={{ borderRadius: "0px" }}
+                    />
+                  )}
+                </div>
+                <div className="p-4 flex-grow flex flex-col justify-between">
+                  <h3 className="text-base font-bold text-foreground mb-2 line-clamp-2">{post.title}</h3>
+                  <p className="text-muted-foreground text-xs mb-3 line-clamp-2">{post.excerpt}</p>
+                  <div className="flex items-center justify-between text-xs text-muted-foreground">
+                    <span>OXEC Immigration</span>
+                    <span>{new Date(post.publishedAt || post.createdAt).toLocaleDateString()}</span>
+                  </div>
+                </div>
+              </a>
+            ))}
           </div>
-          <div className="flex flex-col justify-center lg:order-last">
-            <h2 className="text-3xl lg:text-4xl font-black mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", sans-serif', fontSize: "64px" }}>
-              {isEnglish
-                ? "Core Requirements for Citizenship Application"
-                : "入籍申请的核心条件与路径"}
-            </h2>
-            <p className="text-lg text-foreground/80 leading-relaxed mb-6 whitespace-pre-line">
-              {isEnglish
-                ? "Canadian citizenship is primarily obtained through Naturalization. Applicants typically need to meet the following statutory requirements:\n\n• Residency Requirement: Within the 5 years before submitting an application, you must have actually resided in Canada as a permanent resident for at least 1,095 days (3 years).\n\n• Tax Compliance: Within the 5 years before applying, you must have filed personal income tax returns for at least 3 years.\n\n• Language Proficiency: Applicants aged 18-54 must demonstrate English or French language proficiency at CLB 4 level or higher (listening and speaking skills).\n\n• Citizenship Test: Pass a knowledge test on Canadian history, geography, government structure, and citizenship rights and responsibilities.\n\n• Lineage Status: If you are the first-generation child of a Canadian citizen born abroad, you may directly confirm citizenship status through the Citizenship Certificate pathway."
-                : "加拿大公民身份主要通过归化入籍（Naturalization）获得，申请人通常需满足以下法定要求：\n\n• 居留要求：在递交申请前的 5 年内，以永久居民身份在加拿大境内实际居住至少 1,095 天（满 3 年）。\n\n• 税务合规：在申请前的 5 年内，至少有 3 年履行了个人所得税申报义务。\n\n• 语言能力：18 至 54 岁的申请人需证明其英语或法语达到 CLB 4 级及以上水平（听说能力）。\n\n• 入籍考试：通过关于加拿大历史、地理、政府架构及公民权利义务的知识测试。\n\n• 亲属身份：若为加拿大公民在海外出生的第一代子女，可通过公民身份证明（Citizenship Certificate）路径直接确认公民身份。"}
-            </p>
-          </div>
-        </section>
+          ) : (
+            <div className="text-center py-12">
+              <p className="text-muted-foreground text-lg">
+                {isEnglish ? "No success cases available yet" : "暂无成功案例"}
+              </p>
+            </div>
+          )}
+        </div>
+      </section>
 
-        {/* Section 3: How OXEC Helps */}
-        <section className="py-20 bg-slate-50 rounded-lg p-12 my-12">
-          <h2 className="text-3xl lg:text-4xl font-black mb-8 text-center" style={{ fontFamily: '"Alibaba PuHuiTi", sans-serif', fontSize: "64px" }}>
-            {isEnglish
-              ? "How OXEC Can Help You"
-              : "傲赛（OXEC）提供哪些帮助"}
-          </h2>
-          <p className="text-lg text-foreground/80 leading-relaxed text-center max-w-4xl mx-auto">
-            {isEnglish
-              ? "During the citizenship process, you may be concerned about 'defects in residency time calculation' or 'citizenship exam preparation.' The OXEC team can provide you with precise residency day calculations and citizenship exam guidance, ensuring your citizenship application is flawless."
-              : "入籍过程中您可能担心的通常是'居住时间计算中的瑕疵'或'入籍考试的准备'。傲赛（OXEC）团队可为您提供精准的居住天数核算及入籍考试指导，确保您的入籍申请万无一失。"}
-          </p>
-        </section>
-
-        {/* CTA Button */}
-        <section className="py-12 text-center">
-          <Button
-            onClick={() => navigate("/booking")}
-            size="lg"
-            className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-6 text-lg"
-          >
-            {isEnglish
-              ? "Start Your Citizenship Application - Book a Consultation Now"
-              : "开启您的公民申请 - 立即预约咨询"}
-          </Button>
-        </section>
-      </main>
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }
