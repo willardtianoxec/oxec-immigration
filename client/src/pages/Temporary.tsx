@@ -445,7 +445,7 @@ export default function Temporary() {
                     ? 'Let us help you avoid risks and smoothly obtain Canadian entry eligibility'
                     : '让我们为您规避风险，顺利取得加拿大入境资格'}
                 </p>
-                <Link href="/contact">
+                <Link href="/booking">
                   <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none">
                     {isEnglish ? 'Book Consultation Now' : '立即预约咨询'}
                   </Button>
