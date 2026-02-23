@@ -40,12 +40,12 @@ export default function Citizenship() {
       },
       title: "公民入籍",
       overview: {
-        title: "成为加拿大公民：开启身份的新篇章",
+        title: "成为加拿大公民",
         text: "获得加拿大公民身份是每一位移民旅程中的重要里程碑。作为加拿大公民，您将享有更广泛的权利与保障，包括政治参与权、身份稳定性、护照便利和职业机会等多方面优势。",
       },
       requirements: {
         title: "入籍的核心条件与路径",
-        text: "加拿大公民身份主要通过归化入籍（Naturalization）获得。申请人通常需满足以下法定要求：居留要求（5年内实际居住1,095天）、税务合规（5年内3年申报所得税）、语言能力（CLB 4级及以上）、入籍考试（加拿大历史、地理、政府架构）、亲属身份（首代子女可直接确认）。",
+        text: "加拿大公民身份主要通过归化入籍程序（Naturalization）获得。申请人通常需满足以下法定要求：\n\n• 居留要求（5年内实际居住1,095天）\n\n• 税务合规（5年内3年申报所得税）\n\n• 语言能力（CLB 4级及以上）\n\n• 通过入籍考试（加拿大历史、地理、政府架构）\n\n境外出生的子女可以通过加拿大籍父母自动获得国籍，但目前仅限于出生时父母已经入籍的情况。",
       },
       cta: "立即预约咨询",
       trustOXEC: "信任傲赛，专业护航",
@@ -258,19 +258,17 @@ export default function Citizenship() {
               </h2>
               <p className="text-lg text-muted-foreground leading-relaxed">
                 {isEnglish
-                  ? "During the citizenship process, you may be concerned about 'defects in residency time calculation' or 'citizenship exam preparation.' The OXEC team can provide you with precise residency day calculations and citizenship exam guidance, ensuring your citizenship application is flawless."
-                  : "入籍过程中您可能担心的通常是'居住时间计算中的瑕疵'或'入籍考试的准备'。傲赛（OXEC）团队可为您提供精准的居住天数核算及入籍考试指导，确保您的入籍申请万无一失。"}
+                  ? "During the citizenship process, you may be concerned about 'defects in residency time calculation' or 'citizenship exam preparation.' Any omissions or calculation errors in residency records could trigger a deep investigation by immigration authorities (RQ), leading to significantly extended processing times or even rejection.\n\nThe OXEC team, with its rigorous service processes, can provide you with precise Physical Presence Calculations and multi-dimensional verification combined with your tax and entry/exit records to ensure your application materials form a complete logical chain. We also provide targeted citizenship exam guidance to help you transition smoothly and efficiently from permanent resident status to Canadian citizenship, achieving a truly comprehensive and flawless application."
+                  : "入籍过程中您可能担心的通常是\"居住时间计算中的瑕疵\"或\"入籍考试的准备\"。任何居留记录记录的疏漏或计算瑕疵，都可能引发移民局对申请人居住真实性的深度调查（RQ），从而导致审理周期大幅延长甚至拒签。\n\n傲赛团队凭借严谨的服务流程，可为您提供精准的物理居住时间核算（Physical Presence Calculation），并结合您的税务与出入境记录进行多维度校验，确保申请材料逻辑闭环。同时，我们提供针对性的入籍考试指导，助力您从永居身份平稳、高效地过渡至加拿大公民，实现身份规划的\"万无一失\"。"}
               </p>
             </div>
             <div className="order-1 md:order-2">
-              {allImages.length > 0 && (
-                <OptimizedImage
-                  src={allImages[Math.floor(Math.random() * allImages.length)].publicUrl}
-                  alt="OXEC Professional Team"
+              <OptimizedImage
+                src="/images/service-1-investment-1771831729788-opt.webp"
+                alt="OXEC Professional Team"
                   className="w-full h-auto shadow-lg object-cover"
                   style={{ aspectRatio: "16/9", borderRadius: "0px" }}
                 />
-              )}
             </div>
           </div>
         </div>
