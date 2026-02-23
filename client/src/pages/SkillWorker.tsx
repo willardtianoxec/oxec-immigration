@@ -67,7 +67,6 @@ export default function SkillWorker() {
         backgroundPosition: 'center',
         backgroundAttachment: 'fixed',
         backgroundRepeat: 'no-repeat',
-        filter: 'brightness(0.7) contrast(1.1)',
       }}
     >
 
