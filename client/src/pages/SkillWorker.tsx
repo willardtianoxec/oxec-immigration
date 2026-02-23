@@ -60,7 +60,7 @@ export default function SkillWorker() {
 
   return (
     <div 
-      className="min-h-screen"
+      className="min-h-screen w-full"
       style={{
         backgroundImage: `url('https://files.manuscdn.com/user_upload_by_module/session_file/310519663292376041/CeepOLbixyTTUyft.jpg')`,
         backgroundSize: 'cover',
@@ -69,7 +69,7 @@ export default function SkillWorker() {
         backgroundRepeat: 'no-repeat',
       }}
     >
-      {/* Navigation Bar - Sticky, not fixed */}
+      {/* Navigation Bar - Sticky */}
       <nav className="sticky top-0 z-40 bg-white border-b border-border shadow-sm" style={{ height: '55px' }}>
         <div className="container flex items-center py-4" style={{ justifyContent: 'space-between', height: '55px' }}>
           {/* Logo */}
@@ -139,7 +139,7 @@ export default function SkillWorker() {
       </nav>
 
       {/* Main Layout: Sidebar + Content */}
-      <div className="flex">
+      <div className="flex min-h-[calc(100vh-55px)]">
         {/* Left Sidebar Navigation - Dark Slate */}
         <aside 
           className="hidden md:flex flex-col sticky"
@@ -181,21 +181,21 @@ export default function SkillWorker() {
           </nav>
         </aside>
 
-        {/* Right Content Area - Glass Cards Container */}
-        <main className="flex-1 flex flex-col" style={{ backgroundColor: 'transparent' }}>
-          {/* Content Wrapper - All sections in one container */}
-          <div style={{ flex: 1 }}>
-            {/* Section 0: Overview */}
-            <section id="overview" className="scroll-mt-20" style={{ padding: '40px 40px 0 40px' }}>
-              <div
-                style={{
-                  background: 'rgba(255, 255, 255, 0.85)',
-                  backdropFilter: 'blur(20px)',
-                  border: '1px solid rgba(255, 255, 255, 0.5)',
-                  boxShadow: '0 20px 50px rgba(0, 0, 0, 0.1)',
-                  padding: '48px',
-                }}
-              >
+        {/* Right Content Area */}
+        <main className="flex-1 flex flex-col">
+          {/* Content Wrapper */}
+          <div className="flex-1 py-12 px-4 md:px-8">
+            {/* Single Frosted Glass Container - All Content Inside */}
+            <div
+              className="w-full max-w-4xl mx-auto p-8 md:p-12 shadow-lg"
+              style={{
+                background: 'rgba(255, 255, 255, 0.9)',
+                backdropFilter: 'blur(10px)',
+                WebkitBackdropFilter: 'blur(10px)',
+              }}
+            >
+              {/* Section 0: Overview */}
+              <section id="overview" className="mb-12 pb-12 border-b border-gray-200">
                 <div className="grid md:grid-cols-2 gap-8 items-start">
                   <div>
                     <h2 
@@ -226,21 +226,10 @@ export default function SkillWorker() {
                     />
                   </div>
                 </div>
-              </div>
-            </section>
+              </section>
 
-            {/* Section 1: Express Entry */}
-            <section id="ee" className="scroll-mt-20" style={{ padding: '40px 40px 0 40px' }}>
-              <div
-                style={{
-                  background: 'rgba(255, 255, 255, 0.85)',
-                  backdropFilter: 'blur(20px)',
-                  border: '1px solid rgba(255, 255, 255, 0.5)',
-                  boxShadow: '0 20px 50px rgba(0, 0, 0, 0.1)',
-                  padding: '48px',
-                  marginTop: '40px',
-                }}
-              >
+              {/* Section 1: Express Entry */}
+              <section id="ee" className="mb-12 pb-12 border-b border-gray-200">
                 <div className="grid md:grid-cols-2 gap-8 items-start">
                   <div className="md:order-2">
                     <h2 
@@ -271,21 +260,10 @@ export default function SkillWorker() {
                     />
                   </div>
                 </div>
-              </div>
-            </section>
+              </section>
 
-            {/* Section 2: BC PNP */}
-            <section id="bcpnp" className="scroll-mt-20" style={{ padding: '40px 40px 0 40px' }}>
-              <div
-                style={{
-                  background: 'rgba(255, 255, 255, 0.85)',
-                  backdropFilter: 'blur(20px)',
-                  border: '1px solid rgba(255, 255, 255, 0.5)',
-                  boxShadow: '0 20px 50px rgba(0, 0, 0, 0.1)',
-                  padding: '48px',
-                  marginTop: '40px',
-                }}
-              >
+              {/* Section 2: BC PNP */}
+              <section id="bcpnp" className="mb-12 pb-12 border-b border-gray-200">
                 <div className="grid md:grid-cols-2 gap-8 items-start">
                   <div>
                     <h2 
@@ -316,21 +294,10 @@ export default function SkillWorker() {
                     />
                   </div>
                 </div>
-              </div>
-            </section>
+              </section>
 
-            {/* Section 3: LMIA */}
-            <section id="lmia" className="scroll-mt-20" style={{ padding: '40px 40px 0 40px' }}>
-              <div
-                style={{
-                  background: 'rgba(255, 255, 255, 0.85)',
-                  backdropFilter: 'blur(20px)',
-                  border: '1px solid rgba(255, 255, 255, 0.5)',
-                  boxShadow: '0 20px 50px rgba(0, 0, 0, 0.1)',
-                  padding: '48px',
-                  marginTop: '40px',
-                }}
-              >
+              {/* Section 3: LMIA */}
+              <section id="lmia" className="mb-12 pb-12 border-b border-gray-200">
                 <div className="grid md:grid-cols-2 gap-8 items-start">
                   <div className="md:order-2">
                     <h2 
@@ -361,21 +328,10 @@ export default function SkillWorker() {
                     />
                   </div>
                 </div>
-              </div>
-            </section>
+              </section>
 
-            {/* Section 4: ICT */}
-            <section id="ict" className="scroll-mt-20" style={{ padding: '40px 40px 0 40px' }}>
-              <div
-                style={{
-                  background: 'rgba(255, 255, 255, 0.85)',
-                  backdropFilter: 'blur(20px)',
-                  border: '1px solid rgba(255, 255, 255, 0.5)',
-                  boxShadow: '0 20px 50px rgba(0, 0, 0, 0.1)',
-                  padding: '48px',
-                  marginTop: '40px',
-                }}
-              >
+              {/* Section 4: ICT */}
+              <section id="ict" className="mb-12 pb-12 border-b border-gray-200">
                 <div className="grid md:grid-cols-2 gap-8 items-start">
                   <div>
                     <h2 
@@ -406,21 +362,10 @@ export default function SkillWorker() {
                     />
                   </div>
                 </div>
-              </div>
-            </section>
+              </section>
 
-            {/* Section 5: PGWP */}
-            <section id="pgwp" className="scroll-mt-20" style={{ padding: '40px 40px 0 40px' }}>
-              <div
-                style={{
-                  background: 'rgba(255, 255, 255, 0.85)',
-                  backdropFilter: 'blur(20px)',
-                  border: '1px solid rgba(255, 255, 255, 0.5)',
-                  boxShadow: '0 20px 50px rgba(0, 0, 0, 0.1)',
-                  padding: '48px',
-                  marginTop: '40px',
-                }}
-              >
+              {/* Section 5: PGWP */}
+              <section id="pgwp" className="mb-12 pb-12 border-b border-gray-200">
                 <div className="grid md:grid-cols-2 gap-8 items-start">
                   <div className="md:order-2">
                     <h2 
@@ -451,22 +396,10 @@ export default function SkillWorker() {
                     />
                   </div>
                 </div>
-              </div>
-            </section>
+              </section>
 
-            {/* Section 6: CTA Section - Assessment (Inside Glass Card) */}
-            <section id="assessment" className="scroll-mt-20" style={{ padding: '40px 40px 40px 40px' }}>
-              <div
-                style={{
-                  background: 'rgba(255, 255, 255, 0.85)',
-                  backdropFilter: 'blur(20px)',
-                  border: '1px solid rgba(255, 255, 255, 0.5)',
-                  boxShadow: '0 20px 50px rgba(0, 0, 0, 0.1)',
-                  padding: '48px',
-                  marginTop: '40px',
-                  textAlign: 'center',
-                }}
-              >
+              {/* Section 6: CTA Section - Assessment */}
+              <section id="assessment" className="text-center">
                 <h2 
                   className="text-foreground mb-6"
                   style={{
@@ -490,26 +423,13 @@ export default function SkillWorker() {
                     {isEnglish ? 'Book Consultation Now' : '立即预约咨询'}
                   </Button>
                 </Link>
-              </div>
-            </section>
+              </section>
+            </div>
           </div>
 
-          {/* Footer - Full Width with Glass Effect */}
-          <footer
-            style={{
-              width: '100vw',
-              marginLeft: 'calc(-50vw + 50%)',
-              marginTop: '40px',
-              background: 'rgba(15, 23, 42, 0.9)',
-              backdropFilter: 'blur(20px)',
-              borderTop: '1px solid rgba(255, 255, 255, 0.2)',
-              borderRight: 'none',
-              borderBottom: 'none',
-              borderLeft: 'none',
-              padding: '40px 0 0 0',
-            }}
-          >
-            <div style={{ padding: '40px' }}>
+          {/* Footer - Full Width */}
+          <footer className="w-screen relative left-1/2 right-1/2 -mx-[50vw] bg-background border-t border-border">
+            <div className="container max-w-7xl mx-auto px-4 py-12">
               <Footer />
             </div>
           </footer>
