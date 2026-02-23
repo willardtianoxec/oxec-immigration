@@ -164,7 +164,7 @@ export default function Citizenship() {
             </div>
             <div className="order-1 md:order-2">
               <OptimizedImage
-                src="/images/citizenship-oath-ceremony-opt.webp"
+                src="/images/citizenship-oath-ceremony-opt.jpg"
                 alt="Citizenship Oath Ceremony"
                 className="w-full h-auto shadow-lg object-cover"
                 style={{ aspectRatio: "16/9", borderRadius: "0px" }}
@@ -180,7 +180,7 @@ export default function Citizenship() {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <OptimizedImage
-                src="/images/citizenship-legal-documents-opt.webp"
+                src="/images/citizenship-legal-documents-opt.jpg"
                 alt="Citizenship Legal Documents"
                 className="w-full h-auto shadow-lg object-cover"
                 style={{ aspectRatio: "16/9", borderRadius: "0px" }}
@@ -220,7 +220,17 @@ export default function Citizenship() {
 
         {/* Content */}
         <div className="container text-center relative z-10">
-          <h2 className="text-3xl lg:text-4xl font-bold text-white mb-8">{t.readyText}</h2>
+          <h2 
+            className="font-bold text-white mb-8"
+            style={{
+              fontFamily: '"Alibaba PuHuiTi", sans-serif',
+              fontSize: 'clamp(32px, 8vw, 48px)',
+              fontWeight: 900,
+              lineHeight: 1.2,
+            }}
+          >
+            {isEnglish ? "Do you need to prepare your citizenship application?" : "您的需要准备公民入籍申请吗？"}
+          </h2>
           <a href="/booking">
             <Button
               size="lg"
