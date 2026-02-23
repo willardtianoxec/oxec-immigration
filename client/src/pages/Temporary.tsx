@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Footer } from "@/components/Footer";
@@ -8,6 +8,7 @@ export default function Temporary() {
   const [isEnglish, setIsEnglish] = useState(false);
   const [, navigate] = useLocation();
   const [activeMenu, setActiveMenu] = useState("study");
+  const [activeSection, setActiveSection] = useState("study");
 
   const menuItems = [
     { id: "study", label: isEnglish ? "Study Abroad" : "留学申请" },
@@ -17,10 +18,15 @@ export default function Temporary() {
   ];
 
   const scrollToSection = (id: string) => {
-    setActiveMenu(id);
+    setActiveSection(id);
     const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+      const offset = 75;
+      const elementPosition = element.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({
+        top: elementPosition,
+        behavior: "smooth"
+      });
     }
   };
 

@@ -33,7 +33,12 @@ export default function SkillWorker() {
     setActiveSection(id);
     const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      const offset = 75;
+      const elementPosition = element.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({
+        top: elementPosition,
+        behavior: 'smooth'
+      });
     }
   };
 
@@ -46,7 +51,7 @@ export default function SkillWorker() {
         const element = document.getElementById(sectionId);
         if (element) {
           const rect = element.getBoundingClientRect();
-          if (rect.top <= 200 && rect.bottom >= 200) {
+          if (rect.top <= 100 && rect.bottom >= 100) {
             setActiveSection(sectionId);
             break;
           }
