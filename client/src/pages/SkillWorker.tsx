@@ -60,16 +60,25 @@ export default function SkillWorker() {
 
   return (
     <div 
-      className="w-full min-h-screen"
+      className="w-full min-h-screen relative"
       style={{
-        backgroundImage: `url('https://files.manuscdn.com/user_upload_by_module/session_file/310519663292376041/CeepOLbixyTTUyft.jpg')`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundAttachment: 'fixed',
-        backgroundRepeat: 'no-repeat',
-        filter: 'brightness(0.7) contrast(1.1)',
+        backgroundColor: '#ffffff',
       }}
     >
+      {/* Background Layer with Filter - Using ::before pseudo-element approach */}
+      <div 
+        className="fixed inset-0 -z-10"
+        style={{
+          backgroundImage: `url('https://files.manuscdn.com/user_upload_by_module/session_file/310519663292376041/CeepOLbixyTTUyft.jpg')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundAttachment: 'fixed',
+          backgroundRepeat: 'no-repeat',
+          filter: 'brightness(0.7) contrast(1.1)',
+          zIndex: -10,
+        }}
+      />
+
       {/* Navigation Bar - Sticky */}
       <nav className="sticky top-0 z-40 bg-white border-b border-border shadow-sm" style={{ height: '55px' }}>
         <div className="container flex items-center py-4" style={{ justifyContent: 'space-between', height: '55px' }}>
@@ -439,25 +448,7 @@ export default function SkillWorker() {
       </div>
 
       {/* Footer - Full Width, Direct Child of Body */}
-      <footer 
-        className="w-screen"
-        style={{
-          position: 'relative',
-          left: '50%',
-          right: '50%',
-          marginLeft: '-50vw',
-          marginRight: '-50vw',
-          backgroundColor: '#0F172A',
-          opacity: 0.9,
-          backdropFilter: 'blur(10px)',
-          WebkitBackdropFilter: 'blur(10px)',
-          zIndex: 20,
-        }}
-      >
-        <div className="container max-w-7xl mx-auto px-4 py-12">
-          <Footer />
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
