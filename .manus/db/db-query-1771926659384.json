@@ -1,0 +1,9 @@
+{
+  "query": "UPDATE imageLibrary \nSET filename = 'WillardTian-updated-1771926654.webp', \n    relativePath = '/images/WillardTian-updated-1771926654.webp',\n    fileSize = 2408448,\n    updatedAt = NOW()\nWHERE description = 'Qingyi (Willard) Tian - Professional Headshot';",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2MHEakYmYxuSUJe.root --database ERSfzVi6JGQA5UonrK4h6y --execute UPDATE imageLibrary \nSET filename = 'WillardTian-updated-1771926654.webp', \n    relativePath = '/images/WillardTian-updated-1771926654.webp',\n    fileSize = 2408448,\n    updatedAt = NOW()\nWHERE description = 'Qingyi (Willard) Tian - Professional Headshot';",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 87
+}
