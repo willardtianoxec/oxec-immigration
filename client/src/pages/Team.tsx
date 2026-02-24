@@ -26,45 +26,45 @@ const teamMembers: TeamMemberWithTranslation[] = [
   {
     id: "member-1",
     name: "李明",
-    nameEn: "Li Ming",
+    nameEn: "Warren Tian",
     title: "RCIC 注册移民顾问 / 创始人",
     titleEn: "RCIC Registered Immigration Consultant / Founder",
     description: "拥有多年加拿大移民法律服务经验，专注于复杂的投资移民和上诉案件。李明顾问以其深厚的法律知识和丰富的实践经验，帮助数百个家庭成功实现加拿大梦想。",
     descriptionEn: "With years of experience in Canadian immigration law services, specializing in complex investment immigration and appeal cases. Consultant Li Ming has helped hundreds of families realize their Canadian dreams through his profound legal knowledge and rich practical experience.",
-    image: "/team-member-1.jpg",
+    image: "/images/professional-headshot-male-v3-grey-tie-1771893833643-opt.webp",
     position: "left"
   },
   {
     id: "member-2",
     name: "王琳",
-    nameEn: "Wang Lin",
+    nameEn: "Yijiang (Edward) Ge",
     title: "法律顾问",
     titleEn: "Legal Consultant",
     description: "精通家庭团聚与雇主担保类申请，以严谨的办案风格和极高的成功率深受客户信赖。王琳律师专注于处理复杂的家庭移民案件，确保每一个申请都得到最专业的指导。",
     descriptionEn: "Proficient in family sponsorship and employer-sponsored applications, trusted by clients for her rigorous approach and high success rate. Lawyer Wang Lin focuses on handling complex family immigration cases, ensuring every application receives the most professional guidance.",
-    image: "/team-member-2.jpg",
+    image: "/images/professional-headshot-female-styled-v1-office-1771893864727-opt.webp",
     position: "right"
   },
   {
     id: "member-3",
     name: "张涛",
-    nameEn: "Zhang Tao",
+    nameEn: "Qingyi (Willard) Tian",
     title: "留学与签证专家",
     titleEn: "Study and Visa Expert",
     description: "擅长处理各类疑难留学签证及访问签申请，为申请人提供量身定制的学习计划建议。张涛专家拥有丰富的国际教育背景，深刻理解学生的需求和挑战。",
     descriptionEn: "Expert in handling various difficult study visa and visitor visa applications, providing customized study plan recommendations for applicants. Expert Zhang Tao has extensive international education background and deep understanding of students' needs and challenges.",
-    image: "/team-member-3.jpg",
+    image: "/images/professional-headshot-v1-navy-tie-1771893820126-opt.webp",
     position: "left"
   },
   {
     id: "member-4",
     name: "陈慧",
-    nameEn: "Chen Hui",
+    nameEn: "Dandan (Katherine) Zhao",
     title: "运营与客户服务主管",
     titleEn: "Operations and Customer Service Manager",
     description: "负责公司整体运营与客户沟通，确保每一个申请流程的高效透明。陈慧主管致力于为每一位客户提供卓越的服务体验和全程的专业支持。",
     descriptionEn: "Responsible for overall company operations and customer communication, ensuring efficient and transparent application processes. Manager Chen Hui is committed to providing excellent service experience and comprehensive professional support to every client.",
-    image: "/team-member-4.jpg",
+    image: "/images/professional-headshot-grey-suit-v2-burgundy-tie-1771893856819-opt.webp",
     position: "right"
   }
 ];
