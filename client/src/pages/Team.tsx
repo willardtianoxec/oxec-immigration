@@ -25,7 +25,7 @@ interface TeamMemberWithTranslation extends TeamMember {
 const teamMembers: TeamMemberWithTranslation[] = [
   {
     id: "member-1",
-    name: "李明",
+    name: "Warren Tian",
     nameEn: "Warren Tian",
     title: "RCIC 注册移民顾问 / 创始人",
     titleEn: "RCIC Registered Immigration Consultant / Founder",
@@ -36,7 +36,7 @@ const teamMembers: TeamMemberWithTranslation[] = [
   },
   {
     id: "member-2",
-    name: "王琳",
+    name: "Yijiang (Edward) Ge",
     nameEn: "Yijiang (Edward) Ge",
     title: "法律顾问",
     titleEn: "Legal Consultant",
@@ -47,7 +47,7 @@ const teamMembers: TeamMemberWithTranslation[] = [
   },
   {
     id: "member-3",
-    name: "张涛",
+    name: "Qingyi (Willard) Tian",
     nameEn: "Qingyi (Willard) Tian",
     title: "留学与签证专家",
     titleEn: "Study and Visa Expert",
@@ -58,7 +58,7 @@ const teamMembers: TeamMemberWithTranslation[] = [
   },
   {
     id: "member-4",
-    name: "陈慧",
+    name: "Dandan (Katherine) Zhao",
     nameEn: "Dandan (Katherine) Zhao",
     title: "运营与客户服务主管",
     titleEn: "Operations and Customer Service Manager",
