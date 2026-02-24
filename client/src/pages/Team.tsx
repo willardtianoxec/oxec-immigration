@@ -31,7 +31,7 @@ const teamMembers: TeamMemberWithTranslation[] = [
     titleEn: "RCIC Registered Immigration Consultant / Founder",
     description: "拥有多年加拿大移民法律服务经验，专注于复杂的投资移民和上诉案件。李明顾问以其深厚的法律知识和丰富的实践经验，帮助数百个家庭成功实现加拿大梦想。",
     descriptionEn: "With years of experience in Canadian immigration law services, specializing in complex investment immigration and appeal cases. Consultant Li Ming has helped hundreds of families realize their Canadian dreams through his profound legal knowledge and rich practical experience.",
-    image: "/images/professional-headshot-male-v3-grey-tie-1771893833643-opt.webp",
+    image: "/images/WarrenTian-1771925780342.webp",
     position: "left"
   },
   {
@@ -42,7 +42,7 @@ const teamMembers: TeamMemberWithTranslation[] = [
     titleEn: "Legal Consultant",
     description: "精通家庭团聚与雇主担保类申请，以严谨的办案风格和极高的成功率深受客户信赖。王琳律师专注于处理复杂的家庭移民案件，确保每一个申请都得到最专业的指导。",
     descriptionEn: "Proficient in family sponsorship and employer-sponsored applications, trusted by clients for her rigorous approach and high success rate. Lawyer Wang Lin focuses on handling complex family immigration cases, ensuring every application receives the most professional guidance.",
-    image: "/images/professional-headshot-female-styled-v1-office-1771893864727-opt.webp",
+    image: "/images/EdwardGe-1771925780343.webp",
     position: "right"
   },
   {
@@ -53,7 +53,7 @@ const teamMembers: TeamMemberWithTranslation[] = [
     titleEn: "Study and Visa Expert",
     description: "擅长处理各类疑难留学签证及访问签申请，为申请人提供量身定制的学习计划建议。张涛专家拥有丰富的国际教育背景，深刻理解学生的需求和挑战。",
     descriptionEn: "Expert in handling various difficult study visa and visitor visa applications, providing customized study plan recommendations for applicants. Expert Zhang Tao has extensive international education background and deep understanding of students' needs and challenges.",
-    image: "/images/professional-headshot-v1-navy-tie-1771893820126-opt.webp",
+    image: "/images/WillardTian-1771925780340.webp",
     position: "left"
   },
   {
@@ -64,7 +64,7 @@ const teamMembers: TeamMemberWithTranslation[] = [
     titleEn: "Operations and Customer Service Manager",
     description: "负责公司整体运营与客户沟通，确保每一个申请流程的高效透明。陈慧主管致力于为每一位客户提供卓越的服务体验和全程的专业支持。",
     descriptionEn: "Responsible for overall company operations and customer communication, ensuring efficient and transparent application processes. Manager Chen Hui is committed to providing excellent service experience and comprehensive professional support to every client.",
-    image: "/images/professional-headshot-grey-suit-v2-burgundy-tie-1771893856819-opt.webp",
+    image: "/images/KatherineZhao-1771925780342.webp",
     position: "right"
   }
 ];
@@ -294,8 +294,8 @@ export default function Team() {
 
                       <div className="pt-6">
                         <Link href="/booking">
-                          <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none">
-                            <span>
+                          <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none" style={{width: '150px'}}>
+                            <span style={{width: '130px', height: '40px'}}>
                               {language === "en" ? "Consult This Expert" : "咨询此专家"}
                               <ArrowRight className="ml-2 h-5 w-5" />
                             </span>
