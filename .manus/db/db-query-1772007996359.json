@@ -1,0 +1,9 @@
+{
+  "query": "INSERT INTO imageLibrary (filename, relativePath, fileSize, mimeType, description, category, uploadMethod, uploadedBy) VALUES ('WillardTian-1771926000000.webp', '/images/team/WillardTian-1771926000000.webp', 145000, 'image/webp', 'Qingyi (Willard) Tian - Professional Headshot', 'team', 'manual', 1)",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2MHEakYmYxuSUJe.root --database ERSfzVi6JGQA5UonrK4h6y --execute INSERT INTO imageLibrary (filename, relativePath, fileSize, mimeType, description, category, uploadMethod, uploadedBy) VALUES ('WillardTian-1771926000000.webp', '/images/team/WillardTian-1771926000000.webp', 145000, 'image/webp', 'Qingyi (Willard) Tian - Professional Headshot', 'team', 'manual', 1)",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 71
+}

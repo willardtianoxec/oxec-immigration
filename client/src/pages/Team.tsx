@@ -53,7 +53,7 @@ const teamMembers: TeamMemberWithTranslation[] = [
     titleEn: "Study and Visa Expert",
     description: "擅长处理各类疑难留学签证及访问签申请，为申请人提供量身定制的学习计划建议。张涛专家拥有丰富的国际教育背景，深刻理解学生的需求和挑战。",
     descriptionEn: "Expert in handling various difficult study visa and visitor visa applications, providing customized study plan recommendations for applicants. Expert Zhang Tao has extensive international education background and deep understanding of students' needs and challenges.",
-    image: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663292376041/gyIWongQAstChsAf.webp",
+    image: "/images/team/WillardTian-1771926000000.webp",
     position: "left"
   },
   {
