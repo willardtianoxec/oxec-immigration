@@ -1,0 +1,200 @@
+{
+  "query": "SELECT id, relativePath, description FROM imageLibrary ORDER BY relativePath;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2MHEakYmYxuSUJe.root --database ERSfzVi6JGQA5UonrK4h6y --execute SELECT id, relativePath, description FROM imageLibrary ORDER BY relativePath;",
+  "rows": [
+    {
+      "id": "30001",
+      "relativePath": "/images/Canada-fall.jpeg",
+      "description": "Article cover image - 2026-02-20T23:13:05.164Z"
+    },
+    {
+      "id": "240008",
+      "relativePath": "/images/EdwardGe-1771925780343.webp",
+      "description": "Yijiang (Edward) Ge - Professional Headshot"
+    },
+    {
+      "id": "240007",
+      "relativePath": "/images/KatherineZhao-1771925780342.webp",
+      "description": "Dandan (Katherine) Zhao - Professional Headshot"
+    },
+    {
+      "id": "240006",
+      "relativePath": "/images/WarrenTian-1771925780342.webp",
+      "description": "Warren Tian - Professional Headshot"
+    },
+    {
+      "id": "120007",
+      "relativePath": "/images/bbp-ubco-teaching-and-learning-centre-1771884876305-opt.webp",
+      "description": "Manually uploaded: bbp-ubco-teaching-and-learning-centre-1771884876305-opt.webp"
+    },
+    {
+      "id": "30004",
+      "relativePath": "/images/cicc-logo-opt.png",
+      "description": "Migrated from local: cicc-logo.png"
+    },
+    {
+      "id": "30005",
+      "relativePath": "/images/citizenship-legal-documents-opt.jpg",
+      "description": "Migrated from local: citizenship-legal-documents.jpg"
+    },
+    {
+      "id": "30006",
+      "relativePath": "/images/citizenship-oath-ceremony-opt.jpg",
+      "description": "Migrated from local: citizenship-oath-ceremony.jpg"
+    },
+    {
+      "id": "60006",
+      "relativePath": "/images/document-submission-office-1771755684424-opt.webp",
+      "description": "Manually uploaded: document-submission-office-1771755684424-opt.webp"
+    },
+    {
+      "id": "30008",
+      "relativePath": "/images/hero-canadian-opt.jpg",
+      "description": "Migrated from local: hero-canadian.jpg"
+    },
+    {
+      "id": "30010",
+      "relativePath": "/images/img-1-opt.jpg",
+      "description": "Migrated from local: img-1.jpg"
+    },
+    {
+      "id": "30011",
+      "relativePath": "/images/img-1-opt.png",
+      "description": "Migrated from local: img-1.png"
+    },
+    {
+      "id": "30012",
+      "relativePath": "/images/img-2-opt.jpg",
+      "description": "Migrated from local: img-2.jpg"
+    },
+    {
+      "id": "30013",
+      "relativePath": "/images/img-2-opt.png",
+      "description": "Migrated from local: img-2.png"
+    },
+    {
+      "id": "30014",
+      "relativePath": "/images/img-3-opt.jpg",
+      "description": "Migrated from local: img-3.jpg"
+    },
+    {
+      "id": "30015",
+      "relativePath": "/images/img-4-opt.jpg",
+      "description": "Migrated from local: img-4.jpg"
+    },
+    {
+      "id": "30016",
+      "relativePath": "/images/img-5-opt.jpg",
+      "description": "Migrated from local: img-5.jpg"
+    },
+    {
+      "id": "180002",
+      "relativePath": "/images/khamkeo-OcxlTBbb6SY-unsplash-1771891645470-opt.webp",
+      "description": "Article cover image - 2026-02-24T00:07:25.832Z"
+    },
+    {
+      "id": "150001",
+      "relativePath": "/images/kyle-ryan-nIujk826wE0-unsplash-1771890360259-opt.webp",
+      "description": "Article cover image - 2026-02-23T23:45:55.186Z"
+    },
+    {
+      "id": "30017",
+      "relativePath": "/images/oxec-logo-opt.png",
+      "description": "Migrated from local: oxec-logo.png"
+    },
+    {
+      "id": "180001",
+      "relativePath": "/images/oxecimm-familyclass-overview-1771891457163-opt.webp",
+      "description": "Article cover image - 2026-02-24T00:04:15.927Z"
+    },
+    {
+      "id": "30018",
+      "relativePath": "/images/oxecimm-metro-tower1-office-opt-opt.webp",
+      "description": "Migrated from local: oxecimm-metro-tower1-office-opt.webp"
+    },
+    {
+      "id": "120004",
+      "relativePath": "/images/oxecimm-temporary-family-visit-1771884163151-opt.webp",
+      "description": "Manually uploaded: oxecimm-temporary-family-visit-1771884163151-opt.webp"
+    },
+    {
+      "id": "120003",
+      "relativePath": "/images/oxecimm-temporary-spousal-work-1771884118306-opt.webp",
+      "description": "Manually uploaded: oxecimm-temporary-spousal-work-1771884118306-opt.webp"
+    },
+    {
+      "id": "120002",
+      "relativePath": "/images/oxecimm-temporary-study-abroad-1771884109783-opt.webp",
+      "description": "Manually uploaded: oxecimm-temporary-study-abroad-1771884109783-opt.webp"
+    },
+    {
+      "id": "120005",
+      "relativePath": "/images/oxecimm-temporary-super-visa-1771884173248-opt.webp",
+      "description": "Manually uploaded: oxecimm-temporary-super-visa-1771884173248-opt.webp"
+    },
+    {
+      "id": "120001",
+      "relativePath": "/images/oxecimm-temporary-visitor-visa-1771884096038-opt.webp",
+      "description": "Manually uploaded: oxecimm-temporary-visitor-visa-1771884096038-opt.webp"
+    },
+    {
+      "id": "60001",
+      "relativePath": "/images/reconsideration-overview-1771752561140-opt.webp",
+      "description": ""
+    },
+    {
+      "id": "30019",
+      "relativePath": "/images/reconsideration-overview-opt.jpg",
+      "description": "Migrated from local: reconsideration-overview.jpg"
+    },
+    {
+      "id": "30020",
+      "relativePath": "/images/reconsideration-solutions-opt.jpg",
+      "description": "Migrated from local: reconsideration-solutions.jpg"
+    },
+    {
+      "id": "30021",
+      "relativePath": "/images/reconsideration-team-opt.jpg",
+      "description": "Migrated from local: reconsideration-team.jpg"
+    },
+    {
+      "id": "90003",
+      "relativePath": "/images/service-1-investment-1771831729788-opt.webp",
+      "description": "Manually uploaded: service-1-investment-1771831729788-opt.webp"
+    },
+    {
+      "id": "90002",
+      "relativePath": "/images/service-2-family-1771831720894-opt.webp",
+      "description": "Manually uploaded: service-2-family-1771831720894-opt.webp"
+    },
+    {
+      "id": "120006",
+      "relativePath": "/images/service-3-prcard-1771884560596-opt.webp",
+      "description": "Manually uploaded: service-3-prcard-1771884560596-opt.webp"
+    },
+    {
+      "id": "90004",
+      "relativePath": "/images/service-4-refusal-1771831734704-opt.webp",
+      "description": "Manually uploaded: service-4-refusal-1771831734704-opt.webp"
+    },
+    {
+      "id": "90001",
+      "relativePath": "/images/service-5-study-1771831705411-opt.webp",
+      "description": "Manually uploaded: service-5-study-1771831705411-opt.webp"
+    },
+    {
+      "id": "270004",
+      "relativePath": "/images/team/WillardTian-1771926000000.webp",
+      "description": "Qingyi (Willard) Tian - Professional Headshot"
+    },
+    {
+      "id": "12",
+      "relativePath": "/images/world-map-dots.svg",
+      "description": "Auto-imported: world-map-dots.svg"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\trelativePath\tdescription\n30001\t/images/Canada-fall.jpeg\tArticle cover image - 2026-02-20T23:13:05.164Z\n240008\t/images/EdwardGe-1771925780343.webp\tYijiang (Edward) Ge - Professional Headshot\n240007\t/images/KatherineZhao-1771925780342.webp\tDandan (Katherine) Zhao - Professional Headshot\n240006\t/images/WarrenTian-1771925780342.webp\tWarren Tian - Professional Headshot\n120007\t/images/bbp-ubco-teaching-and-learning-centre-1771884876305-opt.webp\tManually uploaded: bbp-ubco-teaching-and-learning-centre-1771884876305-opt.webp\n30004\t/images/cicc-logo-opt.png\tMigrated from local: cicc-logo.png\n30005\t/images/citizenship-legal-documents-opt.jpg\tMigrated from local: citizenship-legal-documents.jpg\n30006\t/images/citizenship-oath-ceremony-opt.jpg\tMigrated from local: citizenship-oath-ceremony.jpg\n60006\t/images/document-submission-office-1771755684424-opt.webp\tManually uploaded: document-submission-office-1771755684424-opt.webp\n30008\t/images/hero-canadian-opt.jpg\tMigrated from local: hero-canadian.jpg\n30010\t/images/img-1-opt.jpg\tMigrated from local: img-1.jpg\n30011\t/images/img-1-opt.png\tMigrated from local: img-1.png\n30012\t/images/img-2-opt.jpg\tMigrated from local: img-2.jpg\n30013\t/images/img-2-opt.png\tMigrated from local: img-2.png\n30014\t/images/img-3-opt.jpg\tMigrated from local: img-3.jpg\n30015\t/images/img-4-opt.jpg\tMigrated from local: img-4.jpg\n30016\t/images/img-5-opt.jpg\tMigrated from local: img-5.jpg\n180002\t/images/khamkeo-OcxlTBbb6SY-unsplash-1771891645470-opt.webp\tArticle cover image - 2026-02-24T00:07:25.832Z\n150001\t/images/kyle-ryan-nIujk826wE0-unsplash-1771890360259-opt.webp\tArticle cover image - 2026-02-23T23:45:55.186Z\n30017\t/images/oxec-logo-opt.png\tMigrated from local: oxec-logo.png\n180001\t/images/oxecimm-familyclass-overview-1771891457163-opt.webp\tArticle cover image - 2026-02-24T00:04:15.927Z\n30018\t/images/oxecimm-metro-tower1-office-opt-opt.webp\tMigrated from local: oxecimm-metro-tower1-office-opt.webp\n120004\t/images/oxecimm-temporary-family-visit-1771884163151-opt.webp\tManually uploaded: oxecimm-temporary-family-visit-1771884163151-opt.webp\n120003\t/images/oxecimm-temporary-spousal-work-1771884118306-opt.webp\tManually uploaded: oxecimm-temporary-spousal-work-1771884118306-opt.webp\n120002\t/images/oxecimm-temporary-study-abroad-1771884109783-opt.webp\tManually uploaded: oxecimm-temporary-study-abroad-1771884109783-opt.webp\n120005\t/images/oxecimm-temporary-super-visa-1771884173248-opt.webp\tManually uploaded: oxecimm-temporary-super-visa-1771884173248-opt.webp\n120001\t/images/oxecimm-temporary-visitor-visa-1771884096038-opt.webp\tManually uploaded: oxecimm-temporary-visitor-visa-1771884096038-opt.webp\n60001\t/images/reconsideration-overview-1771752561140-opt.webp\t\n30019\t/images/reconsideration-overview-opt.jpg\tMigrated from local: reconsideration-overview.jpg\n30020\t/images/reconsideration-solutions-opt.jpg\tMigrated from local: reconsideration-solutions.jpg\n30021\t/images/reconsideration-team-opt.jpg\tMigrated from local: reconsideration-team.jpg\n90003\t/images/service-1-investment-1771831729788-opt.webp\tManually uploaded: service-1-investment-1771831729788-opt.webp\n90002\t/images/service-2-family-1771831720894-opt.webp\tManually uploaded: service-2-family-1771831720894-opt.webp\n120006\t/images/service-3-prcard-1771884560596-opt.webp\tManually uploaded: service-3-prcard-1771884560596-opt.webp\n90004\t/images/service-4-refusal-1771831734704-opt.webp\tManually uploaded: service-4-refusal-1771831734704-opt.webp\n90001\t/images/service-5-study-1771831705411-opt.webp\tManually uploaded: service-5-study-1771831705411-opt.webp\n270004\t/images/team/WillardTian-1771926000000.webp\tQingyi (Willard) Tian - Professional Headshot\n12\t/images/world-map-dots.svg\tAuto-imported: world-map-dots.svg\n",
+  "stderr": "",
+  "execution_time_ms": 60
+}

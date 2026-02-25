@@ -200,5 +200,18 @@ export async function optimizeAndSaveImage(
  * Get relative path for image
  */
 export function getImageRelativePath(filename: string): string {
+  // Check if file exists in team subdirectory first
+  const teamPath = path.join(IMAGES_DIR, 'team', filename);
+  const mainPath = path.join(IMAGES_DIR, filename);
+  
+  try {
+    // Synchronously check if file exists in team directory
+    if (require('fs').existsSync(teamPath)) {
+      return `/images/team/${filename}`;
+    }
+  } catch (e) {
+    // Fall back to main directory if check fails
+  }
+  
   return `/images/${filename}`;
 }

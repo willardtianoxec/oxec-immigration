@@ -1,0 +1,17 @@
+{
+  "query": "SELECT id, filename, relativePath, description, category FROM imageLibrary WHERE filename LIKE '%Willard%' OR filename LIKE '%willard%' ORDER BY id DESC",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2MHEakYmYxuSUJe.root --database ERSfzVi6JGQA5UonrK4h6y --execute SELECT id, filename, relativePath, description, category FROM imageLibrary WHERE filename LIKE '%Willard%' OR filename LIKE '%willard%' ORDER BY id DESC",
+  "rows": [
+    {
+      "id": "270004",
+      "filename": "WillardTian-1771926000000.webp",
+      "relativePath": "/images/team/WillardTian-1771926000000.webp",
+      "description": "Qingyi (Willard) Tian - Professional Headshot",
+      "category": "team"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tfilename\trelativePath\tdescription\tcategory\n270004\tWillardTian-1771926000000.webp\t/images/team/WillardTian-1771926000000.webp\tQingyi (Willard) Tian - Professional Headshot\tteam\n",
+  "stderr": "",
+  "execution_time_ms": 245
+}
