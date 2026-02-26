@@ -1,0 +1,38 @@
+{
+  "query": "SELECT id, filename, relativePath, fileSize, mimeType FROM imageLibrary WHERE filename IN ('VivianMa.webp', 'JonathanLotz.webp', 'QingyiWillardTian.webp', 'YijiangEdwardGe.webp') ORDER BY id DESC;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2MHEakYmYxuSUJe.root --database ERSfzVi6JGQA5UonrK4h6y --execute SELECT id, filename, relativePath, fileSize, mimeType FROM imageLibrary WHERE filename IN ('VivianMa.webp', 'JonathanLotz.webp', 'QingyiWillardTian.webp', 'YijiangEdwardGe.webp') ORDER BY id DESC;",
+  "rows": [
+    {
+      "id": "300004",
+      "filename": "YijiangEdwardGe.webp",
+      "relativePath": "/images/YijiangEdwardGe.webp",
+      "fileSize": "NULL",
+      "mimeType": "image/webp"
+    },
+    {
+      "id": "300003",
+      "filename": "QingyiWillardTian.webp",
+      "relativePath": "/images/QingyiWillardTian.webp",
+      "fileSize": "NULL",
+      "mimeType": "image/webp"
+    },
+    {
+      "id": "300002",
+      "filename": "JonathanLotz.webp",
+      "relativePath": "/images/JonathanLotz.webp",
+      "fileSize": "NULL",
+      "mimeType": "image/webp"
+    },
+    {
+      "id": "300001",
+      "filename": "VivianMa.webp",
+      "relativePath": "/images/VivianMa.webp",
+      "fileSize": "NULL",
+      "mimeType": "image/webp"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tfilename\trelativePath\tfileSize\tmimeType\n300004\tYijiangEdwardGe.webp\t/images/YijiangEdwardGe.webp\tNULL\timage/webp\n300003\tQingyiWillardTian.webp\t/images/QingyiWillardTian.webp\tNULL\timage/webp\n300002\tJonathanLotz.webp\t/images/JonathanLotz.webp\tNULL\timage/webp\n300001\tVivianMa.webp\t/images/VivianMa.webp\tNULL\timage/webp\n",
+  "stderr": "",
+  "execution_time_ms": 52
+}
