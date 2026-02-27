@@ -29,8 +29,8 @@ const teamMembers: TeamMemberWithTranslation[] = [
     nameEn: "Warren Tian",
     title: "创始人",
     titleEn: "Founder",
-    description: "拥有多年加拿大移民法律服务经验，专注于复杂的投资移民和上诉案件。李明顾问以其深厚的法律知识和丰富的实践经验，帮助数百个家庭成功实现加拿大梦想。",
-    descriptionEn: "With years of experience in Canadian immigration law services, specializing in complex investment immigration and appeal cases. Consultant Li Ming has helped hundreds of families realize their Canadian dreams through his profound legal knowledge and rich practical experience.",
+    description: "Warren拥有20年以上的加拿大移民法律服务经验，曾帮助数百个家庭成功实现加拿大移民梦想。作为傲赛移民事务所的创始人，他目前主要负责事务所的战略决策、重点客户关系维护，并指导日常运营。",
+    descriptionEn: "Warren has over 20 years of experience in Canadian immigration law services and has helped hundreds of families achieve their Canadian immigration dreams. As the founder of OXEC Immigration Services, he is currently responsible for strategic decision-making, key client relationship management, and guiding daily operations.",
     image: "/images/WarrenTian-1771925780342.webp",
     position: "left"
   },
@@ -40,8 +40,8 @@ const teamMembers: TeamMemberWithTranslation[] = [
     nameEn: "Yijiang (Edward) Ge",
     title: "持牌移民顾问 | RCIC",
     titleEn: "Licensed Immigration Consultant | RCIC",
-    description: "精通家庭团聚与雇主担保类申请，以严谨的办案风格和极高的成功率深受客户信赖。王琳律师专注于处理复杂的家庭移民案件，确保每一个申请都得到最专业的指导。",
-    descriptionEn: "Proficient in family sponsorship and employer-sponsored applications, trusted by clients for her rigorous approach and high success rate. Lawyer Wang Lin focuses on handling complex family immigration cases, ensuring every application receives the most professional guidance.",
+    description: "Edward是一位拥有十余年行业经验的加拿大持牌移民顾问（RCIC），长期专注于经济类移民、家庭团聚移民、各类临时签证、人道类申请以及枫叶卡续签等业务领域。凭借扎实的法规知识、丰富的实务经验与严谨的案件分析能力，他为客户提供专业、系统且具有前瞻性的移民解决方案。在执业中，Edward尤其擅长处理复杂及疑难个案，多次通过精准解析移民官拒签理由与审理逻辑，成功协助客户将拒签翻案；他也善于从法律与事实层面深入挖掘人道理由，帮助处于困境中的家庭通过合规途径获得永久居民身份；对于收到移民官PF Letter的案件，他能针对移民官关注的重点逐项专业回应，切实降低风险并提升申请成功率。Edward的职业生涯起步于温哥华Downtown的知名移民咨询公司，后于2019年加入傲赛，并随后取得了持牌资格。他本科毕业于清华大学，在南加利福利亚大学取得了数学专业硕士学位。",
+    descriptionEn: "Edward is a Canadian licensed immigration consultant (RCIC) with over a decade of industry experience, specializing in economic immigration, family sponsorship, various temporary visas, humanitarian applications, and PR card renewals. With solid regulatory knowledge, extensive practical experience, and rigorous case analysis skills, he provides clients with professional, systematic, and forward-looking immigration solutions. In his practice, Edward excels at handling complex and difficult cases, having successfully overturned multiple refusals by precisely analyzing immigration officers' reasons and review logic. He is skilled at uncovering humanitarian grounds from legal and factual perspectives, helping families in difficult situations obtain permanent resident status through compliant pathways. For cases receiving immigration officer PF Letters, he can professionally respond to each point of concern, effectively reducing risks and improving application success rates. Edward's career began at a prominent immigration consulting firm in downtown Vancouver. He joined OXEC in 2019 and subsequently obtained his licensing. He holds a bachelor's degree from Tsinghua University and a master's degree in mathematics from the University of Southern California.",
     image: "/images/EdwardGe-1771925780343.webp",
     position: "right"
   },
@@ -51,8 +51,8 @@ const teamMembers: TeamMemberWithTranslation[] = [
     nameEn: "Qingyi (Willard) Tian",
     title: "持牌移民顾问 | RCIC-IRB",
     titleEn: "Licensed Immigration Consultant | RCIC-IRB",
-    description: "擅长处理各类疑难留学签证及访问签申请，为申请人提供量身定制的学习计划建议。张涛专家拥有丰富的国际教育背景，深刻理解学生的需求和挑战。",
-    descriptionEn: "Expert in handling various difficult study visa and visitor visa applications, providing customized study plan recommendations for applicants. Expert Zhang Tao has extensive international education background and deep understanding of students' needs and challenges.",
+    description: "Willard是加拿大持牌移民顾问（RCIC-IRB），重点关注商业类移民、家庭团聚移民和拒签重申案件，擅长疑难案件分析、商业投资规划、移民政策研究和不可入境处理。Willard的职业生涯起步于傲赛移民事务所。自2023年加入团队以来，他积累了充实的移民咨询经验，能够在充分掌握法律原则和审理逻辑的基础上，详细梳理案件重点、制定申请策略，帮助申请人扭转局面、跨越障碍。在进入移民行业前，Willard在科技文化领域有15年的工作经历，在头部互联网企业担任商业分析师、制片人和项目总监等职位。Willard拥有武汉大学广告专业学士学位和清华大学传播学硕士学位。他于2025年取得了加拿大女王大学（Queen's University）移民与公民法研究生文凭，目前正在不列颠哥伦比亚大学攻读会计文凭。Willard也是关注科技行业的独立学者。2009年，清华大学出版社出版了他的学术专著《手机：个人移动多媒体》；2018年，他作为中国代表团一员参加了在德国柏林举办的欧广联中国周活动，并做主题演讲。",
+    descriptionEn: "Willard is a Canadian licensed immigration consultant (RCIC-IRB) focusing on business immigration, family sponsorship, and refusal reconsideration cases, with expertise in complex case analysis, business investment planning, immigration policy research, and inadmissibility issues. Willard's career began at OXEC Immigration Services. Since joining the team in 2023, he has accumulated substantial immigration consulting experience and can, based on a thorough understanding of legal principles and review logic, carefully analyze case highlights, develop application strategies, and help applicants turn situations around and overcome obstacles. Before entering the immigration industry, Willard had 15 years of experience in technology and culture, serving as a business analyst, producer, and project director at leading internet companies. Willard holds a bachelor's degree in advertising from Wuhan University and a master's degree in communication from Tsinghua University. He obtained a graduate diploma in Immigration and Citizenship Law from Queen's University in 2025 and is currently pursuing an accounting diploma at the University of British Columbia. Willard is also an independent scholar interested in the technology industry. In 2009, Tsinghua University Press published his academic monograph \"Mobile Phones: Personal Mobile Multimedia\". In 2018, he participated as a member of the Chinese delegation in the \"EBU China Week\" held in Berlin, Germany, and delivered a keynote speech.",
     image: "/images/QingyiWillardTian.webp",
     position: "left"
   },
@@ -62,8 +62,8 @@ const teamMembers: TeamMemberWithTranslation[] = [
     nameEn: "Dandan (Katherine) Zhao",
     title: "行政与客户服务主管",
     titleEn: "Administrative and Customer Service Manager",
-    description: "负责公司整体运营与客户沟通，确保每一个申请流程的高效透明。陈慧主管致力于为每一位客户提供卓越的服务体验和全程的专业支持。",
-    descriptionEn: "Responsible for overall company operations and customer communication, ensuring efficient and transparent application processes. Manager Chen Hui is committed to providing excellent service experience and comprehensive professional support to every client.",
+    description: "Katherine是傲赛移民事务所的行政与客户服务主管，负责日常运营，重点关注移民申请流程、档案管理、客户账户管理和客户关系维护。她与公司负责人密切合作，保证事务所的顺畅运营。Katherine毕业于东北财经大学，获国际经济与贸易专业学士学位。Katherine拥有9年移民及签证咨询服务经验，曾在北京和大连担任移民项目文案专员5年，于2022年加入傲赛团队。",
+    descriptionEn: "Katherine is the Administrative and Customer Service Manager at OXEC Immigration Services, responsible for daily operations with a focus on immigration application processes, file management, client account management, and customer relationship maintenance. She works closely with company leadership to ensure smooth operations of the firm. Katherine graduated from Northeastern University of Finance and Economics with a bachelor's degree in International Economics and Trade. She has 9 years of experience in immigration and visa consulting services, having served as an immigration project specialist in Beijing and Dalian for 5 years before joining OXEC in 2022.",
     image: "/images/KatherineZhao-1771925780342.webp",
     position: "right"
   },
@@ -73,8 +73,8 @@ const teamMembers: TeamMemberWithTranslation[] = [
     nameEn: "Vivian Ma",
     title: "财务主管",
     titleEn: "Finance Manager",
-    description: "负责公司财务管理和资金运作，确保所有财务流程的规范性和透明度。Vivian Ma以其专业的财务知识和严谨的工作态度，为公司的稳健发展提供坚实的财务支撑。",
-    descriptionEn: "Responsible for company financial management and fund operations, ensuring the standardization and transparency of all financial processes. Vivian Ma, with her professional financial knowledge and rigorous work attitude, provides solid financial support for the company's steady development.",
+    description: "Vivian是傲赛团队重要的成员，负责公司财务管理和资金运作，确保所有财务流程的规范性和透明度。Vivian以其专业的财务知识和严谨的工作态度，为公司的稳健发展提供坚实的财务支撑。",
+    descriptionEn: "Vivian is an important member of the OXEC team, responsible for company financial management and fund operations, ensuring the standardization and transparency of all financial processes. With her professional financial knowledge and rigorous work attitude, Vivian provides solid financial support for the company's steady development.",
     image: "/images/VivianMaap.webp",
     position: "left"
   },
@@ -84,8 +84,8 @@ const teamMembers: TeamMemberWithTranslation[] = [
     nameEn: "Jonathan Lotz",
     title: "资深商法律师",
     titleEn: "Senior Commercial Lawyer",
-    description: "专注于商业法律事务和复杂的商业移民案件，拥有丰富的法律实践经验。Jonathan Lotz为客户提供专业的法律咨询和全面的商业解决方案，确保每一个商业交易的合法性和有效性。",
-    descriptionEn: "Focused on commercial legal matters and complex business immigration cases, with extensive legal practice experience. Jonathan Lotz provides professional legal consultation and comprehensive business solutions to clients, ensuring the legality and validity of every business transaction.",
+    description: "Jonathan是专注于商业法律事务的资深律师，也是Lotz & Company律师事务所的创始人，与傲赛团队保持紧密的合作关系，为傲赛的商业移民客户提供关键的法律咨询。Jonathan在跨境发行和收购以及美国境内的交易方面经验丰富。他是不列颠哥伦比亚省和纽约州律师协会的成员，曾为加拿大和美国的上市公司就其公司治理的各个方面以及董事会特别委员会在复杂交易中提供法律咨询。",
+    descriptionEn: "Jonathan is a senior lawyer specializing in commercial legal matters and founder of Lotz & Company Law Firm, maintaining close collaboration with OXEC to provide key legal consultation for OXEC's business immigration clients. Jonathan has extensive experience in cross-border issuances and acquisitions as well as US-based transactions. He is a member of the British Columbia and New York State Bar Associations and has provided legal consultation to public companies in Canada and the United States on various aspects of corporate governance and complex transactions involving special board committees.",
     image: "/images/JonathanLotz.webp",
     position: "right"
   }
@@ -247,58 +247,29 @@ export default function Team() {
         <section className="py-20 bg-white">
           <div className="container">
             <div className="text-center mb-20">
-              <h1 className="text-5xl lg:text-6xl font-bold text-foreground mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", sans-serif', fontWeight: 900, fontSize: '48px' }}>
+              <h1 className="text-5xl lg:text-6xl font-bold text-foreground mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", sans-serif', fontWeight: 900 }}>
                 {language === "en" ? "Our Team" : "我们的团队"}
               </h1>
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
                 {language === "en" 
-                  ? "Experienced immigration consultants, legal experts, and service team dedicated to providing professional and efficient immigration services to every client."
+                  ? "Composed of experienced immigration consultants, legal experts, and service team members dedicated to providing professional and efficient immigration services to every client." 
                   : "由资深移民顾问、法律专家和服务团队组成，致力于为每一位客户提供专业、高效的移民服务。"}
               </p>
             </div>
 
-            {/* Team Members Gallery Grid */}
-            <div className="flex flex-wrap justify-center gap-4 mb-8 -mt-8" style={{marginBottom: '60px'}}>
+            {/* Team Members Grid */}
+            <div className="space-y-20">
               {teamMembers.map((member) => (
-                <div
-                  key={member.id}
-                  onClick={() => scrollToMember(member.id)}
-                  className="cursor-pointer group text-center transition-all duration-300 hover:shadow-xl hover:-translate-y-2 w-64 rounded-lg p-3 bg-white shadow-md"
-                  style={{ boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)' }}
-                >
-                  <div className="relative mb-6 overflow-hidden rounded-lg">
-                    <img
-                      src={member.image}
-                      alt={language === "en" ? member.nameEn : member.name}
-                      className="w-full h-64 object-cover group-hover:brightness-90 transition-all duration-300"
-                    />
-                  </div>
-                  <h3 className="text-xl font-bold text-foreground mb-2" style={{ fontFamily: '"Alibaba PuHuiTi", sans-serif', fontWeight: 900 }}>{language === "en" ? member.nameEn : member.name}</h3>
-                  <p className="text-sm text-muted-foreground">{language === "en" ? member.titleEn : member.title}</p>
-                </div>
-              ))}
-            </div>
-
-            {/* Detailed Profiles Section */}
-            <div className="space-y-16">
-              {teamMembers.map((member, index) => (
-                <div
-                  key={member.id}
-                  ref={(el) => {
-                    if (el) detailRefs.current[member.id] = el;
-                  }}
-                  className="scroll-mt-20"
-                >
-                  <div className={`grid md:grid-cols-2 gap-12 items-start ${member.position === "right" ? "md:flex-row-reverse" : ""}`}>
-                    {/* Image - 6:4 vertical format */}
+                <div key={member.id} ref={(el) => { if (el) detailRefs.current[member.id] = el; }}>
+                  <div className={`grid md:grid-cols-2 gap-12 items-center ${member.position === "right" ? "md:grid-cols-2" : ""}`}>
+                    {/* Image */}
                     <div className={`${member.position === "right" ? "md:order-2" : ""}`}>
-                      <div className="relative overflow-hidden">
-                        <img
-                          src={member.image}
-                          alt={language === "en" ? member.nameEn : member.name}
-                          className="w-full aspect-[3/4] object-cover"
-                        />
-                      </div>
+                      <img 
+                        src={member.image} 
+                        alt={member.name}
+                        className="w-full h-auto rounded-lg shadow-lg object-cover"
+                        style={{ aspectRatio: '3/4' }}
+                      />
                     </div>
 
                     {/* Text Content */}
