@@ -66,6 +66,28 @@ const teamMembers: TeamMemberWithTranslation[] = [
     descriptionEn: "Responsible for overall company operations and customer communication, ensuring efficient and transparent application processes. Manager Chen Hui is committed to providing excellent service experience and comprehensive professional support to every client.",
     image: "/images/KatherineZhao-1771925780342.webp",
     position: "right"
+  },
+  {
+    id: "member-5",
+    name: "Vivian Ma",
+    nameEn: "Vivian Ma",
+    title: "财务主管",
+    titleEn: "Finance Manager",
+    description: "负责公司财务管理和资金运作，确保所有财务流程的规范性和透明度。Vivian Ma以其专业的财务知识和严谨的工作态度，为公司的稳健发展提供坚实的财务支撑。",
+    descriptionEn: "Responsible for company financial management and fund operations, ensuring the standardization and transparency of all financial processes. Vivian Ma, with her professional financial knowledge and rigorous work attitude, provides solid financial support for the company's steady development.",
+    image: "/images/VivianMa.webp",
+    position: "left"
+  },
+  {
+    id: "member-6",
+    name: "Jonathan Lotz",
+    nameEn: "Jonathan Lotz",
+    title: "商法资深律师",
+    titleEn: "Senior Commercial Lawyer",
+    description: "专注于商业法律事务和复杂的商业移民案件，拥有丰富的法律实践经验。Jonathan Lotz为客户提供专业的法律咨询和全面的商业解决方案，确保每一个商业交易的合法性和有效性。",
+    descriptionEn: "Focused on commercial legal matters and complex business immigration cases, with extensive legal practice experience. Jonathan Lotz provides professional legal consultation and comprehensive business solutions to clients, ensuring the legality and validity of every business transaction.",
+    image: "/images/JonathanLotz.webp",
+    position: "right"
   }
 ];
 
