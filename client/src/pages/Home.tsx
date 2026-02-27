@@ -303,7 +303,7 @@ export default function Home() {
         <div className="container">
           <div className="text-center mb-20">
             <h2 className="font-bold text-foreground mb-4" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: 'clamp(32px, 8vw, 48px)', fontWeight: 900 }}>关于傲赛（OXEC）</h2>
-            <p className="text-lg text-muted-foreground">一家领先的专业型加拿大移民与行政法事务所，设于加拿大卑诗省，为加拿大及全球客户提供服务</p>
+            <p className="text-lg text-muted-foreground">一家领先的专业型加拿大移民咨询事务所，设于加拿大卑诗省，为加拿大及全球客户提供服务</p>
           </div>
 
           {/* First Group - Left Image Right Text */}
@@ -311,7 +311,7 @@ export default function Home() {
             <div className="order-2 md:order-1">
               <h3 className="text-2xl lg:text-3xl font-bold text-foreground mb-6">扎根加西，服务全球</h3>
               <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-                傲赛（OXEC）移民事务所总部位于大温哥华地区的 Burnaby。我们不仅拥有深厚的法律背景，更致力于为每一位客户提供量身定制的移民解决方案，确保在复杂的行政法流程中为您保驾护航。
+                傲赛（OXEC）移民事务所总部位于大温哥华地区本那比市。我们不仅拥有深厚的法律背景，更致力于为每一位客户提供量身定制的移民解决方案，确保在复杂的移民法律流程中为您保驾护航。
               </p>
             </div>
             <div className="order-1 md:order-2">
@@ -337,7 +337,7 @@ export default function Home() {
             <div>
               <h3 className="text-2xl lg:text-3xl font-bold text-foreground mb-6">专业驱动，诚信为本</h3>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                作为由 RCIC 注册移民顾问领衔的专业团队，我们精通各类疑难案件处理。我们相信每一份申请都承载着一个家庭的梦想，因此我们坚持透明、严谨的工作流程，将成功率与客户体验放在首位。
+                作为由 RCIC 注册移民顾问领衔的专业团队，我们擅长商业类移民、家庭团聚、项目转换、拒签重申以及各类疑难案件处理。我们相信每一份申请都承载着一个家庭的梦想，因此我们坚持透明、严谨的工作流程，将成功率与客户体验放在首位。
               </p>
             </div>
           </div>
@@ -360,9 +360,12 @@ export default function Home() {
               />
             </div>
             <div className="order-1 lg:order-2">
-              <h2 className="font-bold text-foreground mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: 'clamp(32px, 8vw, 48px)', fontWeight: 900 }}>欢迎帮助我们"点亮地图"</h2>
+              <h2 className="font-bold text-foreground mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: 'clamp(32px, 8vw, 48px)', fontWeight: 900 }}>帮助我们"点亮地图"</h2>
               <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-                我们为来自加拿大各地及世界各国的客户提供移民咨询服务。您来自我们尚未服务过的国家，我们诚挚期待与您建立联系。每一位客户都是一段全新的旅程——在为您提供专业支持的同时，我们也渴望汲取您深厚的文化底蕴与移民故事，并分享我们的专业经验。
+                我们为来自加拿大各地及世界各国的客户提供移民咨询服务。您来自我们的服务尚未踏足的国家，我们诚挚期待与您建立联系。
+              </p>
+              <p className="text-lg text-muted-foreground leading-relaxed mb-6">
+                每一位客户都是一段全新的旅程——在为您提供专业支持的同时，我们也渴望汲取您深厚的文化底蕴与移民故事，并分享我们的专业经验。
               </p>
               <p className="text-lg text-muted-foreground leading-relaxed mb-6">
                 我们期待与您共同走过这段旅程。

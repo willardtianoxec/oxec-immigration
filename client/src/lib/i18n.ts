@@ -111,7 +111,7 @@ export const translations: Record<Language, Record<string, string>> = {
 
     // Services Section
     'services.title': '我们的移民服务',
-    'services.subtitle': '根据您的独特需求和情况量身定制的全面移民解决方案',
+    'services.subtitle': '针对您的需求和情况量身定制全面移民解决方案',
     'services.pr': '投资移民',
     'services.pr_desc': '为企业家和投资者提供专业的投资移民指导和全面支持。',
     'services.visa': '家庭团聚移民',
@@ -141,6 +141,16 @@ export const translations: Record<Language, Record<string, string>> = {
     'blog.article_title': '移民政策更新',
     'blog.article_excerpt': '了解最新的加拿大移民政策变化和申请要求。',
     'blog.view_all': '查看所有文章',
+
+    // About Section
+    'about.title': '关于傲赛（OXEC）',
+    'about.subtitle': '一家领先的专业型加拿大移民咨询事务所，设于加拿大卑诗省，为加拿大及全球客户提供服务',
+    'about.section1_title': '扎根加西，服务全球',
+    'about.section1_desc': '傲赛（OXEC）移民事务所总部位于大温哥华地区本那比市。我们不仅拥有深厚的法律背景，更致力于为每一位客户提供量身定制的移民解决方案，确保在复杂的移民法律流程中为您保驾护航。',
+    'about.section2_title': '专业驱动，诚信为本',
+    'about.section2_desc': '作为由 RCIC 注册移民顾问领衔的专业团队，我们擅长商业类移民、家庭团聚、项目转换、拒签重申以及各类疑难案件处理。我们相信每一份申请都承载着一个家庭的梦想，因此我们坚持透明、严谨的工作流程，将成功率与客户体验放在首位。',
+    'about.map_title': '帮助我们"点亮地图"',
+    'about.map_desc': '我们为来自加拿大各地及世界各国的客户提供移民咨询服务。您来自我们的服务尚未踏足的国家，我们诚挚期待与您建立联系。每一位客户都是一段全新的旅程——在为您提供专业支持的同时，我们也渴望汲取您深厚的文化底蕴与移民故事，并分享我们的专业经验。',
 
     // Footer
     'footer.about': '关于我们',
