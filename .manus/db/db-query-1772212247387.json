@@ -1,0 +1,9 @@
+{
+  "query": "INSERT INTO imageLibrary (filename, relativePath, description, category, fileSize, uploadMethod, uploadedBy, mimeType) \nVALUES ('VivianMaap.webp', '/images/VivianMaap.webp', 'Vivian Ma - Finance Manager - Original Headshot', 'team', 81402, 'manual', 1, 'image/webp');",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2MHEakYmYxuSUJe.root --database ERSfzVi6JGQA5UonrK4h6y --execute INSERT INTO imageLibrary (filename, relativePath, description, category, fileSize, uploadMethod, uploadedBy, mimeType) \nVALUES ('VivianMaap.webp', '/images/VivianMaap.webp', 'Vivian Ma - Finance Manager - Original Headshot', 'team', 81402, 'manual', 1, 'image/webp');",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 68
+}

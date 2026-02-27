@@ -1,0 +1,23 @@
+{
+  "query": "SELECT * FROM imageLibrary LIMIT 1;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2MHEakYmYxuSUJe.root --database ERSfzVi6JGQA5UonrK4h6y --execute SELECT * FROM imageLibrary LIMIT 1;",
+  "rows": [
+    {
+      "id": "12",
+      "filename": "world-map-dots.svg",
+      "relativePath": "/images/world-map-dots.svg",
+      "fileSize": "977913",
+      "mimeType": "image/svg+xml",
+      "description": "Auto-imported: world-map-dots.svg",
+      "category": "general",
+      "uploadedBy": "1",
+      "createdAt": "2026-02-19 08:37:35",
+      "updatedAt": "2026-02-19 08:37:35",
+      "uploadMethod": "manual"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tfilename\trelativePath\tfileSize\tmimeType\tdescription\tcategory\tuploadedBy\tcreatedAt\tupdatedAt\tuploadMethod\n12\tworld-map-dots.svg\t/images/world-map-dots.svg\t977913\timage/svg+xml\tAuto-imported: world-map-dots.svg\tgeneral\t1\t2026-02-19 08:37:35\t2026-02-19 08:37:35\tmanual\n",
+  "stderr": "",
+  "execution_time_ms": 55
+}
