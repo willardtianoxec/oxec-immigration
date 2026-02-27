@@ -316,10 +316,10 @@ export default function Team() {
 
                       <div className="pt-6">
                         <Link href="/booking">
-                          <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none" style={{width: '150px'}}>
-                            <span style={{width: '130px', height: '40px'}}>
+                          <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none flex items-center justify-center whitespace-nowrap" style={{minWidth: 'auto', padding: '10px 16px'}}>
+                            <span className="flex items-center whitespace-nowrap gap-2">
                               {language === "en" ? "Consult This Expert" : "咨询此专家"}
-                              <ArrowRight className="ml-2 h-5 w-5" />
+                              <ArrowRight className="h-4 w-4 flex-shrink-0" style={{fontSize: '16px'}} />
                             </span>
                           </Button>
                         </Link>
