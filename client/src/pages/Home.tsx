@@ -316,7 +316,7 @@ export default function Home() {
             </div>
             <div className="order-1 md:order-2">
               <img
-                src="/images/oxecimm-metro-tower1-office-opt.jpg"
+                src="/images/oxecimm-metro-tower1-office-opt-opt.webp"
                 alt="OXEC Burnaby Office"
                 className="w-full h-auto shadow-lg object-cover"
                 style={{ aspectRatio: '16/9', borderRadius: '0px' }}
@@ -328,7 +328,7 @@ export default function Home() {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <img
-                src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663292376041/VZnfHnrpTMgWxPkt.jpg"
+                src="/images/Gemini_Generated_Image_wecsh9wecsh9wecs (1)-1772219333958-opt.webp"
                 alt="Professional Consultation"
                 className="w-full h-auto shadow-lg object-cover"
                 style={{ aspectRatio: '16/9', borderRadius: '0px' }}
