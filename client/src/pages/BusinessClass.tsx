@@ -224,7 +224,7 @@ export default function BusinessClass() {
             </div>
             <div className="order-1 md:order-2">
               <OptimizedImage
-                src="/images/img-4-opt.jpg"
+                src="/images/aditya-chinchure-2-1772271722346-opt.webp"
                 alt="Vancouver BC Skyline"
                 className="w-full h-auto shadow-lg object-cover"
                 style={{ aspectRatio: "16/9", borderRadius: "0px" }}
@@ -240,7 +240,7 @@ export default function BusinessClass() {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <img
-                src="/images/img-5-opt.jpg"
+                src="/images/jhon-jim-5BIbTwXbTWk-unsplash-1772271864381-opt.webp"
                 alt="Business Meeting"
                 className="w-full h-auto shadow-lg object-cover"
                 style={{ aspectRatio: "16/9", borderRadius: "0px" }}
@@ -271,7 +271,7 @@ export default function BusinessClass() {
             </div>
             <div className="order-1 md:order-2">
               <img
-                src="/images/img-1-opt.jpg"
+                src="/images/img-1-opt.png"
                 alt="BC Regions"
                 className="w-full h-auto shadow-lg object-cover"
                 style={{ aspectRatio: "16/9", borderRadius: "0px" }}
@@ -287,7 +287,7 @@ export default function BusinessClass() {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <img
-                src="/images/img-2-opt.jpg"
+                src="/images/document-submission-office-1771755684424-opt.webp"
                 alt="Document Submission Office"
                 className="w-full h-auto shadow-lg object-cover"
                 style={{ aspectRatio: "16/9", borderRadius: "0px" }}
