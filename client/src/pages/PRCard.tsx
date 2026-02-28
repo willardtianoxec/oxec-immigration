@@ -23,15 +23,15 @@ export default function PRCard() {
 
   // Image URLs for PR Card sections - using related images from existing library
   // Section 1: PR Card and documents
-  const prcardImage1 = 'https://private-us-east-1.manuscdn.com/sessionFile/i9ZSSj6IB1QFKBGCY6lMon/sandbox/CzR3vynOXwkVLil8nGhSBg-img-1_1770078013000_na1fn_YnVzaW5lc3NjbGFzcy1vdmVydmlldw.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvaTlaU1NqNklCMVFGS0JHQ1k2bE1vbi9zYW5kYm94L0N6UjN2eW5PWHdrVkxpbDhuR2hTQmctaW1nLTFfMTc3MDA3ODAxMzAwMF9uYTFmbl9ZblZ6YVc1bGMzTmpiR0Z6Y3kxdmRtVnlkbWxsZHcuanBnP3gtb3NzLXByb2Nlc3M9aW1hZ2UvcmVzaXplLHdfMTkyMCxoXzE5MjAvZm9ybWF0LHdlYnAvcXVhbGl0eSxxXzgwIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNzk4NzYxNjAwfX19XX0_&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=cw6W1ZIETdX8HrY4NNZvR6LvGgBSfqn6hou0CDb7S01xgcSK9K7Mp~b7YBq9H6AIne6aFiUMn6QuPCqJ3iVBN7uxjvsARZWAzbgsX4tgg7AQshvpmujeZpnaJ28lzzMziBhLeieMj5XTWtRjxV0Nwe3G1oyocX6SPMCOGpFBRA-HbrIkeQqG9no0ZMI1qXzApjC2GGj8mG0XG1gH4461JurZ6qkh05TE8MapIqGo-k2ohfOsKNkMpJMEta5UAn6wP40OUxri-Ot7zR8Od6MT1Zko4Ru5JW911H6Sse3lZdh7zGER6CEfjGe3TSQu7xH01weB9ttg71gqUo54C9~8eg__';
+  const prcardImage1 = '/images/prcard-overview-1772273396713-opt.webp';
   // Section 2: Risk assessment - using professional team image
-  const prcardImage2 = 'https://private-us-east-1.manuscdn.com/sessionFile/i9ZSSj6IB1QFKBGCY6lMon/sandbox/CzR3vynOXwkVLil8nGhSBg-img-2_1770078023000_na1fn_YnVzaW5lc3NjbGFzcy13aG8tYXBwbGllcw.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvaTlaU1NqNklCMVFGS0JHQ1k2bE1vbi9zYW5kYm94L0N6UjN2eW5PWHdrVkxpbDhuR2hTQmctaW1nLTJfMTc3MDA3ODAyMzAwMF9uYTFmbl9ZblZ6YVc1bGMzTmpiR0Z6Y3kxM2FHOHRZWEJ3YkdsbGN3LmpwZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzE5MjAsaF8xOTIwL2Zvcm1hdCx3ZWJwL3F1YWxpdHkscV84MCIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc5ODc2MTYwMH19fV19&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=ZZOETabnRFCdTJq6PJe2zRKrtDmcq8YWH6dTBGzgQQuA3iyhLZwx3h258b8U60OzDz4UPqdK5HbWCILP4zTMoIfCnDooHZG~gSuqq1RDRdqk4~lXE3sDk777n1yU5wu03VpL4y69S4ZFkCFt3qrkExCld2w1P131ZOm7SxSxdCjwenjRmJMsmOhU0keeoa9vwoIcSsEljybyt7pzSIJNuXguywfTovyltKyxrZTwWDsDU788aJINDVZqmCS6ctxW3kB-uMh0VtIWdW1gE~rwEhFZgFSJaVsuBz~Xx-x9jB2wIGz4al1ha5up5CphZpDKCvEXWnkV3koWV4rmWZqIAQ__';
+  const prcardImage2 = '/images/prcard-challenges-1772273413033-opt.webp';
   // Section 3: Solutions - using document submission office image
-  const prcardImage3 = 'https://private-us-east-1.manuscdn.com/sessionFile/i9ZSSj6IB1QFKBGCY6lMon/sandbox/1KnEnHRJ5m7G4yZchCDKJn-img-2_1771140735000_na1fn_ZG9jdW1lbnQtc3VibWlzc2lvbi1vZmZpY2U.png?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvaTlaU1NqNklCMVFGS0JHQ1k2bE1vbi9zYW5kYm94LzFLbkVuSFJKNW03RzR5WmNoQ0RLSm4taW1nLTJfMTc3MTE0MDczNTAwMF9uYTFmbl9aRzlqZFcxbGJuUXRjM1ZpYldsemMybHZiaTF2Wm1acFkyVS5wbmc~eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsd18xOTIwLGhfMTkyMC9mb3JtYXQsd2VicC9xdWFsaXR5LHFfODAiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3OTg3NjE2MDB9fX1dfQ__&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=I4TlxHs7ICyTRpYrWJTOAjzyqatyH2vTdwiRLVCPTA49kXyERI3MN8K1LWMZqcZMu5e34Lx8xr7eWTckQAeHklCdSHrxaIFOC7h55vCDeAb0Yn~dJGMHcn42mrLS07uILaaQf5r1OACLtprriOQ1r9giMMzsfnMBBZB5F~CKnyknvfxJuTIXEB-nhPYEjyc-q2Tm9Q~792lnuLE5yq-3tTmQN91PTiT7x6m1OJYJzttbZTnPaDXo4IEWy9GRLmSFGucogzBaZQtTnm6u9QR6u0Hre-AT7MCzaAXDDDU6SuIosZv2zbSsnMcW4SY9mDrTfBYHyCk5-QcF1RSDJbsJ3A__';
+  const prcardImage3 = '/images/prcard-urgent-boarding-1772273405184-opt.webp';
   // CTA background - same as /businessclass and /familyclass
   const ctaBackgroundImage = 'https://files.manuscdn.com/user_upload_by_module/session_file/310519663292376041/WZnaCRpbTuyKXGGm.jpg';
   // Section 5: Trust and expertise - using professional team image
-  const trustImage = 'https://private-us-east-1.manuscdn.com/sessionFile/i9ZSSj6IB1QFKBGCY6lMon/sandbox/CzR3vynOXwkVLil8nGhSBg-img-2_1770078023000_na1fn_YnVzaW5lc3NjbGFzcy13aG8tYXBwbGllcw.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvaTlaU1NqNklCMVFGS0JHQ1k2bE1vbi9zYW5kYm94L0N6UjN2eW5PWHdrVkxpbDhuR2hTQmctaW1nLTJfMTc3MDA3ODAyMzAwMF9uYTFmbl9ZblZ6YVc1bGMzTmpiR0Z6Y3kxM2FHOHRZWEJ3YkdsbGN3LmpwZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzE5MjAsaF8xOTIwL2Zvcm1hdCx3ZWJwL3F1YWxpdHkscV84MCIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc5ODc2MTYwMH19fV19&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=ZZOETabnRFCdTJq6PJe2zRKrtDmcq8YWH6dTBGzgQQuA3iyhLZwx3h258b8U60OzDz4UPqdK5HbWCILP4zTMoIfCnDooHZG~gSuqq1RDRdqk4~lXE3sDk777n1yU5wu03VpL4y69S4ZFkCFt3qrkExCld2w1P131ZOm7SxSxdCjwenjRmJMsmOhU0keeoa9vwoIcSsEljybyt7pzSIJNuXguywfTovyltKyxrZTwWDsDU788aJINDVZqmCS6ctxW3kB-uMh0VtIWdW1gE~rwEhFZgFSJaVsuBz~Xx-x9jB2wIGz4al1ha5up5CphZpDKCvEXWnkV3koWV4rmWZqIAQ__';
+  const trustImage = '/images/reconsideration-team-opt.jpg';
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
@@ -140,7 +140,7 @@ export default function PRCard() {
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div className="order-2 md:order-1">
                 <h2 className="text-foreground mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", sans-serif', fontWeight: 900, fontSize: '48px' }}>
-                  {isEnglish ? "PR Card Renewal: Maintaining Your Permanent Resident Status" : "枫叶卡续签：维系您的永久居民身份"}
+                  {isEnglish ? "PR Card Renewal: Maintaining Your Permanent Resident Status" : "枫叶卡续签：保持您的永居身份"}
                 </h2>
                 <p className="text-lg text-muted-foreground leading-relaxed">
                   {isEnglish 
@@ -197,7 +197,7 @@ export default function PRCard() {
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div className="order-2 md:order-1">
                 <h2 className="text-foreground mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", sans-serif', fontWeight: 900, fontSize: '48px' }}>
-                  {isEnglish ? "Humanitarian Exemption and Urgent Processing" : "困局之下：人道豁免与加急办理"}
+                  {isEnglish ? "Humanitarian Exemption and Urgent Processing" : "人道豁免与加急办理"}
                 </h2>
                 <p className="text-lg text-muted-foreground leading-relaxed mb-6">
                   {isEnglish
