@@ -68,17 +68,6 @@ const teamMembers: TeamMemberWithTranslation[] = [
     position: "right"
   },
   {
-    id: "member-5",
-    name: "Vivian Ma",
-    nameEn: "Vivian Ma",
-    title: "财务主管",
-    titleEn: "Finance Manager",
-    description: "Vivian是傲赛团队重要的成员，负责公司财务管理和资金运作，确保所有财务流程的规范性和透明度。\n\nVivian以其专业的财务知识和严谨的工作态度，为公司的稳健发展提供坚实的财务支撑。",
-    descriptionEn: "Vivian is an important member of the OXEC team, responsible for company financial management and fund operations, ensuring the standardization and transparency of all financial processes. With her professional financial knowledge and rigorous work attitude, Vivian provides solid financial support for the company's steady development.",
-    image: "/images/VivianMaap.webp",
-    position: "left"
-  },
-  {
     id: "member-6",
     name: "Jonathan Lotz",
     nameEn: "Jonathan Lotz",
