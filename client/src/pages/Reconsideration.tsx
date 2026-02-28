@@ -81,7 +81,7 @@ export default function Reconsideration() {
     },
     challenges: {
       title: "为什么您的申请会被拒绝？",
-      text: "拒签可能出于多种原因，了解根本原因是解决问题的第一步。常见原因包括：\n• 虚假陈述 (Misrepresentation)：常因记忆错误或疏忽，在拒签史、移民史或婚史等关键信息上提供不实说明。\n• 材料不完整 (Incomplete)：因操作失误遗漏关键证明文件，或提交了错误的格式。\n• 刑事不可入境 (Inadmissible)：因在加拿大境外留有犯罪记录，被判定为不可入境。",
+      text: "拒签可能出于多种原因，了解根本原因是解决问题的第一步。常见原因包括：\n\n• 虚假陈述 (Misrepresentation)：常因记忆错误或疏忽，在拒签史、移民史或婚史等关键信息上提供不实说明。\n\n• 材料不完整 (Incomplete)：因操作失误遗漏关键证明文件，或提交了错误的格式。\n\n• 刑事不可入境 (Inadmissible)：因在加拿大境外留有犯罪记录，被判定为不可入境。",
     },
     pfLetter: {
       title: "程序公正信（Procedural Fairness Letter）",
@@ -192,7 +192,7 @@ export default function Reconsideration() {
             </div>
             <div className="order-1 md:order-2">
               <OptimizedImage
-                src="/images/reconsideration-overview-1771752561140-opt.webp"
+                src="/images/colton-sturgeon-6KkYYqTEDwQ-1772276066720-opt.webp"
                 alt="Calmly face visa refusal"
                 className="w-full h-auto shadow-lg object-cover"
                 style={{ aspectRatio: "16/9", borderRadius: "0px" }}
@@ -208,7 +208,7 @@ export default function Reconsideration() {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <img
-                src="/images/reconsideration-refusal-1771752587583-opt.webp"
+                src="/images/reconsideration-refusal-1772275990300-opt.webp"
                 alt="Why was your application refused"
                 className="w-full h-auto shadow-lg object-cover"
                 style={{ aspectRatio: "16/9", borderRadius: "0px" }}
@@ -259,7 +259,7 @@ export default function Reconsideration() {
             </div>
             <div className="order-1 md:order-2">
               <img
-                src="/images/reconsideration-solutions-1771752651340-opt.webp"
+                src="/images/reconsideration-overview 2-1772276041494-opt.webp"
                 alt="Professional solutions"
                 className="w-full h-auto shadow-lg object-cover"
                 style={{ aspectRatio: "16/9", borderRadius: "0px" }}
