@@ -272,7 +272,7 @@ export default function Team() {
             <div className="space-y-16">
               {teamMembers.map((member) => (
                 <div key={member.id} ref={(el) => { if (el) detailRefs.current[member.id] = el; }}>
-                  <div className={`grid md:grid-cols-2 gap-12 items-center ${member.position === "right" ? "md:grid-cols-2" : ""}`}>
+                  <div className={`grid md:grid-cols-2 gap-12 items-start ${member.position === "right" ? "md:grid-cols-2" : ""}`}>
                     {/* Image */}
                     <div className={`${member.position === "right" ? "md:order-2" : ""}`}>
                       <img 
@@ -284,7 +284,7 @@ export default function Team() {
                     </div>
 
                     {/* Text Content */}
-                    <div className={`${member.position === "right" ? "md:order-1" : ""} space-y-4 flex flex-col justify-start`}>
+                    <div className={`${member.position === "right" ? "md:order-1" : ""} space-y-4`}>
                       <div>
                         <h2 className="text-4xl font-bold text-foreground mb-1" style={{ fontFamily: '"Alibaba PuHuiTi", sans-serif', fontWeight: 900, fontSize: '36px' }}>
                           {language === "en" ? member.nameEn : member.name}
