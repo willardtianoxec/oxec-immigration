@@ -232,7 +232,7 @@ export default function Reconsideration() {
             </div>
             <div className="order-1 md:order-2">
               <img
-                src="/images/reconsideration-pf-letter-woman-1771754216913-opt.webp"
+                src="/images/reconsideration-pf-letter-1772276710376-opt.webp"
                 alt="Procedural Fairness Letter"
                 className="w-full h-auto shadow-lg object-cover"
                 style={{ aspectRatio: "16/9", borderRadius: "0px" }}
@@ -259,7 +259,7 @@ export default function Reconsideration() {
             </div>
             <div className="order-1 md:order-2">
               <img
-                src="/images/reconsideration-overview 2-1772276041494-opt.webp"
+                src="/images/reconsideration-team-opt.jpg"
                 alt="Professional solutions"
                 className="w-full h-auto shadow-lg object-cover"
                 style={{ aspectRatio: "16/9", borderRadius: "0px" }}
