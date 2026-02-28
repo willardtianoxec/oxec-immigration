@@ -76,7 +76,7 @@ const teamMembers: TeamMemberWithTranslation[] = [
     description: "Jonathan是专注于商业法律事务的资深律师，也是Lotz & Company律师事务所的创始人，与傲赛团队保持紧密的合作关系，为傲赛的商业移民客户提供关键的法律咨询。\n\nJonathan在跨境发行和收购以及美国境内的交易方面经验丰富。他是不列颠哥伦比亚省和纽约州律师协会的成员，曾为加拿大和美国的上市公司就其公司治理的各个方面以及董事会特别委员会在复杂交易中提供法律咨询。",
     descriptionEn: "Jonathan is a senior lawyer specializing in commercial legal matters and founder of Lotz & Company Law Firm, maintaining close collaboration with OXEC to provide key legal consultation for OXEC's business immigration clients. Jonathan has extensive experience in cross-border issuances and acquisitions as well as US-based transactions. He is a member of the British Columbia and New York State Bar Associations and has provided legal consultation to public companies in Canada and the United States on various aspects of corporate governance and complex transactions involving special board committees.",
     image: "/images/JonathanLotz.webp",
-    position: "right"
+    position: "left"
   }
 
 ];
