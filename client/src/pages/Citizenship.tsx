@@ -164,7 +164,7 @@ export default function Citizenship() {
             </div>
             <div className="order-1 md:order-2">
               <OptimizedImage
-                src="/images/citizenship-oath-ceremony-opt.webp"
+                src="/images/citizenship-oath-ceremony-opt.jpg"
                 alt="Citizenship Oath Ceremony"
                 className="w-full h-auto shadow-lg object-cover"
                 style={{ aspectRatio: "16/9", borderRadius: "0px" }}
@@ -180,7 +180,7 @@ export default function Citizenship() {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <OptimizedImage
-                src="/images/citizenship-legal-documents-opt.webp"
+                src="/images/citizenship-legal-documents-opt.jpg"
                 alt="Citizenship Legal Documents"
                 className="w-full h-auto shadow-lg object-cover"
                 style={{ aspectRatio: "16/9", borderRadius: "0px" }}
