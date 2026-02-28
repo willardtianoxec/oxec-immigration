@@ -262,7 +262,7 @@ export default function SkillWorker() {
                   </div>
                   <div className="md:order-1" style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'center' }}>
                     <img
-                      src="/images/img-2-opt.jpg"
+                      src="/images/skillworker-express-entry-1772278274410-opt.webp"
                       alt="Express Entry"
                       className="w-full h-auto"
                       style={{ maxWidth: '100%' }}
@@ -296,7 +296,7 @@ export default function SkillWorker() {
                   </div>
                   <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'center' }}>
                     <img
-                      src="/images/img-3-opt.jpg"
+                      src="/images/lee-robinson-Yc9h5SJdEzI-unsplash-1772278138053-opt.webp"
                       alt="BC PNP"
                       className="w-full h-auto"
                       style={{ maxWidth: '100%' }}
@@ -330,7 +330,7 @@ export default function SkillWorker() {
                   </div>
                   <div className="md:order-1" style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'center' }}>
                     <img
-                      src="/images/img-4-opt.jpg"
+                      src="/images/skillworker-lmia-1772278072219-opt.webp"
                       alt="LMIA"
                       className="w-full h-auto"
                       style={{ maxWidth: '100%' }}
@@ -364,7 +364,7 @@ export default function SkillWorker() {
                   </div>
                   <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'center' }}>
                     <img
-                      src="/images/img-5-opt.jpg"
+                      src="/images/img-2-opt.jpg"
                       alt="ICT"
                       className="w-full h-auto"
                       style={{ maxWidth: '100%' }}
@@ -398,7 +398,7 @@ export default function SkillWorker() {
                   </div>
                   <div className="md:order-1" style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'center' }}>
                     <img
-                      src="/images/img-1-opt.jpg"
+                      src="/images/skillworker-pgwp-1772278078952-opt.webp"
                       alt="PGWP"
                       className="w-full h-auto"
                       style={{ maxWidth: '100%' }}
