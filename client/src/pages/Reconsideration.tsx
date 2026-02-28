@@ -246,7 +246,15 @@ export default function Reconsideration() {
       <section className="py-20 bg-gray-50">
         <div className="container">
           <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
-            <div className="order-2 md:order-1">
+            <div className="order-1 md:order-1">
+              <img
+                src="/images/reconsideration-team-opt.jpg"
+                alt="Professional solutions"
+                className="w-full h-auto shadow-lg object-cover"
+                style={{ aspectRatio: "16/9", borderRadius: "0px" }}
+              />
+            </div>
+            <div className="order-2 md:order-2">
               <h2 className="section-title text-foreground mb-8" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontWeight: 900, fontSize: 'clamp(28px, 6vw, 48px)' }}>{t.solutions.title}</h2>
               <div className="space-y-8">
                 {t.solutions.items.map((item, index) => (
@@ -256,14 +264,6 @@ export default function Reconsideration() {
                   </div>
                 ))}
               </div>
-            </div>
-            <div className="order-1 md:order-2">
-              <img
-                src="/images/reconsideration-team-opt.jpg"
-                alt="Professional solutions"
-                className="w-full h-auto shadow-lg object-cover"
-                style={{ aspectRatio: "16/9", borderRadius: "0px" }}
-              />
             </div>
           </div>
         </div>
