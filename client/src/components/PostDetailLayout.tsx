@@ -1,14 +1,18 @@
 import React, { ReactNode } from 'react';
 import { Streamdown } from 'streamdown';
+import { ShareButtons } from './ShareButtons';
 
 interface PostDetailLayoutProps {
   backgroundImage: string;
   title: string;
   author?: string;
   publishDate?: string;
+  description?: string;
+  coverImage?: string;
   content: string;
   sidebar: ReactNode;
   type?: 'blog' | 'success-case';
+  url?: string;
 }
 
 export function PostDetailLayout({
@@ -16,9 +20,12 @@ export function PostDetailLayout({
   title,
   author,
   publishDate,
+  description,
+  coverImage,
   content,
   sidebar,
   type = 'blog',
+  url,
 }: PostDetailLayoutProps) {
   return (
     <div
@@ -70,18 +77,30 @@ export function PostDetailLayout({
                     {title}
                   </h1>
 
-                  {/* Article Metadata */}
-                  <div className="flex flex-col sm:flex-row gap-4 text-sm" style={{ color: '#666' }}>
-                    {author && (
-                      <div className="flex items-center">
-                        <span className="font-semibold mr-2">作者：</span>
-                        <span>{author}</span>
-                      </div>
-                    )}
-                    {publishDate && (
-                      <div className="flex items-center">
-                        <span className="font-semibold mr-2">发布时间：</span>
-                        <span>{publishDate}</span>
+                  {/* Article Metadata and Share Buttons */}
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 text-sm" style={{ color: '#666' }}>
+                    <div className="flex flex-col sm:flex-row gap-4">
+                      {author && (
+                        <div className="flex items-center">
+                          <span className="font-semibold mr-2">作者：</span>
+                          <span>{author}</span>
+                        </div>
+                      )}
+                      {publishDate && (
+                        <div className="flex items-center">
+                          <span className="font-semibold mr-2">发布时间：</span>
+                          <span>{publishDate}</span>
+                        </div>
+                      )}
+                    </div>
+                    {url && (
+                      <div className="flex-shrink-0">
+                        <ShareButtons
+                          title={title}
+                          description={description || ''}
+                          coverImage={coverImage}
+                          url={url}
+                        />
                       </div>
                     )}
                   </div>

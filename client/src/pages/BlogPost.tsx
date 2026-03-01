@@ -1,4 +1,5 @@
 import { useParams, useLocation } from "wouter";
+import { useEffect } from "react";
 import { trpc } from "@/lib/trpc";
 import { Loader2, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -39,6 +40,51 @@ export function BlogPost() {
     { enabled: !!slug }
   );
 
+  // Update OG tags for social media sharing - must be at top level
+  useEffect(() => {
+    if (!post) return;
+
+    // Update document title
+    document.title = `${post.title} - OXEC Immigration`;
+
+    // Remove existing OG tags
+    const existingOGTags = document.querySelectorAll('meta[property^="og:"]');
+    existingOGTags.forEach(tag => tag.remove());
+
+    // Create and add new OG tags
+    const ogTags = [
+      { property: 'og:title', content: post.title },
+      { property: 'og:description', content: post.excerpt || post.content.substring(0, 150) },
+      { property: 'og:url', content: `${window.location.origin}/blog/${post.slug}` },
+      { property: 'og:type', content: 'article' },
+    ];
+
+    // Add cover image if available
+    if (post.coverImage) {
+      let imageUrl = post.coverImage;
+      if (!imageUrl.startsWith('http')) {
+        if (!imageUrl.startsWith('/')) {
+          imageUrl = `/${imageUrl}`;
+        }
+        imageUrl = `${window.location.origin}${imageUrl}`;
+      }
+      ogTags.push({ property: 'og:image', content: imageUrl });
+    }
+
+    ogTags.forEach(({ property, content }) => {
+      const meta = document.createElement('meta');
+      meta.setAttribute('property', property);
+      meta.setAttribute('content', content);
+      document.head.appendChild(meta);
+    });
+
+    // Return cleanup function
+    return () => {
+      const tagsToRemove = document.querySelectorAll('meta[property^="og:"]');
+      tagsToRemove.forEach(tag => tag.remove());
+    };
+  }, [post?.id]);
+
   if (isLoading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
@@ -71,6 +117,7 @@ export function BlogPost() {
 
   // Prepare article content with cover image if available
   let fullContent = post.content;
+  let coverImageUrl = post.coverImage;
   if (post.coverImage) {
     // Ensure image URL is absolute with full domain
     let imageUrl = post.coverImage;
@@ -81,8 +128,12 @@ export function BlogPost() {
       }
       imageUrl = `${window.location.origin}${imageUrl}`;
     }
+    coverImageUrl = imageUrl;
     fullContent = `![${post.title}](${imageUrl})\n\n${post.content}`;
   }
+
+  // Generate current article URL
+  const articleUrl = `${window.location.origin}/blog/${post.slug}`;
 
   return (
     <>
@@ -121,8 +172,11 @@ export function BlogPost() {
         title={post.title}
         author={post.author || "OXEC Immigration"}
         publishDate={formattedDate}
+        description={post.excerpt || post.content.substring(0, 150)}
+        coverImage={coverImageUrl || undefined}
         content={fullContent}
         type="blog"
+        url={articleUrl}
         sidebar={
           <ArticleSidebar
             currentPostId={post.id}
