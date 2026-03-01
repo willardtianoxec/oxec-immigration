@@ -298,8 +298,8 @@ export default function SkillWorker() {
                     <img
                       src="/images/lee-robinson-Yc9h5SJdEzI-unsplash-1772278138053-opt.webp"
                       alt="BC PNP"
-                      className="w-full h-auto"
-                      style={{ maxWidth: '100%' }}
+                      className="w-full h-auto object-cover"
+                      style={{ maxWidth: '100%', aspectRatio: '16/9' }}
                     />
                   </div>
                 </div>
