@@ -47,35 +47,29 @@ export function ShareButtons({
         {/* LinkedIn 分享按钮 */}
         <button
           onClick={handleLinkedInShare}
-          className="inline-flex items-center justify-center w-8 h-8 rounded-full transition-colors hover:bg-gray-100"
+          className="inline-flex items-center justify-center w-8 h-8 rounded-full transition-colors hover:opacity-80"
           title="分享到 LinkedIn"
           aria-label="分享到 LinkedIn"
         >
-          <svg
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            className="w-5 h-5"
-            style={{ color: '#0077B5' }}
-          >
-            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
-          </svg>
+          <img
+            src="/linkedin.png"
+            alt="LinkedIn"
+            className="w-8 h-8"
+          />
         </button>
 
         {/* 微信分享按钮 */}
         <button
           onClick={handleWeChatShare}
-          className="inline-flex items-center justify-center w-8 h-8 rounded-full transition-colors hover:bg-gray-100"
+          className="inline-flex items-center justify-center w-8 h-8 rounded-full transition-colors hover:opacity-80"
           title="分享到微信"
           aria-label="分享到微信"
         >
-          <svg
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            className="w-5 h-5"
-            style={{ color: '#07C160' }}
-          >
-            <path d="M9.101 21.757c-.899 0-1.723-.15-2.468-.436l-2.897 1.566.793-2.468C2.605 18.883 1.5 16.765 1.5 14.365c0-3.584 3.215-6.5 7.184-6.5 3.562 0 6.543 2.406 7.104 5.514.03.199.046.401.046.605 0 3.584-3.215 6.5-7.184 6.5l-.553.273zm5.348-12.087c-.405 0-.734.329-.734.734s.329.734.734.734.734-.329.734-.734-.329-.734-.734-.734zm4.209 0c-.405 0-.734.329-.734.734s.329.734.734.734.734-.329.734-.734-.329-.734-.734-.734zm3.342 6.293c0-2.973-2.667-5.384-5.961-5.384-3.294 0-5.961 2.411-5.961 5.384 0 2.973 2.667 5.384 5.961 5.384.747 0 1.459-.129 2.122-.365l1.919 1.038-.509-1.635c1.578-1.035 2.429-2.577 2.429-4.422z" />
-          </svg>
+          <img
+            src="/wechat.png"
+            alt="WeChat"
+            className="w-8 h-8"
+          />
         </button>
       </div>
 
