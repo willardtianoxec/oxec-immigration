@@ -8,6 +8,8 @@ import { ArticleSidebar } from "@/components/ArticleSidebar";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { getLoginUrl } from "@/const";
 import { Footer } from "@/components/Footer";
+import { SchemaScript } from "@/components/SchemaScript";
+import { generateArticleSchema } from "@/lib/schema";
 
 const BLOG_BACKGROUND_IMAGE = "https://files.manuscdn.com/user_upload_by_module/session_file/310519663292376041/myboWRThWGxsUPIG.jpg";
 
@@ -136,8 +138,19 @@ export function BlogPost() {
   // Generate current article URL
   const articleUrl = `${window.location.origin}/blog/${post.slug}`;
 
+  // Generate Article Schema for SEO
+  const articleSchema = generateArticleSchema({
+    title: post.title,
+    description: post.excerpt || post.content.substring(0, 150),
+    image: coverImageUrl || 'https://oxec-immigration.manus.space/logo.png',
+    datePublished: new Date(post.createdAt).toISOString(),
+    dateModified: new Date(post.updatedAt || post.createdAt).toISOString(),
+    url: articleUrl
+  });
+
   return (
     <>
+      <SchemaScript schema={articleSchema} />
       {/* Navigation Bar */}
       <nav className="border-b border-border bg-background sticky top-0 z-50">
         <div className="container max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">

@@ -1,0 +1,36 @@
+# OXEC Immigration - robots.txt
+# 允许所有搜索引擎爬虫访问公开页面
+
+# 默认规则 - 适用于所有爬虫
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /*.json$
+Disallow: /*.pdf$
+Disallow: /*?*sort=
+Disallow: /*?*filter=
+Crawl-delay: 1
+
+# Google爬虫特定规则
+User-agent: Googlebot
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Crawl-delay: 0
+
+# Bing爬虫特定规则
+User-agent: Bingbot
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Crawl-delay: 1
+
+# 禁止其他爬虫
+User-agent: AhrefsBot
+User-agent: SemrushBot
+User-agent: DotBot
+Disallow: /
+
+# Sitemap位置
+Sitemap: https://oxec-immigration.manus.space/sitemap.xml

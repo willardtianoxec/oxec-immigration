@@ -8,6 +8,9 @@ import DotMatrixWorldMap from "@/components/DotMatrixWorldMap";
 import { Footer } from "@/components/Footer";
 import { GoogleReviewsPreview } from "@/components/GoogleReviewsPreview";
 import { LatestArticlesSection } from "@/components/LatestArticlesSection";
+import { SchemaScript } from "@/components/SchemaScript";
+import { generateOrganizationSchema, generateLocalBusinessSchema } from "@/lib/schema";
+import { trpc } from "@/lib/trpc";
 
 export default function Home() {
   const { user, isAuthenticated } = useAuth();
@@ -26,8 +29,13 @@ export default function Home() {
     { label: "公民入籍", href: "/citizenship" },
   ];
 
+  const organizationSchema = generateOrganizationSchema();
+  const localBusinessSchema = generateLocalBusinessSchema();
+
   return (
     <div className="min-h-screen flex flex-col bg-background">
+      <SchemaScript schema={organizationSchema} />
+      <SchemaScript schema={localBusinessSchema} />
       {/* Navigation Bar */}
       <nav className="sticky top-0 z-50 bg-white border-b border-border shadow-sm" style={{height: '55px'}}>
         <div className="container flex items-center py-4" style={{ justifyContent: 'space-between', height: '55px' }}>
