@@ -13,6 +13,7 @@ import { Link, useRouter, useLocation } from "wouter";
 import { ArrowLeft, Globe, CheckCircle } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import { MapView } from "@/components/Map";
+import { Footer } from "@/components/Footer";
 
 const CONSULTATION_SUBJECTS = [
   "移民",
@@ -529,6 +530,7 @@ export default function Booking() {
         </div>
       </DialogContent>
     </Dialog>
+    <Footer />
     </>
   );
 }

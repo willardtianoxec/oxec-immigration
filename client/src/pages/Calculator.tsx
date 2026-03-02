@@ -10,6 +10,7 @@ import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
 import { Link } from "wouter";
 import { ArrowLeft, Calculator as CalcIcon } from "lucide-react";
+import { Footer } from "@/components/Footer";
 
 export default function Calculator() {
   const [familyStatus, setFamilyStatus] = useState<"single" | "married-no-spouse" | "married-with-spouse">("single");
@@ -955,6 +956,7 @@ export default function Calculator() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+      <Footer />
     </div>
   );
 }

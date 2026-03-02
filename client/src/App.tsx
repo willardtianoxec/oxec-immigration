@@ -63,8 +63,8 @@ function Router() {
       <Route path="/skillworker" component={SkillWorker} />
       <Route path="/citizenship" component={Citizenship} />
       <Route path="/bccalculator" component={BCCalculator} />
-      <Route path="/clbtranslator" component={CLBTranslator} />
-      <Route path="/fswcalculator" component={FSWCalculator} />
+      <Route path="/clb-translator" component={CLBTranslator} />
+      <Route path="/fsw-calculator" component={FSWCalculator} />
       <Route path="/term-of-service" component={TermOfService} />
       <Route path="/term-of-use" component={TermOfUse} />
       <Route path="/admin/posts/:id/preview" component={AdminPostPreview} />

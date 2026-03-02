@@ -4,6 +4,7 @@ import { Loader2, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Footer } from "@/components/Footer";
 
 export function TaggedArticles() {
   const params = useParams<{ tag: string }>();
@@ -135,6 +136,7 @@ export function TaggedArticles() {
           </div>
         )}
       </div>
+      <Footer />
     </div>
   );
 }

@@ -7,6 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Link } from "wouter";
 import { ArrowLeft, Calculator } from "lucide-react";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Footer } from "@/components/Footer";
 
 // CLB conversion helper for all language tests
 const convertToCLB = (
@@ -603,6 +604,7 @@ export default function CLBTranslator() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+      <Footer />
     </div>
   );
 }

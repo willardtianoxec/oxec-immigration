@@ -838,3 +838,13 @@
 - [x] 编写单元测试 - 密码校验、JWT、MFA逻辑
 - [ ] 测试完整认证流程 - 登录、MFA、会话管理
 - [ ] 保存检查点 - 完成/admin认证系统
+
+
+## Footer Links Fix (Current Sprint - Phase 36)
+- [x] 检查Footer组件中的资源中心链接
+- [x] 修正联邦快速通道算分工具链接 - 改为/calculator
+- [x] 添加FSW算分工具链接 - 新增/fsw-calculator
+- [x] 添加CLB换算工具链接 - 新增/clb-translator
+- [x] 检查所有使用Footer的页面
+- [x] 测试所有Footer链接
+- [x] 保存检查点 - 完成Footer链接修复

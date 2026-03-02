@@ -199,12 +199,32 @@ export function Footer({}: FooterProps) {
             </h3>
             <nav className="space-y-3 text-sm">
               <div>
-                <Link href="/crs-calculator">
+                <Link href="/calculator">
                   <span
                     className="hover:text-white transition cursor-pointer"
                     style={{ color: '#E5E7EB', fontSize: '15px' }}
                   >
                     联邦快速通道算分工具
+                  </span>
+                </Link>
+              </div>
+              <div>
+                <Link href="/fsw-calculator">
+                  <span
+                    className="hover:text-white transition cursor-pointer"
+                    style={{ color: '#E5E7EB', fontSize: '15px' }}
+                  >
+                    FSW算分工具
+                  </span>
+                </Link>
+              </div>
+              <div>
+                <Link href="/clb-translator">
+                  <span
+                    className="hover:text-white transition cursor-pointer"
+                    style={{ color: '#E5E7EB', fontSize: '15px' }}
+                  >
+                    CLB换算工具
                   </span>
                 </Link>
               </div>

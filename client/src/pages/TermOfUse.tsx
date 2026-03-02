@@ -1,5 +1,6 @@
 import { Link } from 'wouter';
 import { ArrowLeft } from 'lucide-react';
+import { Footer } from '@/components/Footer';
 
 export default function TermOfUse() {
   return (
@@ -186,6 +187,7 @@ export default function TermOfUse() {
           </section>
         </article>
       </main>
+      <Footer />
     </div>
   );
 }

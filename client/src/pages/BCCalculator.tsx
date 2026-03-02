@@ -9,6 +9,7 @@ import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
 import { Link } from "wouter";
 import { ArrowLeft, Calculator as CalcIcon, TrendingUp, Award } from "lucide-react";
+import { Footer } from "@/components/Footer";
 
 export default function BCCalculator() {
   const [formData, setFormData] = useState({
@@ -433,6 +434,7 @@ export default function BCCalculator() {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

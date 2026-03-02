@@ -1,5 +1,6 @@
 import { Link } from 'wouter';
 import { ArrowLeft } from 'lucide-react';
+import { Footer } from '@/components/Footer';
 
 export default function TermOfService() {
   return (
@@ -251,6 +252,7 @@ export default function TermOfService() {
           </section>
         </article>
       </main>
+      <Footer />
     </div>
   );
 }

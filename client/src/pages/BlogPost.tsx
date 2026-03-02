@@ -7,6 +7,7 @@ import { PostDetailLayout } from "@/components/PostDetailLayout";
 import { ArticleSidebar } from "@/components/ArticleSidebar";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { getLoginUrl } from "@/const";
+import { Footer } from "@/components/Footer";
 
 const BLOG_BACKGROUND_IMAGE = "https://files.manuscdn.com/user_upload_by_module/session_file/310519663292376041/myboWRThWGxsUPIG.jpg";
 
@@ -186,6 +187,7 @@ export function BlogPost() {
           />
         }
       />
+      <Footer />
     </>
   );
 }

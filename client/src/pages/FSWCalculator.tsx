@@ -8,6 +8,7 @@ import { Switch } from "@/components/ui/switch";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Link } from "wouter";
 import { ArrowLeft, Calculator as CalcIcon } from "lucide-react";
+import { Footer } from "@/components/Footer";
 
 export default function FSWCalculator() {
   const [formData, setFormData] = useState({
@@ -919,6 +920,7 @@ export default function FSWCalculator() {
           </Button>
         </DialogContent>
       </Dialog>
+      <Footer />
     </div>
   );
 }
