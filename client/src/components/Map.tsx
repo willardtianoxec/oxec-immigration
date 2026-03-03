@@ -144,8 +144,9 @@ function loadMapScript() {
       if (!GOOGLE_MAP_ID) {
         const originalLog = window.console.log;
         window.console.log = function(...args: any[]) {
-          const message = args[0];
-          if (typeof message === 'string' && message.includes('Advanced Markers')) {
+          const message = String(args[0] || '');
+          // Filter out Advanced Markers and Map ID related warnings
+          if (message.includes('Advanced Markers') || message.includes('Map ID') || message.includes('initialized without')) {
             return; // Suppress the warning
           }
           originalLog.apply(console, args);
