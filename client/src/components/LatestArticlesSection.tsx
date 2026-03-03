@@ -1,5 +1,6 @@
 import { trpc } from '@/lib/trpc';
 import { Link } from 'wouter';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 function formatDate(date: Date | number): string {
   const d = new Date(date);
@@ -7,6 +8,7 @@ function formatDate(date: Date | number): string {
 }
 
 export function LatestArticlesSection() {
+  const { t } = useLanguage();
   // 获取最新的博客文章
   const { data: blogPosts, isLoading: blogLoading } = trpc.posts.list.useQuery(
     {
@@ -34,8 +36,8 @@ export function LatestArticlesSection() {
     <section className="relative z-20 w-full bg-background" style={{ padding: 'clamp(40px, 8vw, 80px) 0' }}>
       <div className="container">
         <div className="text-center mb-16">
-          <h2 className="font-bold text-foreground mb-4" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: '48px', fontWeight: 900 }}>最新资讯</h2>
-          <p className="text-lg text-muted-foreground">了解最新的移民政策和成功案例</p>
+          <h2 className="font-bold text-foreground mb-4" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: '48px', fontWeight: 900 }}>{t("blog.title")}</h2>
+          <p className="text-lg text-muted-foreground">{t("blog.subtitle")}</p>
         </div>
 
         <div className="flex flex-wrap justify-center gap-8 mb-8">
@@ -53,7 +55,7 @@ export function LatestArticlesSection() {
                 <div className="p-6">
                   <h3 className="text-xl font-bold text-foreground mb-2 line-clamp-2">{latestBlog.title}</h3>
                   <p className="text-sm text-muted-foreground mb-4">{latestBlog.publishedAt ? formatDate(latestBlog.publishedAt) : '未发布'}</p>
-                  <span className="text-primary font-semibold">点击阅读 →</span>
+                  <span className="text-primary font-semibold">{t("reviews.read_more")}</span>
                 </div>
               </div>
             </Link>
@@ -64,9 +66,9 @@ export function LatestArticlesSection() {
                   <img src={DEFAULT_COVER_URL} alt="Latest Blog" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                 </div>
                 <div className="p-6">
-                  <h3 className="text-xl font-bold text-foreground mb-2">最新移民观察</h3>
-                  <p className="text-muted-foreground mb-4">了解最新的加拿大移民政策动态和专业见解</p>
-                  <span className="text-primary font-semibold">点击阅读 →</span>
+                  <h3 className="text-xl font-bold text-foreground mb-2">{t("reviews.latest_blog")}</h3>
+                  <p className="text-muted-foreground mb-4">{t("reviews.latest_policy")}</p>
+                  <span className="text-primary font-semibold">{t("reviews.read_more")}</span>
                 </div>
               </div>
             </Link>
@@ -86,7 +88,7 @@ export function LatestArticlesSection() {
                 <div className="p-6">
                   <h3 className="text-xl font-bold text-foreground mb-2 line-clamp-2">{latestSuccessCase.title}</h3>
                   <p className="text-sm text-muted-foreground mb-4">{latestSuccessCase.publishedAt ? formatDate(latestSuccessCase.publishedAt) : '未发布'}</p>
-                  <span className="text-primary font-semibold">点击阅读 →</span>
+                  <span className="text-primary font-semibold">{t("reviews.read_more")}</span>
                 </div>
               </div>
             </Link>
@@ -97,9 +99,9 @@ export function LatestArticlesSection() {
                   <img src={DEFAULT_COVER_URL} alt="Latest Success Case" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                 </div>
                 <div className="p-6">
-                  <h3 className="text-xl font-bold text-foreground mb-2">最近成功案例</h3>
-                  <p className="text-muted-foreground mb-4">查看我们最近帮助客户实现的移民梦想</p>
-                  <span className="text-primary font-semibold">点击阅读 →</span>
+                  <h3 className="text-xl font-bold text-foreground mb-2">{t("reviews.latest_case")}</h3>
+                  <p className="text-muted-foreground mb-4">{t("reviews.latest_success")}</p>
+                  <span className="text-primary font-semibold">{t("reviews.read_more")}</span>
                 </div>
               </div>
             </Link>

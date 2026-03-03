@@ -70,6 +70,15 @@ export const translations: Record<Language, Record<string, string>> = {
     'blog.article_excerpt': 'Learn about the latest changes in Canadian immigration policy and application requirements.',
     'blog.view_all': 'View All Articles',
 
+    // Google Reviews Section
+    'reviews.title': 'Client Reviews',
+    'reviews.latest_blog': 'Latest Immigration Observations',
+    'reviews.latest_case': 'Recent Success Cases',
+    'reviews.read_more': 'Read More →',
+    'reviews.view_on_google': 'View on Google',
+    'reviews.latest_policy': 'Learn about the latest Canadian immigration policy updates and professional insights',
+    'reviews.latest_success': 'Check out our recent success stories and how we helped clients achieve their immigration dreams',
+
     // Footer
     'footer.about': 'About Us',
     'footer.about_desc': 'OXEC Immigration Services is a leading immigration consulting firm in Canada, dedicated to helping clients achieve their Canadian dreams.',
@@ -176,7 +185,16 @@ export const translations: Record<Language, Record<string, string>> = {
     'blog.article_excerpt': '了解最新的加拿大移民政策变化和申请要求。',
     'blog.view_all': '查看所有文章',
 
-    // Footer
+    // Google Reviews Section
+    'reviews.title': '客户评价',
+    'reviews.latest_blog': '最新移民观察',
+    'reviews.latest_case': '最近成功案例',
+    'reviews.read_more': '点击阅读 →',
+    'reviews.view_on_google': '在Google上查看',
+    'reviews.latest_policy': '了解最新的加拿大移民政策动态和专业见解',
+    'reviews.latest_success': '查看我们最近帮助客户实现的移民梅想',
+
+    // Footerr
     'footer.about': '关于我们',
     'footer.about_desc': 'OXEC移民事务所是加拿大领先的移民咨询公司，致力于帮助客户实现加拿大梦想。',
     'footer.services': '服务',

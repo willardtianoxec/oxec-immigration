@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { Star, ExternalLink, ChevronLeft, ChevronRight } from "lucide-react";
 import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export function GoogleReviewsPreview() {
+  const { t } = useLanguage();
   const { data, isLoading, error } = trpc.reviews.list.useQuery();
   
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -41,7 +43,7 @@ export function GoogleReviewsPreview() {
       <div className="container mx-auto max-w-7xl">
         {/* 标题 */}
         <h2 className="font-black mb-12 text-gray-900" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: 'clamp(32px, 8vw, 48px)', fontWeight: 900, textAlign: 'center' }}>
-          客户评价
+          {t("reviews.title")}
         </h2>
 
         {/* Google评分展示区 - 响应式布局 */}
@@ -142,7 +144,7 @@ export function GoogleReviewsPreview() {
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 text-xs font-semibold"
                   >
-                    在Google上查看
+                    {t("reviews.view_on_google")}
                     <ExternalLink className="w-3 h-3" />
                   </a>
                 </div>
