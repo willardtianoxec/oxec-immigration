@@ -188,7 +188,7 @@ export default function SuccessCases() {
       {/* Page Header */}
       <div className="bg-gradient-to-r from-accent to-primary text-primary-foreground py-12">
         <div className="container">
-          <h1 className="text-4xl font-bold mb-4">
+          <h1 className="mb-4" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: 'clamp(32px, 8vw, 48px)', fontWeight: 900 }}>
             {language === "en" ? "Success Cases" : "成功案例"}
           </h1>
           <p className="text-lg opacity-90">
