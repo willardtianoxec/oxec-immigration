@@ -31,9 +31,26 @@ export const translations: Record<Language, Record<string, string>> = {
     'services.citizenship_desc': 'Fast processing of permanent resident card renewal and expedited application services.',
     'services.appeals': 'Refusal & Procedural Fairness Letter',
     'services.appeals_desc': 'Handle refusal applications and provide procedural fairness letter services to protect your rights.',
-    'services.investment': 'Study & Visitor Visa Applications',
-    'services.investment_desc': 'Professional guidance and support for study permit and visitor visa applications.',
     'services.calculator': 'Try Our Immigration Calculator',
+    'services.study': 'Study & Visitor Visa Applications',
+    'services.study_desc': 'Professional guidance and support for study permit and visitor visa applications.',
+
+    // Calculators
+    'calculator.clb': 'CLB Translator',
+    'calculator.crs': 'CRS Calculator',
+    'calculator.bc': 'BC PNP Calculator',
+    'calculator.fsw': 'FSW Points Calculator',
+
+    // About Section
+    'about.title': 'About OXEC',
+    'about.subtitle': 'A leading professional Canadian immigration consulting firm based in British Columbia, serving clients across Canada and worldwide.',
+    'about.section1_title': 'Rooted in Western Canada, Serving the World',
+    'about.section1_desc': 'OXEC Immigration Services is headquartered in Burnaby, Greater Vancouver. We combine deep legal expertise with a commitment to providing customized immigration solutions for every client, ensuring you navigate the complex immigration process with confidence.',
+    'about.section2_title': 'Professional Excellence, Integrity First',
+    'about.section2_desc': 'Led by registered immigration consultants (RCIC), our professional team specializes in business immigration, family reunification, project transitions, refusal reconsideration, and complex cases. We believe every application carries a family\'s dreams, so we maintain transparent and rigorous processes, prioritizing success rates and client experience.',
+    'about.map_title': 'Help Us "Light Up the Map"',
+    'about.map_desc': 'We provide immigration consulting services to clients from across Canada and around the world. If you\'re from a country we haven\'t yet served, we look forward to connecting with you. Every client represents a new journey—as we provide professional support, we also value learning from your cultural background and immigration story, while sharing our expertise.',
+    'about.start_consultation': 'Start Consultation',
 
     // Success Cases
     'success.title': 'Success Cases',
@@ -120,9 +137,26 @@ export const translations: Record<Language, Record<string, string>> = {
     'services.citizenship_desc': '快速处理永久居民卡续签和加急申请服务。',
     'services.appeals': '拒签与程序公正信',
     'services.appeals_desc': '处理拒签申请和提供程序公正信服务，维护您的权益。',
-    'services.investment': '留学与访问申请',
-    'services.investment_desc': '提供留学签证和访问签证申请的专业指导和支持。',
     'services.calculator': '尝试我们的移民算分工具',
+    'services.study': '留学与访问申请',
+    'services.study_desc': '提供留学签证和访问签证申请的专业指导和支持。',
+
+    // Calculators
+    'calculator.clb': 'CLB换算工具',
+    'calculator.crs': 'CRS计算器',
+    'calculator.bc': 'BC PNP计算器',
+    'calculator.fsw': 'FSW算分工具',
+
+    // About Section
+    'about.title': '关于傲赛（OXEC）',
+    'about.subtitle': '一家领先的专业型加拿大移民咨询事务所，设于加拿大卑诗省，为加拿大及全球客户提供服务',
+    'about.section1_title': '扎根加西，服务全球',
+    'about.section1_desc': '傲赛（OXEC）移民事务所总部位于大温哥华地区本那比市。我们不仅拥有深厚的法律背景，更致力于为每一位客户提供量身定制的移民解决方案，确保在复杂的移民法律流程中为您保驾护航。',
+    'about.section2_title': '专业驱动，诚信为本',
+    'about.section2_desc': '作为由 RCIC 注册移民顾问领衔的专业团队，我们擅长商业类移民、家庭团聚、项目转换、拒签重申以及各类疑难案件处理。我们相信每一份申请都承载着一个家庭的梦想，因此我们坚持透明、严谨的工作流程，将成功率与客户体验放在首位。',
+    'about.map_title': '帮助我们"点亮地图"',
+    'about.map_desc': '我们为来自加拿大各地及世界各国的客户提供移民咨询服务。您来自我们的服务尚未踏足的国家，我们诚挚期待与您建立联系。每一位客户都是一段全新的旅程——在为您提供专业支持的同时，我们也渴望汲取您深厚的文化底蕴与移民故事，并分享我们的专业经验。',
+    'about.start_consultation': '开始咨询',
 
     // Success Cases
     'success.title': '成功案例',
@@ -141,16 +175,6 @@ export const translations: Record<Language, Record<string, string>> = {
     'blog.article_title': '移民政策更新',
     'blog.article_excerpt': '了解最新的加拿大移民政策变化和申请要求。',
     'blog.view_all': '查看所有文章',
-
-    // About Section
-    'about.title': '关于傲赛（OXEC）',
-    'about.subtitle': '一家领先的专业型加拿大移民咨询事务所，设于加拿大卑诗省，为加拿大及全球客户提供服务',
-    'about.section1_title': '扎根加西，服务全球',
-    'about.section1_desc': '傲赛（OXEC）移民事务所总部位于大温哥华地区本那比市。我们不仅拥有深厚的法律背景，更致力于为每一位客户提供量身定制的移民解决方案，确保在复杂的移民法律流程中为您保驾护航。',
-    'about.section2_title': '专业驱动，诚信为本',
-    'about.section2_desc': '作为由 RCIC 注册移民顾问领衔的专业团队，我们擅长商业类移民、家庭团聚、项目转换、拒签重申以及各类疑难案件处理。我们相信每一份申请都承载着一个家庭的梦想，因此我们坚持透明、严谨的工作流程，将成功率与客户体验放在首位。',
-    'about.map_title': '帮助我们"点亮地图"',
-    'about.map_desc': '我们为来自加拿大各地及世界各国的客户提供移民咨询服务。您来自我们的服务尚未踏足的国家，我们诚挚期待与您建立联系。每一位客户都是一段全新的旅程——在为您提供专业支持的同时，我们也渴望汲取您深厚的文化底蕴与移民故事，并分享我们的专业经验。',
 
     // Footer
     'footer.about': '关于我们',

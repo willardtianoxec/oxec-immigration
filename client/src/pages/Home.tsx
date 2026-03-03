@@ -191,7 +191,7 @@ export default function Home() {
               </Link>
               <Link href="/success-cases" className="w-full sm:flex-1">
                 <Button asChild size="lg" className="text-base sm:text-lg px-6 sm:px-8 rounded-none w-full" style={{ backgroundColor: "transparent", color: "#ffffff", border: "2px solid #ffffff" }}>
-                  <span>查看案例</span>
+                  <span>{t("hero.success_cases")}</span>
                 </Button>
               </Link>
             </div>
@@ -203,7 +203,7 @@ export default function Home() {
       <section className="relative z-20 w-full bg-background" style={{ padding: 'clamp(40px, 8vw, 80px) 0' }}>
         <div className="container">
           <div className="text-center mb-16">
-            <h2 className="font-bold text-foreground mb-4" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: 'clamp(32px, 8vw, 48px)', fontWeight: 900 }}>我们的移民服务</h2>
+            <h2 className="font-bold text-foreground mb-4" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: 'clamp(32px, 8vw, 48px)', fontWeight: 900 }}>{t("services.title")}</h2>
             <p className="text-lg text-muted-foreground">{t("services.subtitle")}</p>
           </div>
 
@@ -272,8 +272,8 @@ export default function Home() {
                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </div>
                 <div className="p-6">
-                  <h3 className="text-lg font-bold text-foreground mb-2 text-center">留学与访问</h3>
-                  <p className="text-muted-foreground text-sm text-center">专业的留学签证和访问签证申请指导与支持。</p>
+                  <h3 className="text-lg font-bold text-foreground mb-2 text-center">{t("services.study")}</h3>
+                  <p className="text-muted-foreground text-sm text-center">{t("services.study_desc")}</p>
                 </div>
               </div>
             </Link>
@@ -284,22 +284,22 @@ export default function Home() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '16px', width: '100%', maxWidth: '800px', paddingLeft: 'clamp(20px, 5vw, 40px)', paddingRight: 'clamp(20px, 5vw, 40px)' }}>
             <Link href="/clbtranslator">
               <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none w-full">
-                <span>CLB换算工具</span>
+                <span>{t("calculator.clb")}</span>
               </Button>
             </Link>
             <Link href="/calculator">
               <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none w-full">
-                <span>CRS计算器</span>
+                <span>{t("calculator.crs")}</span>
               </Button>
             </Link>
             <Link href="/bccalculator">
               <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none w-full">
-                <span>BC PNP计算器</span>
+                <span>{t("calculator.bc")}</span>
               </Button>
             </Link>
             <Link href="/fswcalculator">
               <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none w-full">
-                <span>FSW算分工具</span>
+                <span>{t("calculator.fsw")}</span>
               </Button>
             </Link>
           </div>
@@ -310,16 +310,16 @@ export default function Home() {
       <section className="relative z-20 w-full bg-gray-50" style={{ padding: 'clamp(40px, 8vw, 80px) 0' }}>
         <div className="container">
           <div className="text-center mb-20">
-            <h2 className="font-bold text-foreground mb-4" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: 'clamp(32px, 8vw, 48px)', fontWeight: 900 }}>关于傲赛（OXEC）</h2>
-            <p className="text-lg text-muted-foreground">一家领先的专业型加拿大移民咨询事务所，设于加拿大卑诗省，为加拿大及全球客户提供服务</p>
+            <h2 className="font-bold text-foreground mb-4" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: 'clamp(32px, 8vw, 48px)', fontWeight: 900 }}>{t("about.title")}</h2>
+            <p className="text-lg text-muted-foreground">{t("about.subtitle")}</p>
           </div>
 
           {/* First Group - Left Image Right Text */}
           <div className="grid md:grid-cols-2 gap-12 items-center mb-20">
             <div className="order-2 md:order-1">
-              <h3 className="text-2xl lg:text-3xl font-bold text-foreground mb-6">扎根加西，服务全球</h3>
+              <h3 className="text-2xl lg:text-3xl font-bold text-foreground mb-6">{t("about.section1_title")}</h3>
               <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-                傲赛（OXEC）移民事务所总部位于大温哥华地区本那比市。我们不仅拥有深厚的法律背景，更致力于为每一位客户提供量身定制的移民解决方案，确保在复杂的移民法律流程中为您保驾护航。
+                {t("about.section1_desc")}
               </p>
             </div>
             <div className="order-1 md:order-2">
@@ -343,9 +343,9 @@ export default function Home() {
               />
             </div>
             <div>
-              <h3 className="text-2xl lg:text-3xl font-bold text-foreground mb-6">专业驱动，诚信为本</h3>
+              <h3 className="text-2xl lg:text-3xl font-bold text-foreground mb-6">{t("about.section2_title")}</h3>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                作为由 RCIC 注册移民顾问领衔的专业团队，我们擅长商业类移民、家庭团聚、项目转换、拒签重申以及各类疑难案件处理。我们相信每一份申请都承载着一个家庭的梦想，因此我们坚持透明、严谨的工作流程，将成功率与客户体验放在首位。
+                {t("about.section2_desc")}
               </p>
             </div>
           </div>
@@ -368,19 +368,13 @@ export default function Home() {
               />
             </div>
             <div className="order-1 lg:order-2">
-              <h2 className="font-bold text-foreground mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: 'clamp(32px, 8vw, 48px)', fontWeight: 900 }}>帮助我们"点亮地图"</h2>
+              <h2 className="font-bold text-foreground mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontSize: 'clamp(32px, 8vw, 48px)', fontWeight: 900 }}>{t("about.map_title")}</h2>
               <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-                我们为来自加拿大各地及世界各国的客户提供移民咨询服务。您来自我们的服务尚未踏足的国家，我们诚挚期待与您建立联系。
-              </p>
-              <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-                每一位客户都是一段全新的旅程——在为您提供专业支持的同时，我们也渴望汲取您深厚的文化底蕴与移民故事，并分享我们的专业经验。
-              </p>
-              <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-                我们期待与您共同走过这段旅程。
+                {t("about.map_desc")}
               </p>
               <Link href="/booking">
                 <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none">
-                  <span>开始咨询</span>
+                  <span>{t("about.start_consultation")}</span>
                 </Button>
               </Link>
             </div>
