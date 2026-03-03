@@ -282,7 +282,7 @@ export default function Home() {
         {/* Calculator Buttons */}
         <div className="mt-12 flex justify-center" style={{ width: '100%' }}>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '16px', width: '100%', maxWidth: '800px', paddingLeft: 'clamp(20px, 5vw, 40px)', paddingRight: 'clamp(20px, 5vw, 40px)' }}>
-            <Link href="/clbtranslator">
+            <Link href="/clb-translator">
               <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none w-full">
                 <span>{t("calculator.clb")}</span>
               </Button>
