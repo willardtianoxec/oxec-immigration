@@ -432,7 +432,7 @@ export default function CLBTranslator() {
         <div className="mb-8">
           <div className="flex items-center gap-3 mb-2">
             <Calculator className="h-12 w-12 text-gray-900" />
-            <h1 className="text-4xl font-bold text-gray-900" style={{fontSize: '48px', fontFamily: "'Alibaba PuHuiTi', sans-serif", fontWeight: 900}}>CLB换算工具</h1>
+            <h1 className="text-4xl font-bold text-gray-900" style={{fontSize: '48px', fontFamily: "'Alibaba PuHuiTi', sans-serif", fontWeight: 900}}>CLB换算工具 | 语言成绩转换计算器</h1>
           </div>
           <p className="text-gray-600">Canadian Language Benchmarks/语言成绩换算</p>
         </div>

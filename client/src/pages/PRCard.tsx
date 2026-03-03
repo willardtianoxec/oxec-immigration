@@ -145,6 +145,9 @@ export default function PRCard() {
           <div className="container">
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div className="order-2 md:order-1">
+                <h1 className="text-foreground mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", sans-serif', fontWeight: 900, fontSize: '48px' }}>
+                  {isEnglish ? 'Canada PR Card Renewal | PR Card Expiry Renewal and Expedited Application Guide' : '加拿大枫叶卡续签 | PR卡过期续签和加急申请指南'}
+                </h1>
                 <h2 className="text-foreground mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", sans-serif', fontWeight: 900, fontSize: '48px' }}>
                   {isEnglish ? "PR Card Renewal: Maintaining Your Permanent Resident Status" : "枫叶卡续签：保持您的永居身份"}
                 </h2>

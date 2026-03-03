@@ -598,7 +598,7 @@ export default function FSWCalculator() {
           </Link>
           <h1 className="text-4xl font-bold mb-4 flex items-center" style={{ fontFamily: "'Alibaba PuHuiTi', sans-serif", fontWeight: 900, fontSize: '48px' }}>
             <CalcIcon className="mr-3 h-12 w-12" />
-            FSW算分工具
+            FSW评分计算器 | 技术移民评分工具
           </h1>
           <p className="text-lg opacity-90">
             最新FSW 67分工具/评估FSW入池/Federal Skilled Worker

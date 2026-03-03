@@ -199,7 +199,7 @@ export default function Calculator() {
           <div className="flex items-center gap-4">
             <CalcIcon className="h-12 w-12" />
             <h1 className="text-4xl font-black" style={{ fontFamily: "'Alibaba PuHuiTi', sans-serif", fontWeight: 900, fontSize: '48px' }}>
-              联邦快速通道CRS算分工具
+              CRS评分计算器 | Express Entry快速通道评分工具
             </h1>
           </div>
           <p className="text-lg opacity-90 mt-4">
