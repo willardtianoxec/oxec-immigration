@@ -140,6 +140,17 @@ function loadMapScript() {
     script.crossOrigin = "anonymous";
     script.onload = () => {
       mapScriptLoadPromise = null; // Reset promise after loading
+      // Suppress Google Maps Advanced Markers warning if Map ID is not configured
+      if (!GOOGLE_MAP_ID) {
+        const originalLog = window.console.log;
+        window.console.log = function(...args: any[]) {
+          const message = args[0];
+          if (typeof message === 'string' && message.includes('Advanced Markers')) {
+            return; // Suppress the warning
+          }
+          originalLog.apply(console, args);
+        };
+      }
       resolve();
     };
     script.onerror = () => {

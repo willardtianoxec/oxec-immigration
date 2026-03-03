@@ -895,3 +895,10 @@
 - [ ] 优化页面内容结构（H2、H3标签）
 - [ ] 测试所有页面的H标签
 - [ ] 保存检查点 - 完成H1标签和内容优化
+
+
+## Bug Fix - Google Maps API Error (Current Sprint)
+- [x] 检查/team页面的地图配置 - Map ID未定义
+- [x] 修复Map.tsx中的Map ID配置 - 添加有效的Map ID或禁用Advanced Markers
+- [x] 验证修复效果 - 确保地图正常显示，无控制台错误
+- [x] 保存检查点 - 完成Google Maps API错误修复
