@@ -213,7 +213,7 @@ export default function SkillWorker() {
               <section id="overview" className="mb-12 pb-12 border-b border-gray-200">
                 <div className="grid md:grid-cols-2 gap-8 items-start">
                   <div>
-                    <h1 
+                    <h2 
                       className="text-foreground mb-6"
                       style={{
                         fontFamily: '"Alibaba PuHuiTi", sans-serif',
@@ -223,9 +223,9 @@ export default function SkillWorker() {
                       }}
                     >
                       {isEnglish
-                        ? 'Canada Skilled Immigration | Express Entry Complete Guide'
-                        : '加拿大技术移民 | Express Entry快速通道完全指南'}
-                    </h1>
+                        ? 'Skilled Immigration: The Golden Path to Canada'
+                        : '技术移民：通往加拿大的黄金路径'}
+                    </h2>
                     <p className="text-lg text-muted-foreground leading-relaxed">
                       {isEnglish
                         ? 'Canada consistently welcomes global talent. Among major English-speaking immigration countries, Canada offers the most attractive policies and is the most reliable country for obtaining permanent residency (PR) through employment. Thanks to the federal-provincial shared immigration system, applicants can flexibly plan their immigration strategy through Federal Express Entry (EE) or provincial nomination programs (PNP).'

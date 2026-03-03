@@ -148,9 +148,6 @@ export default function FamilyClass() {
         <div className="container">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="order-2 md:order-1">
-              <h1 className="text-foreground mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", sans-serif', fontWeight: 900, fontSize: 'clamp(28px, 6vw, 48px)' }}>
-                {isEnglish ? 'Canada Family Sponsorship Immigration | Family Reunification Complete Guide' : '加拿大家庭团聚移民 | 配偶和亲属担保指南'}
-              </h1>
               <h2 className="text-foreground mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", sans-serif', fontWeight: 900, fontSize: 'clamp(28px, 6vw, 48px)' }}>
                 {isEnglish ? "Family Reunion Immigration: Bringing Love Together in Canada" : "与家人在加拿大团聚"}
               </h2>

@@ -193,7 +193,6 @@ export default function Reconsideration() {
         <div className="container">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="order-2 md:order-1">
-              <h1 className="section-title text-foreground mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontWeight: 900, fontSize: 'clamp(28px, 6vw, 48px)' }}>{isEnglish ? 'Canada Visa Refusal Appeal | Procedural Fairness Letter and Appeal Guide' : '加拿大拒签重审 | 程序公正信和上诉指南'}</h1>
               <h2 className="section-title text-foreground mb-6" style={{ fontFamily: '"Alibaba PuHuiTi", "Noto Sans SC", sans-serif', fontWeight: 900, fontSize: 'clamp(28px, 6vw, 48px)' }}>{t.overview.title}</h2>
               <p className="text-lg text-muted-foreground leading-relaxed">{t.overview.text}</p>
             </div>

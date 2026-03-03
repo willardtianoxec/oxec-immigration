@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -78,7 +78,7 @@ export default function BCCalculator() {
           </Link>
           <h1 className="text-4xl font-bold mb-4 flex items-center" style={{ fontFamily: "'Alibaba PuHuiTi', sans-serif", fontWeight: 900, fontSize: '48px' }}>
             <CalcIcon className="mr-3 h-10 w-10" style={{width: '48px', height: '48px'}} />
-            BC省提名计算器 | BC PNP评分工具
+            BC省提名计划技术类算分工具
           </h1>
           <p className="text-lg opacity-90">
             最新BC PNP算分工具/评估入池分数/Skilled Worker Stream

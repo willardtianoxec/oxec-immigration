@@ -225,7 +225,6 @@ export default function BusinessClass() {
         <div className="container">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="order-2 md:order-1">
-              <h1 className="section-title text-foreground mb-6">{isEnglish ? 'Canada Business Immigration | Business Immigration Complete Guide' : '加拿大投资移民 | 商业移民项目完全指南'}</h1>
               <h2 className="section-title text-foreground mb-6">{t.overview.title}</h2>
               <p className="text-lg text-muted-foreground leading-relaxed">{t.overview.text}</p>
             </div>
