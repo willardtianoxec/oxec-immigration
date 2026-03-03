@@ -297,7 +297,7 @@ export default function Home() {
                 <span>{t("calculator.bc")}</span>
               </Button>
             </Link>
-            <Link href="/fswcalculator">
+            <Link href="/fsw-calculator">
               <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none w-full">
                 <span>{t("calculator.fsw")}</span>
               </Button>
