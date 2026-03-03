@@ -58,17 +58,6 @@ const teamMembers: TeamMemberWithTranslation[] = [
   },
   {
     id: "member-4",
-    name: "Katherine Zhao",
-    nameEn: "Katherine Zhao",
-    title: "行政与客户服务主管",
-    titleEn: "Administrative and Customer Service Manager",
-    description: "Katherine是傲赛移民事务所的行政与客户服务主管，负责日常运营，重点关注移民申请流程、档案管理、客户账户管理和客户关系维护。她与公司负责人密切合作，保证事务所的顺畅运营。\n\nKatherine毕业于东北财经大学，获国际经济与贸易专业学士学位。Katherine拥有9年移民及签证咨询服务经验，曾在北京和大连担任移民项目文案专员5年，于2022年加入傲赛团队。",
-    descriptionEn: "Katherine is the Administrative and Customer Service Manager at OXEC Immigration Services, responsible for daily operations with a focus on immigration application processes, file management, client account management, and customer relationship maintenance. She works closely with company leadership to ensure smooth operations of the firm. Katherine graduated from Northeastern University of Finance and Economics with a bachelor's degree in International Economics and Trade. She has 9 years of experience in immigration and visa consulting services, having served as an immigration project specialist in Beijing and Dalian for 5 years before joining OXEC in 2022.",
-    image: "/images/KatherineZhao-1771925780342.webp",
-    position: "right"
-  },
-  {
-    id: "member-6",
     name: "Jonathan Lotz",
     nameEn: "Jonathan Lotz",
     title: "资深商法律师",
@@ -76,6 +65,17 @@ const teamMembers: TeamMemberWithTranslation[] = [
     description: "Jonathan是专注于商业法律事务的资深律师，也是Lotz & Company律师事务所的创始人，与傲赛团队保持紧密的合作关系，为傲赛的商业移民客户提供关键的法律咨询。\n\nJonathan在跨境发行和收购以及美国境内的交易方面经验丰富。他是不列颠哥伦比亚省和纽约州律师协会的成员，曾为加拿大和美国的上市公司就其公司治理的各个方面以及董事会特别委员会在复杂交易中提供法律咨询。",
     descriptionEn: "Jonathan is a senior lawyer specializing in commercial legal matters and founder of Lotz & Company Law Firm, maintaining close collaboration with OXEC to provide key legal consultation for OXEC's business immigration clients. Jonathan has extensive experience in cross-border issuances and acquisitions as well as US-based transactions. He is a member of the British Columbia and New York State Bar Associations and has provided legal consultation to public companies in Canada and the United States on various aspects of corporate governance and complex transactions involving special board committees.",
     image: "/images/JonathanLotz.webp",
+    position: "right"
+  },
+  {
+    id: "member-6",
+    name: "Katherine Zhao",
+    nameEn: "Katherine Zhao",
+    title: "行政与客户服务主管",
+    titleEn: "Administrative and Customer Service Manager",
+    description: "Katherine是傲赛移民事务所的行政与客户服务主管，负责日常运营，重点关注移民申请流程、档案管理、客户账户管理和客户关系维护。她与公司负责人密切合作，保证事务所的顺畅运营。\n\nKatherine毕业于东北财经大学，获国际经济与贸易专业学士学位。Katherine拥有9年移民及签证咨询服务经验，曾在北京和大连担任移民项目文案专员5年，于2022年加入傲赛团队。",
+    descriptionEn: "Katherine is the Administrative and Customer Service Manager at OXEC Immigration Services, responsible for daily operations with a focus on immigration application processes, file management, client account management, and customer relationship maintenance. She works closely with company leadership to ensure smooth operations of the firm. Katherine graduated from Northeastern University of Finance and Economics with a bachelor's degree in International Economics and Trade. She has 9 years of experience in immigration and visa consulting services, having served as an immigration project specialist in Beijing and Dalian for 5 years before joining OXEC in 2022.",
+    image: "/images/KatherineZhao-1771925780342.webp",
     position: "left"
   }
 
