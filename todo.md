@@ -882,3 +882,19 @@
 - [x] 优化其他页面Title和Meta Description
 - [x] 测试所有页面的元数据
 - [x] 保存检查点 - 完成第二阶段SEO优化
+
+
+## Team Page Adjustments (Current Sprint)
+- [ ] 交换Jonathan Lotz和Dandan Zhao的位置 - 包括图文左右互换
+- [ ] 限制宽屏幕每排最多3个卡片
+- [ ] 修改人物名称 - Edward Ge、Willard Tian、Katherine Zhao
+- [ ] 测试与验证
+- [ ] 保存检查点
+
+## Team Page Adjustments (Current Sprint - Phase XX)
+- [x] 交换Jonathan Lotz和Katherine Zhao的位置 - Jonathan改为member-4，Katherine改为member-6
+- [x] 修改人物名称 - Edward Ge、Willard Tian、Katherine Zhao
+- [x] 限制宽屏幕卡片网格 - 从4列改为最多3列（grid-cols-3）
+- [x] 验证图文位置交换 - Jonathan左侧图片，Katherine右侧图片
+- [x] 测试页面显示 - 验证卡片布局和人物顺序
+- [x] 保存检查点 - 完成Team页面调整

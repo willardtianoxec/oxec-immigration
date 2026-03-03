@@ -36,8 +36,8 @@ const teamMembers: TeamMemberWithTranslation[] = [
   },
   {
     id: "member-2",
-    name: "Yijiang (Edward) Ge",
-    nameEn: "Yijiang (Edward) Ge",
+    name: "Edward Ge",
+    nameEn: "Edward Ge",
     title: "持牌移民顾问 | RCIC",
     titleEn: "Licensed Immigration Consultant | RCIC",
     description: "Edward是一位拥有十余年行业经验的加拿大持牌移民顾问（RCIC），长期专注于经济类移民、家庭团聚移民、各类临时签证、人道类申请以及枫叶卡续签等业务领域。\n\n凭借扎实的法规知识、丰富的实务经验与严谨的案件分析能力，他为客户提供专业、系统且具有前瞻性的移民解决方案。\n\n在执业中，Edward尤其擅长处理复杂及疑难个案，多次通过精准解析移民官拒签理由与审理逻辑，成功协助客户将拒签翻案；他也善于从法律与事实层面深入挖掘人道理由，帮助处于困境中的家庭通过合规途径获得永久居民身份；对于收到移民官PF Letter的案件，他能针对移民官关注的重点逐项专业回应，切实降低风险并提升申请成功率。\n\nEdward的职业生涯起步于温哥华Downtown的知名移民咨询公司，后于2019年加入傲赛，并随后取得了持牌资格。他本科毕业于清华大学，在南加利福尼亚大学取得了数学专业硕士学位。",
@@ -47,8 +47,8 @@ const teamMembers: TeamMemberWithTranslation[] = [
   },
   {
     id: "member-3",
-    name: "Qingyi (Willard) Tian",
-    nameEn: "Qingyi (Willard) Tian",
+    name: "Willard Tian",
+    nameEn: "Willard Tian",
     title: "持牌移民顾问 | RCIC-IRB",
     titleEn: "Licensed Immigration Consultant | RCIC-IRB",
     description: "Willard是加拿大持牌移民顾问（RCIC-IRB），重点关注商业类移民、家庭团聚移民和拒签重申案件，擅长疑难案件分析、商业投资规划、移民政策研究和不可入境处理。\n\nWillard的职业生涯起步于傲赛移民事务所。自2023年加入团队以来，他积累了充实的移民咨询经验，能够在精准掌握法律原则和审理逻辑的基础上，详细梳理案件重点、制定申请策略，帮助申请人扭转局面、跨越障碍。在进入移民行业前，Willard在科技文化领域有15年的工作经历，在头部互联网企业担任商业分析师、制片人和项目总监等职位。\n\nWillard拥有武汉大学广告专业学士学位和清华大学传播学硕士学位。他于2025年取得了加拿大女王大学（Queen's University）移民与公民法研究生文凭，目前正在不列颠哥伦比亚大学攻读会计文凭。\n\nWillard也是关注科技行业的独立学者。2009年，清华大学出版社出版了他的学术专著《手机：个人移动多媒体》；2018年，他作为中国代表团一员参加了在德国柏林举办的欧广联中国周活动，并做主题演讲。",
@@ -58,8 +58,8 @@ const teamMembers: TeamMemberWithTranslation[] = [
   },
   {
     id: "member-4",
-    name: "Dandan (Katherine) Zhao",
-    nameEn: "Dandan (Katherine) Zhao",
+    name: "Katherine Zhao",
+    nameEn: "Katherine Zhao",
     title: "行政与客户服务主管",
     titleEn: "Administrative and Customer Service Manager",
     description: "Katherine是傲赛移民事务所的行政与客户服务主管，负责日常运营，重点关注移民申请流程、档案管理、客户账户管理和客户关系维护。她与公司负责人密切合作，保证事务所的顺畅运营。\n\nKatherine毕业于东北财经大学，获国际经济与贸易专业学士学位。Katherine拥有9年移民及签证咨询服务经验，曾在北京和大连担任移民项目文案专员5年，于2022年加入傲赛团队。",
@@ -248,12 +248,12 @@ export default function Team() {
             </div>
 
             {/* Team Members Gallery Grid */}
-            <div className="flex flex-wrap justify-center gap-4 mb-8 -mt-8" style={{marginBottom: '60px'}}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8 -mt-8 justify-items-center" style={{marginBottom: '60px'}}>
               {teamMembers.map((member) => (
                 <div
                   key={member.id}
                   onClick={() => scrollToMember(member.id)}
-                  className="cursor-pointer group text-center transition-all duration-300 hover:shadow-xl hover:-translate-y-2 w-64 rounded-lg p-3 bg-white shadow-md"
+                  className="cursor-pointer group text-center transition-all duration-300 hover:shadow-xl hover:-translate-y-2 w-64 rounded-lg p-3 bg-white shadow-md flex-shrink-0"
                   style={{ boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)' }}
                 >
                   <div className="relative mb-6 overflow-hidden rounded-lg">
