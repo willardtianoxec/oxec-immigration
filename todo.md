@@ -898,3 +898,12 @@
 - [x] 验证图文位置交换 - Jonathan左侧图片，Katherine右侧图片
 - [x] 测试页面显示 - 验证卡片布局和人物顺序
 - [x] 保存检查点 - 完成Team页面调整
+
+
+## GA4 Analytics Integration (Current Sprint - Phase 51)
+- [x] 添加GA4追踪脚本到index.html - 使用Measurement ID G-XBT2Q77S7Y
+- [x] 修复i18n.ts文件中的注释拼写错误 - Footerr改为Footer
+- [ ] 验证GA4脚本正常加载 - 在浏览器控制台检查window.dataLayer
+- [ ] 在Google Analytics中验证数据收集 - 确认实时数据显示
+- [ ] 测试关键页面的事件追踪 - 验证页面浏览、按钮点击等事件
+- [ ] 保存检查点 - 完成GA4集成

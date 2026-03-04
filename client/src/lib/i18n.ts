@@ -194,7 +194,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'reviews.latest_policy': '了解最新的加拿大移民政策动态和专业见解',
     'reviews.latest_success': '查看我们最近帮助客户实现的移民梅想',
 
-    // Footerr
+    // Footer
     'footer.about': '关于我们',
     'footer.about_desc': 'OXEC移民事务所是加拿大领先的移民咨询公司，致力于帮助客户实现加拿大梦想。',
     'footer.services': '服务',
